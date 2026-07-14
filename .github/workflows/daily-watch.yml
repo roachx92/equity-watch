@@ -1,10 +1,10 @@
 name: Daily Equity Watch
 
 on:
-  schedule:
-    # 14:07 UTC ~= 7:07am US Pacific (drifts to ~6:07am Pacific during PST/winter,
-    # since GitHub Actions cron is fixed UTC and does not follow DST).
-    - cron: '7 14 * * *'
+  # Daily scheduling now runs via a Claude Code Remote Routine (fires at
+  # 7am Pacific daily into a fresh session), so the cron trigger here is
+  # disabled to avoid double-running the watch and double-committing to
+  # the ticker logs. Kept as workflow_dispatch for manual/ad-hoc runs.
   workflow_dispatch: {}
 
 permissions:
