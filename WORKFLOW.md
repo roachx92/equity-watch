@@ -25,7 +25,7 @@ Produce a short digest, TRIPWIRES FIRST:
 - **🚨 TRIPWIRES:** any `[TRIPWIRE]` hits across all tickers (or "none").
 - **Edge shifts:** any `[EDGE+]/[EDGE−]` items.
 - **Per-ticker:** 0-3 bullets of material news (or "nothing material").
-- **Per-ticker Edge & Tripwires recap:** for each ticker, restate (condensed, taken from the ticker file, not memory) its current Edge one-liner and its numbered Tripwires — so the reader always has "what to look for" in view, not just what fired. Include this even on a quiet day with no hits.
+- **Per-ticker Edge & Tripwires recap — conditional on a hit:** if the ticker had a `[TRIPWIRE]` or `[EDGE+]`/`[EDGE−]` tag this run, restate (condensed, taken from the ticker file, not memory) its current Edge one-liner and its numbered Tripwires, so the reader sees what fired against what's being watched. If nothing fired for that ticker this run, skip the full recap and give one line instead: `<TICKER>: unchanged — Edge and Tripwires as before, nothing fired.`
 - If a tripwire fired, the digest headline must say so.
 
 Rules: apply **all** of `Equity_Research_Framework.md` Section A to every step above — do not work from a remembered summary. If `Equity_Research_Framework.md` is missing from the checkout, STOP and report it.
