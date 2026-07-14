@@ -1,0 +1,46 @@
+name: Daily Equity Watch
+
+on:
+  schedule:
+    # 14:07 UTC ~= 7:07am US Pacific (drifts to ~6:07am Pacific during PST/winter,
+    # since GitHub Actions cron is fixed UTC and does not follow DST).
+    - cron: '7 14 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  daily-watch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure git identity
+        run: |
+          git config --global user.name "equity-watch-bot"
+          git config --global user.email "equity-watch-bot@users.noreply.github.com"
+
+      - name: Run daily equity watch
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are running in a fresh checkout of the roachx92/equity-watch
+            repository at the current working directory. Git identity is
+            already configured, so you can commit and push directly.
+
+            First, run `date -u +%Y-%m-%d` to establish today's actual date
+            (UTC) -- do not guess or infer it from memory/training data. Use
+            that exact date as "today" throughout this run: in log entries,
+            source citations, the commit message, and the run summary.
+
+            Then read and follow PROMPT.md in this repo exactly, end to end.
+            It is self-contained and references Equity_Research_Framework.md
+            and WORKFLOW.md in the same repo. This includes: scanning each
+            ticker in tickers/ for news, tagging Tripwire/Edge hits per the
+            framework, appending to each ticker's Recent News Log, committing
+            and pushing any changes to the default branch, and producing the
+            final run summary (tripwires first, per-ticker recap conditional
+            on a hit).
