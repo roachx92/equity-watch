@@ -4,11 +4,13 @@ This is the operational checklist for the daily agent. It applies **Section F** 
 
 - **Standing rules** = `Equity_Research_Framework.md` **Section A** (search first; cite primary sources; never fabricate; date every figure; contracted vs recognized; honest counterweight; not financial advice). Apply them to every step below. If this checklist ever conflicts with Section A, **Section A wins**.
 - **Workflow procedure** = `Equity_Research_Framework.md` **Section F** + its §16 Tripwire/Edge step. The steps below are just how to execute that against `tickers/*.md`.
+- **Token budget:** don't `Read` the whole framework file — extract just Sections A and F (see `PROMPT.md` for the exact commands). Sections B–E, G, H are full-diligence-only content and are not needed here.
+- **Search budget:** this is a lightweight daily scan, not a full diligence pass. Section A's "exhaustive, don't stop early" diligence-depth rule is self-scoped to full report runs ("run the framework on [TICKER]") and does NOT apply to this daily check. 1-2 targeted searches per ticker is sufficient — do not iterate to exhaustion.
 
 For EACH ticker file under `tickers/` (IBIDY, WYFI, LPKF):
 
 1. **Read the ticker file** — note its **Edge**, its numbered **Tripwires**, and its thesis context.
-2. **Search for recent news/headlines** on the company since the last dated entry in its Recent News Log (or the last ~24-48h if the log is empty). Use reputable/primary sources; date every item; never fabricate — if nothing material, say so.
+2. **Search for recent news/headlines** on the company since the last dated entry in its Recent News Log (or the last ~24-48h if the log is empty), per the search budget above. Use reputable/primary sources; date every item; never fabricate — if nothing material, say so.
 3. **Categorize** each material event against the framework sections (Business model, Catalysts, Re-rate drivers, Moat/Competition, Tech moat, Secular, Financials/Capital stack, Risks/Concentration, Bull/Base/Bear, Bottleneck, Sentiment, Asymmetry, Management/Insider, Valuation, Thesis). Use a short `[TAG]`.
 4. **Assess against the Tripwire and Edge — MANDATORY:**
    - **Tripwire:** does the event match, or move materially toward, any numbered tripwire? If yes → tag `[TRIPWIRE]`, name which trigger fired and how close to its threshold, and state the pre-committed action (exit / re-underwrite). This is the highest-priority finding — surface it at the TOP of the run summary, not buried.
