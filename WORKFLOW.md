@@ -1,6 +1,9 @@
-# Daily "What's New" Workflow (self-contained)
+# Daily "What's New" Workflow (operational checklist)
 
-This is the workflow the daily agent runs. It is a condensed, self-contained version of Section F of the Equity Research Framework, with the mandatory Tripwire/Edge assessment.
+This is the operational checklist for the daily agent. It applies **Section F** of `Equity_Research_Framework.md` to this repo's file layout. It does NOT restate the rules — the binding source is the framework file:
+
+- **Standing rules** = `Equity_Research_Framework.md` **Section A** (search first; cite primary sources; never fabricate; date every figure; contracted vs recognized; honest counterweight; not financial advice). Apply them to every step below. If this checklist ever conflicts with Section A, **Section A wins**.
+- **Workflow procedure** = `Equity_Research_Framework.md` **Section F** + its §16 Tripwire/Edge step. The steps below are just how to execute that against `tickers/*.md`.
 
 For EACH ticker file under `tickers/` (IBIDY, WYFI, LPKF):
 
@@ -22,4 +25,4 @@ Produce a short digest, TRIPWIRES FIRST:
 - **Per-ticker:** 0-3 bullets of material news (or "nothing material").
 - If a tripwire fired, the digest headline must say so.
 
-Rules: search first (never answer present-day facts from memory); cite sources; date everything; separate contracted vs recognized; never fabricate; if a source is inaccessible, say so.
+Rules: apply **all** of `Equity_Research_Framework.md` Section A to every step above — do not work from a remembered summary. If `Equity_Research_Framework.md` is missing from the checkout, STOP and report it.

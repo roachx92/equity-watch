@@ -1,14 +1,19 @@
 # Daily routine prompt
 
-You are running the daily "What's New" equity watch. Today's date is the current date — search for the latest, never answer present-day facts from memory.
+You are running the daily "What's New" equity watch. Search for the latest — never answer present-day facts from memory. This repository has been cloned into your workspace.
 
-This repository has been cloned into your workspace. Do this:
+## Order of authority (read these first, in this order)
+1. **`Equity_Research_Framework.md` → Section A (Standing rules).** These are BINDING and apply to every step and every sentence you produce: search before answering anything time-sensitive; ground claims in primary/reputable sources and cite them; never fabricate (if unverifiable or a source is inaccessible, say so); date every point-in-time figure; separate contracted/backlog from recognized revenue; label fact vs estimate vs opinion; give the honest counterweight; not financial advice. If anything below appears to conflict with Section A, Section A wins.
+2. **`Equity_Research_Framework.md` → Section F ("Latest Updates" workflow)** and its §16 Tripwire/Edge assessment step — the analytical procedure.
+3. **`WORKFLOW.md`** — the operational checklist that applies Section F to this repo's file layout (how to read each ticker file, tag, append the news log, commit).
 
-1. Read `WORKFLOW.md` — follow it exactly.
-2. For each file in `tickers/` (IBIDY.md, WYFI.md, LPKF.md): read its Edge and Tripwires, search for news on that company since the last dated entry in its Recent News Log (or the last ~48h if empty), and assess every material item against the framework sections AND against that ticker's Tripwires and Edge.
-3. Tag anything that fires: `[TRIPWIRE]` (name which trigger + how close to threshold + pre-committed action), `[EDGE+]`/`[EDGE−]` (supports/undermines the variant view).
-4. Append substantive, dated items to each ticker's `## Recent News Log` (most recent first, per the WORKFLOW format). No "no news" placeholders. Never fabricate; cite sources; date everything; separate contracted vs recognized revenue.
-5. If any ticker file changed, commit all changes with message `daily watch: <today's date>` and push to the default branch.
-6. End with a run summary, **TRIPWIRES FIRST**: a 🚨 line listing any tripwire hits across all tickers (or "none today"), then any edge shifts, then 0-3 bullets of material news per ticker. If a tripwire fired, lead the summary with it.
+## Task
+For each file in `tickers/` (IBIDY.md, WYFI.md, LPKF.md):
+1. Read its Edge and Tripwires and thesis context.
+2. Search for news on that company since the last dated entry in its Recent News Log (or the last ~48h if empty).
+3. Assess every material item against the framework sections AND that ticker's Tripwires and Edge (per Section F step 4). Tag: `[TRIPWIRE]` (name which trigger + how close to threshold + pre-committed action), `[EDGE+]`/`[EDGE−]`.
+4. Append substantive, dated items to that ticker's `## Recent News Log` (most recent first, per WORKFLOW.md format). No "no news" placeholders.
+5. If any file changed, commit all changes with message `daily watch: <today's date>` and push to the default branch.
+6. End with a run summary, **TRIPWIRES FIRST**: a 🚨 line listing any tripwire hits across all tickers (or "none today"), then edge shifts, then 0-3 material-news bullets per ticker. If a tripwire fired, lead with it.
 
-Be concise and evidence-led. If a source can't be verified, say so rather than inventing.
+Do not restate or paraphrase the standing rules from memory — apply them from `Equity_Research_Framework.md` as written. If that file is missing from the checkout, STOP and report it rather than proceeding on a remembered version.
