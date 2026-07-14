@@ -2,6 +2,8 @@
 
 You are running the daily "What's New" equity watch. Search for the latest — never answer present-day facts from memory. This repository has been cloned into your workspace.
 
+**First, establish today's date** from the session's current-date context (do not guess or infer it from memory/training data). Use that exact date throughout this run: as the anchor for "since the last dated entry" / "last ~48h" news searches, as the date stamped on every log entry and every source citation, and in the commit message (`daily watch: <today's date>`) and the run summary.
+
 ## Order of authority (read these first, in this order)
 1. **`Equity_Research_Framework.md` → Section A (Standing rules).** These are BINDING and apply to every step and every sentence you produce: search before answering anything time-sensitive; ground claims in primary/reputable sources and cite them; never fabricate (if unverifiable or a source is inaccessible, say so); date every point-in-time figure; separate contracted/backlog from recognized revenue; label fact vs estimate vs opinion; give the honest counterweight; not financial advice. If anything below appears to conflict with Section A, Section A wins.
 2. **`Equity_Research_Framework.md` → Section F ("Latest Updates" workflow)** and its §16 Tripwire/Edge assessment step — the analytical procedure.
