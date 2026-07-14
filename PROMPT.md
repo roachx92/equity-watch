@@ -17,12 +17,18 @@ awk '/^## F\./{f=1} /^## G\./{f=0} f' Equity_Research_Framework.md
 3. **`WORKFLOW.md`** — the operational checklist that applies Section F to this repo's file layout (how to read each ticker file, tag, append the news log, commit).
 
 ## Search budget — this is a lightweight daily scan, not a full diligence pass
-1-2 targeted searches per ticker is sufficient (e.g., one general news search + one follow-up only if the first surfaces something ambiguous that needs a date/number confirmed). Do NOT iterate to exhaustion, do NOT chase every tangential source, and do NOT re-verify facts that are already settled in the ticker file's thesis context. If a search turns up nothing material, move on — that is a valid, complete result for this workflow (see Section F step 6 / "if nothing turns up" in WORKFLOW.md).
+1-2 targeted searches per ticker is sufficient (e.g., one general news search + one follow-up only if the first surfaces something ambiguous that needs a date/number confirmed, OR if the first query returned only quote-aggregator pages with no article content — see source quality below). Do NOT iterate to exhaustion, do NOT chase every tangential source, and do NOT re-verify facts that are already settled in the ticker file's thesis context. If a search turns up nothing material, move on — that is a valid, complete result for this workflow (see Section F step 6 / "if nothing turns up" in WORKFLOW.md).
+
+## Source quality
+Favor primary/reputable sources: SEC EDGAR filings (10-K/10-Q/8-K/6-K), company press releases and IR pages, wire services (PR Newswire, Business Wire, GlobeNewswire, Reuters, Bloomberg), and established sector trade press. Quote-aggregator/data-only pages (Yahoo Finance quote, Google Finance, Investing.com quote, Morningstar quote, TradingView symbol page, CNBC quote, stockanalysis.com) carry price data but rarely article content — don't cite them as the source for a news item. If a WebSearch call returns mostly these, run the one follow-up allowed by the search budget narrowed to a specific event type (e.g. "<ticker> 8-K", "<ticker> press release").
+
+## First-run window
+If a ticker's Recent News Log is empty (first-ever check), search back **~14 days**, not just ~48h, so material context that predates the daily cadence isn't silently missed. Once the log has at least one dated entry, use the tight "since the last dated entry" window for all subsequent runs.
 
 ## Task
 For each file in `tickers/` (IBIDY.md, WYFI.md, LPKF.md):
 1. Read its Edge and Tripwires and thesis context.
-2. Search for news on that company since the last dated entry in its Recent News Log (or the last ~48h if empty) — per the search budget above.
+2. Search for news on that company since the last dated entry in its Recent News Log (or the last ~14 days if empty, per First-run window above) — per the search budget and source-quality guidance above.
 3. Assess every material item against the framework sections AND that ticker's Tripwires and Edge (per Section F step 4). Tag: `[TRIPWIRE]` (name which trigger + how close to threshold + pre-committed action), `[EDGE+]`/`[EDGE−]`.
 4. Append substantive, dated items to that ticker's `## Recent News Log` (most recent first, per WORKFLOW.md format). No "no news" placeholders.
 5. If any file changed, commit all changes with message `daily watch: <today's date>` and push to the default branch.
