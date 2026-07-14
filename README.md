@@ -18,6 +18,6 @@ git commit -am "sync framework" && git push
 ```
 Drift is detectable at any time with a plain `diff` between this copy and the local canonical file — if they differ, the repo is stale. (The framework's own changelog line at the bottom of the file serves as the version stamp.)
 
-Tickers watched: **IBIDY** (Ibiden 4062), **WYFI** (WhiteFiber), **LPKF** (LPKF Laser).
+Tickers held: **IBIDY** (Ibiden 4062), **WYFI** (WhiteFiber), **LPKF** (LPKF Laser). The scheduled daily routine currently checks **LPKF only** (see `PROMPT.md`/`WORKFLOW.md`) — IBIDY and WYFI files remain for reference/manual "what's new" checks but are not part of the automated run.
 
 _Not financial advice — informational research tooling only._

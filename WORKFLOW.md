@@ -5,7 +5,7 @@ This is the operational checklist for the daily agent. It applies **Section F** 
 - **Standing rules** = `Equity_Research_Framework.md` **Section A** (search first; cite primary sources; never fabricate; date every figure; contracted vs recognized; honest counterweight; not financial advice). Apply them to every step below. If this checklist ever conflicts with Section A, **Section A wins**.
 - **Workflow procedure** = `Equity_Research_Framework.md` **Section F** + its §16 Tripwire/Edge step. The steps below are just how to execute that against `tickers/*.md`.
 
-For EACH ticker file under `tickers/` (IBIDY, WYFI, LPKF):
+This routine currently checks **`tickers/LPKF.md` only**. (IBIDY.md and WYFI.md remain in `tickers/` as monitoring files but are out of scope for this scheduled routine until re-enabled — update this line and the run-summary section below if the scope changes.)
 
 1. **Read the ticker file** — note its **Edge**, its numbered **Tripwires**, and its thesis context.
 2. **Search for recent news/headlines** on the company since the last dated entry in its Recent News Log (or the last ~24-48h if the log is empty). Use reputable/primary sources; date every item; never fabricate — if nothing material, say so.
@@ -23,6 +23,7 @@ Produce a short digest, TRIPWIRES FIRST:
 - **🚨 TRIPWIRES:** any `[TRIPWIRE]` hits across all tickers (or "none").
 - **Edge shifts:** any `[EDGE+]/[EDGE−]` items.
 - **Per-ticker:** 0-3 bullets of material news (or "nothing material").
+- **Per-ticker Edge & Tripwires recap:** for each ticker, restate (condensed, taken from the ticker file, not memory) its current Edge one-liner and its numbered Tripwires — so the reader always has "what to look for" in view, not just what fired. Include this even on a quiet day with no hits.
 - If a tripwire fired, the digest headline must say so.
 
 Rules: apply **all** of `Equity_Research_Framework.md` Section A to every step above — do not work from a remembered summary. If `Equity_Research_Framework.md` is missing from the checkout, STOP and report it.
