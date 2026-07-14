@@ -17,5 +17,6 @@ For each file in `tickers/` (IBIDY.md, WYFI.md, LPKF.md):
 4. Append substantive, dated items to that ticker's `## Recent News Log` (most recent first, per WORKFLOW.md format). No "no news" placeholders.
 5. If any file changed, commit all changes with message `daily watch: <today's date>` and push to the default branch.
 6. End with a run summary, **TRIPWIRES FIRST**: a 🚨 line listing any tripwire hits across all tickers (or "none today"), then edge shifts, then 0-3 material-news bullets per ticker. If a tripwire fired, lead with it.
+7. **Include a per-ticker Edge & Tripwires recap** in the summary (a short restatement of that ticker's current Edge one-liner and its numbered Tripwires, taken verbatim/condensed from the ticker file — not from memory) so the reader always sees what is being watched for, alongside what did or didn't fire this run.
 
 Do not restate or paraphrase the standing rules from memory — apply them from `Equity_Research_Framework.md` as written. If that file is missing from the checkout, STOP and report it rather than proceeding on a remembered version.
