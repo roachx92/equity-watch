@@ -16,6 +16,12 @@ Part 1 reorganized the markdown. Part 2 moves the remaining **deterministic** wo
 
 5. **Git commit/push plumbing.** The mechanical commit-and-push of changed ticker files (message `daily watch: <date>`), moved from prose instruction into a script step the agent invokes.
 
+6. **Discord notification of the run summary. — DONE.** The daily watch writes
+   its §B digest to `summaries/<date>.md`; `.github/workflows/notify-discord.yml`
+   fires on push and `scripts/notify_discord.py` posts a colored header embed +
+   chunked body to a Discord webhook (`DISCORD_WEBHOOK_URL` secret). Deterministic
+   plumbing outside the LLM session — the dividing-line pattern in action.
+
 ## Already captured in Part 1 (for the record)
 - `awk` section-extraction — **eliminated** by splitting the framework into purpose-scoped files.
 - `cp`/`diff` framework sync — **eliminated** by making this repo canonical.

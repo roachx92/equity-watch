@@ -14,6 +14,14 @@ A live monitoring repo for a daily "What's New" equity watch. A Claude Code Remo
 - `framework/news-check.md` — the single canonical spec shared by the daily watch and the "what's new" workflow: §A the agentic parallel-sub-agent research method (+ source-quality & first-run window), §B the run-summary chat-digest format.
 - `daily-watch.md` — the operational procedure the routine runs (applies Sections A + F to this repo's layout).
 - `tickers/*.md` — per-ticker state: thesis, Edge, numbered Tripwires, Recent News Log. **The directory is the watch-list** — one file per watched ticker; adding a ticker is "drop in a file," and there is no separate roster to update.
+- `summaries/<YYYY-MM-DD>.md` — per-run persisted copy of the §B run-summary
+  digest (frontmatter counts + digest body), written by `daily-watch.md` each
+  run. Consumed by the Discord notification Action; also the daily heartbeat.
+- `scripts/notify_discord.py` — dependency-free poster: parses a summary file,
+  builds a colored header embed, chunks the body under Discord's limit, POSTs to
+  the `DISCORD_WEBHOOK_URL` webhook. Locally runnable with `--dry-run`.
+- `.github/workflows/notify-discord.yml` — on push to `summaries/**`, posts each
+  newly added summary to Discord via the poster.
 - `docs/part-2-scripts-plan.md` — planned migration of deterministic tasks to scripts.
 
 ## Section → file lookup

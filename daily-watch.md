@@ -30,11 +30,31 @@ For every ticker file under `tickers/` (the watch-list enumerated in the Researc
    `YYYY-MM-DD — [FRAMEWORK-TAG] [TRIPWIRE/EDGE± if any] — **Headline**. Full detail of the event → impact/implication. Source: [Name1](URL1), [Name2](URL2) (<date>).`
    Each source is a markdown link to its direct URL (article/filing/press-release), not just a bare publication name — so the reader can click through and verify it themselves. If a source genuinely has no linkable URL (e.g. a paywalled terminal feed), write its name plain (no brackets) rather than fabricating or omitting it.
    Do NOT add "no news" placeholder entries. If a ticker's sub-agent found nothing material within window, leave that ticker's log unchanged.
-6. **Commit & push** the updated ticker files with a message `daily watch: <today's date>` (only if something changed).
-7. **Produce the run summary** — TRIPWIRES FIRST (see the Run summary section below).
-8. **Per-ticker Edge & Tripwires recap — conditional on a hit** (see the Run summary section below).
+6. **Produce the run summary** — the chat digest in the canonical §B format
+   (`framework/news-check.md`), TRIPWIRES FIRST, including the conditional
+   per-ticker Edge & Tripwires recap. This same digest is both your chat output
+   and the body of the summary file in the next step.
+7. **Write the summary file** — write the digest to `summaries/<today>.md`,
+   prefixed with a YAML frontmatter block, then the verbatim §B digest body:
+
+       ---
+       date: <today>
+       tickers_checked: <count of tickers/*.md scanned this run>
+       tripwires_fired: <count of [TRIPWIRE] hits this run>
+       edge_shifts: <count of [EDGE+]/[EDGE−] items this run>
+       ---
+       <the §B digest, exactly as produced in step 6>
+
+   Write this file **every run**, even when nothing material was found (the body
+   then carries the §B "nothing material" content and the counts are `0`) — it is
+   the daily heartbeat that drives the Discord post. Do not restate the §B format
+   here; `framework/news-check.md` §B is its single source.
+8. **Commit & push** the updated ticker files **and** `summaries/<today>.md` with
+   a message `daily watch: <today's date>`. Because the summary file is new every
+   run, this commit always happens (unlike before, when it was skipped on a
+   no-change day). The push triggers the Discord notification Action.
 
 ## Run summary (the agent's output each day)
-Produce the chat digest in the **canonical format defined in [`framework/news-check.md`](framework/news-check.md) §B** — TRIPWIRES FIRST, then edge shifts, then per-ticker headline+digest items, then the conditional Edge & Tripwires recap. That file is the single source of truth for this format and is shared with the ad-hoc "what's new / latest on [ticker]" workflow (`framework/latest-updates-workflow.md` step 7); do not restate it here. Run it across all tickers checked this run.
+Produce the chat digest in the **canonical format defined in [`framework/news-check.md`](framework/news-check.md) §B** — TRIPWIRES FIRST, then edge shifts, then per-ticker headline+digest items, then the conditional Edge & Tripwires recap. That file is the single source of truth for this format and is shared with the ad-hoc "what's new / latest on [ticker]" workflow (`framework/latest-updates-workflow.md` step 7); do not restate it here. Run it across all tickers checked this run. The same digest is persisted verbatim (with a frontmatter counts block) to `summaries/<today>.md` in step 7 above; a GitHub Action posts that file to Discord on push. The digest format remains defined only in `framework/news-check.md` §B.
 
 Rules: apply **all** of `framework/standing-rules.md` (Sections A + E) to every step above — do not work from a remembered summary. If any framework file under `framework/` is missing from the checkout, STOP and report it.

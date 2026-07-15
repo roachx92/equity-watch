@@ -1,0 +1,51 @@
+name: Notify Discord
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'summaries/**'
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with previous commit for diff)
+        uses: actions/checkout@v4
+        with:
+          # full history so github.event.before is always reachable —
+          # a shallow clone can silently miss added files on a
+          # multi-commit push and post nothing (exit 0, no signal)
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Post newly added summaries to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          set -euo pipefail
+          before='${{ github.event.before }}'
+          after='${{ github.sha }}'
+          if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
+            base="HEAD^"
+          else
+            base="$before"
+          fi
+          added=$(git diff --name-only --diff-filter=A "$base" "$after" -- 'summaries/**' || true)
+          if [ -z "$added" ]; then
+            echo "No newly added summaries in this push; nothing to post."
+            exit 0
+          fi
+          echo "Newly added summaries:"; echo "$added"
+          printf '%s\n' "$added" | while IFS= read -r f; do
+            [ -n "$f" ] || continue
+            url="${{ github.server_url }}/${{ github.repository }}/blob/${{ github.sha }}/$f"
+            python scripts/notify_discord.py "$f" --file-url "$url"
+          done
