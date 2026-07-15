@@ -11,6 +11,7 @@ A live monitoring repo for a daily "What's New" equity watch. A Claude Code Remo
 - `framework/standing-rules.md` — Sections A + E. Standing rules and honest limits; apply to EVERY response.
 - `framework/latest-updates-workflow.md` — Section F. The "what's new" analytical procedure (with §16 Tripwire/Edge assessment).
 - `framework/deep-dive-template.md` — Sections B, C, D, G, H. The full-diligence report standard + the four mandatory sub-agent prompt templates.
+- `framework/run-summary-format.md` — the single canonical chat-digest format shared by the daily watch and the "what's new" workflow (tripwires first, edge shifts, headline+digest items, conditional recap).
 - `daily-watch.md` — the operational procedure the routine runs (applies Sections A + F to this repo's layout).
 - `tickers/{IBIDY,WYFI,LPKF}.md` — per-ticker state: thesis, Edge, numbered Tripwires, Recent News Log.
 - `docs/part-2-scripts-plan.md` — planned migration of deterministic tasks to scripts.

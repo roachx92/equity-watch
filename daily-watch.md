@@ -50,19 +50,6 @@ For the tickers under `tickers/` (IBIDY, WYFI, LPKF):
 8. **Per-ticker Edge & Tripwires recap — conditional on a hit** (see the Run summary section below).
 
 ## Run summary (the agent's output each day)
-*This is the canonical run-summary format, shared with the ad-hoc "what's new / latest on [ticker]" workflow (`framework/latest-updates-workflow.md` step 7) — keep the two in sync; a change here should be mirrored there.*
-
-Produce a short digest, TRIPWIRES FIRST. The full multi-paragraph detail lives in each ticker's Recent News Log (step 5), not the chat reply — EXCEPT the Tripwires/Edge-shifts bullets below, which each get one detailed line per hit, not just a bare list:
-- **🚨 TRIPWIRES:** one bullet per `[TRIPWIRE]` hit across all tickers, format:
-  `**<TICKER> Tripwire #n — <status, e.g. "live, unresolved" / "early-warning" / "checked, does not fire">.** <one clause: what happened, why it matters, and the next test/date if still pending>.`
-  If a ticker had no tripwire activity this run, a one-line `<TICKER>: none` is enough — don't pad it. If nothing fired anywhere, just say "none."
-- **Edge shifts:** one bullet per `[EDGE+]/[EDGE−]` item (group same-direction items for one ticker into a single bullet if there are several), format:
-  `**<TICKER> — EDGE+ / EDGE− / EDGE live test.** <one clause: what the item was, with its dated anchor>.`
-  Omit a ticker entirely here if it had no edge activity — don't pad with "none."
-- **Per-ticker:** list every substantive item found this run, one per item, most recent first, as a **headline + one-sentence abridged digest** — a step up from headline-only, but still NOT the full multi-clause paragraph (that stays in the ticker file). Format:
-  `YYYY-MM-DD — [FRAMEWORK-TAG] — **Headline**. One-sentence abridged digest of what happened → brief impact. [TRIPWIRE #n / EDGE+ / EDGE− if applicable]`
-  Keep the digest to one sentence per item. If nothing material was found for a ticker, write "nothing material" instead of a list.
-- **Per-ticker Edge & Tripwires recap — conditional on a hit:** if the ticker had a `[TRIPWIRE]` or `[EDGE+]`/`[EDGE−]` tag this run, restate (condensed, taken from the ticker file, not memory) its current Edge one-liner and its numbered Tripwires, so the reader sees what fired against what's being watched. If nothing fired for that ticker this run, skip the full recap and give one line instead: `<TICKER>: unchanged — Edge and Tripwires as before, nothing fired.`
-- If a tripwire fired, the digest headline must say so.
+Produce the chat digest in the **canonical format defined in [`framework/run-summary-format.md`](framework/run-summary-format.md)** — TRIPWIRES FIRST, then edge shifts, then per-ticker headline+digest items, then the conditional Edge & Tripwires recap. That file is the single source of truth for this format and is shared with the ad-hoc "what's new / latest on [ticker]" workflow (`framework/latest-updates-workflow.md` step 7); do not restate it here. Run it across all tickers checked this run.
 
 Rules: apply **all** of `framework/standing-rules.md` (Sections A + E) to every step above — do not work from a remembered summary. If any framework file under `framework/` is missing from the checkout, STOP and report it.
