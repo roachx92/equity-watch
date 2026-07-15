@@ -27,27 +27,17 @@
 
     <div class="eqw-cov">
       <div class="eqw-lbl">Coverage</div>
+      {# Cards are generated at build time from tickers/*.md + reports/ by
+         hooks/coverage.py — do not hand-edit. Per-card prose lives in each
+         ticker file's front matter (company, blurb). #}
       <div class="eqw-cards">
+        {% for c in config.extra.coverage_cards %}
         <div class="eqw-tk">
-          <div class="h"><span class="sym">IBIDY</span><span class="co">Ibiden · TSE 4062</span></div>
-          <p>ABF FC-BGA substrate leader; customer base inverted to NVIDIA #1. The debate is price and the glass-substitution clock.</p>
-          <div class="lk"><a href="{{ 'tickers/IBIDY/' | url }}">Monitor →</a><span class="na">Deep-dive: not yet generated</span></div>
+          <div class="h"><span class="sym">{{ c.sym }}</span><span class="co">{{ c.company }}</span></div>
+          <p>{{ c.blurb }}</p>
+          <div class="lk"><a href="{{ c.monitor | url }}">Monitor →</a>{% if c.report %}<a href="{{ c.report | url }}">Deep-dive →</a>{% else %}<span class="na">Deep-dive: not yet generated</span>{% endif %}</div>
         </div>
-        <div class="eqw-tk">
-          <div class="h"><span class="sym">WYFI</span><span class="co">WhiteFiber · NASDAQ</span></div>
-          <p>Sub-scale neocloud on a thin float; the thesis reduces to the ~$865M Nscale colocation deal converting on schedule.</p>
-          <div class="lk"><a href="{{ 'tickers/WYFI/' | url }}">Monitor →</a><span class="na">Deep-dive: not yet generated</span></div>
-        </div>
-        <div class="eqw-tk">
-          <div class="h"><span class="sym">LPKF</span><span class="co">LPKF Laser · Xetra</span></div>
-          <p>Pure-play IP leader in LIDE glass-substrate structuring equipment — a picks-and-shovels option on the ~2027 glass-core ramp.</p>
-          <div class="lk"><a href="{{ 'tickers/LPKF/' | url }}">Monitor →</a><span class="na">Deep-dive: not yet generated</span></div>
-        </div>
-        <div class="eqw-tk">
-          <div class="h"><span class="sym">AAOI</span><span class="co">Applied Optoelectronics · NASDAQ</span></div>
-          <p>Vertically-integrated US optics maker growing its own InP laser chips; an AI-transceiver + CATV story — durable franchise or a rented peak on two concentrated bets?</p>
-          <div class="lk"><a href="{{ 'tickers/AAOI/' | url }}">Monitor →</a><span class="na">Deep-dive: not yet generated</span></div>
-        </div>
+        {% endfor %}
       </div>
       <div class="eqw-foot">Not financial advice — informational research tooling only.</div>
     </div>

@@ -12,6 +12,6 @@ The full deep-dive reports are **markdown in git** at `reports/<YYYY-MM-DD>/<TIC
 ## Single source of truth
 This repo is the **canonical home of the research framework** (`framework/*.md`) **and of the deep-dive reports** (`reports/**`), applying the framework as written. `daily-watch.md` and the `framework/` files are read and applied verbatim — the rules are never restated from memory, so the agent always obeys the current framework.
 
-Tickers watched: **IBIDY** (Ibiden 4062), **WYFI** (WhiteFiber), **LPKF** (LPKF Laser).
+Tickers watched: one markdown file per ticker under [`tickers/`](tickers/) — that directory is the live watch-list (adding a ticker is "drop in a file"). See each file for its thesis, Edge, and Tripwires.
 
 _Not financial advice — informational research tooling only._

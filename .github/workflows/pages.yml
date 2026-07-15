@@ -10,6 +10,7 @@ on:
       - "index.md"
       - "overrides/**"
       - "stylesheets/**"
+      - "hooks/**"
       - "mkdocs.yml"
       - "requirements.txt"
       - "scripts/build-site.sh"
