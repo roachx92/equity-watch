@@ -1,6 +1,9 @@
 # Local-only working artifacts (plans, specs, scratch notes). Not tracked.
 docs/tasks/
 
+# Claude Code worktrees
+.claude/worktrees/
+
 # MkDocs build tooling & output
 .venv/
 site/
