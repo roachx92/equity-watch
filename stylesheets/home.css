@@ -1,10 +1,34 @@
+/* Material chrome (interior pages + header): make `primary: custom` / `accent: custom`
+   intentional in both schemes, petrol-forward. */
+:root{
+  --md-primary-fg-color:#1E3D4C;
+  --md-primary-fg-color--light:#2a5468;
+  --md-primary-fg-color--dark:#152f3b;
+  --md-accent-fg-color:#1E3D4C;
+}
+[data-md-color-scheme="slate"]{
+  --md-primary-fg-color:#12303c;
+  --md-accent-fg-color:#7FB6CB;
+}
+
+/* Research Desk homepage — light palette (default) */
 .eqw-home{
   --paper:#FBFAF8; --ink:#161A20; --muted:#5C6570;
   --petrol:#1E3D4C; --edge:#2E6B4F; --trip:#B4452F; --line:#E4E1D9; --panel:#F4F2EC;
+  --card:#fff; --card-border:#E1DED5; --lede:#3a4048; --cardp:#2a2f36;
   background:var(--paper); color:var(--ink);
   font-family:'Newsreader',Georgia,serif;
   margin:0 -.8rem;                 /* bleed past Material's content padding */
 }
+
+/* Research Desk homepage — dark palette (Material's slate scheme).
+   Petrol/edge/trip are lightened so they read as accents on a dark base. */
+[data-md-color-scheme="slate"] .eqw-home{
+  --paper:#14181C; --ink:#E7E4DC; --muted:#97A0AA;
+  --petrol:#7FB6CB; --edge:#5FBF8F; --trip:#E0765C; --line:#2A3138; --panel:#191E23;
+  --card:#1B2127; --card-border:#2A3138; --lede:#B9BEC4; --cardp:#CDD1D6;
+}
+
 .eqw-home a{ text-decoration:none; }
 .eqw-home .eqw-eye{ font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.16em;
   text-transform:uppercase; color:var(--petrol); }
@@ -12,7 +36,7 @@
 .eqw-h1{ font-family:'Newsreader',serif; font-weight:500; font-size:clamp(34px,5vw,52px);
   line-height:1.04; letter-spacing:-.015em; margin:18px 0 0; max-width:17ch; color:var(--ink); }
 .eqw-h1 em{ font-style:italic; color:var(--petrol); }
-.eqw-lede{ font-size:18px; line-height:1.55; color:#3a4048; max-width:60ch; margin:22px 0 0; }
+.eqw-lede{ font-size:18px; line-height:1.55; color:var(--lede); max-width:60ch; margin:22px 0 0; }
 .eqw-wire{ display:flex; align-items:center; margin:30px 0 0; }
 .eqw-wire .eqw-line{ height:1px; background:var(--petrol); flex:1; opacity:.5; }
 .eqw-wire .eqw-mark{ width:9px; height:9px; border-radius:50%; background:var(--trip); }
@@ -21,7 +45,7 @@
 .eqw-lbl{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em;
   text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
 .eqw-flow{ display:flex; gap:10px; align-items:stretch; flex-wrap:wrap; }
-.eqw-step{ background:#fff; border:1px solid #E1DED5; border-radius:10px; padding:14px 16px;
+.eqw-step{ background:var(--card); border:1px solid var(--card-border); border-radius:10px; padding:14px 16px;
   flex:1; min-width:130px; font-family:'Space Grotesk',system-ui,sans-serif; display:block; color:var(--ink); }
 .eqw-step .s{ display:block; font-size:14px; font-weight:600; }
 .eqw-step .k{ display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--petrol); margin-top:5px; }
@@ -29,11 +53,11 @@
 
 .eqw-cov{ padding:36px 40px 48px; }
 .eqw-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-.eqw-tk{ border:1px solid var(--line); border-radius:12px; padding:18px; background:#fff; }
+.eqw-tk{ border:1px solid var(--line); border-radius:12px; padding:18px; background:var(--card); }
 .eqw-tk .h{ display:flex; align-items:baseline; gap:8px; }
 .eqw-tk .sym{ font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:16px; color:var(--petrol); }
 .eqw-tk .co{ font-family:'Space Grotesk',system-ui,sans-serif; font-size:12px; color:var(--muted); }
-.eqw-tk p{ font-size:15px; line-height:1.5; margin:10px 0 14px; color:#2a2f36; }
+.eqw-tk p{ font-size:15px; line-height:1.5; margin:10px 0 14px; color:var(--cardp); }
 .eqw-tk .lk{ font-family:'Space Grotesk',system-ui,sans-serif; font-size:12.5px; display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; }
 .eqw-tk .lk a{ color:var(--petrol); }
 .eqw-tk .lk .na{ color:var(--muted); font-style:italic; }
