@@ -1,2 +1,7 @@
 # Local-only working artifacts (plans, specs, scratch notes). Not tracked.
 docs/tasks/
+
+# MkDocs build tooling & output
+.venv/
+site/
+site_src/
