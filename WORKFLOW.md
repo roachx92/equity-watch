@@ -25,16 +25,18 @@ For EACH ticker file under `tickers/` (IBIDY, WYFI, LPKF):
 3. **Assess against the Tripwire and Edge — MANDATORY:**
    - **Tripwire:** does the event match, or move materially toward, any numbered tripwire? If yes → tag `[TRIPWIRE]`, name which trigger fired and how close to its threshold, and state the pre-committed action (exit / re-underwrite). This is the highest-priority finding — surface it at the TOP of the run summary, not buried.
    - **Edge:** does the event support or undermine the variant view? Tag `[EDGE+]` (corroborates) or `[EDGE−]` (consensus was right / edge eroding). An accumulation of `[EDGE−]` items means the differentiated thesis is failing even if no single tripwire fired — say so.
-4. **Append full-detail, dated items** to that ticker file's `## Recent News Log`, most recent first. Do NOT compress to a vague one-liner — carry over the sub-agent's full substantive detail (exact figures, named counterparties/sources, deal terms) into the entry itself. One entry per distinct event — split a multi-fact disclosure (e.g. an earnings call covering several separate items) into separate entries, each independently categorized and tagged, rather than merging unrelated facts into one line. Format:
-   `YYYY-MM-DD — [FRAMEWORK-TAG] [TRIPWIRE/EDGE± if any] — full detail of the event → impact/implication. Source: <name(s)> (<date>).`
+4. **Append full-detail, dated items** to that ticker file's `## Recent News Log`, most recent first. Do NOT compress to a vague one-liner — carry over the sub-agent's full substantive detail (exact figures, named counterparties/sources, deal terms) into the entry itself. One entry per distinct event — split a multi-fact disclosure (e.g. an earnings call covering several separate items) into separate entries, each independently categorized and tagged, rather than merging unrelated facts into one line. Lead the summary portion with a **bolded, one-line headline** so the entry is quickly scannable before the full detail. Format:
+   `YYYY-MM-DD — [FRAMEWORK-TAG] [TRIPWIRE/EDGE± if any] — **Headline**. Full detail of the event → impact/implication. Source: <name(s)> (<date>).`
    Do NOT add "no news" placeholder entries. If a ticker's sub-agent found nothing material within window, leave that ticker's log unchanged.
 5. **Commit & push** the updated ticker files with a message like `daily watch: YYYY-MM-DD` (only if something changed).
 
 ## Run summary (the agent's output each day)
-Produce a short digest, TRIPWIRES FIRST:
+Produce a short, **abridged** digest, TRIPWIRES FIRST — the full detail lives in each ticker's Recent News Log (step 4), not in the chat reply:
 - **🚨 TRIPWIRES:** any `[TRIPWIRE]` hits across all tickers (or "none").
 - **Edge shifts:** any `[EDGE+]/[EDGE−]` items.
-- **Per-ticker:** 0-3 bullets of material news (or "nothing material").
+- **Per-ticker:** list every substantive item found this run as a **headline-only** line, one per item, most recent first — do NOT repeat the full summary/impact text here (that stays in the ticker file). Format:
+  `YYYY-MM-DD — [FRAMEWORK-TAG] — **Headline**. [TRIPWIRE #n / EDGE+ / EDGE− if applicable]`
+  If nothing material was found for a ticker, write "nothing material" instead of a list.
 - **Per-ticker Edge & Tripwires recap — conditional on a hit:** if the ticker had a `[TRIPWIRE]` or `[EDGE+]`/`[EDGE−]` tag this run, restate (condensed, taken from the ticker file, not memory) its current Edge one-liner and its numbered Tripwires, so the reader sees what fired against what's being watched. If nothing fired for that ticker this run, skip the full recap and give one line instead: `<TICKER>: unchanged — Edge and Tripwires as before, nothing fired.`
 - If a tripwire fired, the digest headline must say so.
 
