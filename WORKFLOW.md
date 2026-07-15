@@ -31,9 +31,13 @@ For EACH ticker file under `tickers/` (IBIDY, WYFI, LPKF):
 5. **Commit & push** the updated ticker files with a message like `daily watch: YYYY-MM-DD` (only if something changed).
 
 ## Run summary (the agent's output each day)
-Produce a short, **abridged** digest, TRIPWIRES FIRST — the full detail lives in each ticker's Recent News Log (step 4), not in the chat reply:
-- **🚨 TRIPWIRES:** any `[TRIPWIRE]` hits across all tickers (or "none").
-- **Edge shifts:** any `[EDGE+]/[EDGE−]` items.
+Produce a short digest, TRIPWIRES FIRST. The full multi-paragraph detail lives in each ticker's Recent News Log (step 4), not the chat reply — EXCEPT the Tripwires/Edge-shifts bullets below, which each get one detailed line per hit, not just a bare list:
+- **🚨 TRIPWIRES:** one bullet per `[TRIPWIRE]` hit across all tickers, format:
+  `**<TICKER> Tripwire #n — <status, e.g. "live, unresolved" / "early-warning" / "checked, does not fire">.** <one clause: what happened, why it matters, and the next test/date if still pending>.`
+  If a ticker had no tripwire activity this run, a one-line `<TICKER>: none` is enough — don't pad it. If nothing fired anywhere, just say "none."
+- **Edge shifts:** one bullet per `[EDGE+]/[EDGE−]` item (group same-direction items for one ticker into a single bullet if there are several), format:
+  `**<TICKER> — EDGE+ / EDGE− / EDGE live test.** <one clause: what the item was, with its dated anchor>.`
+  Omit a ticker entirely here if it had no edge activity — don't pad with "none."
 - **Per-ticker:** list every substantive item found this run as a **headline-only** line, one per item, most recent first — do NOT repeat the full summary/impact text here (that stays in the ticker file). Format:
   `YYYY-MM-DD — [FRAMEWORK-TAG] — **Headline**. [TRIPWIRE #n / EDGE+ / EDGE− if applicable]`
   If nothing material was found for a ticker, write "nothing material" instead of a list.
