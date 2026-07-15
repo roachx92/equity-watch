@@ -47,3 +47,8 @@ Produce a short chat-reply digest, **TRIPWIRES FIRST.** The full multi-paragraph
 - If a tripwire fired, the digest headline must say so.
 
 For a single-ticker "what's new" request this collapses naturally to that one ticker; for the daily watch it runs across every ticker checked.
+
+> The daily watch persists this exact digest to `summaries/<date>.md` (with a
+> frontmatter counts block) so a GitHub Action can post it to Discord. That is a
+> delivery concern only — this section remains the single source of the digest
+> format; the summary file body **is** this digest, unmodified.
