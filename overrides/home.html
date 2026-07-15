@@ -1,0 +1,57 @@
+{% extends "main.html" %}
+
+{% block tabs %}
+  {{ super() }}
+  <section class="eqw-home">
+    <div class="eqw-hero">
+      <div class="eqw-eye">Equity Watch · Research Framework</div>
+      <h1 class="eqw-h1">Decide what would prove you <em>wrong</em> — before the drawdown.</h1>
+      <p class="eqw-lede">A live, rules-based watch. Every thesis carries a pre-committed <strong>Edge</strong> and numbered <strong>Tripwires</strong>; a daily what's-new scan tests them against primary sources; full-diligence deep dives are versioned in git.</p>
+      <div class="eqw-wire"><span class="eqw-line"></span><span class="eqw-mark"></span></div>
+    </div>
+
+    <div class="eqw-method">
+      <div class="eqw-lbl">The method — a layered sequence</div>
+      <div class="eqw-flow">
+        <a class="eqw-step" href="{{ 'framework/standing-rules/' | url }}"><span class="s">Standing Rules</span><span class="k">A · E</span></a>
+        <span class="eqw-arrow">→</span>
+        <a class="eqw-step" href="{{ 'framework/latest-updates-workflow/' | url }}"><span class="s">Latest Updates</span><span class="k">F</span></a>
+        <span class="eqw-arrow">→</span>
+        <a class="eqw-step" href="{{ 'framework/deep-dive-template/' | url }}"><span class="s">Deep-Dive</span><span class="k">B · C · D · G · H</span></a>
+        <span class="eqw-arrow">→</span>
+        <div class="eqw-step"><span class="s">Daily Watch</span><span class="k">ops</span></div>
+        <span class="eqw-arrow">→</span>
+        <div class="eqw-step"><span class="s">Tickers</span><span class="k">state</span></div>
+      </div>
+    </div>
+
+    <div class="eqw-cov">
+      <div class="eqw-lbl">Coverage</div>
+      <div class="eqw-cards">
+        <div class="eqw-tk">
+          <div class="h"><span class="sym">IBIDY</span><span class="co">Ibiden · TSE 4062</span></div>
+          <p>ABF FC-BGA substrate leader; customer base inverted to NVIDIA #1. The debate is price and the glass-substitution clock.</p>
+          <div class="lk"><a href="{{ 'tickers/IBIDY/' | url }}">Monitor →</a><span class="na">Deep-dive: not yet generated</span></div>
+        </div>
+        <div class="eqw-tk">
+          <div class="h"><span class="sym">WYFI</span><span class="co">WhiteFiber · NASDAQ</span></div>
+          <p>Sub-scale neocloud on a thin float; the thesis reduces to the ~$865M Nscale colocation deal converting on schedule.</p>
+          <div class="lk"><a href="{{ 'tickers/WYFI/' | url }}">Monitor →</a><span class="na">Deep-dive: not yet generated</span></div>
+        </div>
+        <div class="eqw-tk">
+          <div class="h"><span class="sym">LPKF</span><span class="co">LPKF Laser · Xetra</span></div>
+          <p>Pure-play IP leader in LIDE glass-substrate structuring equipment — a picks-and-shovels option on the ~2027 glass-core ramp.</p>
+          <div class="lk"><a href="{{ 'tickers/LPKF/' | url }}">Monitor →</a><span class="na">Deep-dive: not yet generated</span></div>
+        </div>
+        <div class="eqw-tk">
+          <div class="h"><span class="sym">AAOI</span><span class="co">Applied Optoelectronics · NASDAQ</span></div>
+          <p>Vertically-integrated US optics maker growing its own InP laser chips; an AI-transceiver + CATV story — durable franchise or a rented peak on two concentrated bets?</p>
+          <div class="lk"><a href="{{ 'tickers/AAOI/' | url }}">Monitor →</a><span class="na">Deep-dive: not yet generated</span></div>
+        </div>
+      </div>
+      <div class="eqw-foot">Not financial advice — informational research tooling only.</div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}{% endblock %}

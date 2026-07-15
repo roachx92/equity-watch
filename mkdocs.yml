@@ -1,0 +1,47 @@
+site_name: Equity Watch
+site_description: A live, rules-based equity research watch — Edge, Tripwires, and full-diligence deep dives, versioned in git.
+docs_dir: site_src
+# site_dir defaults to ./site (outside docs_dir, so no conflict)
+
+theme:
+  name: material
+  custom_dir: overrides
+  font:
+    text: Newsreader
+    code: IBM Plex Mono
+  palette:
+    # Dark is the default (first entry = fallback on first visit); the toggle
+    # remembers the visitor's choice. No prefers-color-scheme media query, so
+    # dark shows regardless of OS setting.
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - content.code.copy
+    - search.suggest
+
+extra_css:
+  - stylesheets/home.css
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true

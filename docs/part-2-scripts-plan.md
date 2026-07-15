@@ -6,7 +6,7 @@ Part 1 reorganized the markdown. Part 2 moves the remaining **deterministic** wo
 
 ## Backlog
 
-1. **Deep-dive `.docx` → Google Drive sync** *(new requirement).* Publish/update the full reports to a Drive folder when a report is created or updated. Decide at build time: Google Drive MCP vs. a Drive-API / `rclone` script; one-way publish vs. two-way; folder layout (one folder per ticker vs. flat). Trigger: report save, or a manual/scheduled push.
+1. **Deep-dive reports → markdown-in-git, published via GitHub Pages.** *(Was: `.docx` → Google Drive sync — dropped.)* Reports live as `reports/<YYYY-MM-DD>/<TICKER>.md` (git is the source of truth) and the repo is published as a MkDocs Material site with a bespoke "Research Desk" homepage. No `.docx`, no Drive, no external auth. **Follow-on (deterministic, deferred):** a "latest report per ticker" resolver script so the ticker pointer updates itself instead of by hand.
 
 2. **Ticker enumeration.** Derive the watch-list from a `tickers/*.md` glob instead of the hardcoded IBIDY/WYFI/LPKF lists in `daily-watch.md`. Adding a ticker becomes "drop in a file."
 

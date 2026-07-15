@@ -2,6 +2,12 @@
 
 *Sections B, C, D, G, H of the equity research framework — the full-diligence report standard and the four mandatory parallel sub-agent prompt templates. Verbatim; relocated from the former single framework file. Section A (standing rules) and Section E (honest limits) live in `standing-rules.md`; the daily "Latest Updates" workflow (Section F) lives in `latest-updates-workflow.md`.*
 
+**Output & publishing.** Write the finished report as markdown to
+`reports/<YYYY-MM-DD>/<TICKER>.md` (today's date; one dated snapshot per run — do not
+overwrite prior dates). Then update that ticker's `**Canonical deep-dive:**` line in
+`tickers/<TICKER>.md` to link the new file, and commit. The report is the source of truth
+and is published via GitHub Pages — no `.docx`, no external sync.
+
 ---
 
 ## B. Full deep-dive template — the standard sections

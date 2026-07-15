@@ -1,11 +1,11 @@
 # CLAUDE.md — equity-watch
 
 ## What this is
-A live monitoring repo for a daily "What's New" equity watch. A Claude Code Remote Routine runs each weekday, reads `daily-watch.md`, dispatches one research sub-agent per ticker, assesses findings against each ticker's pre-committed **Edge** and **Tripwires**, and commits dated entries to `tickers/*.md`. The repo holds lightweight monitoring state only; the full 18-section deep-dive reports (`.docx`) are downstream artifacts.
+A live monitoring repo for a daily "What's New" equity watch. A Claude Code Remote Routine runs each weekday, reads `daily-watch.md`, dispatches one research sub-agent per ticker, assesses findings against each ticker's pre-committed **Edge** and **Tripwires**, and commits dated entries to `tickers/*.md`. The repo holds the lightweight monitoring state **and** the full deep-dive reports (markdown under `reports/<YYYY-MM-DD>/<TICKER>.md`); the repo is published as a MkDocs Material GitHub Pages site.
 
 ## Canonical-source rule
 - This repo is the **master** for the research framework. Apply the framework files as written — **never restate the rules from memory**.
-- The `.docx` deep-dive reports are **downstream** consumers of the framework and sync to Google Drive (planned; see `docs/part-2-scripts-plan.md`).
+- Deep-dive reports are **markdown in this repo** (`reports/<YYYY-MM-DD>/<TICKER>.md`), applying the framework; they are published via GitHub Pages (see `docs/part-2-scripts-plan.md`). No `.docx`, no external sync.
 
 ## File map
 - `framework/standing-rules.md` — Sections A + E. Standing rules and honest limits; apply to EVERY response.
