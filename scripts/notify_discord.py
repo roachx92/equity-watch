@@ -5,7 +5,14 @@ Reads summaries/<date>.md (frontmatter + §B digest body), builds a colored
 header embed, chunks the body under Discord's message limit, and POSTs.
 Python 3 stdlib only — runs on a bare GitHub Actions runner.
 """
+import argparse
+import json
+import os
 import re
+import sys
+import time
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 RED = 0xD9342B
@@ -77,3 +84,51 @@ def chunk(body, limit=1900):
     if cur:
         chunks.append(cur)
     return chunks
+
+
+def post(webhook_url, payload):
+    data = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(
+        webhook_url, data=data, headers={"Content-Type": "application/json"})
+    for _ in range(5):
+        try:
+            with urllib.request.urlopen(req) as resp:
+                return resp.status
+        except urllib.error.HTTPError as exc:
+            if exc.code == 429:
+                time.sleep(float(exc.headers.get("Retry-After", "1")))
+                continue
+            raise
+    raise RuntimeError("Discord POST failed after retries (HTTP 429)")
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="Post a summary file to Discord.")
+    ap.add_argument("summary", help="path to summaries/<date>.md")
+    ap.add_argument("--file-url", default=None, help="URL for the 'Full run →' link")
+    ap.add_argument("--dry-run", action="store_true", help="print payloads, do not post")
+    args = ap.parse_args(argv)
+
+    meta, body = parse_summary(args.summary)
+    messages = [build_header_embed(meta, args.file_url)]
+    messages += [{"content": c} for c in chunk(body)]
+
+    if args.dry_run:
+        for msg in messages:
+            print(json.dumps(msg, ensure_ascii=False))
+        return 0
+
+    webhook = os.environ.get("DISCORD_WEBHOOK_URL")
+    if not webhook:
+        print("DISCORD_WEBHOOK_URL not set", file=sys.stderr)
+        return 1
+
+    for i, msg in enumerate(messages):
+        post(webhook, msg)
+        if i < len(messages) - 1:
+            time.sleep(0.6)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

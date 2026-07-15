@@ -89,3 +89,22 @@ def test_chunk_empty_body_returns_empty_list():
 
 def test_chunk_short_body_is_single_chunk():
     assert nd.chunk("hello\nworld", limit=1900) == ["hello\nworld"]
+
+
+def test_dry_run_prints_header_and_chunks_without_network(tmp_path, capsys):
+    p = _write(tmp_path, SAMPLE)
+    rc = nd.main([p, "--file-url", "https://example.com/s.md", "--dry-run"])
+    assert rc == 0
+    out = capsys.readouterr().out
+    lines = [ln for ln in out.splitlines() if ln.strip()]
+    assert len(lines) >= 2                      # header embed + >=1 body chunk
+    import json
+    header = json.loads(lines[0])
+    assert header["embeds"][0]["title"] == "Daily Watch — 2026-07-15"
+    assert json.loads(lines[1])["content"].startswith("🚨 TRIPWIRES")
+
+
+def test_main_missing_webhook_env_returns_1(tmp_path, monkeypatch):
+    monkeypatch.delenv("DISCORD_WEBHOOK_URL", raising=False)
+    rc = nd.main([_write(tmp_path, SAMPLE)])   # no --dry-run, no env
+    assert rc == 1
