@@ -3,7 +3,7 @@
 Monitoring state for a daily "What's New" check on a set of equity-research names. A scheduled cloud agent runs each weekday morning, scans news for each ticker, assesses it against that ticker's **Edge** and **Tripwires**, and appends dated entries to the per-ticker Recent News Log.
 
 - **`daily-watch.md`** — the self-contained daily procedure the scheduled routine runs (merged launcher + workflow).
-- **`framework/`** — the analytical framework, split by purpose: `standing-rules.md` (Sections A + E), `latest-updates-workflow.md` (Section F), `deep-dive-template.md` (Sections B, C, D, G, H), `run-summary-format.md` (the shared chat-digest format).
+- **`framework/`** — the analytical framework, split by purpose: `standing-rules.md` (Sections A + E), `latest-updates-workflow.md` (Section F), `deep-dive-template.md` (Sections B, C, D, G, H), `news-check.md` (the shared news-check spec: §A agentic parallel-sub-agent research method, §B run-summary chat-digest format).
 - **`tickers/*.md`** — one watch-file per ticker: thesis context, Edge (variant view), numbered Tripwires (pre-committed exit triggers), and the Recent News Log.
 - **`CLAUDE.md`** — orientation for agents working in the repo (file map + section lookup).
 

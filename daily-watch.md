@@ -7,35 +7,20 @@ The self-contained operational procedure the scheduled routine runs each weekday
 ## Order of authority
 Read and apply, in this order of authority:
 
-1. **`framework/standing-rules.md`** (Sections A + E) — BINDING on every step and every sentence you produce: search before answering anything time-sensitive; ground claims in primary/reputable sources and cite them; never fabricate (if unverifiable or a source is inaccessible, say so); date every point-in-time figure; separate contracted/backlog from recognized revenue; label fact vs estimate vs opinion; give the honest counterweight; not financial advice. If anything below appears to conflict with this, Section A wins. **Exception — scope it correctly:** Section A's "Diligence depth — EXHAUSTIVE BY DEFAULT" subsection is explicitly scoped (in its own text) to full report construction (triggered by "run the framework on [TICKER]"), NOT to this daily "Latest Updates" scan. See the search-budget notes below — do not apply exhaustive/iterate-until-dry searching here.
+1. **`framework/standing-rules.md`** (Sections A + E) — BINDING on every step and every sentence you produce: search before answering anything time-sensitive; ground claims in primary/reputable sources and cite them; never fabricate (if unverifiable or a source is inaccessible, say so); date every point-in-time figure; separate contracted/backlog from recognized revenue; label fact vs estimate vs opinion; give the honest counterweight; not financial advice. If anything below appears to conflict with this, Section A wins. **Exception — scope it correctly:** Section A's "Diligence depth — EXHAUSTIVE BY DEFAULT" subsection is explicitly scoped (in its own text) to full report construction (triggered by "run the framework on [TICKER]"), NOT to this daily "Latest Updates" scan — do not apply exhaustive/iterate-until-dry searching here (see `framework/news-check.md` §A).
 2. **`framework/latest-updates-workflow.md`** (Section F) and its §16 Tripwire/Edge assessment step — the analytical procedure for this task.
-3. **This file** — the operational checklist that applies Section F to this repo's file layout (how to read each ticker file, tag, append the news log, commit).
+3. **`framework/news-check.md`** — the shared research method (§A: parallel sub-agents, source quality, first-run window) and run-summary format (§B). Both the daily watch and ad-hoc "what's new" checks use it.
+4. **This file** — the operational checklist that applies Section F to this repo's file layout (how to read each ticker file, tag, append the news log, commit).
 
 These are small, purpose-scoped files — read them directly. If any framework file is missing from the checkout, STOP and report it rather than proceeding on a remembered version.
 
-## Research method — parallel per-ticker sub-agents
-Do not do this research single-threaded. Dispatch **one sub-agent per ticker (IBIDY, WYFI, LPKF), all in parallel** (via the Task/Agent tool, in a single dispatch), each running a thorough, multi-query research pass — no fixed query cap; typically 6-10+ distinct searches, following threads, using WebFetch on primary sources where accessible. Sub-agents research only — they must NOT edit any files. Wait for all sub-agents to finish, then the orchestrator synthesizes every report and does all file writes itself. This mirrors the framework's Section H multi-agent pattern, scaled to one agent per ticker instead of one per work-stream.
-
-Each sub-agent's prompt must be self-contained (it has no memory of this conversation) and must include:
-1. Today's date and the ticker/company name.
-2. An instruction to `Read tickers/<TICKER>.md` first and quote its exact Edge and numbered Tripwires verbatim (not from memory or paraphrase).
-3. The search window: since the last dated entry in that ticker's Recent News Log, or **~14 days back if the log is empty** (see First-run window below).
-4. The Source-quality guidance below.
-5. An explicit hunt-list: one line per numbered Tripwire plus the Edge's specific mechanism, so the sub-agent searches for what would actually break or confirm the thesis, not just generic company news.
-6. A report-back format: every material dated item with exact date + source name **with its direct URL** (the actual article/filing/press-release link, not just a publication name) + **full substantive detail** (figures, named parties, terms — not a vague gloss), each assessed against that ticker's actual Tripwires/Edge. If a source has no directly linkable URL (e.g. a paywalled terminal feed), say so explicitly rather than omitting the link silently.
-
-Do not iterate to exhaustion beyond that, do not chase every tangential source, and do not re-verify facts already settled in the ticker file's thesis context. If a sub-agent's search turns up nothing material, that's a valid, complete result (see Section F step 6 / "if nothing turns up" below) — don't force a finding.
-
-## Source quality
-Favor primary/reputable sources — SEC EDGAR filings (10-K/10-Q/8-K/6-K), company press releases and IR pages, wire services (PR Newswire, Business Wire, GlobeNewswire, Reuters, Bloomberg), and established sector trade press (e.g. DigiTimes, TrendForce for semis). Quote-aggregator/data-only pages (Yahoo Finance quote, Google Finance, Investing.com quote, Morningstar quote, TradingView symbol page, CNBC quote, stockanalysis.com) carry price data but rarely article content — don't treat them as a source for a news item; run follow-up queries narrowed to a specific event type (e.g. "<ticker> 8-K", "<ticker> press release") instead. When using WebSearch, pass `blocked_domains` for these quote-only sites if the tool supports it.
-
-## First-run window
-If a ticker's Recent News Log is empty (first-ever check), search back **~14 days**, not just ~48h — a tight window on day one silently misses material context (a financing, a contract, a filing) that predates the daily cadence. Once the log has at least one dated entry, revert to the tight "since the last dated entry" window for all subsequent runs.
+## Research method
+Use the agentic **parallel research sub-agent** method defined in **[`framework/news-check.md`](framework/news-check.md) §A** — for the daily watch, dispatch **one sub-agent per ticker (IBIDY, WYFI, LPKF), all in parallel** in a single dispatch. That file also carries the self-contained sub-agent prompt requirements, the source-quality guidance, and the first-run (~14-day) window. Do not restate it here.
 
 ## Task
 For the tickers under `tickers/` (IBIDY, WYFI, LPKF):
 
-1. **Dispatch the three sub-agents in parallel** (via the Task/Agent tool), one per ticker, per the Research method above. Each one reads its own ticker file (noting Edge, numbered Tripwires, thesis context) and does the research pass, reporting back full-detail dated findings (not condensed) assessed against that ticker's actual Tripwires/Edge.
+1. **Dispatch the three sub-agents in parallel** (via the Task/Agent tool), one per ticker, per the Research method (`news-check.md` §A). Each one reads its own ticker file (noting Edge, numbered Tripwires, thesis context) and does the research pass, reporting back full-detail dated findings (not condensed) assessed against that ticker's actual Tripwires/Edge.
 2. **Wait for all three to complete, then synthesize.**
 3. **Categorize** each material event the sub-agents found against the framework sections (Business model, Catalysts, Re-rate drivers, Moat/Competition, Tech moat, Secular, Financials/Capital stack, Risks/Concentration, Bull/Base/Bear, Bottleneck, Sentiment, Asymmetry, Management/Insider, Valuation, Thesis). Use a short `[TAG]`.
 4. **Assess against the Tripwire and Edge — MANDATORY** (per Section F step 4):
@@ -50,6 +35,6 @@ For the tickers under `tickers/` (IBIDY, WYFI, LPKF):
 8. **Per-ticker Edge & Tripwires recap — conditional on a hit** (see the Run summary section below).
 
 ## Run summary (the agent's output each day)
-Produce the chat digest in the **canonical format defined in [`framework/run-summary-format.md`](framework/run-summary-format.md)** — TRIPWIRES FIRST, then edge shifts, then per-ticker headline+digest items, then the conditional Edge & Tripwires recap. That file is the single source of truth for this format and is shared with the ad-hoc "what's new / latest on [ticker]" workflow (`framework/latest-updates-workflow.md` step 7); do not restate it here. Run it across all tickers checked this run.
+Produce the chat digest in the **canonical format defined in [`framework/news-check.md`](framework/news-check.md) §B** — TRIPWIRES FIRST, then edge shifts, then per-ticker headline+digest items, then the conditional Edge & Tripwires recap. That file is the single source of truth for this format and is shared with the ad-hoc "what's new / latest on [ticker]" workflow (`framework/latest-updates-workflow.md` step 7); do not restate it here. Run it across all tickers checked this run.
 
 Rules: apply **all** of `framework/standing-rules.md` (Sections A + E) to every step above — do not work from a remembered summary. If any framework file under `framework/` is missing from the checkout, STOP and report it.
