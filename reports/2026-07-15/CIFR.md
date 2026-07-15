@@ -1,0 +1,230 @@
+# CIFR — Cipher Digital Inc. (NASDAQ: CIFR) — Deep Dive
+
+**Date:** 2026-07-15  ·  **Reference price:** $20.33 (intraday, 2026-07-15)  ·  **Status:** draft
+
+> Full-framework diligence run (four parallel sub-agents: filing, counterparty, sector, competitive-moat/landscape), synthesized. Applies `framework/deep-dive-template.md` (Sections B/C/D/G/H) under `framework/standing-rules.md`. Not financial advice. Figures are dated and, where secondary, source-tiered; primary SEC filings (CIK 0001819989) override secondary commentary throughout. The company **renamed from "Cipher Mining Inc." to "Cipher Digital Inc." (effective ~Feb 20, 2026)**; ticker unchanged.
+
+| Metric | Value | Metric | Value |
+| --- | --- | --- | --- |
+| Price (2026-07-15) | **$20.33** | FY2025 revenue (all BTC mining) | $223.9M |
+| Market cap | ~$8.3B (409.0M sh) | Q1'26 revenue | $34.8M |
+| 52-wk range | $4.55 – $30.14 | FY2025 net loss | −$822.2M (−$2.15 dil. EPS) |
+| YTD move | ~+38% (to ~+62% at peak) | Cash (3/31/26) | $715.2M + ~$79–125M BTC |
+| Trailing-12-mo | ~+240% | Total debt (3/31/26) | ~$4.73B ($4,376.8M non-cur. + $355.3M cur.) |
+| Short interest | ~14.1% float · DTC ~2.4 | Signed HPC backlog | ~$9.3B contracted (600 MW, $0 recognized yet) |
+| Consensus | Strong Buy · avg PT ~$30–32 (high $48.50 MS) | HPC rent commences | ~Oct 2026 (Black Pearl/AWS + Barber Lake/Fluidstack) |
+
+*Reference $20.33 (NASDAQ intraday, 2026-07-15); BTC ~$64k (high intraday volatility, down from ~$93k at the start of 2026). Contracted/backlog revenue is distinguished from recognized revenue throughout — as of Q1 2026, **$0 of HPC revenue is recognized**; 100% of reported revenue is Bitcoin mining.*
+
+> **NOT FINANCIAL ADVICE.** Informational research and framework only — not a recommendation to buy or sell, not personalized advice. Primary data from SEC EDGAR (10-K FY2025 filed 2026-02-24 acc 0001819989-26-000009; 10-Q Q1'26 filed 2026-05-05; material 8-Ks), Cipher IR, and reputable financial/trade press, verified as of 2026-07-15. Cipher is a US filer; USD reporting. Private-company counterparty figures (Fluidstack, Bitfury) are third-party estimates, flagged as such. Markets move fast; verify against primary sources before acting.
+
+# Executive Summary — Investment Thesis
+
+Cipher Digital is a US Bitcoin miner that has, over 2025–2026, **transformed itself — in perception, filings, and even its legal name — into an AI/HPC data-center developer-lessor.** It holds ~4.2 GW of secured/pipelined ERCOT (Texas) grid capacity and has signed **~$9.3B of long-duration HPC hosting leases** anchored by two of the strongest counterparties in the market: a **300 MW / 15-year / ~$5.5B lease with Amazon Web Services** (guaranteed by Amazon.com, Inc.) and a **300 MW / 10-year / ~$3.8B lease with the neocloud Fluidstack, backstopped up to $1.73B by Google** (which took ~24.2M penny warrants, ~5.4% pro forma). On that pivot, the stock has run ~240% over twelve months to ~$20, sell-side coverage is uniformly bullish (Strong Buy, zero holds/sells), and the entire bull case now rests on the HPC backlog, not on mining.
+
+**The central tension is timing, execution, and financing — not whether the pivot is real.** It is demonstrably real and contracted. But **not one dollar of HPC revenue has been recognized yet** (Q1'26 10-Q: leases "have not commenced… no revenue recognized as of March 31, 2026"). Rent on the two anchor leases commences ~**October 2026**, making the next two quarters a binary "show-me" on first delivery. Meanwhile the balance sheet has levered up fast — **~$4.73B of debt against ~$715M cash** — to fund a construction program whose capex ($554M in Q1'26 alone) dwarfs the shrinking mining cash flow. The bet is that ~$9.3B of contracted rent starting Q4 2026 converts a heavy, dilution-and-debt-funded build into durable, investment-grade-backed cash flow before the financing bridge strains.
+
+## Three reasons to own — each with its honest counterweight
+
+- **1) A leader-sized, hyperscaler-underwritten contract book.** ~$9.3B signed, ~$669M average annualized NOI over the base term, anchored by a *direct AWS lease* (Amazon.com guarantee) plus a Google-backstopped Fluidstack lease — arguably higher counterparty quality and better tenant diversification than peers riding a single neocloud. *Counterweight:* the backstops/guarantees are only effective **after rent commencement**, are capped ($1.73B of Google's, not the full ~$3.8B), and nothing is live yet — so the credit protection is prospective, not present.
+
+- **2) Genuinely scarce power, with a multi-GW runway.** ~4.2 GW across 10 sites incl. a **1 GW AEP "Direct Connect" site (Colchis)** — in an AI build-out where *energized megawatts on a short timeline* are the binding constraint, this is a real, slow-to-replicate asset. *Counterweight:* it is an *asset*, not a *moat* — the identical playbook (secure Texas power → sign a hyperscaler/Fluidstack lease → let Google/AWS underwrite it) is being run by CORZ, APLD, IREN, TeraWulf, Hut 8, MARA, Riot and CleanSpark; tenants hold the pricing power.
+
+- **3) Landlord model, not GPU-owner — no NVIDIA allocation risk.** Cipher delivers powered, cooled shells; the tenants (AWS, Fluidstack) own and deploy the GPUs, so Cipher carries no direct GPU-supply or obsolescence exposure (that risk sits with Fluidstack, whose GPUs collateralize its debt). *Counterweight:* the flip side is Cipher captures landlord economics, not compute economics, and its first-ever HPC delivery is still ahead of it — it has a *follower-sized operating track record* behind a leader-sized book.
+
+**What has to be true:** the AWS (Black Pearl) and Fluidstack (Barber Lake) buildings energize roughly on schedule from ~Oct 2026 and convert backlog into recognized rent; Cipher funds the remaining equity portion of its capex without a deeply dilutive raise into weakness; BTC and the shrinking mining segment bridge cash flow until rent starts; and the pipeline (Colchis 1 GW, etc.) converts into additional hyperscaler leases before better-capitalized peers capture the next wave of tenants. If so, Cipher re-rates as a contracted AI-infrastructure lessor. If first delivery slips or financing strains, the "signed backlog" advantage decays toward a commoditized, BTC-correlated power-landlord — and the premium multiple compresses.
+
+Bottom line: **a large, well-underwritten contract book sitting on genuinely scarce Texas power — real and valuable, but replicable, richly priced, and unproven in operation.** The franchise question resolves on the Q4'26–2027 delivery execution, against a stretched balance sheet.
+
+# 1. Business model & role in the value chain
+
+Cipher sits at the intersection of two businesses:
+
+- **Legacy — Bitcoin self-mining (the shrinking cash engine):** Cipher operates ASIC miners that convert cheap Texas power into Bitcoin. As of Q1 2026 this runs **only at Odessa** (207 MW, ~11.6 EH/s, ~17.2 J/TH fleet efficiency, ~2.8¢/kWh power under a Luminant PPA through ~July 2027). Hash rate has roughly halved from ~23.6 EH/s (Q4'25) as the company decommissioned Black Pearl mining and sold its JV mining sites. This segment is being deliberately run down — its role is now to generate bridge cash and hold optionality on the Odessa power until it, too, can convert to HPC.
+
+- **Strategic — HPC/AI data-center landlord (the value driver):** Cipher develops and builds powered, cooled data-center shells and leases them to hyperscalers and neoclouds under long-dated (10–15 yr) triple-net / take-or-pay leases. It is a **landlord/colocation** model: the tenant brings the GPUs; Cipher provides the energized real estate, power, and cooling. Revenue is contracted rent + opex reimbursement, not compute sold.
+
+**Where it sits in the value chain:** upstream of the neocloud/hyperscaler compute layer, Cipher is the "power + shell" provider — the scarce physical substrate under AI compute. Its competitive input is **secured grid interconnection and cheap Texas power on a fast timeline**, which is currently the binding constraint in AI infrastructure (grid-connection queues exceed 4 years in primary markets). It competes both with other miners-turned-landlords and, increasingly, with traditional data-center developers (Equinix, Digital Realty, Vantage, QTS) for the same neocloud/hyperscaler tenants.
+
+# 2. Recent catalysts (dated)
+
+- **2026-06-15** — *Stingray Compute LLC* closed **$810.0M 6.000% Senior Secured Notes due 2031** (priced 2026-06-08 at 99.750%). Implies an advanced/likely HPC arrangement at the Stingray site (100 MW), **but no signed HPC lease or tenant is confirmed in the reviewed filings** — flag as project-financed but not primary-confirmed. Source: [8-K acc 0000950103-26-008994](https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001819989); [StockTitan](https://www.stocktitan.net/sec-filings/CIFR/8-k-cipher-digital-inc-reports-material-event-2c0f4f69c921.html).
+- **2026-05-05** — Q1 2026 10-Q: revenue $34.8M (all mining), net loss −$114.3M; **HPC leases not yet commenced, $0 HPC revenue**; cash $715.2M; debt stepped up on Black Pearl notes. Source: [10-Q acc 0001819989-26-000028](https://www.sec.gov/Archives/edgar/data/1819989/000181998926000028/cifr-20260331.htm).
+- **2026-02-24** — Q4/FY2025 results + **corporate rename to Cipher Digital Inc.** + business update; FY2025 revenue $223.9M, net loss −$822.2M (mostly non-cash). Source: [8-K acc 0001819989-26-000007](https://www.sec.gov/Archives/edgar/data/1819989/000181998926000009/cifr-20251231.htm).
+- **2026-02-19** — Sold its 49% stakes in the Alborz/Bear/Chief JV mining sites (WindHQ) to **Canaan** (~$40M, all-stock reported); Black Pearl BTC mining decommissioned. Source: FY2025 10-K; [Blockspace/CoinDesk](https://blockspace.media/insight/cipher-digital-aws-stingray-data-center/).
+- **2026-02-11** — Black Pearl Compute LLC closed **$2.0B 6.125% Senior Secured Notes due 2031** (~85% loan-to-cost; Ba2/BB−; ~$233M capex reimbursement to Cipher). Source: 8-K acc 0000950103-26-001966.
+- **2025-11-13/24** — Barber Lake project notes: **$1.4B + $333M = $1,733M 7.125% Senior Secured Notes due 2030** (Ba3/BB−). Source: SEC filings.
+- **2025-11-20** — Signed **additional 56 MW (39 MW critical)** Fluidstack lease (~$830M/10 yr); Fluidstack now leases the entire 300 MW at Barber Lake; Google backstop raised to $1.73B. Source: [GlobeNewswire](https://www.globenewswire.com/news-release/2025/11/20/3191801/0/en/cipher-mining-signs-additional-56-mw-10-year-ai-hosting-agreement-with-fluidstack.html).
+- **2025-11-03** — Announced the **300 MW / 15-yr / ~$5.5B AWS lease** at Black Pearl (Amazon.com guarantee) and the 1 GW **Colchis** JV (AEP Direct Connect, ~95% Cipher). Source: [Cipher Q3'25 Business Update](https://www.globenewswire.com/news-release/2025/11/03/3179121/0/en/Cipher-Mining-Provides-Third-Quarter-2025-Business-Update.html); [DCD](https://www.datacenterdynamics.com/en/news/aws-signs-300mw-hosting-deal-to-lease-capacity-from-cipher-mining/).
+- **2025-09-25** — Signed the first **168 MW (244 MW gross) Fluidstack lease** with **Google as $1.4B backstop + ~24.2M penny warrants** (~5.4%). Source: [GlobeNewswire](https://www.globenewswire.com/news-release/2025/09/25/3156107/0/en/cipher-mining-signs-168-mw-10-year-ai-hosting-agreement-with-fluidstack.html); [DCD](https://www.datacenterdynamics.com/en/news/cipher-mining-secures-fluidstack-as-a-customer-and-google-as-an-investor/).
+
+# 3. Re-rate map — what moves the multiple
+
+*Classified by driver type (fundamental / structural / sentiment-technical / macro), ordered by impact on the multiple, with mechanism, estimated impact + confidence tier, and timing.*
+
+- **[FUNDAMENTAL · highest impact] First HPC rent commencement & recognized revenue (Black Pearl/AWS + Barber Lake/Fluidstack).** *Mechanism:* removes the "backlog-only / show-me" discount by proving Cipher can energize and convert contracted MW into recognized, guaranteed rent — turning a construction story into a cash-flow story. *Impact:* large — plausibly a step-change re-rate from a BTC-miner-with-optionality multiple toward a contracted-infrastructure multiple (moderate-confidence: peers that delivered, e.g. IREN/APLD, re-rated hard). *Timing:* Q4 2026 rent commencement; first recognized revenue in Q4'26–Q1'27 prints.
+- **[FUNDAMENTAL] Pipeline conversion — Colchis 1 GW and others into signed hyperscaler leases.** *Mechanism:* re-rates the ~3.4 GW pipeline from "optionality" to "contracted," each new hyperscaler lease adding bankable NOI. *Impact:* moderate-to-large per deal (moderate confidence). *Timing:* rolling, 2026–2028.
+- **[STRUCTURAL] Cohort re-rate / AI-infrastructure multiple expansion.** *Mechanism:* as the miner-to-HPC cohort (CORZ, IREN, WULF, APLD) is re-rated toward data-center multiples, CIFR moves in sympathy. *Impact:* moderate; *tends to be sticky if earnings follow, transient if purely sentiment.* *Timing:* ongoing.
+- **[SENTIMENT/TECHNICAL] Short covering + high call skew.** *Mechanism:* ~14% short interest (DTC ~2.4) and persistent 4:1 call/put flow can amplify moves around catalysts, but low DTC limits squeeze durability; IV at the 92nd percentile means large moves are already priced. *Impact:* moves price, not the multiple's foundation — transient. *Timing:* event-driven.
+- **[MACRO] Bitcoin price & AI-datacenter capex/power-scarcity narrative.** *Mechanism:* BTC drives the residual mining cash flow (and the bridge); the hyperscaler-capex/power-scarcity theme drives tenant demand and the whole cohort's multiple. *Impact:* moderate but two-sided — BTC weakness pressures the bridge; power-scarcity strength supports the thesis. *Timing:* continuous.
+
+**Near-term binary gates:** (1) on-time energization & rent commencement at Black Pearl and Barber Lake (~Oct 2026); (2) the next equity/financing action — clean project debt vs. a dilutive equity raise; (3) confirmation (or not) of the Stingray tenant/lease.
+
+**Net re-rate verdict:** the **fundamental** bucket dominates and is asymmetric around the Q4'26 delivery gate — successful first delivery is the single most powerful upside re-rate driver, while a delivery slip against the levered balance sheet is the most powerful de-rate. On balance the setup is *high-variance*: a large potential re-rate that is largely gated on one observable execution milestone, with sentiment/technical drivers likely to overshoot in either direction.
+
+# 4. Competitive comparison, landscape & moat
+
+*(Built to the Section G depth standard; split across §4 and §5.)*
+
+**Level 2 — landscape by role:**
+- **(a) Direct rivals (BTC miners pivoting to HPC, racing for the same tenants & capital):** Core Scientific (CORZ — ~590 MW CoreWeave, furthest along; its $9B CoreWeave acquisition was *rejected by shareholders and terminated Oct 2025*, so it runs standalone), Applied Digital (APLD — ~400 MW CoreWeave at Ellendale, already energizing), IREN (Microsoft $9.7B + NVIDIA $3.4B, runs its own GPUs), TeraWulf (WULF — closest comp; Fluidstack/Google template), Hut 8 (~597 MW contracted), Riot, MARA (Starwood JV), Bitdeer, CleanSpark (~$6.6B lease announced ~Jul 2026).
+- **(b) Tenants they compete to land:** CoreWeave (dominant neocloud, anchors CORZ/APLD), Fluidstack (Google-backstopped, anchors Cipher & TeraWulf), hyperscalers as direct tenants (AWS at Cipher; Microsoft at IREN; Google as backstop/holder), plus Lambda/Nebius/Crusoe/Core42.
+- **(c) Suppliers:** ASIC makers (Bitmain — Cipher's single miner supplier; MicroBT; Canaan); NVIDIA (GPUs — tenants' bottleneck good, not Cipher's); utilities (AEP at Colchis; Luminant at Odessa; ERCOT).
+- **(d) Adjacent / credibility threat:** traditional data-center operators (Equinix, Digital Realty, Vantage, QTS) already win the same neoclouds on operational track record — they out-rank miners on tenant trust but lack pre-secured, cheap, fast-to-energize power.
+
+**Positioning / share (signed vs. pipeline):** on *signed contract value* (~$9.3B confirmed; ~$11.4B including the reported third lease) Cipher is near the **front of the cohort**. On *delivered/operational* HPC it is **behind** CORZ, APLD and IREN, whose buildings are already energizing. Net: a **credible fast-follower with a leader-sized backlog but a follower-sized operating track record.** Cohort share data is not cleanly disclosed (gross vs. critical-IT MW differ; Cipher discloses gross) — treat cross-peer MW comparisons as tiered estimates, not audited.
+
+**Moat verdict (conditioned on the landscape): MODERATE width, EMERGING (optionality-based) durability.** The real moat kernel is *scarce ERCOT interconnect + cheap power + a large signed book* — genuinely valuable and slow to replicate in a power-constrained build-out. But nothing is proprietary: the same playbook is being run cohort-wide, tenants hold pricing power, and traditional operators with more HPC credibility could scale in if power eases. It is a **strong option, not yet a durable franchise** — durability requires Cipher to convert its lead into a proven-operator reputation (uptime, on-time/on-budget delivery), which it cannot yet demonstrate because no HPC building is live.
+
+# 5. Technological moat & competitive technologies
+
+Cipher's differentiation is **not** technological in the semiconductor/IP sense — it is an **asset + execution** edge, so this section is deliberately framed against the Level-1 alternatives.
+
+**Level 1 — competing ways to monetize powered capacity:** (a) pure BTC self-mining (highly volatile, post-halving margins compressed to reported ~$19k loss/coin at early-2026 troughs — Tier 3 estimate; keeps 100% BTC upside but no contracted cash flow, ~half the revenue multiple); (b) hosting other miners (thin, stable, BTC-correlated counterparty risk — being abandoned); (c) **HPC/AI GPU hosting (Cipher's path)** — very high *contracted* economics (comparable deals cite ~80–86% NOI/EBITDA margins), but very capital-intensive (millions of $/MW) and execution-risky; (d) sell power back / demand response (near-zero capex, a *complement* that lowers effective power cost but conflicts with HPC tenants' need for firm, non-curtailable power). The cohort has decisively converged on (c) — >$70B of miner AI/HPC contracts signed by early 2026.
+
+**Is there any defensible tech?** Marginally. Cipher's edge is (i) **power procurement & interconnect execution** (securing multi-GW ERCOT capacity fast — a real operational competence) and (ii) repurposing ~85% of existing mining infrastructure at Black Pearl to cut HPC fit-out cost/time. Neither is proprietary or patent-protected; both are replicable by any well-capitalized peer. **Verdict: technological moat absent; the durable edge, if any, is operational (speed-to-energize) — emerging optionality, not a defensible technology.**
+
+# 6. Secular / thematic positioning
+
+Cipher is a **second-derivative play on AI compute** via the **first-derivative bottleneck of power**. The structural driver is unambiguous and strong: 2026 hyperscaler capex is running ~$690B (AWS ~$200B, Alphabet $175–185B, Meta $115–135B, Microsoft $120B+, Oracle $50B), and **power availability — not chips or demand — is now the binding constraint** (Microsoft flagged an ~$80B Azure backlog gated by power; grid-connection waits exceed 4 years in primary markets). Miners hold exactly the scarce asset: energized industrial sites with secured interconnects. This is the core structural bull case and it is genuine.
+
+Positioning nuance: Cipher's exposure is to the *real-estate/power* layer of AI, which is more durable and less obsolescence-prone than the GPU layer, but also captures landlord economics rather than compute economics. It is well-positioned on the *right* bottleneck, but as a fast-follower in a crowded field converging on the same trade.
+
+# 7. Financials — contracted vs. recognized, unit economics, capital stack
+
+**Recognized revenue is 100% Bitcoin mining; HPC recognized = $0 (as of Q1 2026).** This distinction is the single most important number in the report.
+
+| Period | Revenue (all BTC mining) | Net income |
+| --- | --- | --- |
+| FY2024 | $151.3M | — |
+| FY2025 | $223.9M | **−$822.2M** (−$2.15 dil. EPS) |
+| Q3 2025 | $71.7M | — |
+| Q4 2025 | $59.7M | — |
+| Q1 2026 | $34.8M | −$114.3M |
+
+Mining revenue is *declining sequentially* (Q3'25 $71.7M → Q1'26 $34.8M) as hash rate is deliberately run down. The FY2025 −$822.2M loss is **mostly non-cash**: $450.4M loss on the 2031-convert embedded derivative (reversed after share authorization was raised), $45.3M Odessa impairment, $41.6M unrealized BTC loss, $199.0M D&A.
+
+**Contracted (backlog) HPC:** ~**$9.3B** across the two signed leases (~$5.5B AWS / Black Pearl at ~100% NOI margin; ~$3.8B Fluidstack / Barber Lake at ~86% NOI margin), for ~**$669M average annualized NOI** over the Oct-2026–Sept-2036 base term. A reported *third* ~100 MW hyperscaler lease and the Stingray arrangement would lift the headline toward ~$11.4B, but are **not cleanly primary-confirmed** — treat the ~$9.3B / 600 MW as the verified signed book.
+
+**Cash flow — asset-building, not yet stabilized:**
+
+| Metric | FY2025 | Q1 2026 |
+| --- | --- | --- |
+| Operating cash flow | −$207.9M | +$91.5M* |
+| CapEx (PP&E) | $487.9M | $554.0M (one quarter) |
+| Cash (end) | $628.3M | $715.2M |
+
+*Q1'26 positive OCF is driven by non-cash add-backs and BTC monetization, **not** operating profitability (net loss was −$114.3M) — do not treat as recurring. **The CapEx-vs-OpEx read:** this is decisively an *asset-building* capex story (funding hard HPC assets), not structural "keeping-the-lights-on" burn — but the capex ($554M in a single quarter) massively outruns mining cash generation, and is being funded by project debt, converts, and equity.
+
+**Capital stack (as of 3/31/26 unless noted):**
+
+| Instrument | Principal | Coupon | Maturity | Notes |
+| --- | --- | --- | --- | --- |
+| 2030 Convertible Notes | $172.5M | 1.75% | 2030 | strike **$4.45**; putable 2028-05-15; unsecured |
+| 2031 Convertible Notes | $1,300M | **0.00%** | 2031 | strike **$16.03**; putable 2029-10-01; capped calls; unsecured |
+| Barber Lake Sr Secured Notes | $1,733M | 7.125% | 2030 | project-level (Fluidstack); ~71% LTC; Ba3/BB− |
+| Black Pearl Sr Secured Notes | $2,000M | 6.125% | 2031 | project-level (AWS); ~85% LTC; Ba2/BB−; closed 2026-02-11 |
+| Stingray Sr Secured Notes | $810M | 6.000% | 2031 | project-level; closed 2026-06-15 |
+
+**Liquidity:** $715.2M cash (3/31/26) + ~$79–125M BTC + undrawn $100M BTC-backed facility. **Total debt ~$4.73B.** The project notes are secured against specific HPC sites/leases (recourse largely ring-fenced), but the aggregate leverage against $715M cash and multi-GW of remaining capex is the core financial risk.
+
+# 8. Risks — named & specific
+
+- **Execution / construction risk (the fastest-acting):** HPC data-center construction not completed on time / within cost — explicitly flagged in the 10-K as impairing the ability to service debt. Nothing HPC is live; first delivery ~Oct 2026 is unproven.
+- **Backstops are prospective, not present:** the Amazon guarantee and Google/Fluidstack backstop are **effective only after rent commencement**, are capped ($1.73B of Google's, vs. ~$3.8B Fluidstack contract), and subject to event-of-default triggers. Between now and Q4'26 there is no counterparty credit protection.
+- **Single-geography & single-tenant concentration:** operations concentrated in **Texas / ERCOT** (weather, ride-through/curtailment, regulatory); each HPC campus is single-tenant, so loss/default of AWS or Fluidstack/Google would be materially adverse.
+- **Financing / leverage:** ~$4.73B debt with restrictive covenants; converts putable 2028 ($172.5M) and 2029 ($1,300M); multi-GW of capex ahead against $715M cash — a capital-markets-access dependency.
+- **Dilution (see §7):** 2031 converts ≈ 81.1M shares, 2030 converts ≈ 38.8M, Google penny warrants 24.18M, plus RSUs; an active **$725M ATM** (FY2025 sold 33.3M shares for $195.5M net at ~$5.88). Historical funding has been serial equity/ATM issuance.
+- **Bitcoin dependence:** 100% of *current* revenue is mining; BTC (~$64k, down from ~$93k at the start of 2026) drives the cash bridge until HPC rent starts. Post-April-2024 halving economics + soft BTC pressure the segment.
+- **Supplier concentration / geopolitics:** single-source **Bitmain** (China) ASIC dependence for mining; tariff/import exposure on equipment.
+- **Counterparty (Fluidstack):** a young, private, GPU-debt-heavy neocloud dependent on continued funding rounds; the Google backstop mitigates but does not eliminate residual exposure.
+
+# 9. Bull / base / bear
+
+*Reference $20.33 (2026-07-15). Probabilities are subjective estimates, not forecasts. Price ranges anchor to where the multiple would sit under each scenario.*
+
+- **Bull (~30%): $40–52.** Black Pearl and Barber Lake energize on/near schedule from Q4'26; recognized rent ramps through 2027; the Colchis 1 GW and other pipeline convert into additional hyperscaler leases; Cipher re-rates to a contracted AI-infrastructure multiple in line with IREN/APLD. Financing stays orderly (project debt, minimal equity dilution). Roughly the Morgan Stanley $48.50 zone.
+- **Base (~45%): $22–32.** Leases commence with modest slippage; NOI ramps through 2027–2028 but a dilutive equity component and the debt load cap multiple expansion; mining fades as planned; the stock grinds toward the sell-side average (~$30) as delivery de-risks but the balance sheet caps the premium.
+- **Bear (~25%): $8–14.** First delivery slips materially, or a large dilutive raise into weakness is forced, or BTC weakness breaks the cash bridge before rent starts, or Fluidstack/neocloud stress surfaces. The "signed backlog" premium decays toward a commoditized, BTC-correlated power-landlord multiple (roughly where the cohort's pure-miners trade). Downside is buffered — but not floored — by the AWS-guaranteed lease value.
+
+# 10. Sector bottleneck / structural analysis
+
+The binding constraint in AI infrastructure has shifted from **GPUs → power/interconnect**. Grid-connection queues exceed 4 years in primary markets; hyperscalers are moving to behind-the-meter and colocated power (nuclear PPAs, Three Mile Island restart, etc.). Cipher's entire relevance is that **it already holds the scarce input** — ~4.2 GW of secured/pipelined energized Texas capacity, including a 1 GW AEP Direct-Connect site. It monetizes the bottleneck by leasing energized shells to tenants who cannot get power fast enough themselves. This is a genuine structural fit — the question is not whether the bottleneck exists (it does) but how many miners are crowding into the same solution (many), which compresses the tenant-side pricing power over time.
+
+# 11. Sentiment — a battleground
+
+- **Sell-side:** uniformly bullish — **Strong Buy consensus, ~0% holds/sells**, average PT ~$30–32, street-high $48.50 (Morgan Stanley); recent raises (BTIG $25→$35, Rosenblatt $30, H.C. Wainwright Buy). The bull case rests almost entirely on the HPC backlog.
+- **Retail / options:** heavy retail and levered interest (multiple 2x single-stock products exist); persistent ~4:1 call/put flow; IV at the 92nd percentile — the market is pricing large moves into the Q4'26 catalysts.
+- **Short interest:** ~14.1% of float, DTC ~2.4, rising ~25% YoY — elevated but with limited squeeze mechanics given very high liquidity.
+- **Battleground framing:** bulls own the ~$9.3B backlog and the power runway; bears own the financing/dilution/execution risk and the "nothing delivered yet" fact. With consensus this one-sided and the stock up ~240% in a year, sentiment is a *risk*, not a tailwind — expectations are high and the Q4'26 delivery is a binary that could disappoint a crowded-long book.
+
+# 12. Asymmetry verdict — floor vs. ceiling
+
+**This is a high-ceiling, soft-floor bet that behaves more like a leveraged option on one execution milestone than a low-floor asymmetric compounder.** The ceiling is real and large (successful delivery + pipeline conversion → a contracted-infrastructure re-rate toward $40–50+). The floor is *softer than it looks*: the AWS-guaranteed lease provides genuine downside value, but ~$4.73B of debt against $715M cash, serial dilution, BTC dependence for the bridge, and zero HPC delivered mean a delivery slip could compress the equity hard before the guarantees even become effective. Net: **asymmetric to the upside in probability-weighted terms only if you have conviction on the Q4'26 delivery gate** — absent that, it is a levered directional bet with fat tails on both sides, not a genuine low-floor setup.
+
+# 13. Management & insider alignment
+
+- **CEO Tyler Page** was Head of Business Development for digital-asset infrastructure at Bitfury (2020–2021) before leading Cipher through its Aug-2021 de-SPAC (Good Works Acquisition Corp.).
+- **Track record:** management has executed the pivot credibly on the *contracting and financing* side — landing AWS and a Google-backstopped Fluidstack lease, and raising ~$4.5B of project debt, is a genuine accomplishment. The unproven half is *operational delivery*, still ahead.
+- **Sponsor in exit mode — Bitfury:** the founding shareholder has fallen from **28.4% (Nov 2024) to 15.11% (April 2026 proxy)** via heavy, repeated open-market sales and a variable prepaid forward; Bitfury announced it is **exiting Bitcoin mining entirely (Nov 2025)** to launch a $1B "ethical tech" fund. The board-observer right terminates below 10% (still active at 15.11%). This is a persistent **overhang and a fading-support signal**, though Bitfury is a financial holder, not a payment counterparty.
+- **Other >5% holders (April 2026 proxy):** BlackRock 5.39%, Jane Street 5.19%.
+- **Incentives / dilution alignment:** heavy reliance on equity/ATM issuance and convert-heavy financing raises dilution concerns; the fully diluted share count is materially above the ~409M basic. (Specific management insider *buying* was not surfaced in this pass — a gap to fill before relying on alignment.)
+
+# 14. Valuation multiples & implied expectations
+
+- **Market cap ~$8.3B** at $20.33 × ~409M shares; **EV ~$12B** (adding ~$3.9B net debt: ~$4.73B debt − ~$715M cash − ~$0.1B BTC). Note EV is arguably overstated for equity purposes since much of the debt is project-level and ring-fenced against contracted leases.
+- **On recognized earnings, the stock is unvaluable on conventional multiples** — it is loss-making with declining mining revenue. The market is explicitly valuing the **contracted backlog + pipeline optionality**, not trailing financials.
+- **Backlog-based sanity check:** ~$669M average annualized base-term NOI, capitalized at ~10–15x, implies ~$6.7B–$10B of value from the *two signed leases alone* — before the ~3.4 GW pipeline (Colchis 1 GW, etc.) optionality and before financing/dilution haircuts. That roughly brackets the current ~$8.3B market cap, i.e. **the stock is pricing in successful delivery of the signed book plus modest pipeline credit — but not a failure.**
+- **Peer multiple context:** HPC-contracted miners trade ~12x NTM sales vs. ~6x for pure-play miners (Tier 3 estimate) — CIFR sits in the HPC-contracted bucket, so a *delivery stumble that pushes it back toward the pure-miner multiple* is the mechanical de-rate risk.
+- **Implied expectation:** at ~$20, the market assumes the ~$9.3B book converts substantially on schedule and the balance sheet holds. The sell-side average (~$30) prices in additional pipeline conversion. There is **little margin of safety for a delivery miss** embedded in the current multiple.
+
+# 15. Investment thesis (synthesis)
+
+- **A leader-sized, hyperscaler-underwritten contract book on genuinely scarce power** — ~$9.3B signed, anchored by a *direct* AWS lease (Amazon.com guarantee) plus Google-backstopped Fluidstack, on ~4.2 GW of Texas capacity. *Counterweight:* the guarantees are prospective (post-rent-commencement) and capped; nothing is live yet, so the credit quality is a 2027 fact, not a 2026 one.
+- **Best-in-cohort counterparty diversification** — a direct hyperscaler + a Google-backstopped neocloud + (reportedly) a third hyperscaler, vs. peers concentrated on a single Google/Fluidstack relationship. *Counterweight:* the closest comp (TeraWulf) already has *live* HPC revenue and a far larger cash cushion (~$3.1B vs. $715M) — Cipher has the better book but the weaker balance sheet and no proof of delivery.
+- **Right bottleneck, landlord economics, no GPU-obsolescence risk** — positioned on power (the binding AI constraint) as a shell-and-power lessor, not a GPU owner. *Counterweight:* landlord economics cap the upside to the lease TAM, the moat is replicable (whole cohort is doing it), and traditional data-center operators with more credibility could scale in.
+
+**What has to be true:** Black Pearl and Barber Lake energize roughly on schedule from ~Oct 2026 and convert backlog into recognized, guaranteed rent; Cipher funds the remaining capex without a deeply dilutive raise into weakness; BTC + residual mining bridge cash flow until then; and the pipeline converts before better-capitalized peers capture the next tenants. The thesis is a **contracted re-rate gated on one near-term execution milestone against a levered balance sheet** — the quality of the book is real; the entry price and the delivery risk are the debate.
+
+# 16. Final thoughts & conclusion
+
+Cipher Digital is a credible, well-contracted entrant in the miner-to-AI-infrastructure trade — arguably with the *best signed counterparty stack* in the cohort (a direct AWS lease is a higher-quality anchor than a single Google-backstopped neocloud) sitting on genuinely scarce Texas power. But it pairs a **leader-sized backlog with a follower-sized operating track record and a stretched balance sheet**, and it arrives after a ~240% run with uniformly bullish sell-side and a crowded long book. Everything now hinges on converting ~$9.3B of contracted-but-unrecognized rent into actual cash flow, starting ~Q4 2026, before the financing bridge strains.
+
+- **Your edge — what do you believe that the crowd doesn't?** Consensus here is *already uniformly bullish* (Strong Buy, zero holds/sells, stock up ~240%), and the entire sell-side thesis rests on the same fact — the ~$9.3B backlog — so "the HPC pivot is real" is **not** an edge; it is the consensus you'd be paying for. A genuine variant view has to be sharper and pick a side: **either** (bullish variant) the market is under-crediting the *quality and diversification* of Cipher's specific counterparty stack (direct AWS + a second hyperscaler + Google-backstopped Fluidstack) and its 4.2 GW power runway, so Cipher deserves a premium *within* the cohort rather than a peer-average multiple — **or** (bearish variant) the market is under-pricing the execution-and-financing gap: $715M cash against ~$4.73B debt and multi-GW of remaining capex, with *zero* HPC delivered and first delivery a binary "show-me" event. If you do not hold a specific, defensible view on **whether Black Pearl/Barber Lake energize on schedule in Q4 2026 and how the remaining capex gets funded**, you do not have an edge here — you are underwriting a richly-priced, crowded consensus at a point of maximum expectation.
+- **Your tripwire — what would prove you wrong (+ pre-committed action):** exit or re-underwrite if **the first HPC rent-commencement milestone (Black Pearl/AWS or Barber Lake/Fluidstack) slips materially past ~Q4 2026** — that is the single observable event that breaks the "backlog converts on schedule" thesis; decide the action *now*, before the print.
+- **Time-horizon fit:** the thesis needs ~2–6 quarters to resolve the first-delivery gate (Q4'26 rent commencement → Q4'26–Q1'27 recognized revenue), with pipeline conversion a 2027–2028 story. Not a short-horizon trade; it is a delivery-milestone bet.
+- **Conviction-appropriate sizing:** single-milestone, single-geography, financing-dependent, and partly reliant on a young private neocloud (Fluidstack) — this warrants **smaller / risk-managed** exposure than a diversified compounder, notwithstanding the AWS anchor.
+- **What kills the thesis fastest:** a delivery slip at Black Pearl/Barber Lake that forces a dilutive equity raise into weakness (cross-references the Pre-Mortem in §8 and the highest-impact near-term gate in §3) — construction/financing failure is the fastest-acting invalidation, ahead of any slower BTC or competitive erosion.
+- **Where the price already sits vs. the thesis:** the ~$8.3B market cap roughly capitalizes successful delivery of the *signed* book plus modest pipeline credit — i.e., **fairly-to-fully priced for success, with little margin of safety for a miss** (§14). The sell-side average (~$30) prices in additional pipeline conversion on top.
+- **What to monitor next:** (1) Q2/Q3 2026 prints and 8-Ks for Black Pearl/Barber Lake energization progress and any change to the ~Oct-2026 rent-commencement guidance; (2) the next financing action (clean project debt vs. dilutive equity); (3) confirmation of the Stingray tenant/lease and any Colchis-pipeline lease signings; (4) Fluidstack funding/credit developments; (5) Bitfury's continued sell-down and BTC price as the mining-bridge input.
+
+**Bottom line:** a genuine, well-underwritten AI-infrastructure contract book on scarce Texas power — but richly priced, consensus-crowded, and entirely gated on an unproven first delivery against a levered balance sheet. The franchise quality is emerging and real; the asymmetry is only attractive if you hold a specific view on the Q4 2026 delivery-and-financing gate. **Not financial advice.**
+
+# Sources, Methodology & Caveats
+
+**Methodology:** full-framework run per `framework/deep-dive-template.md`, using four parallel research sub-agents (primary-filing, counterparty, sector, competitive-moat/landscape) synthesized by the orchestrator. Primary SEC filings (CIK 0001819989) were treated as authoritative and override secondary commentary.
+
+**Primary sources:** SEC EDGAR — FY2025 10-K (acc 0001819989-26-000009, filed 2026-02-24), Q1'26 10-Q (acc 0001819989-26-000028, filed 2026-05-05), DEF 14A (2026-04-20), and material 8-Ks (Stingray $810M notes 2026-06-15; Black Pearl $2.0B notes 2026-02-11; name change + FY25 results 2026-02-24; HPC leases 2025-09-25 & 2025-11-20); Cipher IR press releases; Cipher Q3'25 Business Update.
+
+**Reputable secondary:** GlobeNewswire (lease PRs), Data Center Dynamics, Blockspace, CoinDesk, Reuters/CNBC, TechCrunch (Fluidstack funding), S&P Global Market Intelligence, MarketScreener; IBKR live market data (price, IV, options, 52-wk range); Nasdaq/MarketBeat (short interest); analyst-rating trackers.
+
+**Key caveats / unverified items:**
+1. **Third HPC lease (~100 MW hyperscaler) and the Stingray tenant** are referenced by secondary sources and implied by the $810M Stingray financing, but were **not cleanly confirmed as signed leases in the reviewed primary filings** — the verified signed book is ~$9.3B / 600 MW (AWS + Fluidstack).
+2. **Fully diluted share count** is materially above the ~409M basic (converts + Google warrants + RSUs) but was not precisely reconciled.
+3. **Exact BTC mined per quarter** is disclosed via monthly production 8-Ks/press releases, not extracted here.
+4. **Q1'26 positive OCF (+$91.5M)** is non-cash/BTC-monetization-driven against a −$114.3M net loss — not recurring operating strength.
+5. **Fluidstack and Bitfury financials** are private-company, third-party estimates (directional, not audited).
+6. **Current Bitfury stake** confirmed at 15.11% (April 2026 proxy); may be lower now given the ongoing sell-down.
+7. **Full scope/duration of the Google backstop** vs. total Fluidstack contract value should be read in the definitive 8-K exhibit before relying on the downside protection.
+
+_Not financial advice — informational research tooling only._
