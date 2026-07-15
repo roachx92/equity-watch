@@ -7,10 +7,10 @@ Monitoring state for a daily "What's New" check on a set of equity-research name
 - **`tickers/*.md`** — one watch-file per ticker: thesis context, Edge (variant view), numbered Tripwires (pre-committed exit triggers), and the Recent News Log.
 - **`CLAUDE.md`** — orientation for agents working in the repo (file map + section lookup).
 
-The full, 18-section deep-dive reports (`.docx`) live locally and **sync to Google Drive** (see `docs/part-2-scripts-plan.md`); this repo holds only the lightweight monitoring state so the cloud agent can read the Edge/Tripwire and commit news back. Fold any flagged items into the deep-dive reports during a local session.
+The full deep-dive reports are **markdown in git** at `reports/<YYYY-MM-DD>/<TICKER>.md` and are published as a **GitHub Pages site** (see `docs/part-2-scripts-plan.md`). The cloud agent reads the Edge/Tripwire and commits news back to `tickers/*.md`; fold flagged items into the deep-dive reports during a local session.
 
 ## Single source of truth
-This repo is the **canonical home of the research framework** (`framework/*.md`). The deep-dive `.docx` reports are downstream consumers of it, not the other way around. `daily-watch.md` and the `framework/` files are read and applied as written — the rules are never restated from memory, so the agent always obeys the current framework.
+This repo is the **canonical home of the research framework** (`framework/*.md`) **and of the deep-dive reports** (`reports/**`), applying the framework as written. `daily-watch.md` and the `framework/` files are read and applied verbatim — the rules are never restated from memory, so the agent always obeys the current framework.
 
 Tickers watched: **IBIDY** (Ibiden 4062), **WYFI** (WhiteFiber), **LPKF** (LPKF Laser).
 
