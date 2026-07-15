@@ -50,6 +50,8 @@ For the tickers under `tickers/` (IBIDY, WYFI, LPKF):
 8. **Per-ticker Edge & Tripwires recap — conditional on a hit** (see the Run summary section below).
 
 ## Run summary (the agent's output each day)
+*This is the canonical run-summary format, shared with the ad-hoc "what's new / latest on [ticker]" workflow (`framework/latest-updates-workflow.md` step 7) — keep the two in sync; a change here should be mirrored there.*
+
 Produce a short digest, TRIPWIRES FIRST. The full multi-paragraph detail lives in each ticker's Recent News Log (step 5), not the chat reply — EXCEPT the Tripwires/Edge-shifts bullets below, which each get one detailed line per hit, not just a bare list:
 - **🚨 TRIPWIRES:** one bullet per `[TRIPWIRE]` hit across all tickers, format:
   `**<TICKER> Tripwire #n — <status, e.g. "live, unresolved" / "early-warning" / "checked, does not fire">.** <one clause: what happened, why it matters, and the next test/date if still pending>.`
