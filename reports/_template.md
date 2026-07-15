@@ -9,7 +9,7 @@
 ## 2. Recent catalysts
 ## 3. Re-rate map
 ## 4. Competitive comparison & moat
-## 5. Technological moat & competing technologies
+## 5. Technological moat & competitive technologies
 ## 6. Secular / thematic positioning
 ## 7. Financials
 ## 8. Risks
