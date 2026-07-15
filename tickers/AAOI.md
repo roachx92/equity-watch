@@ -1,6 +1,11 @@
+---
+company: "Applied Optoelectronics · NASDAQ"
+blurb: "Vertically-integrated US optics maker growing its own InP laser chips; an AI-transceiver + CATV story — durable franchise or a rented peak on two concentrated bets?"
+---
+
 # AAOI — Applied Optoelectronics, Inc. (NASDAQ: AAOI)
 
-**Canonical deep-dive:** full report generated 2026-07-14 (four-agent framework run; no `.docx` yet). This file holds the monitoring state; the Edge and Tripwires below are authored here (not from a downstream docx) and are the binding pre-committed triggers for the daily watch.
+**Canonical deep-dive:** [`reports/2026-07-14/AAOI.md`](../reports/2026-07-14/AAOI.md) (generated 2026-07-14). Full-diligence snapshots land at `reports/<YYYY-MM-DD>/AAOI.md`; this line links to the latest. This file holds the monitoring state; the Edge and Tripwires below are authored here (not from a downstream report) and are the binding pre-committed triggers for the daily watch.
 
 ## Thesis context (one-paragraph)
 AAOI is a small, US-based, **vertically-integrated** optics maker: it grows its own InP DFB/EML laser chips (MOCVD/MBE fabs in Sugar Land TX and Ningbo CN) and assembles them into datacenter transceivers (100G/400G/800G, roadmap 1.6T), plus a large CATV segment. FY2025 revenue was **$455.7M** (+83% YoY; CATV $245.1M / 53.8% > Data Center $195.7M / 42.9%); Q1 2026 was a record **$151.1M** (+51% YoY; Data Center $81.4M, +154% YoY, back to 53.9% of mix). Still **GAAP loss-making** (~29–30% GM, Q1'26 net loss $(14.3)M / $(0.19)) and cash-burning on a heavy capex build funded almost entirely by equity (ATM). As of the 2026-07-14 close ~$125, market cap ~$10.07B — the stock is up ~416% YTD on the AI-optics theme, an EML-shortage-driven supply-security story, and a short squeeze. The debate is whether the current economics are a **durable AI franchise** or a **rented peak** stacked on two concentrated, mean-reverting bets (see Edge).

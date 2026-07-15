@@ -5,3 +5,7 @@ docs/tasks/
 .venv/
 site/
 site_src/
+
+# macOS
+.DS_Store
+**/.DS_Store

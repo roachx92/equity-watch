@@ -15,13 +15,13 @@ Read and apply, in this order of authority:
 These are small, purpose-scoped files — read them directly. If any framework file is missing from the checkout, STOP and report it rather than proceeding on a remembered version.
 
 ## Research method
-Use the agentic **parallel research sub-agent** method defined in **[`framework/news-check.md`](framework/news-check.md) §A** — for the daily watch, dispatch **one sub-agent per ticker (IBIDY, WYFI, LPKF), all in parallel** in a single dispatch. That file also carries the self-contained sub-agent prompt requirements, the source-quality guidance, and the first-run (~14-day) window. Do not restate it here.
+Use the agentic **parallel research sub-agent** method defined in **[`framework/news-check.md`](framework/news-check.md) §A**. **Determine today's watch-list first:** enumerate `tickers/*.md` (e.g. `ls tickers/`) — the directory *is* the watch-list; every `.md` file there is a watched ticker, and there is no separate roster to keep in sync. Dispatch **one sub-agent per ticker file found, all in parallel** in a single dispatch. That file also carries the self-contained sub-agent prompt requirements, the source-quality guidance, and the first-run (~14-day) window. Do not restate them here.
 
 ## Task
-For the tickers under `tickers/` (IBIDY, WYFI, LPKF):
+For every ticker file under `tickers/` (the watch-list enumerated in the Research method step above):
 
-1. **Dispatch the three sub-agents in parallel** (via the Task/Agent tool), one per ticker, per the Research method (`news-check.md` §A). Each one reads its own ticker file (noting Edge, numbered Tripwires, thesis context) and does the research pass, reporting back full-detail dated findings (not condensed) assessed against that ticker's actual Tripwires/Edge.
-2. **Wait for all three to complete, then synthesize.**
+1. **Dispatch one sub-agent per ticker file, all in parallel** (via the Task/Agent tool), one per ticker, per the Research method (`news-check.md` §A). Each one reads its own ticker file (noting Edge, numbered Tripwires, thesis context) and does the research pass, reporting back full-detail dated findings (not condensed) assessed against that ticker's actual Tripwires/Edge.
+2. **Wait for all of them to complete, then synthesize.**
 3. **Categorize** each material event the sub-agents found against the framework sections (Business model, Catalysts, Re-rate drivers, Moat/Competition, Tech moat, Secular, Financials/Capital stack, Risks/Concentration, Bull/Base/Bear, Bottleneck, Sentiment, Asymmetry, Management/Insider, Valuation, Thesis). Use a short `[TAG]`.
 4. **Assess against the Tripwire and Edge — MANDATORY** (per Section F step 4):
    - **Tripwire:** does the event match, or move materially toward, any numbered tripwire? If yes → tag `[TRIPWIRE]`, name which trigger fired and how close to its threshold, and state the pre-committed action (exit / re-underwrite). This is the highest-priority finding — surface it at the TOP of the run summary, not buried.

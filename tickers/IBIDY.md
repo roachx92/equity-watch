@@ -1,6 +1,11 @@
+---
+company: "Ibiden · TSE 4062"
+blurb: "ABF FC-BGA substrate leader; customer base inverted to NVIDIA #1. The debate is price and the glass-substitution clock."
+---
+
 # IBIDY — Ibiden Co., Ltd. (TSE: 4062 / OTC ADR: IBIDY)
 
-**Canonical deep-dive:** not yet generated — see [`framework/deep-dive-template.md`](../framework/deep-dive-template.md). When generated it lands at `reports/<YYYY-MM-DD>/IBIDY.md` and this line links to the latest. This file holds only the monitoring state.
+**Canonical deep-dive:** [`reports/2026-07-14/IBIDY.md`](../reports/2026-07-14/IBIDY.md) (generated 2026-07-14). Full-diligence snapshots land at `reports/<YYYY-MM-DD>/IBIDY.md`; this line links to the latest. This file holds only the monitoring state.
 
 ## Thesis context (one-paragraph)
 Ibiden is the leading maker of the highest-complexity organic ABF FC-BGA package substrates, the base under high-end CPUs and, increasingly, AI GPUs/accelerators. Customer base has inverted to NVIDIA #1 (29.4% of FY3/26 revenue) over Intel (18.1%). Demand is pre-funded (customers advanced the full ¥500B FY26-28 capex). The equity has run ~474% and trades ~41x EV/EBITDA — the debate is price and the 2028-2030 glass-substitution clock, not franchise quality.

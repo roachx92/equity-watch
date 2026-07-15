@@ -52,7 +52,7 @@
 .eqw-arrow{ align-self:center; color:var(--trip); font-family:'IBM Plex Mono',monospace; }
 
 .eqw-cov{ padding:36px 40px 48px; }
-.eqw-cards{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.eqw-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; }
 .eqw-tk{ border:1px solid var(--line); border-radius:12px; padding:18px; background:var(--card); }
 .eqw-tk .h{ display:flex; align-items:baseline; gap:8px; }
 .eqw-tk .sym{ font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:16px; color:var(--petrol); }
@@ -65,9 +65,6 @@
 
 .eqw-home :where(a,.eqw-step):focus-visible{ outline:2px solid var(--petrol); outline-offset:2px; }
 
-@media (max-width:1100px){
-  .eqw-cards{ grid-template-columns:repeat(2,1fr); }
-}
 @media (max-width:820px){
   .eqw-hero,.eqw-method,.eqw-cov{ padding-left:22px; padding-right:22px; }
   .eqw-cards{ grid-template-columns:1fr; }

@@ -1,3 +1,8 @@
+---
+company: "Cipher Digital · NASDAQ"
+blurb: "US bitcoin miner repositioned into an AI/HPC data-center lessor; ~$9.3B of hyperscaler hosting leases (AWS, Google-backstopped Fluidstack) with $0 HPC revenue yet — the debate is timing, execution and financing."
+---
+
 # CIFR — Cipher Digital Inc. (NASDAQ: CIFR)
 
 **Canonical deep-dive:** [`reports/2026-07-15/CIFR.md`](../reports/2026-07-15/CIFR.md) (full-framework run, 2026-07-15). This file holds the monitoring state; the Edge and Tripwires below are the binding pre-committed triggers for the daily watch.

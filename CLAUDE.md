@@ -13,7 +13,7 @@ A live monitoring repo for a daily "What's New" equity watch. A Claude Code Remo
 - `framework/deep-dive-template.md` — Sections B, C, D, G, H. The full-diligence report standard + the four mandatory sub-agent prompt templates.
 - `framework/news-check.md` — the single canonical spec shared by the daily watch and the "what's new" workflow: §A the agentic parallel-sub-agent research method (+ source-quality & first-run window), §B the run-summary chat-digest format.
 - `daily-watch.md` — the operational procedure the routine runs (applies Sections A + F to this repo's layout).
-- `tickers/{IBIDY,WYFI,LPKF}.md` — per-ticker state: thesis, Edge, numbered Tripwires, Recent News Log.
+- `tickers/*.md` — per-ticker state: thesis, Edge, numbered Tripwires, Recent News Log. **The directory is the watch-list** — one file per watched ticker; adding a ticker is "drop in a file," and there is no separate roster to update.
 - `docs/part-2-scripts-plan.md` — planned migration of deterministic tasks to scripts.
 
 ## Section → file lookup
