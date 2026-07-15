@@ -5,6 +5,12 @@ on:
     branches: [main]
     paths:
       - 'summaries/**'
+  workflow_dispatch:
+    inputs:
+      summary_path:
+        description: 'Path to a summary file to post (e.g. summaries/2026-07-15.md)'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -26,26 +32,39 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Post newly added summaries to Discord
+      - name: Post summaries to Discord
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          EVENT_NAME: ${{ github.event_name }}
+          MANUAL_PATH: ${{ inputs.summary_path }}
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+          SERVER_URL: ${{ github.server_url }}
+          REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
-          before='${{ github.event.before }}'
-          after='${{ github.sha }}'
-          if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
-            base="HEAD^"
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            if [ ! -f "$MANUAL_PATH" ]; then
+              echo "ERROR: $MANUAL_PATH does not exist on this ref." >&2
+              exit 1
+            fi
+            files="$MANUAL_PATH"
+            echo "Manual dispatch — posting: $files"
           else
-            base="$before"
+            if [ -z "$BEFORE_SHA" ] || [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
+              base="HEAD^"
+            else
+              base="$BEFORE_SHA"
+            fi
+            files=$(git diff --name-only --diff-filter=A "$base" "$AFTER_SHA" -- 'summaries/**' || true)
+            if [ -z "$files" ]; then
+              echo "No newly added summaries in this push; nothing to post."
+              exit 0
+            fi
+            echo "Newly added summaries:"; echo "$files"
           fi
-          added=$(git diff --name-only --diff-filter=A "$base" "$after" -- 'summaries/**' || true)
-          if [ -z "$added" ]; then
-            echo "No newly added summaries in this push; nothing to post."
-            exit 0
-          fi
-          echo "Newly added summaries:"; echo "$added"
-          printf '%s\n' "$added" | while IFS= read -r f; do
+          printf '%s\n' "$files" | while IFS= read -r f; do
             [ -n "$f" ] || continue
-            url="${{ github.server_url }}/${{ github.repository }}/blob/${{ github.sha }}/$f"
+            url="$SERVER_URL/$REPOSITORY/blob/$AFTER_SHA/$f"
             python scripts/notify_discord.py "$f" --file-url "$url"
           done

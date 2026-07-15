@@ -88,8 +88,15 @@ def chunk(body, limit=1900):
 
 def post(webhook_url, payload):
     data = json.dumps(payload).encode("utf-8")
+    # Discord (via Cloudflare) 403s the default Python-urllib UA; send a real one.
     req = urllib.request.Request(
-        webhook_url, data=data, headers={"Content-Type": "application/json"})
+        webhook_url,
+        data=data,
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": "equity-watch-notifier/1.0 (+https://github.com/roachx92/equity-watch)",
+        },
+    )
     for _ in range(5):
         try:
             with urllib.request.urlopen(req) as resp:
