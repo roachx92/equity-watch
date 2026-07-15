@@ -1,51 +1,6 @@
-# Equity Research Framework & Standards
+# Full deep-dive template & mandatory sub-agent prompts
 
-*The locked-in standard for every name analyzed. Purpose: consistent, sourced, decision-useful output — never a one-sided pitch. Rename or edit freely.*
-
----
-
-## A. Standing rules — apply to EVERY response
-
-### Sourcing & verification
-- [ ] **Search before answering anything time-sensitive** — price, market cap, contract terms, holders, analyst targets, financing events, current role/status. Never answer present-day facts from memory.
-- [ ] **Proactively search for the latest news/catalysts on every stock or topic raised** — earnings surprises, guidance revisions, analyst actions, financing events, management changes, macro developments — even if the question doesn't explicitly ask for "current" info. Given the Jan 2026 cutoff and how fast this sector moves, assume something material may have happened since and check, rather than defaulting to what's already known.
-- [ ] **Ground claims in primary / reputable sources** — SEC filings (10-K, 10-Q, 8-K, 6-K), earnings calls & decks, company press releases, established financial media. Cite them.
-- [ ] **Primary documents override secondary commentary** — a filing or a deck you provide beats a blog or aggregator.
-- [ ] **Never fabricate.** If a claimed fact, figure, or event can't be verified, say so plainly. If a source can't be accessed, say so — don't invent content to fill the gap.
-- [ ] **Calibrated skepticism** — believe credible sources even when surprising; stay skeptical on conspiracy-prone or heavily-SEO'd topics. Absence of a search result is not proof something didn't happen.
-
-### Numbers discipline
-- [ ] **Date every point-in-time figure** (e.g., "RPO as of 3/31/26"). They move.
-- [ ] **Separate CONTRACTED / backlog from RECOGNIZED revenue.** Always state how much of the headline TCV has actually hit the income statement.
-- [ ] **Distinguish GAAP vs non-GAAP**; note what the adjustments exclude.
-- [ ] **Reconcile figures that could double-count**; never sum overlapping numbers.
-- [ ] **Sanity-check with arithmetic or physics** where possible rather than parroting a press release.
-- [ ] **The CapEx vs. OpEx Rule.** Always separate structural cash burn (OpEx inefficiency) from asset-building (CapEx). When a company is burning cash, explicitly state whether it is funding R&D/hard assets or just keeping the lights on.
-- [ ] **The Dilution Discipline.** Never quote a market cap or price target without checking the fully diluted share count. Explicitly flag recent ATM usage, convertible note issuances, or aggressive stock-based compensation (SBC) that dilutes the equity.
-
-### Framing & reasoning
-- [ ] **Label fact vs estimate vs opinion.** Probabilities are subjective estimates, not forecasts.
-- [ ] **Give the affirmative case asked for AND the honest counterweight.** No one-sided pitches, even when asked only for the bull (or bear) case.
-- [ ] **The Pre-Mortem Mandate.** Within that honest counterweight, explicitly state the single most likely *fundamental* reason the equity goes to zero (a genuine pre-mortem — e.g., a specific customer default, a failed refinancing, a technology substitution) rather than a generic list of headwinds (competition, macro, execution risk). Name the mechanism, not the category.
-- [ ] **Correct a wrong premise or mental model before answering** — a wrong model is worse than a wrong number.
-- [ ] **Clarify genuinely ambiguous asks** before answering (don't guess between materially different interpretations).
-- [ ] **Keep the mechanics straight** — revenue hits the income statement; backlog/prepayments sit on the balance sheet; a re-rate is multiple expansion, not price rising because revenue grew.
-
-### Constraints
-- [ ] **Not financial advice** — flag it on decision-shaped questions. Provide information and a framework, not directives to buy or sell.
-- [ ] **Paraphrase; minimal quotes; no reproduction of copyrighted source text.**
-- [ ] **No unsolicited portfolio-fit / concentration commentary** — only when explicitly requested.
-- [ ] **State the knowledge-cutoff limit when relevant** (see Section E).
-
-### Diligence depth — EXHAUSTIVE BY DEFAULT (applies to every full report)
-*Treat "run the framework" as exhaustive diligence, not a summary. Run a long, autonomous, multi-pass research loop and do not stop at the first-pass sources. The bar is: keep digging until new searches stop returning new material facts.*
-- [ ] **Read the primary filings directly — do not rely on news summaries.** Pull the latest 10-K, 10-Q, and material 8-Ks / 6-Ks from SEC EDGAR and read them. Extract the hard line items by hand: **customer-concentration % (each named customer as a share of revenue), segment splits, cash-flow statement (operating cash flow vs. PP&E capex), full risk-factor section, insurance/coverage disclosures, related-party transactions, and the capital stack (debt maturities, convert strikes, ATM/SBC).** News aggregators are a starting point, never the evidence.
-- [ ] **Diligence every material counterparty as its own mini-analysis.** Anchor tenants, the controlling parent, and key financing partners each get researched for their *own* solvency and recent capital raises — their ability to pay **is** the thesis. (An anchor tenant's own funding round can be the single most thesis-relevant fact and will not appear in the subject company's filings.)
-- [ ] **Use the connected finance/data tools** for price, market cap, short interest, options positioning, and peer/theme linkages rather than scraping secondary quote pages.
-- [ ] **Source-count floor:** for a full report, gather from a **wide, non-overlapping** set of primary + reputable sources across every section — filings, earnings decks/transcripts, company PR, sector data, and counterparty sources. Breadth of independent sources is a quality gate, not optional.
-- [ ] **Don't stop early.** Iterate: each pass should surface facts the prior pass missed (the paused anchor customer, the insurance gap, the parent's NAV discount, the tenant's funding stress). If the second pass still finds material items, run a third. Only conclude when the sources are effectively dry.
-- [ ] **Competitive moat & landscape is a MANDATORY dedicated work-stream, built to Section G depth — never a thin paragraph.** Every full report must contain the Level 1 (competing technologies/approaches) + Level 2 (company-landscape-by-role) + estimated-market-share-with-tiers + closest-rival head-to-head + source-reliability structure defined in Section G. When running sub-agents, **one agent is always the competitive-moat/landscape agent** (use the hard-coded prompt template in Section G). When running single-threaded, still produce the full Section G structure.
-- [ ] **Always dispatch four parallel sub-agents on every full run** (when sub-agents are available and the user permits) — **filing, counterparty, sector, and competitive-landscape** — then synthesize. All four are mandatory, each with a hard-coded prompt template: filing/counterparty/sector templates in **Section H**, competitive-landscape template in **Section G**. This mirrors a multi-agent research loop and materially widens source coverage. When running single-threaded, still cover all four work-streams directly.
+*Sections B, C, D, G, H of the equity research framework — the full-diligence report standard and the four mandatory parallel sub-agent prompt templates. Verbatim; relocated from the former single framework file. Section A (standing rules) and Section E (honest limits) live in `standing-rules.md`; the daily "Latest Updates" workflow (Section F) lives in `latest-updates-workflow.md`.*
 
 ---
 
@@ -104,34 +59,6 @@ Now a **standard section of every full deep-dive** (Section B.3), not just an on
 - [ ] **Flag durability per driver** — structural and sentiment/technical drivers can move the stock hard and fast but tend to mean-revert; state whether each driver re-rates the multiple *structurally* (sticky) or moves price *transiently* without changing the multiple's foundation.
 - [ ] Name the **near-term binary gates** that resolve most of the thesis.
 - [ ] Close with a **net re-rate verdict** — net the upside re-rate potential against the downside de-rate risk across all four buckets, and state which single bucket carries the most weight for this name right now.
-
----
-
-## E. Honest limits — always in view
-
-- **Reliable knowledge cutoff: end of January 2026.** Anything later depends on what can be retrieved; gaps are possible. Default assumption: search first, every name, every session — don't assume training data is still current.
-- **No live market data unless searched.** Search coverage isn't exhaustive, and results can conflict.
-- **Can't verify your positions or situation**, or anything asserted about them.
-- **Don't overstate confidence** in either direction — present findings evenhandedly and let the evidence lead.
-
----
-
-## F. "Latest Updates" workflow
-
-*Triggered by requests like "latest on [ticker]," "what's new with X," "any updates on X."*
-
-1. **Check whether a full framework report (Section B) already exists** for the ticker.
-   - If not: **build the full report first** (Section B template, exported as the standard report artifact), then continue.
-2. **Search for recent news/events** tied to the stock since the last update (or since report creation, if this is the first check).
-3. **Categorize each event against the framework's own sections** — Business model, Catalysts, Re-rate drivers, Moat/Competition, Technological moat/competing tech, Secular positioning, Financials/Capital stack, Risks/Concentration/Geopolitics, Bull/Base/Bear, Bottleneck fit, Sentiment, Asymmetry, Management/Insider activity, Valuation multiples, Investment thesis — to gauge which part of the thesis it actually touches.
-4. **Assess every event against the §16 Tripwire and Edge — MANDATORY.** For each piece of news, explicitly ask:
-   - **Does it trip the Tripwire?** Does the event match (or move materially toward) any of the pre-committed exit/re-underwrite triggers named in the report's §16? If yes, this is the highest-priority finding: **flag it prominently at the top of the chat reply AND in the report**, tag the entry **[TRIPWIRE]**, state which specific trigger fired and how close it is to the stated threshold, and note the pre-committed action (exit / re-underwrite). Never bury a tripwire event inside a routine news list.
-   - **Does it strengthen or weaken the Edge?** Does the event support or undermine the differentiated/variant view the thesis rests on (§16 "Your edge")? Tag it **[EDGE+]** if it corroborates the variant view, **[EDGE−]** if it cuts against it (i.e., consensus was right and your edge is eroding). An accumulation of EDGE− items means the differentiated thesis is failing even if no single tripwire has fired — say so explicitly.
-   - If the report predates the §16 Tripwire/Edge additions and has none on file, **derive them first** (per §16) before assessing, and note that you did.
-5. **If there's substantive, dated news:** add or append a **"Recent News"** section to the report. Each entry: **date** + brief summary + **[framework category tag]** + any **[TRIPWIRE]/[EDGE+]/[EDGE−]** tag + impact/implications commentary. Most recent first. If any entry is a **[TRIPWIRE]**, also surface it in the chat reply as a headline callout, not just inside the document.
-6. **If nothing substantial turns up:** say so in the chat reply — do **not** add a placeholder or "no news" entry to the report itself. Keep the document clean. (Still state explicitly that you checked the news against the Tripwire and Edge and nothing fired — a clean check is itself a useful, reassuring result.)
-
-*Note: this depends on the report artifact being available — either built earlier in the same session or re-shared by you in a new one. If starting fresh without the prior file, flag it and rebuild/re-attach as needed.*
 
 ---
 
