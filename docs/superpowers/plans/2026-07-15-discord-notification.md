@@ -13,7 +13,7 @@
 - Poster uses **Python 3 stdlib only** — no `requests`, no PyYAML. The Action runner has no third-party deps installed.
 - Poster file is `scripts/notify_discord.py` (**underscore**, so the test module can `import` it).
 - The §B digest format lives **only** in `framework/news-check.md`. This work persists and delivers that digest; it never restates or reformats the digest spec.
-- Embed colors: **red `0xD9342B` (14234155)** when `tripwires_fired > 0`, else **green `0x2ECC71` (3066993)**.
+- Embed colors: **red `0xD9342B` (14234667)** when `tripwires_fired > 0`, else **green `0x2ECC71` (3066993)**.
 - Chunk limit: **1900** chars (headroom under Discord's 2000 hard cap).
 - Secret name: **`DISCORD_WEBHOOK_URL`** (GitHub Actions secret; already created).
 - Default branch: `main`. Repo: `roachx92/equity-watch`. The Action must build the file URL from `${{ github.server_url }}/${{ github.repository }}/...` — no hardcoded org/repo.
