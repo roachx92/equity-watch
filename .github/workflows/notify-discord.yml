@@ -16,7 +16,10 @@ jobs:
       - name: Checkout (with previous commit for diff)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          # full history so github.event.before is always reachable —
+          # a shallow clone can silently miss added files on a
+          # multi-commit push and post nothing (exit 0, no signal)
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
