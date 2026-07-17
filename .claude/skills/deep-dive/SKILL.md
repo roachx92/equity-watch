@@ -75,7 +75,7 @@ ticker's `news.md`; the `tickers/` directory **is** the watch-list. After the re
   and **numbered Tripwires** derived **verbatim from the report's §18**, and an empty
   `## Recent News Log` seeded with the standard header note pointing at
   `framework/latest-updates-workflow.md` §F.1 (the canonical entry format — don't restate it).
-- Set/refresh its `**Canonical deep-dive:**` line to link the new report file.
+- Set/refresh its `**Canonical deep-dive:**` line to link the new report file. **Verify it's actually the newest** by globbing `tickers/<TICKER>/reports/*.md` and sorting by date (per CLAUDE.md's report-resolution rule) rather than assuming today's write is trivially latest — a backfilled or out-of-order run could mean it isn't.
 - The Edge/Tripwires in the ticker's news.md are the binding pre-committed triggers the daily
   watch and the whats-new skill assess against — mirror them faithfully, don't paraphrase away
   the specifics.

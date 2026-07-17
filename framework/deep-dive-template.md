@@ -5,9 +5,10 @@
 **Output & publishing.** Write the finished report as markdown to
 `tickers/<TICKER>/reports/<YYYY-MM-DD>.md` (today's date; one dated snapshot per run — do not
 overwrite prior dates). Then update that ticker's `**Canonical deep-dive:**` line in the
-**ticker's news.md** (`tickers/<TICKER>/news.md`) to link the new file, and commit. The
-report is the source of truth and is published via GitHub Pages — no `.docx`, no external
-sync.
+**ticker's news.md** (`tickers/<TICKER>/news.md`) to link the new file — **confirm it's actually
+the newest by globbing `tickers/<TICKER>/reports/*.md` and sorting by date** (CLAUDE.md's
+report-resolution rule), don't just assume today's write wins — and commit. The report is the
+source of truth and is published via GitHub Pages — no `.docx`, no external sync.
 
 **If this is a new ticker** (no `tickers/<TICKER>/` folder yet), create the folder and its
 `news.md` as part of this run: that folder is the watch-list entry, and the daily watch
