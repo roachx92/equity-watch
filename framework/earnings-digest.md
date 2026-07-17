@@ -169,31 +169,4 @@ Produce the run digest in the canonical format defined in [`news-check.md`](news
 
 **Then append the entire §I.6 Final Thoughts section — every block, verbatim from the debrief, with its emoji markers — immediately after the §B digest and before the debrief link.** All seven blocks come across in order: **(1)** the read in one line, **(2)** the directional lean (🔴/🟢, horizon-split), **(3)** the ✅ priority-ordered "What to watch" list with pass/fail per item (#1 flagged ⚠️), **(4)** 💲 where the price sits, **(5)** 🔀 what would flip the read, **(6)** the 3–4 points behind the lean, and **(7)** the bottom line. **This is not optional and is not reduced to a summary, a single block, or a one-liner** — the chat reply is the surface the reader actually reads after an earnings run, and Final Thoughts *is* the reader's action layer: the verdict, the watch list, the flip triggers, and the price read are exactly what a reader needs in the reply, not only in the file. Reproduce them as written in the debrief (§I.6 already caps this section's length and mandates its scannable form, so appending it whole does not bloat the reply). Close with the link to the debrief file. The rest of the digest — the numbers breakdown, cash-conversion table, sector cross-check, and the four-part assessment (§I.3–I.4) — stays in `earnings-debrief.md` and is *not* reproduced in the chat reply.
 
-**Canonical worked example — the shape every chat reply's appended Final Thoughts must take** (from CIFR Q1'26; substitute the ticker's own content, keep the structure and markers):
-
-> **The read in one line:** Cipher passed every Tripwire — but only because nobody tested it (six analysts asked zero questions about the four things that break the thesis). The market isn't pricing fundamentals; it's pricing lease announcements. Nothing is resolved. **Everything rests on one date in October.**
->
-> **Directional lean: 🔴 bearish next ~12 months · 🟢 constructive over 3–5 years.** Near term is all sentiment (a tape that pays only for announcements, a hard date with no outside corroboration); long term is a real, strengthening asset (the lease stack + demonstrably cheap financing).
->
-> **✅ What to watch — highest priority first:**
-> 1. **⚠️ Does the Oct-2026 NOI window hold? — next test 2026-08-06 (Q2 print).** The whole thesis and the fastest-acting invalidation. **Pass:** window start carries forward unchanged a second straight quarter. **Fail:** slips by even a month in any deck → **Tripwire #1 fires** → exit/re-underwrite.
-> 2. **Barber Lake Phase I delivery — ~Sep 2026.** First genuinely falsifiable delivery. Pass: on time. Fail: slips.
-> 3. **Black Pearl initial rent — ~Oct 2026.** The first real rent dollar. Watch the ambiguity: final phase ~Mar 2027, and Tripwire #1 is written against the *first* milestone only.
-> 4. **Third-campus financing — open, no date.** Watch for an equity raise (pressures Tripwire #2) vs. more cheap project debt.
-> 5. **ERCOT Batch Zero outcome — submissions closed 2026-07-10.** Gates ~2.0 GW of the pipeline.
->
-> **💲 Where the price sits:** Fairly priced on the market's own terms — no multiple expansion (EV/backlog ~1.22× → ~1.14×). Paid the cohort multiple for cohort risk.
->
-> **🔀 What would flip the read:**
-> - **→ 🟢 bullish:** first rent recognized on schedule — the fundamental bucket finally contributes.
-> - **→ 🔴 bearish (confirmed):** the Oct-2026 window start moves by so much as a month in any deck.
->
-> **Why bearish near-term, bullish long-term:**
-> 1. 🔴 Market pays for announcements, not results — +23.5% on a lease, gave it all back in three sessions.
-> 2. 🔴 The one hard date has thin, company-only corroboration — guided to milestones-not-rent, un-corroborated by ERCOT.
-> 3. 🔴 Fundamentals contributed nothing; pre-rent trough deepened — $0 HPC revenue, OCF "turn" was an $83.3M payables build, FY26 consensus cut ~44%.
-> 4. 🟢 Counterweight — the funding leg got materially stronger — $1.97B cheap project debt, oversubscribed bonds above par, a third IG lease.
->
-> **Bottom line:** A quarter with no bad news and no good news either. Cipher signed a third lease and proved it can raise debt cheaply, and the market shrugged and paid the same multiple. The thesis is intact and entirely unresolved. **Everything still rests on a date in October.**
->
-> Full breakdown and reasoning: `tickers/CIFR/earnings-debrief.md`.
+**Reference instance — the shape every chat reply's appended Final Thoughts must take:** [`tickers/CIFR/earnings-debrief.md`](../tickers/CIFR/earnings-debrief.md) **§3** (Q1'26). That rendered section — its seven blocks, emoji markers, and pass/fail bullets — is the live template; read it there rather than from a copy here, and substitute the subject ticker's own content while keeping the structure and markers. (Per the repo's "referenced never restated" discipline, the format is not duplicated into this file — the debrief §3 is its one home.)
