@@ -50,10 +50,12 @@ Read these directly — do not work from memory of them:
 ## Step 2 — confirm the thesis exists (else build it first)
 Per §I.1: a digest measures a call **against** something, and with nothing to measure against it
 degrades into a summary. Check for `tickers/<TICKER>/news.md` carrying an **Edge** and numbered
-**Tripwires**, and the `tickers/<TICKER>/reports/<date>.md` it links. **If the name isn't covered yet,
-build the deep-dive first** (use the `deep-dive` skill), then continue here. If the report exists
-but the news.md has no Edge/Tripwires, derive them from the report's Final thoughts & conclusion
-section first and say that you did.
+**Tripwires**. **Resolve the actual latest report by globbing `tickers/<TICKER>/reports/*.md` and
+sorting by date** (per CLAUDE.md's report-resolution rule) — don't just trust whatever the
+news.md `Canonical deep-dive:` line says; if it's stale, refresh it as part of this run.
+**If the name isn't covered yet, build the deep-dive first** (use the `deep-dive` skill), then
+continue here. If the report exists but the news.md has no Edge/Tripwires, derive them from the
+report's Final thoughts & conclusion section first and say that you did.
 
 Then read the thesis context you're assessing against — the ticker's news.md (quote the Edge and
 Tripwires **verbatim**, never paraphrased), plus the deep-dive's thesis synthesis, re-rate map,

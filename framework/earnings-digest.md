@@ -12,7 +12,7 @@
 
 ### I.1 Preconditions — the thesis you are assessing against must already exist
 
-1. **Check for a canonical deep-dive** (`tickers/<TICKER>/reports/<YYYY-MM-DD>.md`) and the ticker's news.md (`tickers/<TICKER>/news.md`) carrying its **Edge** and numbered **Tripwires**.
+1. **Check for a canonical deep-dive** (`tickers/<TICKER>/reports/<YYYY-MM-DD>.md`) and the ticker's news.md (`tickers/<TICKER>/news.md`) carrying its **Edge** and numbered **Tripwires**. **Resolve the actual latest report by globbing `tickers/<TICKER>/reports/*.md` and sorting by date** (CLAUDE.md's report-resolution rule) — never trust the news.md `Canonical deep-dive:` line blindly; refresh it if it's stale.
    - If neither exists: **build the full report first** (per [`deep-dive-template.md`](deep-dive-template.md)), create the ticker folder and news.md, derive the Edge/Tripwires into it, then run the digest. A digest with nothing to assess against is a summary, and a summary is not this workflow's output.
    - If the report exists but the news.md has no Edge/Tripwires on file, derive them from the report's **Final thoughts & conclusion** section first, and say that you did.
 2. **Read the context, don't recall it** — the ticker's news.md (quote the Edge and numbered Tripwires **verbatim**, not paraphrased), plus the canonical deep-dive's thesis synthesis, re-rate map, risks, and financials sections. These four are what the digest measures the call against; going from memory defeats the entire exercise.

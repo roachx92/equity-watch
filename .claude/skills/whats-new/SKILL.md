@@ -43,10 +43,12 @@ Read these directly (small, purpose-scoped) — do not work from memory of them:
 Per Section F step 1: a "what's new" check presupposes a full report and the §18 Edge/Tripwires
 already exist. Each watched ticker is a **folder** under `tickers/`, named for the symbol,
 holding that ticker's **news.md**. Check for `tickers/<TICKER>/news.md` with an Edge and numbered
-Tripwires (and a `tickers/<TICKER>/reports/<date>.md` it links). **If the name isn't covered yet, build
-the deep-dive first** (use the `deep-dive` skill / `framework/deep-dive-template.md`), which
-creates the ticker's folder and news.md and derives the Edge/Tripwires into it, then continue
-here.
+Tripwires. **Resolve the actual latest report by globbing `tickers/<TICKER>/reports/*.md` and
+sorting by date** (per CLAUDE.md's report-resolution rule) — don't just trust whatever the
+news.md `Canonical deep-dive:` line says; if it's stale, refresh it as part of this run.
+**If the name isn't covered yet, build the deep-dive first** (use the `deep-dive` skill /
+`framework/deep-dive-template.md`), which creates the ticker's folder and news.md and derives
+the Edge/Tripwires into it, then continue here.
 
 ## Step 3 — dispatch bounded research sub-agents, in parallel
 Per `news-check.md` §A: **do not research single-threaded.** Dispatch a thorough parallel
