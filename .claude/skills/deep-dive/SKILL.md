@@ -8,8 +8,9 @@ description: >-
   deep-dive / full diligence / full report on <ticker or company>", "deep dive <ticker>",
   "start watching <ticker>" (a new name needs its report built first), or otherwise asks
   for complete equity diligence on a stock — even if they don't say the word "framework".
-  This is the heavier of the two research entry points; for a lighter "what's new lately"
-  news check on an already-covered name, use the whats-new skill instead.
+  This is the heaviest of the three research entry points; for a lighter "what's new lately"
+  news check on an already-covered name use the whats-new skill instead, and for breaking down
+  one specific earnings call use the earnings-digest skill.
 ---
 
 # Run the framework — full equity deep-dive

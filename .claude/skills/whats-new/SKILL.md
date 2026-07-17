@@ -7,8 +7,11 @@ description: >-
   whenever the user says "what's new on <TICKER>", "latest on <ticker>", "any updates on
   <company>", "catch me up on <ticker>", "did anything happen with <ticker>", or asks for
   recent developments on a stock already covered in tickers/ — even without the word "news".
-  This is the lighter, bounded news-scan entry point; for building a name's full 18-section
-  report from scratch (or "run the framework on <ticker>"), use the deep-dive skill instead.
+  This is the lighter, bounded news-scan entry point, and it spans whatever happened since the
+  last check. Two neighbours: if the request is specifically about **one earnings call or print**
+  ("<ticker> just reported", "break down the call"), use the earnings-digest skill instead; for
+  building a name's full 18-section report from scratch (or "run the framework on <ticker>"),
+  use the deep-dive skill.
 ---
 
 # What's new — bounded news check on a watched ticker
