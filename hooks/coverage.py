@@ -1,14 +1,19 @@
 """Build-time generator for the homepage Coverage grid.
 
-The watch-list is the `tickers/*.md` glob (see CLAUDE.md), so the homepage
-coverage cards must be derived from it — not hand-maintained — or they drift
-stale exactly when a ticker is added or a deep-dive is generated.
+The watch-list is the `tickers/*/` directory glob (see CLAUDE.md) — one folder
+per ticker, each holding a `news.md`. The homepage coverage cards must be
+derived from it — not hand-maintained — or they drift stale exactly when a
+ticker is added or a deep-dive is generated.
 
 This mkdocs hook scans the assembled docs tree and exposes the card data to the
 `overrides/home.html` template as `config.extra.coverage_cards`. One card per
-`tickers/<SYM>.md`, auto-linked to the latest `reports/<YYYY-MM-DD>/<SYM>.md`.
-Per-card prose (`company`, `blurb`) lives in each ticker file's YAML front
-matter, so it sits next to the thesis rather than in the template.
+`tickers/<SYM>/news.md`, auto-linked to the latest `reports/<YYYY-MM-DD>/<SYM>.md`.
+Per-card prose (`company`, `blurb`) lives in each news.md's YAML front matter,
+so it sits next to the thesis rather than in the template.
+
+Note the symbol comes from the *parent directory* name, not the filename — every
+news.md is called `news.md`. A folder without a news.md is skipped rather than
+crashing the build, so a half-created ticker folder can't take the site down.
 
 Runs wherever the site is built — `scripts/build-site.sh`, `scripts/serve-site.sh`,
 and the GitHub Pages deploy — since all of them invoke mkdocs.
@@ -55,15 +60,15 @@ def on_config(config):
     reports_dir = os.path.join(docs_dir, "reports")
 
     cards = []
-    for path in sorted(glob.glob(os.path.join(docs_dir, "tickers", "*.md"))):
-        sym = os.path.splitext(os.path.basename(path))[0]
+    for path in sorted(glob.glob(os.path.join(docs_dir, "tickers", "*", "news.md"))):
+        sym = os.path.basename(os.path.dirname(path))
         meta = _front_matter(path)
         cards.append(
             {
                 "sym": sym,
                 "company": meta.get("company", ""),
                 "blurb": meta.get("blurb", ""),
-                "monitor": f"tickers/{sym}/",
+                "monitor": f"tickers/{sym}/news/",
                 "report": _latest_report(reports_dir, sym),
             }
         )

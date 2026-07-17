@@ -39,9 +39,10 @@ jobs:
             Then read and follow daily-watch.md in this repo exactly, end to
             end. It is self-contained and references the framework/ files in
             the same repo (standing-rules.md and latest-updates-workflow.md).
-            This includes: scanning each
-            ticker in tickers/ for news, tagging Tripwire/Edge hits per the
-            framework, appending to each ticker's Recent News Log, committing
-            and pushing any changes to the default branch, and producing the
-            final run summary (tripwires first, per-ticker recap conditional
-            on a hit).
+            This includes: enumerating the ticker folders under tickers/ (one
+            folder per watched ticker, each holding that ticker's news.md) and
+            scanning each for news, tagging Tripwire/Edge hits per the
+            framework, appending to each ticker's news.md Recent News Log,
+            committing and pushing any changes to the default branch, and
+            producing the final run summary (tripwires first, per-ticker recap
+            conditional on a hit).
