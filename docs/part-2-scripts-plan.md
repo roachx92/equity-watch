@@ -6,7 +6,7 @@ Part 1 reorganized the markdown. Part 2 moves the remaining **deterministic** wo
 
 ## Backlog
 
-1. **Deep-dive reports → markdown-in-git, published via GitHub Pages.** *(Was: `.docx` → Google Drive sync — dropped.)* Reports live as `reports/<YYYY-MM-DD>/<TICKER>.md` (git is the source of truth) and the repo is published as a MkDocs Material site with a bespoke "Research Desk" homepage. No `.docx`, no Drive, no external auth. **Follow-on (deterministic, deferred):** a "latest report per ticker" resolver script so the ticker pointer updates itself instead of by hand.
+1. **Deep-dive reports → markdown-in-git, published via GitHub Pages.** *(Was: `.docx` → Google Drive sync — dropped.)* Reports live as `tickers/<TICKER>/reports/<YYYY-MM-DD>.md` (git is the source of truth) and the repo is published as a MkDocs Material site with a bespoke "Research Desk" homepage. No `.docx`, no Drive, no external auth. **Follow-on (deterministic, deferred):** a "latest report per ticker" resolver script so the ticker pointer updates itself instead of by hand.
 
 2. **Ticker enumeration. — DONE.** The watch-list is derived from a `tickers/*/` folder glob (each holding a `news.md`): `daily-watch.md` enumerates the directory at run start and dispatches one sub-agent per ticker folder found; the hardcoded name-lists and "four sub-agents" counts are gone, and CLAUDE.md/README point at the directory as the source of truth. Adding a ticker is now "drop in a folder with a news.md." *(Kept as a prose instruction to the agent — no script needed, since the routine already runs `ls tickers/`.)*
 

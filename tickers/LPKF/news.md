@@ -5,7 +5,7 @@ blurb: "Pure-play IP leader in LIDE glass-substrate structuring equipment — a 
 
 # LPKF — LPKF Laser & Electronics SE (Xetra: LPK / OTC: LPKFF)
 
-**Canonical deep-dive:** [`reports/2026-07-14/LPKF.md`](../../reports/2026-07-14/LPKF.md) (generated 2026-07-14). Full-diligence snapshots land at `reports/<YYYY-MM-DD>/LPKF.md`; this line links to the latest. This file holds only the monitoring state.
+**Canonical deep-dive:** [`reports/2026-07-14.md`](reports/2026-07-14.md) (generated 2026-07-14). Full-diligence snapshots land at `reports/<YYYY-MM-DD>.md`; this line links to the latest. This file holds only the monitoring state.
 
 ## Thesis context (one-paragraph)
 LPKF is the pure-play, IP-protected leader in LIDE (Laser-Induced Deep Etching) glass-substrate structuring equipment — a picks-and-shovels play on glass-core substrates for AI advanced packaging. The core business is loss-making and cyclical; the equity is priced as an option on the glass ramp (~2027 volume, customer-gated). It ran ~3x in 2026 then pulled back; every sell-side target sits below spot.

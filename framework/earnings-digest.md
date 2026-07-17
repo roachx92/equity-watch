@@ -12,7 +12,7 @@
 
 ### I.1 Preconditions — the thesis you are assessing against must already exist
 
-1. **Check for a canonical deep-dive** (`reports/<YYYY-MM-DD>/<TICKER>.md`) and the ticker's news.md (`tickers/<TICKER>/news.md`) carrying its **Edge** and numbered **Tripwires**.
+1. **Check for a canonical deep-dive** (`tickers/<TICKER>/reports/<YYYY-MM-DD>.md`) and the ticker's news.md (`tickers/<TICKER>/news.md`) carrying its **Edge** and numbered **Tripwires**.
    - If neither exists: **build the full report first** (per [`deep-dive-template.md`](deep-dive-template.md)), create the ticker folder and news.md, derive the Edge/Tripwires into it, then run the digest. A digest with nothing to assess against is a summary, and a summary is not this workflow's output.
    - If the report exists but the news.md has no Edge/Tripwires on file, derive them from the report's **Final thoughts & conclusion** section first, and say that you did.
 2. **Read the context, don't recall it** — the ticker's news.md (quote the Edge and numbered Tripwires **verbatim**, not paraphrased), plus the canonical deep-dive's thesis synthesis, re-rate map, risks, and financials sections. These four are what the digest measures the call against; going from memory defeats the entire exercise.
@@ -135,7 +135,7 @@ The second required output part, and the analytical core. Assess the call agains
 Both get written on an earnings run. The debrief is the analysis; the log is the record. A Tripwire that fires appears in both, and in the chat digest.
 
 **The debrief file:**
-- **Prepend each new quarter — most recent first**, under a dated `## <FY period> — reported <YYYY-MM-DD>` heading. **Never overwrite a prior quarter and never edit one after the fact.** The accumulated history *is* the file's second job: it is the only place the reader can see management's story evolve across calls — a guide raised, then held, then quietly withdrawn — and a file that only holds the latest quarter throws that away. (Contrast `reports/`: immutable dated snapshots. Same discipline, different granularity.)
+- **Prepend each new quarter — most recent first**, under a dated `## <FY period> — reported <YYYY-MM-DD>` heading. **Never overwrite a prior quarter and never edit one after the fact.** The accumulated history *is* the file's second job: it is the only place the reader can see management's story evolve across calls — a guide raised, then held, then quietly withdrawn — and a file that only holds the latest quarter throws that away. (Contrast the ticker's `reports/` subfolder: immutable dated snapshots. Same discipline, different granularity.)
 - **YAML front matter and a header block** matching the ticker's news.md conventions: the `**Canonical deep-dive:**` link and a pointer back to `news.md` for the live Edge/Tripwires, so the file is navigable on the published site.
 - **A `## Guidance track record` table sits at the top of the file, above the quarters — the one part of this file that is UPDATED IN PLACE rather than prepended.** Every other rule here says never edit history; this table is the deliberate exception, because a promise and its outcome are one fact recorded at two different times. Add a row when a guide is **issued**; fill its outcome columns when the period it covered **reports**. Never delete a row — a withdrawn guide is the most informative row in the table and deleting it destroys exactly the evidence the table exists to hold.
 

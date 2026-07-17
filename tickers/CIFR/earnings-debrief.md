@@ -5,7 +5,7 @@ blurb: "Earnings debrief log — one entry per reported quarter, most recent fir
 
 # CIFR — Earnings debrief log
 
-**Canonical deep-dive:** [`reports/2026-07-15/CIFR.md`](../../reports/2026-07-15/CIFR.md) · **Live Edge & Tripwires:** [`tickers/CIFR/news.md`](news.md) — authored there and binding; this file assesses against them and never rewrites them.
+**Canonical deep-dive:** [`reports/2026-07-15.md`](reports/2026-07-15.md) · **Live Edge & Tripwires:** [`tickers/CIFR/news.md`](news.md) — authored there and binding; this file assesses against them and never rewrites them.
 
 *Built per [`framework/earnings-digest.md`](../../framework/earnings-digest.md) (Section I). Quarters are prepended, most recent first, and never overwritten. The Guidance track record below is the one part of this file updated in place.*
 

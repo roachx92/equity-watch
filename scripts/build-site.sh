@@ -6,8 +6,8 @@ cd "$(dirname "$0")/.."
 rm -rf site_src
 mkdir -p site_src
 cp index.md site_src/
-cp -R framework tickers reports site_src/
+cp -R framework tickers site_src/
 [ -d stylesheets ] && cp -R stylesheets site_src/
-rm -f site_src/reports/_template.md   # skeleton is not published
+rm -f site_src/framework/report-template.md   # skeleton is not published
 
 mkdocs build --strict "$@"
