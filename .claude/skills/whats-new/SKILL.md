@@ -93,10 +93,14 @@ there's no CI push event to hang this off of; see `scripts/notify_discord.py` fo
 daily-watch poster, which IS push-triggered).
 
 ```
-python scripts/notify_discord_ticker.py --ticker <TICKER> --text-file <path-to-digest> \
-  [--tripwire-fired]   # if any [TRIPWIRE] hit this run — colors the Discord embed red
+python scripts/notify_discord_ticker.py --ticker <TICKER> --kind whats-new --date <today's-date> \
+  --text-file <path-to-digest> [--tripwire-fired]   # if any [TRIPWIRE] hit this run — colors the embed red
 ```
 
+- **`--kind whats-new` is mandatory** — the earnings-digest skill posts to this exact same
+  per-ticker channel, so the embed title is the only thing that tells the two run types apart
+  in the Discord feed. Pass `--date <today's-date>` (Step 0's date) so the title reads
+  `<TICKER> — What's New (<date>)`.
 - Write the exact §B chat digest (the same text shown in the reply) to a scratch file and pass
   it via `--text-file` (or pipe it via stdin without that flag).
 - Pass `--tripwire-fired` whenever any `[TRIPWIRE]` hit this run — it colors the Discord embed
