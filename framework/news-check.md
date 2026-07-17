@@ -49,6 +49,7 @@ Order of the digest:
 - **Edge shifts:** one bullet per `[EDGE+]/[EDGE−]` item (group same-direction items for one ticker into a single bullet if there are several), format — **emoji-tagged (🟢 EDGE+ / 🔴 EDGE− / ⚪ EDGE live test) the same way 🚨 tags Tripwires above, and a one-line parenthetical summary of the Edge itself is inline, the same way the Tripwire bullet carries its own context inline, so no separate recap block is needed**:
   `**<TICKER> — 🟢 EDGE+ / 🔴 EDGE− / ⚪ EDGE live test** (<the Edge's variant view, condensed to one line, taken from the ticker's news.md, not memory>).** <one clause: what the item was, with its dated anchor>.`
   Omit a ticker entirely here if it had no edge activity — don't pad with "none."
+- **📅 Next checkpoints — closes the digest.** One line per ticker with a live, dated forward test (a pending Tripwire threshold, a scheduled report, a construction/regulatory milestone named in the news items above) — `<what> <date>`, comma- or bullet-separated. This is what turns "nothing fired" into an actionable forward look rather than a dead end. Omit entirely for a ticker with no live dated checkpoint to name.
 
 For a single-ticker "what's new" request this collapses naturally to that one ticker; for the daily watch it runs across every ticker checked.
 

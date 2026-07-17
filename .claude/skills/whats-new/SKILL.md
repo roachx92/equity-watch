@@ -77,8 +77,9 @@ Emit the chat digest in the **canonical format defined in `news-check.md` §B**:
 news items lead (so the reader sees what's worth logging first), then 🚨 tripwires, then edge
 shifts — each edge-shift bullet carries a **one-line summary of the Edge itself inline** (the
 same way each tripwire bullet already carries its own context inline), so there's no separate
-recap block — with the **fired-tripwire escalation override** (a 🚨 callout goes to the very top
-when any tripwire fires). A single-ticker request collapses naturally to that one ticker. Even a
+recap block — then a closing **📅 Next checkpoints** line naming any live dated forward test, all
+with the **fired-tripwire escalation override** (a 🚨 callout goes to the very top when any
+tripwire fires). A single-ticker request collapses naturally to that one ticker. Even a
 clean check (nothing fired) is a useful result — say explicitly that you checked against the
 Tripwire and Edge and nothing fired.
 
