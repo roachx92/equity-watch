@@ -8,6 +8,6 @@ mkdir -p site_src
 cp index.md site_src/
 cp -R framework tickers reports site_src/
 [ -d stylesheets ] && cp -R stylesheets site_src/
-rm -f site_src/reports/_template.md
+rm -f site_src/framework/report-template.md
 
 mkdocs serve

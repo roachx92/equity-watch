@@ -3,7 +3,7 @@ name: deep-dive
 description: >-
   Run a full-diligence equity deep-dive on a ticker in this equity-watch repo — the
   exhaustive, multi-sub-agent "run the framework" workflow that produces a dated
-  18-section report under reports/<date>/<TICKER>.md and seeds the ticker's watch-list
+  18-section report under tickers/<TICKER>/reports/<date>.md and seeds the ticker's watch-list
   file. Use this whenever the user says "run the framework on <TICKER>", "do a full
   deep-dive / full diligence / full report on <ticker or company>", "deep dive <ticker>",
   "start watching <ticker>" (a new name needs its report built first), or otherwise asks
@@ -40,7 +40,7 @@ Read these directly — they are small and purpose-scoped. Do not work from memo
    and the **four hard-coded sub-agent prompt templates** (filing, counterparty, sector in §H;
    competitive-landscape in §G). Use those templates verbatim — fill the [BRACKETS], don't
    rewrite them.
-3. **`reports/_template.md`** — the empty 18-section skeleton to copy from for the report file.
+3. **`framework/report-template.md`** — the empty 18-section skeleton to copy from for the report file.
 
 ## Step 2 — dispatch the four mandatory sub-agents, in parallel
 Per Section A and Section G/H: dispatch **four parallel research sub-agents in a single
@@ -56,7 +56,7 @@ wants more passes after the first synthesis (new material facts still surfacing)
 ## Step 3 — synthesize and write the report
 Wait for all four sub-agents, then synthesize their findings yourself (**this synthesis pass
 runs on Opus** — per §B0.1 it is the most judgment-dense step in the framework) into
-`reports/<today's-date>/<TICKER>.md`, copying the `reports/_template.md` skeleton and filling
+`tickers/<TICKER>/reports/<today's-date>.md`, copying the `framework/report-template.md` skeleton and filling
 **every section that applies** to Section B depth (§4/§5 together must satisfy the full Section G
 competitive standard; §3 renders as **four separate typed re-rate tables**, per Section D; §8
 must include the named pre-mortem; §18 must include the explicit **Edge** (variant view) and

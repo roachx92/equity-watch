@@ -7,7 +7,8 @@ ticker is added or a deep-dive is generated.
 
 This mkdocs hook scans the assembled docs tree and exposes the card data to the
 `overrides/home.html` template as `config.extra.coverage_cards`. One card per
-`tickers/<SYM>/news.md`, auto-linked to the latest `reports/<YYYY-MM-DD>/<SYM>.md`.
+`tickers/<SYM>/news.md`, auto-linked to the latest
+`tickers/<SYM>/reports/<YYYY-MM-DD>.md`.
 Per-card prose (`company`, `blurb`) lives in each news.md's YAML front matter,
 so it sits next to the thesis rather than in the template.
 
@@ -27,7 +28,7 @@ import re
 
 import yaml
 
-_DATE_DIR = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+_DATE_FILE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.md$")
 _FRONT_MATTER = re.compile(r"^---\n(.*?)\n---\n", re.DOTALL)
 
 
@@ -41,27 +42,27 @@ def _front_matter(path: str) -> dict:
     return data if isinstance(data, dict) else {}
 
 
-def _latest_report(reports_dir: str, sym: str) -> str | None:
-    """Newest `reports/<date>/<SYM>.md` as a site path, or None if none exist."""
+def _latest_report(ticker_dir: str, sym: str) -> str | None:
+    """Newest `tickers/<SYM>/reports/<date>.md` as a site path, or None if none."""
+    reports_dir = os.path.join(ticker_dir, "reports")
     dates = []
     if os.path.isdir(reports_dir):
         for entry in os.listdir(reports_dir):
-            if _DATE_DIR.match(entry) and os.path.isfile(
-                os.path.join(reports_dir, entry, f"{sym}.md")
-            ):
-                dates.append(entry)
+            match = _DATE_FILE.match(entry)
+            if match:
+                dates.append(match.group(1))
     if not dates:
         return None
-    return f"reports/{max(dates)}/{sym}/"  # ISO dates sort lexically
+    return f"tickers/{sym}/reports/{max(dates)}/"  # ISO dates sort lexically
 
 
 def on_config(config):
     docs_dir = config["docs_dir"]
-    reports_dir = os.path.join(docs_dir, "reports")
 
     cards = []
     for path in sorted(glob.glob(os.path.join(docs_dir, "tickers", "*", "news.md"))):
-        sym = os.path.basename(os.path.dirname(path))
+        ticker_dir = os.path.dirname(path)
+        sym = os.path.basename(ticker_dir)
         meta = _front_matter(path)
         cards.append(
             {
@@ -69,7 +70,7 @@ def on_config(config):
                 "company": meta.get("company", ""),
                 "blurb": meta.get("blurb", ""),
                 "monitor": f"tickers/{sym}/news/",
-                "report": _latest_report(reports_dir, sym),
+                "report": _latest_report(ticker_dir, sym),
             }
         )
 

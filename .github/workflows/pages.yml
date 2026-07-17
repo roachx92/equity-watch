@@ -6,7 +6,6 @@ on:
     paths:
       - "framework/**"
       - "tickers/**"
-      - "reports/**"
       - "index.md"
       - "overrides/**"
       - "stylesheets/**"

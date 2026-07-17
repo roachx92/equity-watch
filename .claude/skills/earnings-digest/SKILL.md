@@ -50,7 +50,7 @@ Read these directly — do not work from memory of them:
 ## Step 2 — confirm the thesis exists (else build it first)
 Per §I.1: a digest measures a call **against** something, and with nothing to measure against it
 degrades into a summary. Check for `tickers/<TICKER>/news.md` carrying an **Edge** and numbered
-**Tripwires**, and the `reports/<date>/<TICKER>.md` it links. **If the name isn't covered yet,
+**Tripwires**, and the `tickers/<TICKER>/reports/<date>.md` it links. **If the name isn't covered yet,
 build the deep-dive first** (use the `deep-dive` skill), then continue here. If the report exists
 but the news.md has no Edge/Tripwires, derive them from the report's Final thoughts & conclusion
 section first and say that you did.

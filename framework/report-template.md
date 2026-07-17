@@ -6,7 +6,8 @@
 
 *<One-line italic positioning tagline — what this name actually is, in a sentence.>*
 
-> Copied from `reports/_template.md`. Apply `framework/deep-dive-template.md` — **including §B0
+> Copy this scaffold (`framework/report-template.md`) to `tickers/<TICKER>/reports/<YYYY-MM-DD>.md`.
+> Apply `framework/deep-dive-template.md` — **including §B0
 > (output architecture), which is non-negotiable** — under `framework/standing-rules.md`.
 > Run the orchestrator and all four sub-agents on **Opus** (B0.1) and record the model below.
 > Delete this blockquote before publishing.

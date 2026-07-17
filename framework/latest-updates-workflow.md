@@ -10,8 +10,8 @@
 
 *Triggered by requests like "latest on [ticker]," "what's new with X," "any updates on X."*
 
-1. **Check whether a full framework report already exists** for the ticker (`reports/<YYYY-MM-DD>/<TICKER>.md`, with the Edge/Tripwires mirrored into the ticker's news.md at `tickers/<TICKER>/news.md`).
-   - If not: **build the full report first** (per `deep-dive-template.md`, written as a dated markdown report in `reports/`), create the ticker's folder and news.md, derive the §18 Edge/Tripwires into it, then continue.
+1. **Check whether a full framework report already exists** for the ticker (`tickers/<TICKER>/reports/<YYYY-MM-DD>.md`, with the Edge/Tripwires mirrored into the ticker's news.md at `tickers/<TICKER>/news.md`).
+   - If not: **build the full report first** (per `deep-dive-template.md`, written as a dated markdown report at `tickers/<TICKER>/reports/<YYYY-MM-DD>.md`), create the ticker's folder and news.md, derive the §18 Edge/Tripwires into it, then continue.
 2. **Search for recent news/events** tied to the stock since the last dated entry in the ticker's Recent News Log (or since report creation, if this is the first check) — using the agentic **parallel research sub-agent** method in [`news-check.md`](news-check.md) §A (self-contained sub-agent prompts, source-quality guidance, first-run ~14-day window). Don't research single-threaded — dispatch a thorough sub-agent pass on the ticker (or several in parallel split by research angle) for the same search quality the daily watch uses.
 3. **Categorize each event against the framework's own sections** — Business model, Catalysts, Re-rate drivers, Moat/Competition, Technological moat/competing tech, Secular positioning, Financials/Capital stack, Risks/Concentration/Geopolitics, Bull/Base/Bear, Bottleneck fit, Sentiment, Asymmetry, Management/Insider activity, Valuation multiples, Investment thesis — to gauge which part of the thesis it actually touches.
 4. **Assess every event against the §18 Tripwire and Edge — MANDATORY.** For each piece of news, explicitly ask:
@@ -33,7 +33,7 @@
 ### Where it goes
 
 - **Append to the `## Recent News Log` in the ticker's news.md — `tickers/<TICKER>/news.md` — most recent first.** Each watched ticker is a **folder** under `tickers/`, named for the symbol, holding that ticker's `news.md` (thesis context, Edge, numbered Tripwires, and the living log). The folder is the unit of the watch-list; the news.md is its state.
-- **Never to the deep-dive report.** `reports/<YYYY-MM-DD>/<TICKER>.md` is a dated point-in-time snapshot and is immutable once published; ongoing news accumulates **only** in the ticker's news.md.
+- **Never to the deep-dive report.** `tickers/<TICKER>/reports/<YYYY-MM-DD>.md` is a dated point-in-time snapshot and is immutable once published; ongoing news accumulates **only** in the ticker's news.md.
 - **Never add "no news" placeholder entries.** If a ticker's research pass found nothing material within the window, leave that ticker's log unchanged. A clean check gets reported in the chat digest, not written to the file.
 
 ### Format

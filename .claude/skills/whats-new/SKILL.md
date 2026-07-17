@@ -43,7 +43,7 @@ Read these directly (small, purpose-scoped) — do not work from memory of them:
 Per Section F step 1: a "what's new" check presupposes a full report and the §18 Edge/Tripwires
 already exist. Each watched ticker is a **folder** under `tickers/`, named for the symbol,
 holding that ticker's **news.md**. Check for `tickers/<TICKER>/news.md` with an Edge and numbered
-Tripwires (and a `reports/<date>/<TICKER>.md` it links). **If the name isn't covered yet, build
+Tripwires (and a `tickers/<TICKER>/reports/<date>.md` it links). **If the name isn't covered yet, build
 the deep-dive first** (use the `deep-dive` skill / `framework/deep-dive-template.md`), which
 creates the ticker's folder and news.md and derives the Edge/Tripwires into it, then continue
 here.
