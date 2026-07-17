@@ -108,6 +108,30 @@ reply. If any Tripwire fired, its 🚨 line leads the entire reply (§I.4(d) esc
 analysis — the numbers, cash-conversion, sector cross-check, and four-part assessment — lives in
 `earnings-debrief.md`, not the chat reply.
 
+## Step 6 — post the digest to the ticker's Discord channel
+Immediately after producing the run summary, post it to that ticker's Discord channel via
+`scripts/notify_discord_ticker.py` — runs locally, right in the session, regardless of whether
+anything was committed or pushed to GitHub.
+
+```
+python scripts/notify_discord_ticker.py --ticker <TICKER> --kind earnings-digest --date <today's-date> \
+  --text-file <path-to-digest> [--tripwire-fired]   # if any [TRIPWIRE] hit this run — colors the embed red
+```
+
+- **`--kind earnings-digest` is mandatory** — the whats-new skill posts to this exact same
+  per-ticker channel, so the embed title is the only thing that tells the two run types apart
+  in the Discord feed. Pass `--date <today's-date>` so the title reads
+  `<TICKER> — Earnings Digest (<date>)`.
+- Write the exact chat reply produced in Step 5 to a scratch file and pass it via `--text-file`
+  (or pipe it via stdin without that flag).
+- Pass `--tripwire-fired` whenever any `[TRIPWIRE]` fired this run.
+- **The script skips gracefully (exit 0, a one-line stderr note) if the ticker has no webhook
+  configured** in `.secrets/discord-webhooks.json` (local, gitignored — see
+  `.secrets/discord-webhooks.example.json` for the template). Don't treat this as a failure and
+  don't block the chat reply on it.
+- If it posts successfully, say so in one line at the end of the chat reply. If it skipped (not
+  configured), don't mention Discord at all.
+
 ## Guardrails
 - **Not financial advice** — flag it; this workflow is decision-shaped by construction.
   Informational research tooling only.

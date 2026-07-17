@@ -31,9 +31,13 @@ A live monitoring repo for a daily "What's New" equity watch. A Claude Code Remo
   newly added summary to Discord via the poster. **This is the daily-watch (scheduled,
   all-tickers) path — push-triggered.**
 - `scripts/notify_discord_ticker.py` — the **ad-hoc, single-ticker** Discord poster,
-  run locally by the `whats-new` skill at the end of every `/whats-new <TICKER>` run
-  (not push-triggered — an ad-hoc check isn't committed/pushed every time). Looks up
-  the ticker in `.secrets/discord-webhooks.json` (local, gitignored — see
+  run locally by both the `whats-new` and `earnings-digest` skills at the end of every
+  `/whats-new <TICKER>` or `/earnings-digest <TICKER>` run (not push-triggered — an
+  ad-hoc check isn't committed/pushed every time). **Both run types post to the same
+  per-ticker channel**, so `--kind whats-new|earnings-digest` is mandatory and titles
+  the embed `<TICKER> — What's New (<date>)` or `<TICKER> — Earnings Digest (<date>)`
+  so the two are distinguishable in the Discord feed. Looks up the ticker in
+  `.secrets/discord-webhooks.json` (local, gitignored — see
   `.secrets/discord-webhooks.example.json` for the template) and posts the chat digest
   to that ticker's channel; **skips gracefully, no error, if the ticker has no webhook
   configured.**

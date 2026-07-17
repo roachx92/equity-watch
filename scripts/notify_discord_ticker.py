@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Post an ad-hoc /whats-new chat digest to a ticker's Discord channel.
+"""Post an ad-hoc chat digest (whats-new or earnings-digest) to a ticker's Discord channel.
 
-Run locally at the end of a /whats-new <TICKER> session (not CI-triggered —
-ad-hoc runs aren't pushed to GitHub on every check, so there's no push event
-to hang a GitHub Action off of). Looks up TICKER in a local, gitignored
-webhook-URL config and posts the digest text to that channel.
+Run locally at the end of a /whats-new or /earnings-digest <TICKER> session (not
+CI-triggered — ad-hoc runs aren't pushed to GitHub on every check, so there's no
+push event to hang a GitHub Action off of). Looks up TICKER in a local, gitignored
+webhook-URL config and posts the digest text to that channel. Both run types post
+to the same per-ticker channel, so the embed title always names which kind of run
+produced it — otherwise the two are indistinguishable in the Discord feed.
 
 Python 3 stdlib only.
 """
@@ -18,6 +20,11 @@ from discord_common import chunk, post  # noqa: E402
 
 DEFAULT_CONFIG = Path(__file__).resolve().parents[1] / ".secrets" / "discord-webhooks.json"
 
+KIND_LABELS = {
+    "whats-new": "What's New",
+    "earnings-digest": "Earnings Digest",
+}
+
 
 def load_webhooks(config_path):
     path = Path(config_path)
@@ -28,10 +35,12 @@ def load_webhooks(config_path):
     return {k.strip().upper(): v for k, v in raw.items() if v}
 
 
-def build_header(ticker, tripwire_fired):
+def build_header(ticker, tripwire_fired, kind, date):
+    label = KIND_LABELS.get(kind, kind)
+    title = f"{ticker} — {label}" + (f" ({date})" if date else "")
     return {
         "embeds": [{
-            "title": f"{ticker} — What's New",
+            "title": title,
             "color": 0xD9342B if tripwire_fired else 0x2ECC71,
         }]
     }
@@ -45,9 +54,22 @@ def main(argv=None):
             stream.reconfigure(encoding="utf-8", errors="replace")
 
     ap = argparse.ArgumentParser(
-        description="Post a /whats-new chat digest to a ticker's Discord webhook."
+        description="Post a whats-new or earnings-digest chat digest to a ticker's Discord webhook."
     )
     ap.add_argument("--ticker", required=True, help="ticker symbol, e.g. LPKF")
+    ap.add_argument(
+        "--kind",
+        required=True,
+        choices=sorted(KIND_LABELS),
+        help="which run produced this digest — titles the Discord embed so the two are "
+             "distinguishable in the feed (both post to the same per-ticker channel)",
+    )
+    ap.add_argument(
+        "--date",
+        default=None,
+        help="the run's date (YYYY-MM-DD, from the session's current-date context — "
+             "not inferred), shown in the embed title",
+    )
     ap.add_argument(
         "--text-file",
         default=None,
@@ -80,7 +102,7 @@ def main(argv=None):
     webhooks = load_webhooks(args.config)
     webhook = webhooks.get(ticker)
 
-    messages = [build_header(ticker, args.tripwire_fired)]
+    messages = [build_header(ticker, args.tripwire_fired, args.kind, args.date)]
     messages += [{"content": c} for c in chunk(body)]
 
     if args.dry_run:
