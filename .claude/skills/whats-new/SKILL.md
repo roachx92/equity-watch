@@ -75,11 +75,12 @@ Wait for the sub-agents, then yourself:
 ## Step 5 — produce the run summary
 Emit the chat digest in the **canonical format defined in `news-check.md` §B**: the per-ticker
 news items lead (so the reader sees what's worth logging first), then 🚨 tripwires, then edge
-shifts, then the conditional Edge & Tripwires recap — with the **fired-tripwire escalation
-override** (a 🚨 callout goes to the very top when any tripwire fires). A single-ticker request
-collapses naturally to that one ticker. Even a clean check (nothing fired) is a useful result —
-say explicitly that you checked against the Tripwire
-and Edge and nothing fired.
+shifts — each edge-shift bullet carries a **one-line summary of the Edge itself inline** (the
+same way each tripwire bullet already carries its own context inline), so there's no separate
+recap block — with the **fired-tripwire escalation override** (a 🚨 callout goes to the very top
+when any tripwire fires). A single-ticker request collapses naturally to that one ticker. Even a
+clean check (nothing fired) is a useful result — say explicitly that you checked against the
+Tripwire and Edge and nothing fired.
 
 ## Step 6 — post the digest to the ticker's Discord channel
 Immediately after producing the run summary, post it to that ticker's Discord channel via
