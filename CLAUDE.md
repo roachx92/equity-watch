@@ -23,9 +23,18 @@ A live monitoring repo for a daily "What's New" equity watch. A Claude Code Remo
   run. Consumed by the Discord notification Action; also the daily heartbeat.
 - `scripts/notify_discord.py` — dependency-free poster: parses a summary file,
   builds a colored header embed, chunks the body under Discord's limit, POSTs to
-  the `DISCORD_WEBHOOK_URL` webhook. Locally runnable with `--dry-run`.
+  the `DISCORD_WEBHOOK_URL` webhook. Locally runnable with `--dry-run`. Shares its
+  chunking/POST logic with `scripts/discord_common.py`.
 - `.github/workflows/notify-discord.yml` — on push to `summaries/**`, posts each
-  newly added summary to Discord via the poster.
+  newly added summary to Discord via the poster. **This is the daily-watch (scheduled,
+  all-tickers) path — push-triggered.**
+- `scripts/notify_discord_ticker.py` — the **ad-hoc, single-ticker** Discord poster,
+  run locally by the `whats-new` skill at the end of every `/whats-new <TICKER>` run
+  (not push-triggered — an ad-hoc check isn't committed/pushed every time). Looks up
+  the ticker in `.secrets/discord-webhooks.json` (local, gitignored — see
+  `.secrets/discord-webhooks.example.json` for the template) and posts the chat digest
+  to that ticker's channel; **skips gracefully, no error, if the ticker has no webhook
+  configured.**
 - `docs/part-2-scripts-plan.md` — planned migration of deterministic tasks to scripts.
 
 ## Section → file lookup

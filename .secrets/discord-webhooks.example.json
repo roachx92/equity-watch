@@ -1,0 +1,5 @@
+{
+  "_comment": "Copy this file to .secrets/discord-webhooks.json (gitignored) and fill in real webhook URLs. Keys are ticker symbols, case-insensitive. A ticker not listed here is simply skipped (no post, no error).",
+  "LPKF": "https://discord.com/api/webhooks/REPLACE_ME",
+  "CIFR": "https://discord.com/api/webhooks/REPLACE_ME"
+}

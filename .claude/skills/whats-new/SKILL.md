@@ -81,6 +81,31 @@ collapses naturally to that one ticker. Even a clean check (nothing fired) is a 
 say explicitly that you checked against the Tripwire
 and Edge and nothing fired.
 
+## Step 6 — post the digest to the ticker's Discord channel
+Immediately after producing the run summary, post it to that ticker's Discord channel via
+`scripts/notify_discord_ticker.py` — **this runs locally, right in the session, regardless of
+whether anything was committed or pushed to GitHub** (ad-hoc runs don't push on every check, so
+there's no CI push event to hang this off of; see `scripts/notify_discord.py` for the *separate*
+daily-watch poster, which IS push-triggered).
+
+```
+python scripts/notify_discord_ticker.py --ticker <TICKER> --text-file <path-to-digest> \
+  [--tripwire-fired]   # if any [TRIPWIRE] hit this run — colors the Discord embed red
+```
+
+- Write the exact §B chat digest (the same text shown in the reply) to a scratch file and pass
+  it via `--text-file` (or pipe it via stdin without that flag).
+- Pass `--tripwire-fired` whenever any `[TRIPWIRE]` hit this run — it colors the Discord embed
+  red instead of green, mirroring the daily-watch poster's convention.
+- **The script skips gracefully (exit 0, a one-line stderr note) if the ticker has no webhook
+  configured** in `.secrets/discord-webhooks.json` (a local, gitignored file — see
+  `.secrets/discord-webhooks.example.json` for the template). This is expected for tickers that
+  don't have a Discord channel set up yet — don't treat it as a failure, and don't block the
+  chat reply on it.
+- If it posts successfully, say so in one line at the end of the chat reply (e.g. "Posted to
+  #lpkf-watch."). If it skipped (not configured), don't mention Discord at all — a silent skip
+  is the correct behavior for an unconfigured ticker.
+
 ## Guardrails
 - Not financial advice — informational research tooling only. Never fabricate a figure or a
   source; if a source has no linkable URL, say so rather than omitting it silently.
