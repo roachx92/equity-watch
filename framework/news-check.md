@@ -34,19 +34,22 @@ If a ticker's Recent News Log is empty (first-ever check), search back **~14 day
 
 ## B. Run-summary output format
 
-Produce a short chat-reply digest, **TRIPWIRES FIRST.** The full multi-paragraph detail lives in each ticker's `## Recent News Log` (in that **ticker's news.md** — `tickers/<TICKER>/news.md`), not the chat reply — EXCEPT the Tripwires/Edge-shifts bullets below, which each get one detailed line per hit, not just a bare list:
+Produce a short chat-reply digest that **leads with the actual news items found** — so the reader sees what's worth recording in the log before any assessment — then gives the tripwire/edge assessment beneath. The full multi-paragraph detail lives in each ticker's `## Recent News Log` (in that **ticker's news.md** — `tickers/<TICKER>/news.md`), not the chat reply — EXCEPT the Tripwires/Edge-shifts bullets below, which each get one detailed line per hit, not just a bare list.
 
+**Escalation override — a fired tripwire always leads.** If any `[TRIPWIRE]` fired this run, put its 🚨 callout at the very TOP of the reply, above the items list — a fired tripwire is the highest-priority output and must never be buried under routine news. Absent a fired tripwire, the items list leads. Either way, when a tripwire fires the digest headline must say so.
+
+Order of the digest:
+
+- **Per-ticker items — FIRST.** List every substantive item found this run, one per item, most recent first, as a **headline + one-sentence abridged digest** — a step up from headline-only, but still NOT the full multi-clause paragraph (that stays in the ticker's news.md Recent News Log). Format — **the `[FRAMEWORK-TAG]` goes at the END of the line**, so the headline and its impact read first:
+  `YYYY-MM-DD — **Headline**. One-sentence abridged digest of what happened → brief impact. [TRIPWIRE #n / EDGE+ / EDGE− if applicable] [FRAMEWORK-TAG]`
+  Keep the digest to one sentence per item. If nothing material was found for a ticker, write "nothing material" instead of a list.
 - **🚨 TRIPWIRES:** one bullet per `[TRIPWIRE]` hit (across every ticker checked this run), format:
   `**<TICKER> Tripwire #n — <status, e.g. "live, unresolved" / "early-warning" / "checked, does not fire">.** <one clause: what happened, why it matters, and the next test/date if still pending>.`
   If a ticker had no tripwire activity, a one-line `<TICKER>: none` is enough — don't pad it. If nothing fired anywhere, just say "none."
 - **Edge shifts:** one bullet per `[EDGE+]/[EDGE−]` item (group same-direction items for one ticker into a single bullet if there are several), format:
   `**<TICKER> — EDGE+ / EDGE− / EDGE live test.** <one clause: what the item was, with its dated anchor>.`
   Omit a ticker entirely here if it had no edge activity — don't pad with "none."
-- **Per-ticker items:** list every substantive item found this run, one per item, most recent first, as a **headline + one-sentence abridged digest** — a step up from headline-only, but still NOT the full multi-clause paragraph (that stays in the ticker's news.md Recent News Log). Format:
-  `YYYY-MM-DD — [FRAMEWORK-TAG] — **Headline**. One-sentence abridged digest of what happened → brief impact. [TRIPWIRE #n / EDGE+ / EDGE− if applicable]`
-  Keep the digest to one sentence per item. If nothing material was found for a ticker, write "nothing material" instead of a list.
 - **Per-ticker Edge & Tripwires recap — conditional on a hit:** if the ticker had a `[TRIPWIRE]` or `[EDGE+]`/`[EDGE−]` tag this run, restate (condensed, taken from the ticker's news.md, not memory) its current Edge one-liner and its numbered Tripwires, so the reader sees what fired against what's being watched. If nothing fired for that ticker this run, skip the full recap and give one line instead: `<TICKER>: unchanged — Edge and Tripwires as before, nothing fired.`
-- If a tripwire fired, the digest headline must say so.
 
 For a single-ticker "what's new" request this collapses naturally to that one ticker; for the daily watch it runs across every ticker checked.
 
