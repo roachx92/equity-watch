@@ -90,6 +90,13 @@ Hunt for all four kinds:
 - [ ] **Distinguish a price move from a re-rate.** Did the multiple actually change, or did the price track earnings through a flat multiple? Only the former is a re-rate (Section A).
 - [ ] **A large residual in either direction is itself a finding** — the market saw something in this print. Name what, or say plainly that you can't identify it and that the gap is unresolved.
 
+**(f) Part 1 in brief — the chat-reply summary. MANDATORY.** Close Part 1 with a short emoji-bullet digest of its highest-signal findings, in the same scannable style as the Final Thoughts blocks (§I.6). **This block is appended to the end of Part 1 in the debrief AND lifted verbatim into the chat reply (§I.7)** — the dense tables and prose above it stay in the file and are *not* reproduced in chat. One line per point, ~5 bullets, each emoji-anchored; include a bullet only where there's a real finding:
+- 📊 **The numbers** — the headline result vs. guide / consensus, and the single distortion that matters (the misread the *Read* column caught).
+- 💵 **Cash conversion** — did revenue turn into cash; the one working-capital finding (e.g. an OCF "turn" that's really a payables build).
+- 🏭 **Sector read** — management's key demand/pricing claim, tagged by the peer cross-check: ✅ corroborated · ❌ contradicted · ⚠️ mixed.
+- 🔇 **What wasn't said** — any dropped / redefined / withheld metric, or "nothing dropped — clean check" when the check came back clean (a clean check is a real result, §I.3(d)).
+- 🎢 **The reaction** — the company-specific residual after stripping the sector, and whether it was a genuine re-rate or price tracking earnings through a flat multiple.
+
 ### I.4 Part 2 — Assessment: what the call does to the thesis
 
 The second required output part, and the analytical core. Assess the call against **four things, each as its own sub-heading — never merged**. An empty heading must be visibly empty, so a bucket the call genuinely didn't touch gets an explicit "unchanged, and here's why that's the right read" rather than a silent omission.
@@ -109,6 +116,12 @@ The second required output part, and the analytical core. Assess the call agains
 - [ ] **If any Tripwire fires: escalate.** Flag it at the top of the chat reply **and** at the top of the debrief entry, name which numbered trigger fired and how close it sits to its stated threshold, and restate the **pre-committed action** (exit / re-underwrite). Never bury it inside the quarter's narrative.
 - [ ] **Assess the Edge separately** — did the print corroborate the variant view (**EDGE+**) or show consensus was right (**EDGE−**)? An accumulation of EDGE− across quarters means the differentiated thesis is failing even with no single Tripwire fired — and an earnings-debrief.md with several quarters on file is exactly where that pattern becomes visible. **Say so explicitly when you see it.**
 - [ ] **Never silently rewrite the Edge or the Tripwires.** They are pre-committed in the ticker's news.md and are binding. A digest that softens a threshold a print just crossed has inverted the entire purpose of committing to it in advance. Flag it, state the pre-committed action, and leave the re-underwrite as an explicit decision for the reader to make deliberately.
+
+**(e) Part 2 in brief — the chat-reply summary. MANDATORY.** Close Part 2 with a short emoji-bullet digest of what the call did to the thesis, in the same scannable style as the Final Thoughts blocks (§I.6). **Appended to the end of Part 2 in the debrief AND lifted verbatim into the chat reply (§I.7)** — the four-part assessment above it stays in the file and is *not* reproduced in chat. One line per point, ~4 bullets:
+- 🎯 **Thesis legs** — which legs the call *supported* / *weakened* / *left untested*, named specifically.
+- 🔄 **Re-rate** — which of the four buckets the print moved, and whether it *removed* a discount or *added* one (a re-rate, not just a price move).
+- ⚠️ **Risks** — what *escalated* / *de-escalated* / *newly surfaced*, plus the updated Pre-Mortem in one clause.
+- 🚨 **Tripwires & Edge** — each Tripwire's status (🚨 fires · ⚠️ early-warning, distance stated · ✅ checked, does not fire) and the Edge tag (🟢 EDGE+ / 🔴 EDGE−). **If any Tripwire fires, this bullet leads the entire chat reply** (the §I.4(d) escalation rule), above even the lead line.
 
 ### I.5 Storage — the debrief file, and the split with news.md
 
@@ -165,8 +178,14 @@ The third required output part. The closing wrap for the *whole digest*, not a r
 
 ### I.7 Chat reply
 
-Produce the run digest in the canonical format defined in [`news-check.md`](news-check.md) **§B — TRIPWIRES FIRST**, scoped to the one ticker, so an earnings run and a routine watch run read identically. Add one lead line above it: the quarter, the headline result against the guide, and the **net assessment** — thesis strengthened / weakened / unchanged.
+**The chat reply is assembled entirely from the three parts' own emoji-bullet summaries — there is no separate news-check §B digest.** Each part already ends with its scannable summary block in the debrief; the chat reply lifts those three blocks verbatim, in order, and nothing else. Structure:
 
-**Then append the entire §I.6 Final Thoughts section — every block, verbatim from the debrief, with its emoji markers — immediately after the §B digest and before the debrief link.** All seven blocks come across in order: **(1)** the read in one line, **(2)** the directional lean (🔴/🟢, horizon-split), **(3)** the ✅ priority-ordered "What to watch" list with pass/fail per item (#1 flagged ⚠️), **(4)** 💲 where the price sits, **(5)** 🔀 what would flip the read, **(6)** the 3–4 points behind the lean, and **(7)** the bottom line. **This is not optional and is not reduced to a summary, a single block, or a one-liner** — the chat reply is the surface the reader actually reads after an earnings run, and Final Thoughts *is* the reader's action layer: the verdict, the watch list, the flip triggers, and the price read are exactly what a reader needs in the reply, not only in the file. Reproduce them as written in the debrief (§I.6 already caps this section's length and mandates its scannable form, so appending it whole does not bloat the reply). Close with the link to the debrief file. The rest of the digest — the numbers breakdown, cash-conversion table, sector cross-check, and the four-part assessment (§I.3–I.4) — stays in `earnings-debrief.md` and is *not* reproduced in the chat reply.
+1. **Lead line** — the quarter, the headline result against the guide, and the **net assessment**: thesis strengthened / weakened / unchanged.
+2. **Part 1 in brief** (§I.3(f)) — the 📊/💵/🏭/🔇/🎢 emoji-bullet summary, verbatim.
+3. **Part 2 in brief** (§I.4(e)) — the 🎯/🔄/⚠️/🚨 emoji-bullet summary, verbatim.
+4. **Final Thoughts** (§I.6) — all seven blocks, verbatim from the debrief with their emoji markers: **(1)** the read in one line, **(2)** the 🔴/🟢 directional lean (horizon-split), **(3)** the ✅ "What to watch" list with pass/fail per item (#1 flagged ⚠️), **(4)** 💲 where the price sits, **(5)** 🔀 what would flip the read, **(6)** the 3–4 points behind the lean, **(7)** the bottom line.
+5. **Link** to the debrief file.
 
-**Reference instance — the shape every chat reply's appended Final Thoughts must take:** [`tickers/CIFR/earnings-debrief.md`](../tickers/CIFR/earnings-debrief.md) **§3** (Q1'26). That rendered section — its seven blocks, emoji markers, and pass/fail bullets — is the live template; read it there rather than from a copy here, and substitute the subject ticker's own content while keeping the structure and markers. (Per the repo's "referenced never restated" discipline, the format is not duplicated into this file — the debrief §3 is its one home.)
+**Tripwire escalation overrides the order:** if any Tripwire fires, its 🚨 line leads the entire reply — above the lead line — per §I.4(d). **None of the three summaries is optional or reducible to a one-liner** — together they *are* the chat reply, and each is the scannable surface of its part. Everything below the summaries — Part 1's tables and prose, Part 2's four-part assessment (§I.3–I.4 bodies) — stays in `earnings-debrief.md` and is **not** reproduced in chat.
+
+**Reference instance — the shape the appended Final Thoughts must take:** [`tickers/CIFR/earnings-debrief.md`](../tickers/CIFR/earnings-debrief.md) **§3** (Q1'26). That rendered section — its seven blocks, emoji markers, and pass/fail bullets — is the live template; read it there rather than from a copy here, and substitute the subject ticker's own content while keeping the structure and markers. (Per the repo's "referenced never restated" discipline, the format is not duplicated into this file — the debrief §3 is its one home.)
