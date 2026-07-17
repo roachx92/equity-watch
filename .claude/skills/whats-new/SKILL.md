@@ -73,10 +73,12 @@ Wait for the sub-agents, then yourself:
 - **Commit** the updated news.md if anything changed (e.g. `whats-new: <TICKER> <date>`).
 
 ## Step 5 — produce the run summary
-Emit the chat digest in the **canonical format defined in `news-check.md` §B — TRIPWIRES FIRST**,
-then edge shifts, then per-ticker headline + one-sentence items, then the conditional Edge &
-Tripwires recap. A single-ticker request collapses naturally to that one ticker. Even a clean
-check (nothing fired) is a useful result — say explicitly that you checked against the Tripwire
+Emit the chat digest in the **canonical format defined in `news-check.md` §B**: the per-ticker
+news items lead (so the reader sees what's worth logging first), then 🚨 tripwires, then edge
+shifts, then the conditional Edge & Tripwires recap — with the **fired-tripwire escalation
+override** (a 🚨 callout goes to the very top when any tripwire fires). A single-ticker request
+collapses naturally to that one ticker. Even a clean check (nothing fired) is a useful result —
+say explicitly that you checked against the Tripwire
 and Edge and nothing fired.
 
 ## Guardrails

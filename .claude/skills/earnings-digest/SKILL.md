@@ -97,10 +97,14 @@ accommodate what a print just did; flag it and leave the re-underwrite as the re
 decision.
 
 ## Step 5 — produce the run summary
-Emit the chat digest in the **canonical `news-check.md` §B format — TRIPWIRES FIRST**, scoped to
-the one ticker, per §I.7. Add one lead line above it: the quarter, the headline result against
-the guide, and the **net assessment** — thesis strengthened / weakened / unchanged. Then link the
-debrief file. The full analysis lives in `earnings-debrief.md`, not the chat reply.
+Emit the chat reply **per `framework/earnings-digest.md` §I.7**: it is assembled from the three
+parts' own emoji-bullet summaries — a lead line (quarter, headline result vs. guide, net
+assessment: thesis strengthened / weakened / unchanged), then **Part 1 in brief** (§I.3(f)),
+**Part 2 in brief** (§I.4(e)), then the full **Final Thoughts** block (§I.6, all seven blocks),
+then the link to the debrief file. There is **no news-check §B digest** in the earnings chat
+reply. If any Tripwire fired, its 🚨 line leads the entire reply (§I.4(d) escalation). The full
+analysis — the numbers, cash-conversion, sector cross-check, and four-part assessment — lives in
+`earnings-debrief.md`, not the chat reply.
 
 ## Guardrails
 - **Not financial advice** — flag it; this workflow is decision-shaped by construction.
