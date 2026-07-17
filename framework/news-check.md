@@ -41,15 +41,15 @@ Produce a short chat-reply digest that **leads with the actual news items found*
 Order of the digest:
 
 - **Per-ticker items — FIRST.** List every substantive item found this run, one per item, most recent first, as a **headline + one-sentence abridged digest** — a step up from headline-only, but still NOT the full multi-clause paragraph (that stays in the ticker's news.md Recent News Log). Format — **the `[FRAMEWORK-TAG]` goes at the END of the line**, so the headline and its impact read first:
-  `YYYY-MM-DD — **Headline**. One-sentence abridged digest of what happened → brief impact. [TRIPWIRE #n / EDGE+ / EDGE− if applicable] [FRAMEWORK-TAG]`
+  `YYYY-MM-DD — **Headline**. One-sentence abridged digest of what happened → brief impact. [TRIPWIRE #n / 🟢 EDGE+ / 🔴 EDGE− if applicable] [FRAMEWORK-TAG]`
   Keep the digest to one sentence per item. If nothing material was found for a ticker, write "nothing material" instead of a list.
 - **🚨 TRIPWIRES:** one bullet per `[TRIPWIRE]` hit (across every ticker checked this run), format:
   `**<TICKER> Tripwire #n — <status, e.g. "live, unresolved" / "early-warning" / "checked, does not fire">.** <one clause: what happened, why it matters, and the next test/date if still pending>.`
   If a ticker had no tripwire activity, a one-line `<TICKER>: none` is enough — don't pad it. If nothing fired anywhere, just say "none."
-- **Edge shifts:** one bullet per `[EDGE+]/[EDGE−]` item (group same-direction items for one ticker into a single bullet if there are several), format:
-  `**<TICKER> — EDGE+ / EDGE− / EDGE live test.** <one clause: what the item was, with its dated anchor>.`
+- **Edge shifts:** one bullet per `[EDGE+]/[EDGE−]` item (group same-direction items for one ticker into a single bullet if there are several), format — **emoji-tagged (🟢 EDGE+ / 🔴 EDGE− / ⚪ EDGE live test) the same way 🚨 tags Tripwires above, and a one-line parenthetical summary of the Edge itself is inline, the same way the Tripwire bullet carries its own context inline, so no separate recap block is needed**:
+  `**<TICKER> — 🟢 EDGE+ / 🔴 EDGE− / ⚪ EDGE live test** (<the Edge's variant view, condensed to one line, taken from the ticker's news.md, not memory>).** <one clause: what the item was, with its dated anchor>.`
   Omit a ticker entirely here if it had no edge activity — don't pad with "none."
-- **Per-ticker Edge & Tripwires recap — conditional on a hit:** if the ticker had a `[TRIPWIRE]` or `[EDGE+]`/`[EDGE−]` tag this run, restate (condensed, taken from the ticker's news.md, not memory) its current Edge one-liner and its numbered Tripwires, so the reader sees what fired against what's being watched. If nothing fired for that ticker this run, skip the full recap and give one line instead: `<TICKER>: unchanged — Edge and Tripwires as before, nothing fired.`
+- **📅 Next checkpoints — closes the digest.** One line per ticker with a live, dated forward test (a pending Tripwire threshold, a scheduled report, a construction/regulatory milestone named in the news items above) — `<what> <date>`, comma- or bullet-separated. This is what turns "nothing fired" into an actionable forward look rather than a dead end. Omit entirely for a ticker with no live dated checkpoint to name.
 
 For a single-ticker "what's new" request this collapses naturally to that one ticker; for the daily watch it runs across every ticker checked.
 

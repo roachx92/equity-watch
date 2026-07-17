@@ -4,6 +4,11 @@ docs/tasks/
 # Claude Code worktrees
 .claude/worktrees/
 
+# Local secrets — Discord webhook URLs, etc. Never commit real credentials;
+# .secrets/discord-webhooks.example.json is the checked-in template.
+.secrets/*.json
+!.secrets/*.example.json
+
 # MkDocs build tooling & output
 .venv/
 site/
@@ -12,3 +17,7 @@ site_src/
 # macOS
 .DS_Store
 **/.DS_Store
+
+# Python
+__pycache__/
+*.pyc

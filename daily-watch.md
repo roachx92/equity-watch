@@ -29,9 +29,10 @@ For every ticker folder under `tickers/` (the watch-list enumerated in the Resea
 5. **Append full-detail, dated items** to that ticker's `news.md` `## Recent News Log` per the canonical entry format in **[`framework/latest-updates-workflow.md`](framework/latest-updates-workflow.md) §F.1** — the single source of truth for how a news item gets stored (where it goes, the format string, the full-detail and one-entry-per-event rules, source linking, and the no-placeholder rule). Read and apply it directly; it is not restated here.
 6. **Produce the run summary** — the chat digest in the canonical §B format
    (`framework/news-check.md`): per-ticker news items lead, then 🚨 tripwires,
-   then edge shifts, then the conditional per-ticker Edge & Tripwires recap —
-   with the fired-tripwire escalation override (a 🚨 callout leads the very top
-   when any tripwire fires). This same digest is both your chat output and the
+   then edge shifts (each carrying a one-line Edge summary inline), then a
+   closing 📅 Next checkpoints line — with the fired-tripwire escalation
+   override (a 🚨 callout leads the very top when any tripwire fires). This
+   same digest is both your chat output and the
    body of the summary file in the next step.
 7. **Write the summary file** — write the digest to `summaries/<today>.md`,
    prefixed with a YAML frontmatter block, then the verbatim §B digest body:
@@ -54,6 +55,6 @@ For every ticker folder under `tickers/` (the watch-list enumerated in the Resea
    no-change day). The push triggers the Discord notification Action.
 
 ## Run summary (the agent's output each day)
-Produce the chat digest in the **canonical format defined in [`framework/news-check.md`](framework/news-check.md) §B**: per-ticker news items lead, then 🚨 tripwires, then edge shifts, then the conditional Edge & Tripwires recap — with the fired-tripwire escalation override (a 🚨 callout leads the very top when any tripwire fires). That file is the single source of truth for this format and is shared with the ad-hoc "what's new / latest on [ticker]" workflow (`framework/latest-updates-workflow.md` step 7); do not restate it here. Run it across all tickers checked this run. The same digest is persisted verbatim (with a frontmatter counts block) to `summaries/<today>.md` in step 7 above; a GitHub Action posts that file to Discord on push. The digest format remains defined only in `framework/news-check.md` §B.
+Produce the chat digest in the **canonical format defined in [`framework/news-check.md`](framework/news-check.md) §B**: per-ticker news items lead, then 🚨 tripwires, then edge shifts (each carrying a one-line Edge summary inline), then a closing 📅 Next checkpoints line — with the fired-tripwire escalation override (a 🚨 callout leads the very top when any tripwire fires). That file is the single source of truth for this format and is shared with the ad-hoc "what's new / latest on [ticker]" workflow (`framework/latest-updates-workflow.md` step 7); do not restate it here. Run it across all tickers checked this run. The same digest is persisted verbatim (with a frontmatter counts block) to `summaries/<today>.md` in step 7 above; a GitHub Action posts that file to Discord on push. The digest format remains defined only in `framework/news-check.md` §B.
 
 Rules: apply **all** of `framework/standing-rules.md` (Sections A + E) to every step above — do not work from a remembered summary. If any framework file under `framework/` is missing from the checkout, STOP and report it.
