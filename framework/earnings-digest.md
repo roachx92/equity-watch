@@ -138,14 +138,24 @@ Both get written on an earnings run. The debrief is the analysis; the log is the
 
 ### I.6 Part 3 — Final thoughts: what to watch going forward
 
-The third required output part. The closing wrap for the *whole digest*, not a restatement of the assessment. Pull the threads into one plain-English read on where the name sits **after** this print, then give the reader the concrete forward-looking list:
+The third required output part. The closing wrap for the *whole digest*, not a restatement of the assessment. **This section is where the reader decides what to do next, so it must be the most scannable part of the file — a reader skimming only §3 should come away knowing what to watch, in what order, and what a pass vs. a fail looks like, without reading a paragraph.** Prose here is a failure mode: pull the threads into short labeled blocks, in this fixed running order, so an earnings-debrief.md reads identically across tickers and quarters:
 
-- [ ] **The specific dated gates next quarter** — what has to happen, by when, and the **pass/fail threshold** for each (per Section C). "Watch the 1.6T ramp" is not a gate; "the >$200M 1.6T order ships in the guided Q3–Q4 2026 window, or Tripwire #3 fires" is.
-- [ ] **What this print set up as the next binary** — the single highest-impact unresolved question the call created or left open.
-- [ ] **The fastest-acting invalidation** — which Tripwire is now closest to firing, and how far from its threshold it sits.
-- [ ] **Where the price sits relative to the thesis after the print** — did the reaction price in the news, overshoot it, or ignore it? Tie to the multiple, not just the price.
-- [ ] **What would change the read** — the specific observable that would flip the assessment above, named in advance.
-- [ ] Close with a **short, plain-English bottom line**.
+**1. The read in one line.** Where the name sits **after** this print, in one or two plain-English sentences — the whole quarter's meaning before any detail.
+
+**2. The directional lean — up top, not buried.** State the lean the quarter earns in one word (**bullish / bearish / neutral**). Where the **12-month and multi-year reads diverge, split the horizon and give each its own lean** (the same dominant-bucket discipline as the re-rate verdict, §I.4(b)) rather than averaging them into a single mushy call — e.g. "bearish next ~12 months · constructive over 3–5 years." One line here; the justifying points come in block 6. This is a **lean on the print, not a rating on the stock**: explicitly **not** a buy/sell recommendation (not financial advice). A neutral verdict is legitimate when the print genuinely cut both ways — but "neutral" must be *argued* (the offsetting forces named), never used to dodge a call the evidence supports.
+
+**3. What to watch — a priority-ordered bullet list, highest-impact first.** This is the section's centre of gravity and it **consolidates the dated gates, the next binary, and the fastest-acting invalidation into one ranked list** rather than three separate prose paragraphs. **Every item carries: the trigger · when (dated) · what a pass vs. a fail looks like** (per Section C). "Watch the 1.6T ramp" is not an item; "**the >$200M 1.6T order ships in the guided Q3–Q4 2026 window** — pass: ships on time; **fail: slips → Tripwire #3 fires → pre-committed action is exit/re-underwrite**" is. Requirements:
+   - [ ] **Rank by impact, and flag the #1 item** — the single gate that matters most (usually also the fastest-acting invalidation: the Tripwire now closest to firing). Mark it and state how far from its threshold it sits.
+   - [ ] **Fold the "next binary"** — the single highest-impact unresolved question the call created — into the list as the top item or an explicit callout, not a separate paragraph.
+   - [ ] **Every item is dated or explicitly "open, no date,"** and names the Tripwire it would fire where one applies.
+
+**4. Where the price sits — one short block.** Did the reaction price in the news, overshoot it, or ignore it? **Tie to the multiple, not just the price** — a price move through a flat multiple is not a re-rate.
+
+**5. What would flip the read — two bullets.** The specific observable that turns the lean **bullish**, and the one that **confirms/turns it bearish** — each named in advance so it's a pre-decision, not a post-hoc rationalization.
+
+**6. Why the lean — the 3–4 justifying points.** Justify block 2's directional lean with **3–4 key points synthesized across the digest's own findings** — the reported numbers, the cash-conversion read, the sector cross-check, the decomposed reaction, and the Edge/Tripwire assessment — **not new claims introduced here.** Keep each point to a bold lead sentence plus short support, and **tag each with its horizon/direction** (e.g. bearish-12mo / bullish-3–5yr) so the split in block 2 is visible at a glance. Carry the honest counterweight here (Section A — no victory lap, no eulogy): at least one point must argue the other side of the lean.
+
+**7. Bottom line.** Close with a **short, plain-English** wrap.
 
 **Constraints on this section, per Section A:** keep it framework-level guidance the investor applies themselves. **Not financial advice** — flag it; this is decision-shaped by construction. **No unsolicited portfolio-fit, concentration, or position-sizing commentary** — request-only. **Give the affirmative read AND the honest counterweight** — a digest of a good quarter that reads as a victory lap has failed this rule as surely as one of a bad quarter that reads as a eulogy.
 
@@ -153,4 +163,6 @@ The third required output part. The closing wrap for the *whole digest*, not a r
 
 ### I.7 Chat reply
 
-Produce the run digest in the canonical format defined in [`news-check.md`](news-check.md) **§B — TRIPWIRES FIRST**, scoped to the one ticker, so an earnings run and a routine watch run read identically. Add one lead line above it: the quarter, the headline result against the guide, and the **net assessment** — thesis strengthened / weakened / unchanged. Then link the debrief file. The full analysis lives in `earnings-debrief.md`, not the chat reply.
+Produce the run digest in the canonical format defined in [`news-check.md`](news-check.md) **§B — TRIPWIRES FIRST**, scoped to the one ticker, so an earnings run and a routine watch run read identically. Add one lead line above it: the quarter, the headline result against the guide, and the **net assessment** — thesis strengthened / weakened / unchanged.
+
+**Then append the entire §I.6 Final Thoughts section — every block, verbatim from the debrief — immediately after the §B digest and before the debrief link.** All seven blocks come across in order: **(1)** the read in one line, **(2)** the directional lean (horizon-split), **(3)** the priority-ordered "What to watch" list with pass/fail per item, **(4)** where the price sits, **(5)** what would flip the read, **(6)** the 3–4 points behind the lean, and **(7)** the bottom line. **This is not optional and is not reduced to a summary, a single block, or a one-liner** — the chat reply is the surface the reader actually reads after an earnings run, and Final Thoughts *is* the reader's action layer: the verdict, the watch list, the flip triggers, and the price read are exactly what a reader needs in the reply, not only in the file. Reproduce them as written in the debrief (§I.6 already caps this section's length and mandates its scannable form, so appending it whole does not bloat the reply). Close with the link to the debrief file. The rest of the digest — the numbers breakdown, cash-conversion table, sector cross-check, and the four-part assessment (§I.3–I.4) — stays in `earnings-debrief.md` and is *not* reproduced in the chat reply.

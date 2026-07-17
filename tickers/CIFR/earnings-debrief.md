@@ -200,25 +200,44 @@ The Edge's **skeptical core is corroborated**: six analysts, **zero questions on
 
 *Not financial advice — a framework to apply yourself.*
 
-Cipher passed every Tripwire this quarter, and the pass is worth less than it looks. The single most reassuring datapoint was **silent**: an NOI window start that didn't move. The single most revealing was that **six analysts asked zero questions about the four things that would break this thesis** — the call generated a *pass* mostly because nobody tested it. Meanwhile the market told you plainly what it is paying for: Cipher missed adjusted EBITDA by 6.6× and rose 23% on a lease announcement, while Core Scientific missed and fell 9% for not having one. **That is not a market pricing fundamentals. It is a market pricing announcements — and it will re-price violently on the first quarter without one.**
+**The read in one line:** Cipher passed every Tripwire — but only because nobody tested it (six analysts asked zero questions about the four things that break the thesis). The market isn't pricing fundamentals; it's pricing lease announcements — CIFR missed adjusted EBITDA 6.6× and rose 23% *because* it announced a third lease, while Core Scientific missed with no lease and fell 9%. Nothing is resolved. **Everything rests on one date in October.**
 
-**Dated gates, with pass/fail thresholds:**
+**Directional lean: 🔴 bearish next ~12 months · 🟢 constructive over 3–5 years.** The near term is all sentiment (a tape that pays only for announcements, and a hard date with no outside corroboration); the long term is a real, strengthening asset (the lease stack + demonstrably cheap financing). The four points behind this lean are at the bottom of this section.
 
-| Gate | When | Pass / fail |
-|---|---|---|
-| **Q2 2026 print** | **2026-08-06** | **Does the Oct-2026 NOI window start survive a second quarter unchanged?** It moves → Tripwire #1 is firing. It holds → the schedule has now survived two independent tests. |
-| **Barber Lake Phase I delivery** | ~Sep 2026 | The first genuinely falsifiable delivery. Rent commencement per 10-Q is **Sep 2026**. |
-| **Black Pearl initial rent** | ~Oct 2026 | **The thesis's whole reason for existing.** Note the **final phase is ~Mar 2027** — the tripwire is written against the *first* milestone, so phasing doesn't trip it. Watch the ambiguity. |
-| **ERCOT Batch Zero outcome** | submissions closed 2026-07-10 | Gates ~2.0 GW of the pipeline. Reveille and Ulysses are already approved and **not** exposed. |
-| **Third-campus financing** | open | The question BTIG asked and didn't get answered. |
+---
 
-**The next binary this print set up:** *does the first rent dollar arrive in the Oct-2026 window?* Everything else is commentary until it does.
+#### ✅ What to watch — highest priority first
 
-**Fastest-acting invalidation:** **Tripwire #1**, and it is closer to its threshold than the clean pass suggests — not because anything slipped, but because **the only evidence for the schedule is company-reported, management guides to contractual milestones rather than to rent, and ERCOT's 438 GW queue does not corroborate any specific Q4-2026 energization.**
+*Each line: the trigger · when · what a pass vs. a fail looks like.*
 
-**Where the price sits after the print:** **fairly priced *on the market's own terms*, which is the uncomfortable answer.** No multiple expansion — the market added a lease at the multiple it already paid (~1.22× → ~1.14× EV/backlog). It is not crediting counterparty quality with a premium, and it is not discounting execution risk either. **You are paid the cohort multiple for cohort risk.** The bull/bear debate is explicitly a multiple debate: bulls say 16× NOI is conservative and 20×+ is warranted as the build de-risks; bears say pre-revenue assets deserve 10–12× until first cash flow in 2027. *(Indicative only — the source is promotional. [T3])*
+1. **Does the Oct-2026 NOI window hold? — next test 2026-08-06 (Q2 print).** ⚠️ *This is the whole thesis and the single fastest-acting invalidation.*
+   - **Pass:** the Oct-2026 start carries forward unchanged for a second straight quarter (schedule has now survived two independent tests).
+   - **Fail:** it slips by even a month in any deck → **Tripwire #1 FIRES** → pre-committed action is exit / re-underwrite.
+   - **Why it's fragile:** the schedule is *company-reported only*, management guides to **contractual milestones, not rent commencement**, and ERCOT's 438 GW queue doesn't corroborate any specific Q4-2026 energization.
+2. **Barber Lake Phase I delivery — ~Sep 2026.** First genuinely falsifiable delivery; 10-Q says rent commences Sep 2026. **Pass:** delivers on time. **Fail:** slips.
+3. **Black Pearl initial rent — ~Oct 2026.** The first real rent dollar — the thesis's reason for existing. **Watch the ambiguity:** the final phase is ~Mar 2027 and Tripwire #1 is written against the *first* milestone, so phasing alone won't trip it.
+4. **Third-campus financing — open, no date.** The question BTIG asked and management wouldn't answer. **Watch for:** an equity raise (would pressure **Tripwire #2**) vs. more cheap project debt (confirms the funding strength).
+5. **ERCOT Batch Zero outcome — submissions closed 2026-07-10.** Gates ~2.0 GW of the pipeline. Reveille and Ulysses are already approved and **not** exposed.
 
-**What would change the read:** first rent recognized on schedule (the fundamental bucket finally contributes, and the whole thesis stops being a promise); **or** the Oct-2026 window start moving by so much as a month in any deck.
+#### 💲 Where the price sits
+
+Fairly priced **on the market's own terms** — no multiple expansion (the third lease was added at the multiple already paid, EV/backlog ~1.22× → ~1.14×). You're paid the cohort multiple for cohort risk — no premium for counterparty quality, no discount for execution risk. The bull/bear split is a multiple debate: bulls say 20×+ NOI as the build de-risks; bears say 10–12× until first cash in 2027. *(Indicative — promotional source [T3].)*
+
+#### 🔀 What would flip the read
+
+- **→ bullish:** first rent recognized on schedule — the fundamental bucket finally contributes and the thesis stops being a promise.
+- **→ bearish (confirmed):** the Oct-2026 window start moves by so much as a month in any deck.
+
+#### Why bearish near-term, bullish long-term — the four points
+
+*All synthesized from the analysis above; nothing new introduced here.*
+
+1. **🔴 Market pays for announcements, not results — 12mo.** +23.5% on the third-lease announcement despite a 6.6× EBITDA miss, then **gave the entire premium back in three sessions** (−0.86% on 5/6 while peers rose +10% on Hut 8's news). No guaranteed lease cadence to keep feeding it → re-prices hard on the first quarter without one.
+2. **🔴 The one hard date has thin, company-only corroboration — 12mo.** Oct-2026 window is self-reported, guided to milestones-not-rent, and un-corroborated by ERCOT. Tripwire #1 sits closer to its threshold than the clean pass suggests.
+3. **🔴 Fundamentals contributed nothing, and the pre-rent trough deepened — 12mo.** $0 HPC revenue, mining down 41.7% QoQ by design, the OCF "turn" was an $83.3M payables build (real OCF ≈ +$8M), FY26 consensus revenue cut ~44%.
+4. **🟢 The counterweight — the funding leg got materially stronger — 3–5yr.** Zero equity issued, $1.97B raised as project debt, Black Pearl's $2.0B oversubscribed 6.5× at 6.125%, bonds above par, revolver undrawn, a third IG hyperscale lease, and Fluidstack raised rather than stressed.
+
+*Not a rating on the stock — a lean on what the print did to the thesis. Not financial advice.*
 
 **Bottom line.** A quarter with **no bad news and no good news either** — $0 HPC revenue, a mining business being deliberately dismantled, an operating cash flow "turn" that was really unpaid contractor bills, and a 23% pop that the sector reclaimed in three sessions. What actually happened: **Cipher signed a third lease and proved it can raise debt cheaply, and the market shrugged and paid the same multiple.** The thesis is intact and entirely unresolved. **Everything still rests on a date in October.**
 
