@@ -8,7 +8,11 @@ description: >-
   drivers, risks, and pre-committed Edge/Tripwires. Use this whenever the user says "earnings
   digest on <TICKER>", "break down <ticker>'s earnings call", "what did <ticker> say on the
   call", "debrief <ticker> Q3", "<ticker> just reported", or asks what a print means for a
-  stock already covered in tickers/ — even without the word "earnings". Writes the analysis to
+  stock already covered in tickers/ — even without the word "earnings". Also triggers on
+  **retrieval** phrasing for an already-covered quarter — "pull <ticker> Q1'26 earnings", "show
+  me <ticker>'s Q3 debrief", "what did the <ticker> Q2 digest say" — which **displays** that
+  quarter's already-written chat output from earnings-debrief.md rather than re-running
+  research (see Step 0.5: retrieval vs. fresh run). Writes the analysis to
   tickers/<TICKER>/earnings-debrief.md and the call's discrete news items to the ticker's
   news.md. Scoped to ONE reported quarter; for a general "what's new lately" scan use the
   whats-new skill, and for building a name's full 18-section report use the deep-dive skill.
@@ -26,6 +30,28 @@ Take today's date from the session's current-date context (do **not** infer it f
 data). Distinguish it from **the reporting date** — the digest is anchored to the quarter that
 reported, which may be days earlier. Both get stamped: the reporting date on the quarter's
 heading, today's date on the run/methodology line and the commit.
+
+## Step 0.5 — retrieval vs. fresh run
+Before doing any research, decide which of these this request is:
+
+- **Retrieval** — the user is asking to see/pull/recall a quarter that's **already written** in
+  `tickers/<TICKER>/earnings-debrief.md` (e.g. "pull CIFR Q1'26 earnings," "show me LPKF's Q2
+  debrief," "what did the Q3 digest say"). **Check the file first** — read its `## <FY period> —
+  reported <date>` headings and match against the quarter named or implied. If it's there:
+  **skip straight to rendering** — read that quarter's §1(f)/§2(e) "in brief" blocks and its §3
+  Final Thoughts, and reproduce them as the chat reply in the exact §I.7 shape (lead line → Part
+  1 in brief → Part 2 in brief → Final Thoughts → file link). **Do not dispatch sub-agents, do
+  not re-research, do not rewrite the file, and do not run Step 6's Discord post** — a retrieval
+  displays what's already on record; it isn't a new run and doesn't need to renotify the
+  channel. Only post to Discord on retrieval if the user explicitly asks to.
+- **Fresh run** — the named quarter is **not yet in the file** (a new print, or the ticker has no
+  earnings-debrief.md at all), or the user is explicitly asking for a new/updated breakdown
+  ("earnings digest on X," "break down X's call," "X just reported"). Proceed through Steps 1–6
+  below in full.
+
+If it's ambiguous which quarter is meant (e.g. just "pull CIFR earnings" with no quarter named
+and multiple quarters on file), default to the **most recent** quarter in the file — most recent
+first is the file's own ordering convention (§I.5).
 
 ## Step 1 — read the canonical framework
 Read these directly — do not work from memory of them:
