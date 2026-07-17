@@ -140,6 +140,14 @@ Cipher does not guide, so the Δ below is **against consensus only** — there w
 
 **Sell-side, after the print:** thin and slow — Needham $22→$25 ten days later; Bernstein initiated Outperform $32 a month later. Consensus ~16 analysts, Strong Buy, avg PT $32.63. **But underneath the unanimous Buys sits the most informative datapoint in this whole exercise: FY2026 consensus revenue was cut from ~$427.3M to ~$237.6M — a ~44% reduction.** The analysts did not change their minds about the thesis; they changed their minds about **when any revenue arrives**, and kept the rating. That is the textbook "lowered estimate under a maintained Buy."
 
+#### (f) Part 1 in brief
+
+- 📊 **The numbers:** revenue $34.8M beat consensus +3.35% on a bar already cut ~31%, but adjusted EBITDA missed **~6.6×** and mining fell −41.7% QoQ by design. $0 HPC revenue. No company guide, so "beat" is near-meaningless.
+- 💵 **Cash conversion:** the "first positive OCF" (+$91.5M) is **an $83.3M payables build, not a turn** — strip working capital and OCF ≈ +$8M. FCF negative in all six quarters. Cipher is partly financed by unpaid contractors.
+- 🏭 **Sector read:** ⚠️ mixed. Hyperscaler capex +77% to ~$725B ✅ corroborates demand; financing strength ✅ corroborated by a third-party bond price (oversubscribed 6.5×). But ERCOT/energization ❌ contradicted — 438 GW queue, ERCOT's own "may not materialize" warning.
+- 🔇 **What wasn't said:** one real finding — the headline metric switched from "Adjusted Earnings" to **"Adjusted EBITDA," which now excludes interest**, the first quarter after stacking ~$5.2B of debt. Defensible reason, conveniently timed. Otherwise a clean check — disclosure got *finer*, not thinner.
+- 🎢 **The reaction:** +23.5% on the print, but the company-specific residual (~+16–18pp) **fully decayed to ≈0 in three sessions**. No re-rate — EV/backlog went ~1.22× → ~1.14×; the market added a lease at the multiple it already paid.
+
 ### 2. What it means
 
 #### (a) The underlying investment thesis
@@ -195,6 +203,13 @@ The Edge's **skeptical core is corroborated**: six analysts, **zero questions on
 2. **"$715M cash against ~$4.73B debt" materially overstates the funding gap.** It omits **$3.53B of restricted construction cash**. Total cash+restricted is **$4.25B**; net debt is **~$486M**. Both quoted figures are individually correct and the framing built from them is not.
 
 **Neither is a reason to soften the Edge — the skepticism survives both corrections.** But an Edge whose headline number is two months stale is measuring against the wrong thing, and **Tripwire #4 is drafted against a mechanism that has largely already been dismantled.** Both need a deliberate re-underwrite decision, made explicitly. **That is your call to make, not this digest's.**
+
+#### (e) Part 2 in brief
+
+- 🎯 **Thesis legs:** Leg 1 "backlog converts on schedule" — *supported on company evidence only* (Oct-2026 window held), no independent corroboration. Leg 2 "funded without forced dilution" — *strengthened*, the call's strongest leg. Leg 3 counterparties — *left untested*, not one analyst asked.
+- 🔄 **Re-rate:** the print *removed no discount* — fundamental bucket contributed nothing (FY26 revenue cut ~44%). Only **structural** moved positively (third IG lease + first corporate revolver); **sentiment/technical** carries the next 12 months.
+- ⚠️ **Risks:** *escalated* — ERCOT/energization and quality-of-earnings (payables-financed OCF). *De-escalated* — Fluidstack (raised, not stressed) and near-term liquidity (net debt ~$486M, not the implied $4B). Pre-Mortem unchanged: an energization slip forces an equity raise into a de-rated stock.
+- 🚨 **Tripwires & Edge:** ✅ all four checked, none fire (#1 reaffirmed, #2 live but cuts against, #3 moved favorably, #4 premise dismantled). 🔴 **EDGE−** against the *bullish* variant — it delivered its best evidence (a third IG lease) and earned zero premium. Note: the Edge's own numbers ($9.3B backlog, $715M-vs-$4.73B) are stale and need a deliberate re-underwrite.
 
 ### 3. Final thoughts — what to watch going forward
 

@@ -50,4 +50,10 @@ Standing rules (always) → latest-updates workflow (the method) → `daily-watc
 - **Full deep-dive** ("run the framework on TICKER"): use `framework/deep-dive-template.md` with all four sub-agent templates, under `framework/standing-rules.md`. **Start from `reports/_template.md`, apply §B0 (output architecture — non-negotiable), and run the orchestrator plus all four sub-agents on Opus.** Do not use a previously published report as the quality precedent — build against §B0 directly; the July 2026 audit found the whole corpus below the bar.
 - **Earnings digest** ("earnings digest on TICKER", "break down TICKER's call"): use `framework/earnings-digest.md` (Section I), under `framework/standing-rules.md`. Presupposes a deep-dive and the ticker's Edge/Tripwires already exist — if they don't, build the report first. Three sub-agents, Opus-pinned. Writes the quarter's analysis to `tickers/<TICKER>/earnings-debrief.md` **and** the call's discrete news items to the ticker's news.md per §F.1.
 
+## Git workflow — every worktree, every session
+- **Never commit or push directly to `main`.** Work on a feature branch (any name; this repo's convention is `work/<date>-<slug>` or `<topic>`, e.g. `work/2026-07-16-earnings-digest`).
+- **Commit freely as work progresses, but do NOT push or open a PR on every increment.** Pushing to the remote and opening a PR happen **only when the user explicitly asks** ("push", "open a PR", "push a PR"). Batch incremental edits locally until then — don't auto-PR each change.
+- **When the user does ask to push/PR:** if the branch already has an open PR, push the new commits to the **same branch** (they land in that PR — don't open a duplicate). If that branch's PR was already merged (history diverged, common after a squash-merge), **rebase the branch onto `main` first**, then open a fresh PR.
+- **Never merge a PR unless the user explicitly asks.** Even after pushing/opening a PR at the user's request, merging is a separate, explicit ask every time — the PR is the seam where the user reviews on GitHub before it lands in `main`.
+
 _Not financial advice — informational research tooling only._
