@@ -8,13 +8,13 @@ Part 1 reorganized the markdown. Part 2 moves the remaining **deterministic** wo
 
 1. **Deep-dive reports → markdown-in-git, published via GitHub Pages.** *(Was: `.docx` → Google Drive sync — dropped.)* Reports live as `reports/<YYYY-MM-DD>/<TICKER>.md` (git is the source of truth) and the repo is published as a MkDocs Material site with a bespoke "Research Desk" homepage. No `.docx`, no Drive, no external auth. **Follow-on (deterministic, deferred):** a "latest report per ticker" resolver script so the ticker pointer updates itself instead of by hand.
 
-2. **Ticker enumeration. — DONE.** The watch-list is derived from a `tickers/*.md` glob: `daily-watch.md` enumerates the directory at run start and dispatches one sub-agent per file found; the hardcoded name-lists and "four sub-agents" counts are gone, and CLAUDE.md/README point at the directory as the source of truth. Adding a ticker is now "drop in a file." *(Kept as a prose instruction to the agent — no script needed, since the routine already runs `ls tickers/`.)*
+2. **Ticker enumeration. — DONE.** The watch-list is derived from a `tickers/*/` folder glob (each holding a `news.md`): `daily-watch.md` enumerates the directory at run start and dispatches one sub-agent per ticker folder found; the hardcoded name-lists and "four sub-agents" counts are gone, and CLAUDE.md/README point at the directory as the source of truth. Adding a ticker is now "drop in a folder with a news.md." *(Kept as a prose instruction to the agent — no script needed, since the routine already runs `ls tickers/`.)*
 
-3. **Log-entry format validation.** A linter for the Recent News Log entry shape: `YYYY-MM-DD — [FRAMEWORK-TAG] [TRIPWIRE/EDGE± if any] — **Headline**. … Source: <name(s)> (<date>).` Fails CI on malformed entries.
+3. **Log-entry format validation.** A linter for the Recent News Log entry shape, validating against the canonical spec in `framework/latest-updates-workflow.md` §F.1 (which is the authority — the linter must not encode a second copy of the format). Fails CI on malformed entries. Worth also asserting the rules that drift silently: every entry carries at least one linked source, and no `_template`-style restatement of the format reappears outside §F.1.
 
-4. **Ticker-file structure lint.** Assert each `tickers/*.md` has the required sections: Thesis context, Edge, Tripwires, Recent News Log.
+4. **Ticker news.md structure lint.** Assert each `tickers/*/news.md` has the required sections: Thesis context, Edge, Tripwires, Recent News Log — plus the YAML front matter (`company`, `blurb`) the homepage coverage grid depends on. Also flag a `tickers/*/` folder with no `news.md`: both the daily watch and `hooks/coverage.py` skip it silently, so a half-created ticker goes unwatched without erroring.
 
-5. **Git commit/push plumbing.** The mechanical commit-and-push of changed ticker files (message `daily watch: <date>`), moved from prose instruction into a script step the agent invokes.
+5. **Git commit/push plumbing.** The mechanical commit-and-push of changed ticker news.md files (message `daily watch: <date>`), moved from prose instruction into a script step the agent invokes.
 
 6. **Discord notification of the run summary. — DONE.** The daily watch writes
    its §B digest to `summaries/<date>.md`; `.github/workflows/notify-discord.yml`

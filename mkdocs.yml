@@ -38,7 +38,7 @@ extra_css:
 plugins:
   - search
 
-# Derives the homepage Coverage grid from tickers/*.md + reports/ at build time.
+# Derives the homepage Coverage grid from tickers/*/news.md + reports/ at build time.
 hooks:
   - hooks/coverage.py
 
