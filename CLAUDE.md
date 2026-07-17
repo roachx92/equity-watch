@@ -52,9 +52,8 @@ Standing rules (always) → latest-updates workflow (the method) → `daily-watc
 
 ## Git workflow — every worktree, every session
 - **Never commit or push directly to `main`.** Work on a feature branch (any name; this repo's convention is `work/<date>-<slug>` or `<topic>`, e.g. `work/2026-07-16-earnings-digest`).
-- **After a coherent unit of work lands and is committed, push the branch and open a PR against `main`** (`gh pr create`) — don't leave finished work sitting local/unpushed, and don't leave a pushed branch without a PR. This is what makes the change visible on GitHub for review.
-- **If the branch already has an open PR, push the new commits to the same branch** — they land in that PR automatically; do not open a duplicate PR for the same branch.
-- **If that PR was already merged** (so the branch's history and `main` have diverged — common after a squash-merge), **rebase the branch onto `main` before pushing further commits**, then open a fresh PR for the new work.
-- **Never merge a PR unless the user explicitly asks.** Pushing and opening the PR is the default; merging is a separate, explicit ask every time — the PR is the seam where the user reviews on GitHub before it lands in `main`.
+- **Commit freely as work progresses, but do NOT push or open a PR on every increment.** Pushing to the remote and opening a PR happen **only when the user explicitly asks** ("push", "open a PR", "push a PR"). Batch incremental edits locally until then — don't auto-PR each change.
+- **When the user does ask to push/PR:** if the branch already has an open PR, push the new commits to the **same branch** (they land in that PR — don't open a duplicate). If that branch's PR was already merged (history diverged, common after a squash-merge), **rebase the branch onto `main` first**, then open a fresh PR.
+- **Never merge a PR unless the user explicitly asks.** Even after pushing/opening a PR at the user's request, merging is a separate, explicit ask every time — the PR is the seam where the user reviews on GitHub before it lands in `main`.
 
 _Not financial advice — informational research tooling only._
