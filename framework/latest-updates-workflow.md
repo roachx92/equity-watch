@@ -39,13 +39,13 @@
 ### Format
 
 ```
-YYYY-MM-DD — [FRAMEWORK-TAG] [TRIPWIRE/EDGE± if any] — **Headline**. Full detail of the event → impact/implication. Source: [Name1](URL1), [Name2](URL2) (<date>).
+YYYY-MM-DD — [FRAMEWORK-TAG] — **Headline**. Full detail of the event → impact/implication. Source: [Name1](URL1), [Name2](URL2) (<date>). [TRIPWIRE/EDGE± if any]
 ```
 
 - **`YYYY-MM-DD`** — the event's date, not the run date.
-- **`[FRAMEWORK-TAG]`** — the framework section the event actually touches (Business model, Catalysts, Re-rate drivers, Moat/Competition, Tech moat, Secular, Financials/Capital stack, Risks/Concentration, Bull/Base/Bear, Bottleneck, Sentiment, Asymmetry, Management/Insider, Valuation, Thesis). Short tag.
-- **`[TRIPWIRE]` / `[EDGE+]` / `[EDGE−]`** — per the mandatory assessment in step 4 above. Include only when one applies.
+- **`[FRAMEWORK-TAG]`** — the framework section the event actually touches (Business model, Catalysts, Re-rate drivers, Moat/Competition, Tech moat, Secular, Financials/Capital stack, Risks/Concentration, Bull/Base/Bear, Bottleneck, Sentiment, Asymmetry, Management/Insider, Valuation, Thesis). Short tag, right after the date.
 - **Headline** — bolded, one line, leads the summary portion so the entry is scannable before the full detail.
+- **`[TRIPWIRE]` / `[EDGE+]` / `[EDGE−]`** — per the mandatory assessment in step 4 above, **at the very end of the entry, after the source citation** — mirrors the chat-digest per-item line format in `news-check.md` §B, so the headline and its substance read first and the tripwire/edge classification reads as the entry's closing verdict. Include only when one applies; omit entirely otherwise, don't pad with "none." **This positional change is forward-looking only** — it governs new entries; existing log entries are historical record and are never rewritten to match a later format revision.
 
 ### Content rules
 
