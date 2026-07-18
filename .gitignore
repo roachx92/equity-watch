@@ -17,8 +17,9 @@ web/site_src/
 site/
 site_src/
 
-# CI scratch — the run digest the whats-new workflow writes for the PR body
+# CI scratch — the run digests the whats-new / earnings-digest workflows write for the PR body
 /whats-new-digest.md
+/earnings-digest-body.md
 
 # macOS
 .DS_Store
