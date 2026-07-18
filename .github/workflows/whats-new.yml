@@ -220,6 +220,11 @@ jobs:
             git commit -m "whats-new: ${TICKER} ${DATE}"
           fi
           echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+
+          # claude-code-action swaps checkout's auth header for its own OIDC token,
+          # then revokes that token when it finishes — leaving the local git remote
+          # unable to push. Point origin at the workflow's GITHUB_TOKEN before pushing.
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push -u origin "$BRANCH"
 
           # Assemble the PR body: the §B digest, then the token-usage block.
