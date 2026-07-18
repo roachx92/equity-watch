@@ -1,9 +1,13 @@
-import sys
+import importlib.util
 import pathlib
 
-# coverage.py lives in web/hooks/ and itself puts scripts/ on sys.path on import.
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "web" / "hooks"))
-import coverage  # noqa: E402
+# Load the mkdocs hook web/hooks/coverage.py by explicit path, under a unique
+# module name so it can't collide with the PyPI `coverage` tool. The hook itself
+# puts scripts/ on sys.path on import (to reach tickerlib).
+_HOOK = pathlib.Path(__file__).resolve().parents[2] / "web" / "hooks" / "coverage.py"
+_spec = importlib.util.spec_from_file_location("coverage_hook", _HOOK)
+coverage = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(coverage)
 
 
 def _make_docs(root, sym, company, blurb, reports=()):
