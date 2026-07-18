@@ -71,7 +71,7 @@ Each watched ticker is a **folder** under `tickers/`, named for the symbol, hold
 ticker's `news.md`; the `tickers/` directory **is** the watch-list. After the report is written:
 - If `tickers/<TICKER>/news.md` does not exist, create the folder and the file, modeling an
   existing one (e.g. `tickers/CIFR/news.md`): frontmatter (`company`, `blurb` — these feed the
-  homepage coverage grid via `hooks/coverage.py`), a one-paragraph thesis context, the **Edge**
+  homepage coverage grid via `web/hooks/coverage.py`), a one-paragraph thesis context, the **Edge**
   and **numbered Tripwires** derived **verbatim from the report's §18**, and an empty
   `## Recent News Log` seeded with the standard header note pointing at
   `framework/latest-updates-workflow.md` §F.1 (the canonical entry format — don't restate it).

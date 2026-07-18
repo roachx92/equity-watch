@@ -11,8 +11,8 @@ docs/tasks/
 
 # MkDocs build tooling & output
 .venv/
-site/
-site_src/
+web/site/
+web/site_src/
 
 # macOS
 .DS_Store
