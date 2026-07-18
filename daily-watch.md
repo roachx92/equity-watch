@@ -35,24 +35,36 @@ For every ticker folder under `tickers/` (the watch-list enumerated in the Resea
    same digest is both your chat output and the
    body of the summary file in the next step.
 7. **Write the summary file** — write the digest to `summaries/<today>.md`,
-   prefixed with a YAML frontmatter block, then the verbatim §B digest body:
+   prefixed with a YAML frontmatter block, then the verbatim §B digest body.
+   Write the frontmatter with the `date` and the §B body; you do **not** hand-count
+   the tallies — the next step stamps them deterministically.
 
        ---
        date: <today>
-       tickers_checked: <count of ticker folders under tickers/ scanned this run>
-       tripwires_fired: <count of [TRIPWIRE] hits this run>
-       edge_shifts: <count of [EDGE+]/[EDGE−] items this run>
+       tickers_checked: 0
+       tripwires_fired: 0
+       edge_shifts: 0
        ---
        <the §B digest, exactly as produced in step 6>
 
    Write this file **every run**, even when nothing material was found (the body
-   then carries the §B "nothing material" content and the counts are `0`) — it is
-   the daily heartbeat that drives the Discord post. Do not restate the §B format
-   here; `framework/news-check.md` §B is its single source.
-8. **Commit & push** the updated `news.md` files **and** `summaries/<today>.md` with
-   a message `daily watch: <today's date>`. Because the summary file is new every
-   run, this commit always happens (unlike before, when it was skipped on a
-   no-change day). The push triggers the Discord notification Action.
+   then carries the §B "nothing material" content) — it is the daily heartbeat that
+   drives the Discord post. Do not restate the §B format here; `framework/news-check.md`
+   §B is its single source.
+7a. **Stamp the counts** — run `python3 scripts/summarize_counts.py --date <today>`.
+   It derives `tickers_checked` / `tripwires_fired` / `edge_shifts` from ground truth
+   (the ticker count and the `[TRIPWIRE]`/`[EDGE±]` tags in the log lines you appended
+   this run) and rewrites the frontmatter block in place, leaving the digest body
+   untouched. This replaces hand-counting and keeps the tag in the log entry the single
+   source of the count.
+7b. **Refresh the report pointer** — run `python3 scripts/resolve_report.py --fix`. If a
+   ticker's `**Canonical deep-dive:**` link has gone stale against the newest
+   `reports/<date>.md`, it self-heals (rewrites only the link, never surrounding prose);
+   otherwise it is a no-op.
+8. **Commit & push** — run `python3 scripts/commit_watch.py --date <today>`. It stages the
+   changed `news.md` files **and** `summaries/<today>.md`, commits `daily watch: <today's
+   date>`, and pushes (the push triggers the Discord notification Action). Because the
+   summary file is new every run, there is always something to commit.
 
 ## Run summary (the agent's output each day)
 Produce the chat digest in the **canonical format defined in [`framework/news-check.md`](framework/news-check.md) §B**: per-ticker news items lead, then 🚨 tripwires, then edge shifts (each carrying a one-line Edge summary inline), then a closing 📅 Next checkpoints line — with the fired-tripwire escalation override (a 🚨 callout leads the very top when any tripwire fires). That file is the single source of truth for this format and is shared with the ad-hoc "what's new / latest on [ticker]" workflow (`framework/latest-updates-workflow.md` step 7); do not restate it here. Run it across all tickers checked this run. The same digest is persisted verbatim (with a frontmatter counts block) to `summaries/<today>.md` in step 7 above; a GitHub Action posts that file to Discord on push. The digest format remains defined only in `framework/news-check.md` §B.
