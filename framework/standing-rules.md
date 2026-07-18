@@ -1,6 +1,6 @@
 # Standing rules & honest limits
 
-*Sections A and E of the equity research framework. These apply to EVERY response — the daily watch and every full report alike. Verbatim; relocated from the former single framework file.*
+*Sections A and E of the equity research framework. These apply to EVERY response — every news check and every full report alike. Verbatim; relocated from the former single framework file.*
 
 ---
 

@@ -11,13 +11,14 @@ report-resolution rule), don't just assume today's write wins — and commit. Th
 source of truth and is published via GitHub Pages — no `.docx`, no external sync.
 
 **If this is a new ticker** (no `tickers/<TICKER>/` folder yet), create the folder and its
-`news.md` as part of this run: that folder is the watch-list entry, and the daily watch
-enumerates `tickers/*/` to find it. The news.md carries YAML front matter (`company`,
+`news.md` as part of this run: that folder is the watch-list entry, and the per-ticker
+workflows (whats-new, earnings-digest) and the site build enumerate `tickers/*/` to find it.
+The news.md carries YAML front matter (`company`,
 `blurb` — these feed the published homepage coverage grid via `hooks/coverage.py`), the
 `**Canonical deep-dive:**` link, one-paragraph thesis context, and the §18 **Edge** and
 numbered **Tripwires** derived from this report. A report without its ticker folder is
-invisible to the daily watch; a folder without a `news.md` is skipped by both the watch and
-the site build.
+invisible to the watch-list; a folder without a `news.md` is skipped by both those workflows
+and the site build.
 
 ---
 
