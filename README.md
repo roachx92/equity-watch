@@ -2,7 +2,7 @@
 
 Monitoring state for on-demand, per-ticker equity research. Three workflows run against a watched name — a **what's-new** news scan, an **earnings-digest** call breakdown, and a full **deep-dive** — each assessing findings against that ticker's pre-committed **Edge** and **Tripwires** and appending dated entries to its Recent News Log.
 
-- **`framework/`** — the analytical framework, split by purpose: `standing-rules.md` (Sections A + E), `latest-updates-workflow.md` (Section F — the "what's new" workflow), `deep-dive-template.md` (Sections B, C, D, G, H), `earnings-digest.md` (Section I), `news-check.md` (the shared news-check spec: §A agentic parallel-sub-agent research method, §B run-summary chat-digest format).
+- **`framework/`** — the analytical framework, split by purpose: `standing-rules.md` (Sections A + E), `latest-updates-workflow.md` (Section F — the complete "what's new" workflow: the procedure plus §F.1 log-entry format, §F.2 parallel-sub-agent research method, §F.3 run-summary chat-digest format), `deep-dive-template.md` (Sections B, C, D, G, H), `earnings-digest.md` (Section I).
 - **`tickers/<TICKER>/news.md`** — one folder per ticker, each holding that ticker's **news.md**: thesis context, Edge (variant view), numbered Tripwires (pre-committed exit triggers), and the Recent News Log.
 - **`CLAUDE.md`** — orientation for agents working in the repo (file map + section lookup).
 

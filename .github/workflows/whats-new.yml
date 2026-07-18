@@ -101,13 +101,14 @@ jobs:
             framework files as written (never from memory — read them directly):
               1. framework/standing-rules.md — Sections A + E, binding on every step. This
                  bounded scan does NOT use Section A's "EXHAUSTIVE BY DEFAULT" deep-dive
-                 depth; the window is bounded (news-check.md §A).
-              2. framework/latest-updates-workflow.md — Section F (the procedure + the
-                 mandatory §18 Tripwire/Edge assessment) and §F.1 (the canonical Recent
-                 News Log entry format — apply it, do not restate it).
-              3. framework/news-check.md — §A the parallel research-sub-agent method
-                 (self-contained prompts, source quality, first-run ~14-day window) and
-                 §B the run-summary chat-digest format.
+                 depth; the window is bounded (§F.2).
+              2. framework/latest-updates-workflow.md — Section F: the COMPLETE spec for
+                 this workflow, all in one file. The procedure + the mandatory §18
+                 Tripwire/Edge assessment, plus §F.1 (the canonical Recent News Log entry
+                 format), §F.2 (the parallel research-sub-agent method — self-contained
+                 prompts, source quality + non-US-filer guidance, first-run ~14-day window,
+                 stop condition), and §F.3 (the run-summary chat-digest format). Apply them,
+                 do not restate them.
 
             COVERAGE GUARD — do this first: a what's-new check presupposes the ticker
             already has a deep-dive and its §18 Edge/Tripwires. Confirm
@@ -118,7 +119,7 @@ jobs:
             the ticker isn't covered yet and a deep-dive must be run first, then finish.
 
             If covered:
-              - Dispatch the bounded parallel research sub-agents per news-check.md §A. They
+              - Dispatch the bounded parallel research sub-agents per §F.2. They
                 research ONLY — they must not edit files. Wait for them, then YOU assess
                 every item against the §18 Tripwire and Edge (tag [TRIPWIRE] / [EDGE+] /
                 [EDGE-], surface a fired tripwire at the top).
@@ -241,7 +242,7 @@ jobs:
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push -u origin "$BRANCH"
 
-          # Assemble the PR body: the CONCISE PR summary (not the full §B digest, which
+          # Assemble the PR body: the CONCISE PR summary (not the full §F.3 digest, which
           # goes to Discord), then the token-usage block. The sed pass hardens the summary
           # against GitHub auto-linking `#N` to issue/PR N: normalize first (strip any
           # backslash the model already added) THEN escape every `#N`, so it's idempotent
