@@ -19,6 +19,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write    # gh workflow run pages.yml (workflow_dispatch) needs actions:write
   id-token: write   # claude-code-action mints its GitHub token via OIDC
 
 jobs:
@@ -145,9 +146,9 @@ jobs:
                     pre-committed action; if none fired, one short line saying so;
                   * a link to `tickers/${{ steps.meta.outputs.ticker }}/news.md`.
                 Do NOT reproduce the per-item digest or the assessment bullets here.
-                CRITICAL — escape every `#N`: in a GitHub PR body a bare `#1` auto-links to
-                issue/PR 1. Write Tripwire references as `\#1`, `\#2`, etc. (backslash-escaped)
-                so they render as plain text and do not create bogus cross-references.
+                Write Tripwire references naturally (`#1`, `#2`) — the workflow's PR-body
+                assembly deterministically escapes every `#N` so GitHub won't auto-link them
+                to bogus issues/PRs. No need to escape them yourself.
 
             Reminder: do not touch git. The workflow commits your news.md edits, opens the
             PR, merges it, and rebuilds the site.
@@ -241,10 +242,14 @@ jobs:
           git push -u origin "$BRANCH"
 
           # Assemble the PR body: the CONCISE PR summary (not the full §B digest, which
-          # goes to Discord), then the token-usage block.
+          # goes to Discord), then the token-usage block. The sed pass hardens the summary
+          # against GitHub auto-linking `#N` to issue/PR N: normalize first (strip any
+          # backslash the model already added) THEN escape every `#N`, so it's idempotent
+          # and can't double-escape. Only the model-written summary needs it — the usage
+          # table has no `#N`.
           {
             if [ -f whats-new-pr-body.md ]; then
-              cat whats-new-pr-body.md
+              sed -e 's/\\#/#/g' -e 's/#\([0-9]\)/\\#\1/g' whats-new-pr-body.md
             else
               echo "_No PR summary was produced this run._"
             fi

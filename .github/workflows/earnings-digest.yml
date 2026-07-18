@@ -21,6 +21,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write    # gh workflow run pages.yml (workflow_dispatch) needs actions:write
   id-token: write   # claude-code-action mints its GitHub token via OIDC
 
 jobs:
@@ -154,9 +155,9 @@ jobs:
                   * a link to the debrief file `tickers/${{ steps.meta.outputs.ticker }}/earnings-debrief.md`;
                   * a final line: "Full digest posted to Discord."
                 Do NOT reproduce the Part 1 / Part 2 in-brief blocks or the Final Thoughts here.
-                CRITICAL — escape every `#N`: in a GitHub PR body a bare `#1` auto-links to
-                issue/PR 1. Write Tripwire references as `\#1`, `\#2`, etc. (backslash-escaped)
-                so they render as plain text and do not create bogus cross-references.
+                Write Tripwire references naturally (`#1`, `#2`) — a later workflow step
+                deterministically escapes every `#N` in the PR body so GitHub won't auto-link
+                them to bogus issues/PRs. No need to escape them yourself.
               - PUBLISH via git (do this yourself; the workflow does NOT push):
                   git checkout -b ${{ steps.meta.outputs.branch }}
                   git add -A                          # both *-body.md files are gitignored
@@ -252,8 +253,13 @@ jobs:
             exit 0
           fi
           echo "Found PR #${pr} — appending token usage and merging."
-          # Append the usage block to whatever body Claude wrote.
+          # Append the usage block to whatever body Claude wrote. This step always
+          # rewrites the body, so it's the deterministic choke point for hardening it
+          # against GitHub auto-linking `#N` to issue/PR N: normalize first (strip any
+          # backslash the model already added) THEN escape every `#N`, so it's idempotent
+          # and can't double-escape. The usage block appended below has no `#N`.
           gh pr view "$pr" --json body --jq '.body' > "$RUNNER_TEMP/body-cur.md" || : > "$RUNNER_TEMP/body-cur.md"
+          sed -i -e 's/\\#/#/g' -e 's/#\([0-9]\)/\\#\1/g' "$RUNNER_TEMP/body-cur.md"
           {
             cat "$RUNNER_TEMP/body-cur.md"
             printf '\n\n---\n\n'
