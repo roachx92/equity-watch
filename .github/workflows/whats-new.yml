@@ -40,7 +40,8 @@ jobs:
           RAW_TICKER: ${{ inputs.ticker }}
         run: |
           set -euo pipefail
-          # Uppercase, strip whitespace. Passed via env (not inline ${{ }}) to avoid injection.
+          # Uppercase and strip whitespace. RAW_TICKER arrives via the env above,
+          # not interpolated inline, so a crafted ticker cannot inject shell.
           TICKER=$(printf '%s' "$RAW_TICKER" | tr '[:lower:]' '[:upper:]' | tr -d '[:space:]')
           if ! printf '%s' "$TICKER" | grep -Eq '^[A-Z0-9.-]{1,10}$'; then
             echo "::error::Invalid ticker input: '$RAW_TICKER'" >&2
