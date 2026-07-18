@@ -19,6 +19,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  id-token: write   # claude-code-action mints its GitHub token via OIDC
 
 jobs:
   whats-new:
@@ -76,7 +77,7 @@ jobs:
         id: claude
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           # Opus, always — the `opus` alias resolves to the latest Opus so it
           # never rots to a stale dated model id.
           claude_args: |
