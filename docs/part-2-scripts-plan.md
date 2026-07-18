@@ -12,7 +12,7 @@ Part 1 reorganized the markdown. Part 2 moves the remaining **deterministic** wo
 
 3. **Log-entry format validation.** A linter for the Recent News Log entry shape, validating against the canonical spec in `framework/latest-updates-workflow.md` §F.1 (which is the authority — the linter must not encode a second copy of the format). Fails CI on malformed entries. Worth also asserting the rules that drift silently: every entry carries at least one linked source, and no `_template`-style restatement of the format reappears outside §F.1.
 
-4. **Ticker news.md structure lint.** Assert each `tickers/*/news.md` has the required sections: Thesis context, Edge, Tripwires, Recent News Log — plus the YAML front matter (`company`, `blurb`) the homepage coverage grid depends on. Also flag a `tickers/*/` folder with no `news.md`: both the daily watch and `hooks/coverage.py` skip it silently, so a half-created ticker goes unwatched without erroring.
+4. **Ticker news.md structure lint.** Assert each `tickers/*/news.md` has the required sections: Thesis context, Edge, Tripwires, Recent News Log — plus the YAML front matter (`company`, `blurb`) the homepage coverage grid depends on. Also flag a `tickers/*/` folder with no `news.md`: both the daily watch and `web/hooks/coverage.py` skip it silently, so a half-created ticker goes unwatched without erroring.
 
 5. **Git commit/push plumbing.** The mechanical commit-and-push of changed ticker news.md files (message `daily watch: <date>`), moved from prose instruction into a script step the agent invokes.
 

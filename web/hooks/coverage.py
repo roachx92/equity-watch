@@ -6,7 +6,7 @@ derived from it — not hand-maintained — or they drift stale exactly when a
 ticker is added or a deep-dive is generated.
 
 This mkdocs hook scans the assembled docs tree and exposes the card data to the
-`overrides/home.html` template as `config.extra.coverage_cards`. One card per
+`web/overrides/home.html` template as `config.extra.coverage_cards`. One card per
 `tickers/<SYM>/news.md`, auto-linked to the latest
 `tickers/<SYM>/reports/<YYYY-MM-DD>.md`.
 Per-card prose (`company`, `blurb`) lives in each news.md's YAML front matter,
@@ -16,7 +16,7 @@ Note the symbol comes from the *parent directory* name, not the filename — eve
 news.md is called `news.md`. A folder without a news.md is skipped rather than
 crashing the build, so a half-created ticker folder can't take the site down.
 
-Runs wherever the site is built — `scripts/build-site.sh`, `scripts/serve-site.sh`,
+Runs wherever the site is built — `web/scripts/build.sh`, `web/scripts/serve.sh`,
 and the GitHub Pages deploy — since all of them invoke mkdocs.
 """
 

@@ -6,13 +6,13 @@ on:
     paths:
       - "framework/**"
       - "tickers/**"
-      - "index.md"
-      - "overrides/**"
-      - "stylesheets/**"
-      - "hooks/**"
-      - "mkdocs.yml"
-      - "requirements.txt"
-      - "scripts/build-site.sh"
+      - "web/index.md"
+      - "web/overrides/**"
+      - "web/stylesheets/**"
+      - "web/hooks/**"
+      - "web/mkdocs.yml"
+      - "web/requirements.txt"
+      - "web/scripts/build.sh"
       - ".github/workflows/pages.yml"
   workflow_dispatch: {}
 
@@ -33,11 +33,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install -r requirements.txt
-      - run: ./scripts/build-site.sh
+      - run: pip install -r web/requirements.txt
+      - run: ./web/scripts/build.sh
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: web/site
 
   deploy:
     needs: build
