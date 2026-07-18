@@ -126,8 +126,9 @@ jobs:
                 §F.1 (most recent first; never to the deep-dive report). If nothing material
                 was found, leave news.md unchanged — do NOT add a "no news" placeholder.
               - Produce the §B run-summary chat digest and write it VERBATIM to
-                `whats-new-digest.md` in the repo root. This exact text becomes the pull
-                request body, so always write it — even on a clean, nothing-fired check.
+                `whats-new-digest.md` in the repo root. This full, detailed digest is for
+                DISCORD — it is NOT the PR body. Always write it, even on a clean,
+                nothing-fired check.
               - Post the digest to the ticker's Discord channel (add --tripwire-fired only
                 if a [TRIPWIRE] hit this run):
                   python scripts/notify_discord_ticker.py \
@@ -135,6 +136,18 @@ jobs:
                     --date ${{ steps.meta.outputs.date }} --text-file whats-new-digest.md
                 The poster exits 0 and skips if no webhook is configured for the ticker —
                 that is expected, not an error.
+              - Write a SEPARATE, CONCISE PR body to `whats-new-pr-body.md` in the repo root —
+                this is what the PR shows; the full item list and assessment live in Discord
+                and in news.md. Always write it, even on a clean check. Keep it to just:
+                  * a lead line — the ticker, the date, and how many material items were
+                    logged this run (or "no material change" if nothing was found);
+                  * if any Tripwire fired, ONE line naming which numbered trigger fired and its
+                    pre-committed action; if none fired, one short line saying so;
+                  * a link to `tickers/${{ steps.meta.outputs.ticker }}/news.md`.
+                Do NOT reproduce the per-item digest or the assessment bullets here.
+                CRITICAL — escape every `#N`: in a GitHub PR body a bare `#1` auto-links to
+                issue/PR 1. Write Tripwire references as `\#1`, `\#2`, etc. (backslash-escaped)
+                so they render as plain text and do not create bogus cross-references.
 
             Reminder: do not touch git. The workflow commits your news.md edits, opens the
             PR, merges it, and rebuilds the site.
@@ -227,12 +240,13 @@ jobs:
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push -u origin "$BRANCH"
 
-          # Assemble the PR body: the §B digest, then the token-usage block.
+          # Assemble the PR body: the CONCISE PR summary (not the full §B digest, which
+          # goes to Discord), then the token-usage block.
           {
-            if [ -f whats-new-digest.md ]; then
-              cat whats-new-digest.md
+            if [ -f whats-new-pr-body.md ]; then
+              cat whats-new-pr-body.md
             else
-              echo "_No digest was produced this run._"
+              echo "_No PR summary was produced this run._"
             fi
             echo
             echo "---"

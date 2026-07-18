@@ -136,23 +136,38 @@ jobs:
                 Tripwire to accommodate the print.
               - Produce the §I.7 chat reply (lead line → Part 1 in brief → Part 2 in brief →
                 Final Thoughts → debrief file link) and write it VERBATIM to
-                `earnings-digest-body.md` in the repo root.
+                `earnings-digest-body.md` in the repo root. This full, detailed digest is for
+                DISCORD — it is NOT the PR body.
               - Post it to the ticker's Discord channel (add --tripwire-fired only if a
                 [TRIPWIRE] fired this run):
                   python scripts/notify_discord_ticker.py \
                     --ticker ${{ steps.meta.outputs.ticker }} --kind earnings-digest \
                     --date ${{ steps.meta.outputs.date }} --text-file earnings-digest-body.md
                 The poster exits 0 and skips if no webhook is configured — that is expected.
+              - Write a SEPARATE, CONCISE PR body to `earnings-digest-pr-body.md` in the repo
+                root — this is what the PR shows; the full detail lives in Discord and the
+                debrief file. Keep it to just:
+                  * the lead line — the quarter, the headline result vs. the guide, and the
+                    net assessment (thesis strengthened / weakened / unchanged);
+                  * if any Tripwire fired, ONE line naming which numbered trigger fired and its
+                    pre-committed action; if none fired, one short line saying so;
+                  * a link to the debrief file `tickers/${{ steps.meta.outputs.ticker }}/earnings-debrief.md`;
+                  * a final line: "Full digest posted to Discord."
+                Do NOT reproduce the Part 1 / Part 2 in-brief blocks or the Final Thoughts here.
+                CRITICAL — escape every `#N`: in a GitHub PR body a bare `#1` auto-links to
+                issue/PR 1. Write Tripwire references as `\#1`, `\#2`, etc. (backslash-escaped)
+                so they render as plain text and do not create bogus cross-references.
               - PUBLISH via git (do this yourself; the workflow does NOT push):
                   git checkout -b ${{ steps.meta.outputs.branch }}
-                  git add -A                          # earnings-digest-body.md is gitignored
+                  git add -A                          # both *-body.md files are gitignored
                   git commit -m "earnings-digest: ${{ steps.meta.outputs.ticker }} ${{ steps.meta.outputs.date }}"
                   git push -u origin ${{ steps.meta.outputs.branch }}
                   gh pr create --base main --head ${{ steps.meta.outputs.branch }} \
                     --title "earnings-digest: ${{ steps.meta.outputs.ticker }} ${{ steps.meta.outputs.date }}" \
-                    --body-file earnings-digest-body.md
-                Use that EXACT PR title. Do NOT merge the PR and do NOT push to main
-                directly — a later workflow step appends token usage and squash-merges it.
+                    --body-file earnings-digest-pr-body.md
+                Use that EXACT PR title and the CONCISE body file. Do NOT merge the PR and do
+                NOT push to main directly — a later workflow step appends token usage and
+                squash-merges it.
 
       - name: Summarize token usage
         env:
