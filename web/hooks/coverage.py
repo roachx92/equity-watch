@@ -24,36 +24,25 @@ from __future__ import annotations
 
 import glob
 import os
-import re
+import sys
+from pathlib import Path
 
-import yaml
-
-_DATE_FILE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.md$")
-_FRONT_MATTER = re.compile(r"^---\n(.*?)\n---\n", re.DOTALL)
-
-
-def _front_matter(path: str) -> dict:
-    with open(path, encoding="utf-8") as fh:
-        text = fh.read()
-    match = _FRONT_MATTER.match(text)
-    if not match:
-        return {}
-    data = yaml.safe_load(match.group(1))
-    return data if isinstance(data, dict) else {}
+# Reuse the deterministic watch-list helpers instead of re-implementing the
+# front-matter parser and report-date glob here. scripts/ sits at the repo root
+# (parents[2] of web/hooks/coverage.py); __file__-relative so it resolves under
+# whatever cwd mkdocs runs the hook from. tickerlib is stdlib-only, so this hook
+# no longer needs PyYAML.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
+import tickerlib  # noqa: E402
 
 
 def _latest_report(ticker_dir: str, sym: str) -> str | None:
-    """Newest `tickers/<SYM>/reports/<date>.md` as a site path, or None if none."""
-    reports_dir = os.path.join(ticker_dir, "reports")
-    dates = []
-    if os.path.isdir(reports_dir):
-        for entry in os.listdir(reports_dir):
-            match = _DATE_FILE.match(entry)
-            if match:
-                dates.append(match.group(1))
-    if not dates:
-        return None
-    return f"tickers/{sym}/reports/{max(dates)}/"  # ISO dates sort lexically
+    """Newest `tickers/<SYM>/reports/<date>.md` as a site path, or None if none.
+
+    Date-finding is delegated to tickerlib; this only formats the site URL.
+    """
+    date = tickerlib.latest_report_date(Path(ticker_dir))
+    return f"tickers/{sym}/reports/{date}/" if date else None
 
 
 def on_config(config):
@@ -63,7 +52,7 @@ def on_config(config):
     for path in sorted(glob.glob(os.path.join(docs_dir, "tickers", "*", "news.md"))):
         ticker_dir = os.path.dirname(path)
         sym = os.path.basename(ticker_dir)
-        meta = _front_matter(path)
+        meta = tickerlib.front_matter(Path(path))
         cards.append(
             {
                 "sym": sym,
