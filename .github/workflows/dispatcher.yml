@@ -1,0 +1,64 @@
+name: Dispatcher (deterministic triggers)
+
+# Runs a deterministic Python pre-filter (scripts/dispatch.py, NO Claude) on a
+# weekday-morning cron. For each watched ticker under tickers/*/ it decides,
+# using cheap Finnhub calls, whether an earnings-digest and/or a what's-new scan
+# is warranted, then fires the existing heavy workflow via `gh workflow run`.
+# Earnings: dispatched the morning after a Finnhub-calendar report, deduped by
+# reading tickers/<T>/earnings-debrief.md. What's-new: a keyword-filtered news
+# gate with a 48h per-ticker rate cap; gate state lives in the Actions cache
+# (never committed to main). See
+# docs/superpowers/specs/2026-07-18-dispatcher-triggers-design.md.
+
+on:
+  schedule:
+    - cron: '30 13 * * 1-5'   # ~09:30 ET, weekdays; catches prior-day AMC + same-morning BMO
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Print the decision table without dispatching or saving state'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: write            # required for `gh workflow run` to dispatch the heavy workflows
+
+concurrency:
+  group: dispatcher
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Restore gate state
+        uses: actions/cache/restore@v4
+        with:
+          path: .dispatch-state
+          key: dispatch-state-v1-${{ github.run_id }}
+          restore-keys: |
+            dispatch-state-v1-
+
+      - name: Run dispatcher
+        env:
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python3 scripts/dispatch.py ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      - name: Save gate state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .dispatch-state
+          key: dispatch-state-v1-${{ github.run_id }}

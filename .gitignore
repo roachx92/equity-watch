@@ -31,3 +31,6 @@ site_src/
 # Python
 __pycache__/
 *.pyc
+
+# Dispatcher gate-state (lives only in the Actions cache; never committed)
+.dispatch-state/
