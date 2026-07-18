@@ -1,0 +1,250 @@
+name: What's New (single ticker)
+
+# Ad-hoc, on-demand "what's new" news check for ONE watched ticker. Manually
+# dispatched with a required `ticker` input. Claude runs the bounded parallel
+# sub-agent scan, assesses each item against that ticker's §18 Edge/Tripwires,
+# appends dated entries to tickers/<TICKER>/news.md, posts the digest to the
+# ticker's Discord channel, and writes the run digest. The WORKFLOW (not Claude)
+# owns all git: it commits on a feature branch, opens a PR with the digest +
+# token usage, squash-merges it, and kicks the Pages rebuild.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: 'Ticker symbol to check (must already be covered under tickers/<TICKER>/)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  whats-new:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config --global user.name "equity-watch-bot"
+          git config --global user.email "equity-watch-bot@users.noreply.github.com"
+
+      - name: Resolve ticker, date, branch
+        id: meta
+        env:
+          RAW_TICKER: ${{ inputs.ticker }}
+        run: |
+          set -euo pipefail
+          # Uppercase, strip whitespace. Passed via env (not inline ${{ }}) to avoid injection.
+          TICKER=$(printf '%s' "$RAW_TICKER" | tr '[:lower:]' '[:upper:]' | tr -d '[:space:]')
+          if ! printf '%s' "$TICKER" | grep -Eq '^[A-Z0-9.-]{1,10}$'; then
+            echo "::error::Invalid ticker input: '$RAW_TICKER'" >&2
+            exit 1
+          fi
+          DATE=$(date -u +%Y-%m-%d)
+          BRANCH="whats-new/${TICKER}-${DATE}-${GITHUB_RUN_ID}"
+          {
+            echo "ticker=$TICKER"
+            echo "date=$DATE"
+            echo "branch=$BRANCH"
+          } >> "$GITHUB_OUTPUT"
+          echo "Resolved ticker=$TICKER date=$DATE branch=$BRANCH"
+
+      - name: Create working branch
+        run: git checkout -b "${{ steps.meta.outputs.branch }}"
+
+      - name: Materialize Discord webhook config
+        env:
+          WEBHOOKS_JSON: ${{ secrets.DISCORD_WEBHOOKS_JSON }}
+        run: |
+          set -euo pipefail
+          if [ -n "${WEBHOOKS_JSON:-}" ]; then
+            mkdir -p .secrets
+            printf '%s' "$WEBHOOKS_JSON" > .secrets/discord-webhooks.json
+            echo "Wrote .secrets/discord-webhooks.json from DISCORD_WEBHOOKS_JSON."
+          else
+            echo "DISCORD_WEBHOOKS_JSON not set — the Discord post will skip gracefully."
+          fi
+
+      - name: Run what's-new check
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Opus, always — the `opus` alias resolves to the latest Opus so it
+          # never rots to a stale dated model id.
+          claude_args: |
+            --model opus
+          prompt: |
+            You are running in a fresh checkout of the equity-watch repository, already
+            on a feature branch. **You MUST NOT run any git command** (no add / commit /
+            push / checkout / branch) and MUST NOT open a pull request — the workflow owns
+            every git and PR operation. Your job is only the research, the news.md update,
+            the Discord post, and writing the digest file. Leave your edits uncommitted in
+            the working tree.
+
+            Today's date is ${{ steps.meta.outputs.date }} (UTC). Use it as the anchor for
+            the "since the last dated entry" search window and stamp it on every log entry,
+            every source citation, and the digest.
+
+            TARGET TICKER: ${{ steps.meta.outputs.ticker }}
+
+            Run the bounded "what's new" news check for this ONE ticker, applying the
+            framework files as written (never from memory — read them directly):
+              1. framework/standing-rules.md — Sections A + E, binding on every step. This
+                 bounded scan does NOT use Section A's "EXHAUSTIVE BY DEFAULT" deep-dive
+                 depth; the window is bounded (news-check.md §A).
+              2. framework/latest-updates-workflow.md — Section F (the procedure + the
+                 mandatory §18 Tripwire/Edge assessment) and §F.1 (the canonical Recent
+                 News Log entry format — apply it, do not restate it).
+              3. framework/news-check.md — §A the parallel research-sub-agent method
+                 (self-contained prompts, source quality, first-run ~14-day window) and
+                 §B the run-summary chat-digest format.
+
+            COVERAGE GUARD — do this first: a what's-new check presupposes the ticker
+            already has a deep-dive and its §18 Edge/Tripwires. Confirm
+            tickers/${{ steps.meta.outputs.ticker }}/news.md exists and carries an Edge and
+            numbered Tripwires. **If the ticker is NOT covered (folder, news.md, or
+            Edge/Tripwires missing), STOP — do NOT build a deep-dive and do NOT invent an
+            Edge.** Write a one-line note to `whats-new-digest.md` in the repo root saying
+            the ticker isn't covered yet and a deep-dive must be run first, then finish.
+
+            If covered:
+              - Dispatch the bounded parallel research sub-agents per news-check.md §A. They
+                research ONLY — they must not edit files. Wait for them, then YOU assess
+                every item against the §18 Tripwire and Edge (tag [TRIPWIRE] / [EDGE+] /
+                [EDGE-], surface a fired tripwire at the top).
+              - Append full-detail, dated entries to
+                tickers/${{ steps.meta.outputs.ticker }}/news.md's `## Recent News Log` per
+                §F.1 (most recent first; never to the deep-dive report). If nothing material
+                was found, leave news.md unchanged — do NOT add a "no news" placeholder.
+              - Produce the §B run-summary chat digest and write it VERBATIM to
+                `whats-new-digest.md` in the repo root. This exact text becomes the pull
+                request body, so always write it — even on a clean, nothing-fired check.
+              - Post the digest to the ticker's Discord channel (add --tripwire-fired only
+                if a [TRIPWIRE] hit this run):
+                  python scripts/notify_discord_ticker.py \
+                    --ticker ${{ steps.meta.outputs.ticker }} --kind whats-new \
+                    --date ${{ steps.meta.outputs.date }} --text-file whats-new-digest.md
+                The poster exits 0 and skips if no webhook is configured for the ticker —
+                that is expected, not an error.
+
+            Reminder: do not touch git. The workflow commits your news.md edits, opens the
+            PR, merges it, and rebuilds the site.
+
+      - name: Summarize token usage
+        env:
+          EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
+        run: |
+          set -uo pipefail
+          python3 - "$EXECUTION_FILE" > "$RUNNER_TEMP/usage.md" <<'PY' || echo "_Token usage: unavailable._" > "$RUNNER_TEMP/usage.md"
+          import json, sys, pathlib
+
+          def emit(lines):
+              print("\n".join(lines))
+              sys.exit(0)
+
+          p = sys.argv[1] if len(sys.argv) > 1 else ""
+          if not p or not pathlib.Path(p).exists():
+              emit(["_Token usage: unavailable (no execution file)._"])
+
+          text = pathlib.Path(p).read_text(encoding="utf-8", errors="replace").strip()
+          records = []
+          try:
+              data = json.loads(text)
+              records = data if isinstance(data, list) else [data]
+          except json.JSONDecodeError:
+              for line in text.splitlines():
+                  line = line.strip()
+                  if not line:
+                      continue
+                  try:
+                      records.append(json.loads(line))
+                  except json.JSONDecodeError:
+                      pass
+
+          result = None
+          for r in records:
+              if isinstance(r, dict) and (r.get("type") == "result" or "total_cost_usd" in r):
+                  result = r  # keep the last matching record
+
+          if not result:
+              emit(["_Token usage: unavailable (no result record found)._"])
+
+          usage = result.get("usage") or {}
+          def n(key):
+              v = usage.get(key)
+              return v if isinstance(v, int) else 0
+
+          inp, out = n("input_tokens"), n("output_tokens")
+          cache_r, cache_c = n("cache_read_input_tokens"), n("cache_creation_input_tokens")
+          cost, turns = result.get("total_cost_usd"), result.get("num_turns")
+
+          lines = ["**Token usage**", "", "| Metric | Value |", "| --- | --- |"]
+          lines.append(f"| Input tokens | {inp:,} |")
+          lines.append(f"| Output tokens | {out:,} |")
+          if cache_r or cache_c:
+              lines.append(f"| Cache read tokens | {cache_r:,} |")
+              lines.append(f"| Cache creation tokens | {cache_c:,} |")
+          if isinstance(cost, (int, float)):
+              lines.append(f"| Cost (USD) | ${cost:.4f} |")
+          if isinstance(turns, int):
+              lines.append(f"| Turns | {turns} |")
+          emit(lines)
+          PY
+          echo "----- usage.md -----"
+          cat "$RUNNER_TEMP/usage.md"
+
+      - name: Commit, push, open & merge PR
+        id: git
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TICKER: ${{ steps.meta.outputs.ticker }}
+          DATE: ${{ steps.meta.outputs.date }}
+          BRANCH: ${{ steps.meta.outputs.branch }}
+        run: |
+          set -euo pipefail
+          git add -A
+          if git diff --cached --quiet; then
+            CHANGED=false
+            git commit --allow-empty -m "whats-new: ${TICKER} ${DATE} (no material change)"
+          else
+            CHANGED=true
+            git commit -m "whats-new: ${TICKER} ${DATE}"
+          fi
+          echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+          git push -u origin "$BRANCH"
+
+          # Assemble the PR body: the §B digest, then the token-usage block.
+          {
+            if [ -f whats-new-digest.md ]; then
+              cat whats-new-digest.md
+            else
+              echo "_No digest was produced this run._"
+            fi
+            echo
+            echo "---"
+            echo
+            cat "$RUNNER_TEMP/usage.md"
+          } > "$RUNNER_TEMP/pr-body.md"
+
+          PR_URL=$(gh pr create --base main --head "$BRANCH" \
+            --title "whats-new: ${TICKER} ${DATE}" \
+            --body-file "$RUNNER_TEMP/pr-body.md")
+          echo "Opened $PR_URL"
+          gh pr merge "$PR_URL" --squash --delete-branch
+          echo "Squash-merged $PR_URL"
+
+      - name: Rebuild the Pages site
+        if: steps.git.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # A merge made with GITHUB_TOKEN doesn't trigger the push-driven pages.yml
+          # (GitHub's recursion guard), so kick it explicitly.
+          gh workflow run pages.yml
