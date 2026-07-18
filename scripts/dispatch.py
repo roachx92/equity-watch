@@ -11,6 +11,8 @@ Python 3 stdlib only.
 """
 import re
 import json
+import urllib.parse
+import urllib.request
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -104,3 +106,30 @@ def read_debrief(tickers_dir, ticker):
     """Return tickers/<ticker>/earnings-debrief.md contents, or '' if absent."""
     p = Path(tickers_dir) / ticker / "earnings-debrief.md"
     return p.read_text(encoding="utf-8") if p.exists() else ""
+
+
+class FinnhubClient:
+    """Thin wrapper over the Finnhub free-tier REST API (stdlib urllib).
+
+    `opener` defaults to urllib.request.urlopen; tests inject a fake that
+    returns recorded fixtures, so the suite never touches the network.
+    """
+    BASE = "https://finnhub.io/api/v1"
+
+    def __init__(self, api_key, opener=None):
+        self._key = api_key
+        self._opener = opener or urllib.request.urlopen
+
+    def _get(self, path, params):
+        url = self.BASE + path + "?" + urllib.parse.urlencode(params)
+        req = urllib.request.Request(url, headers={"X-Finnhub-Token": self._key})
+        with self._opener(req, timeout=30) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+
+    def earnings_calendar(self, symbol, frm, to):
+        data = self._get("/calendar/earnings", {"symbol": symbol, "from": frm, "to": to})
+        return data.get("earningsCalendar", []) if isinstance(data, dict) else []
+
+    def company_news(self, symbol, frm, to):
+        data = self._get("/company-news", {"symbol": symbol, "from": frm, "to": to})
+        return data if isinstance(data, list) else []

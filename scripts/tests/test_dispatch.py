@@ -145,3 +145,56 @@ def test_read_debrief_returns_contents(tmp_path):
     (tmp_path / "AAOI").mkdir()
     (tmp_path / "AAOI" / "earnings-debrief.md").write_text("debrief body", encoding="utf-8")
     assert dispatch.read_debrief(str(tmp_path), "AAOI") == "debrief body"
+
+
+import json as _json
+
+
+class _FakeResp:
+    def __init__(self, payload):
+        self._payload = payload.encode("utf-8")
+
+    def read(self):
+        return self._payload
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+
+def _fake_opener(state):
+    def opener(req, timeout=None):
+        state["url"] = req.full_url
+        return _FakeResp(state["payload"])
+    return opener
+
+
+def test_earnings_calendar_parses_and_passes_symbol():
+    state = {"payload": _json.dumps({"earningsCalendar": [{"date": "2026-07-17", "symbol": "COHR"}]})}
+    client = dispatch.FinnhubClient("KEY", opener=_fake_opener(state))
+    rows = client.earnings_calendar("COHR", "2026-07-17", "2026-07-18")
+    assert rows == [{"date": "2026-07-17", "symbol": "COHR"}]
+    assert "symbol=COHR" in state["url"]
+    assert "/calendar/earnings" in state["url"]
+
+
+def test_earnings_calendar_unexpected_shape_returns_empty():
+    state = {"payload": _json.dumps([])}  # not a dict
+    client = dispatch.FinnhubClient("KEY", opener=_fake_opener(state))
+    assert client.earnings_calendar("COHR", "2026-07-17", "2026-07-18") == []
+
+
+def test_company_news_parses_list():
+    state = {"payload": _json.dumps([{"headline": "Wins contract"}])}
+    client = dispatch.FinnhubClient("KEY", opener=_fake_opener(state))
+    news = client.company_news("AAOI", "2026-07-15", "2026-07-18")
+    assert news == [{"headline": "Wins contract"}]
+    assert "/company-news" in state["url"]
+
+
+def test_company_news_unexpected_shape_returns_empty():
+    state = {"payload": _json.dumps({"error": "nope"})}  # not a list
+    client = dispatch.FinnhubClient("KEY", opener=_fake_opener(state))
+    assert client.company_news("AAOI", "2026-07-15", "2026-07-18") == []
