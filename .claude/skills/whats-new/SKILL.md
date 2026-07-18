@@ -30,14 +30,14 @@ log entry and every source citation, and the commit message.
 Read these directly (small, purpose-scoped) — do not work from memory of them:
 1. **`framework/standing-rules.md`** — Sections A + E, binding on every step. Note the explicit
    exception: this bounded scan does **NOT** apply Section A's "EXHAUSTIVE BY DEFAULT" diligence
-   depth (that's for full reports) — the search window here is bounded (see §A of news-check).
-2. **`framework/latest-updates-workflow.md`** — Section F: the analytical procedure, including
-   the **mandatory §18 Tripwire/Edge assessment** of every item, and **§F.1** — the canonical
-   Recent News Log entry format (single source of truth; don't restate it).
-3. **`framework/news-check.md`** — the shared spec: **§A** the parallel research-sub-agent
-   method (self-contained prompts, source-quality guidance, first-run ~14-day window) and **§B**
-   the run-summary digest format. This file is the single source of truth for both — don't
-   restate it.
+   depth (that's for full reports) — the search window here is bounded (see §F.2).
+2. **`framework/latest-updates-workflow.md`** — **Section F: the complete spec for this workflow,
+   all in one file.** The analytical procedure (including the **mandatory §18 Tripwire/Edge
+   assessment** of every item), plus its three mechanical specs: **§F.1** the canonical Recent
+   News Log entry format (how an item gets *stored*), **§F.2** the parallel research-sub-agent
+   method (self-contained prompts, source-quality + non-US-filer guidance, first-run ~14-day
+   window, stop condition), and **§F.3** the run-summary digest format. Single source of truth
+   for all three — don't restate them.
 
 ## Step 2 — confirm the ticker is covered (else build it first)
 Per Section F step 1: a "what's new" check presupposes a full report and the §18 Edge/Tripwires
@@ -51,14 +51,15 @@ news.md `Canonical deep-dive:` line says; if it's stale, refresh it as part of t
 the Edge/Tripwires into it, then continue here.
 
 ## Step 3 — dispatch bounded research sub-agents, in parallel
-Per `news-check.md` §A: **do not research single-threaded.** Dispatch a thorough parallel
-sub-agent pass (one dedicated agent, or several split by angle — filings/financing vs.
+Per `latest-updates-workflow.md` §F.2: **do not research single-threaded.** Dispatch a thorough
+parallel sub-agent pass (one dedicated agent, or several split by angle — filings/financing vs.
 product/competitive vs. sentiment/positioning — when depth is warranted). Each self-contained
-prompt must include: today's date + ticker; an instruction to `Read tickers/<TICKER>/news.md`
-(the ticker's news.md) and quote its exact Edge and numbered Tripwires **verbatim**; the search
-window (since the last dated log entry, or ~14 days back if the log is empty); the source-quality
-guidance; a hunt-list of one line per Tripwire + the Edge mechanism; and the report-back format
-(dated items, direct source URLs, full substantive detail). **Sub-agents research only — they
+prompt must include all seven items §F.2 lists: today's date + ticker; an instruction to
+`Read tickers/<TICKER>/news.md` (the ticker's news.md) and quote its exact Edge and numbered
+Tripwires **verbatim**; the search window (since the last dated log entry, or ~14 days back if
+the log is empty); the source-quality guidance; a hunt-list of one line per Tripwire + the Edge
+mechanism; the report-back format (dated items, direct source URLs, full substantive detail);
+and **an explicit stop condition** with a tool-call budget. **Sub-agents research only — they
 must NOT edit files.**
 
 ## Step 4 — assess, then write to the ticker's news.md
@@ -75,7 +76,7 @@ Wait for the sub-agents, then yourself:
 - **Commit** the updated news.md if anything changed (e.g. `whats-new: <TICKER> <date>`).
 
 ## Step 5 — produce the run summary
-Emit the chat digest in the **canonical format defined in `news-check.md` §B**: the per-ticker
+Emit the chat digest in the **canonical format defined in `latest-updates-workflow.md` §F.3**: the per-ticker
 news items lead (so the reader sees what's worth logging first), then 🚨 tripwires, then edge
 shifts — each edge-shift bullet carries a **one-line summary of the Edge itself inline** (the
 same way each tripwire bullet already carries its own context inline), so there's no separate
@@ -100,7 +101,7 @@ python scripts/notify_discord_ticker.py --ticker <TICKER> --kind whats-new --dat
   per-ticker channel, so the embed title is the only thing that tells the two run types apart
   in the Discord feed. Pass `--date <today's-date>` (Step 0's date) so the title reads
   `<TICKER> — What's New (<date>)`.
-- Write the exact §B chat digest (the same text shown in the reply) to a scratch file and pass
+- Write the exact §F.3 chat digest (the same text shown in the reply) to a scratch file and pass
   it via `--text-file` (or pipe it via stdin without that flag).
 - Pass `--tripwire-fired` whenever any `[TRIPWIRE]` hit this run — it colors the Discord embed
   red instead of green (green is the default, no-tripwire color).

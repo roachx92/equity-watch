@@ -108,10 +108,11 @@ jobs:
                  three sub-agents, §I.3 the five-part breakdown, §I.4 the four-part
                  assessment, §I.5 storage + the news.md split + the Guidance track record
                  table, §I.6 final thoughts + depth ceiling, §I.7 the chat reply.
-              3. framework/news-check.md — §A the parallel research-sub-agent method and
-                 source-quality guidance (§I.2 builds on it).
-              4. framework/latest-updates-workflow.md — §F.1 only: the canonical Recent News
-                 Log entry format, for the news.md half of the output.
+              3. framework/latest-updates-workflow.md — two sections only: §F.2 the parallel
+                 research-sub-agent method and source-quality guidance, including its
+                 non-US-filer note (§I.2 builds on it), and §F.1 the canonical Recent News
+                 Log entry format, for the news.md half of the output. Do NOT use §F.3 —
+                 the earnings chat reply has its own structure (§I.7).
 
             COVERAGE GUARD — do this first: a digest measures a call AGAINST an existing
             thesis. Confirm tickers/${{ steps.meta.outputs.ticker }}/news.md exists and

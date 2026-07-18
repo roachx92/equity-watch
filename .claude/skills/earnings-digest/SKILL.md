@@ -67,11 +67,11 @@ Read these directly — do not work from memory of them:
    track record table · §I.6 final thoughts and the depth ceiling · §I.7 the chat reply.
    This file is the single source of truth for the whole workflow — execute it, don't
    paraphrase it.
-3. **`framework/news-check.md`** — **§A** for the sub-agent research method and source-quality
-   guidance (§I.2 builds on it) and **§B** for the run-summary digest format (§I.7 emits it).
-   Single source of truth for both — don't restate.
-4. **`framework/latest-updates-workflow.md`** — **§F.1 only**: the canonical Recent News Log
-   entry format, for the news.md half of the output (§I.5). Apply as written.
+3. **`framework/latest-updates-workflow.md`** — **two sections only**: **§F.2** for the sub-agent
+   research method and source-quality guidance, including its non-US-filer note (§I.2 builds on
+   it), and **§F.1** for the canonical Recent News Log entry format, used verbatim for the
+   news.md half of the output (§I.5). **Do NOT use §F.3** — that is the what's-new run-summary
+   format; the earnings chat reply has its own structure (§I.7).
 
 ## Step 2 — confirm the thesis exists (else build it first)
 Per §I.1: a digest measures a call **against** something, and with nothing to measure against it
@@ -129,8 +129,8 @@ Emit the chat reply **per `framework/earnings-digest.md` §I.7**: it is assemble
 parts' own emoji-bullet summaries — a lead line (quarter, headline result vs. guide, net
 assessment: thesis strengthened / weakened / unchanged), then **Part 1 in brief** (§I.3(f)),
 **Part 2 in brief** (§I.4(e)), then the full **Final Thoughts** block (§I.6, all seven blocks),
-then the link to the debrief file. There is **no news-check §B digest** in the earnings chat
-reply. If any Tripwire fired, its 🚨 line leads the entire reply (§I.4(d) escalation). The full
+then the link to the debrief file. The what's-new run-summary format (`latest-updates-workflow.md`
+§F.3) is **not** used in the earnings chat reply. If any Tripwire fired, its 🚨 line leads the entire reply (§I.4(d) escalation). The full
 analysis — the numbers, cash-conversion, sector cross-check, and four-part assessment — lives in
 `earnings-debrief.md`, not the chat reply.
 
