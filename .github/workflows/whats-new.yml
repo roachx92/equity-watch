@@ -4,9 +4,9 @@ name: What's New (single ticker)
 # dispatched with a required `ticker` input. Claude runs the bounded parallel
 # sub-agent scan, assesses each item against that ticker's §18 Edge/Tripwires,
 # appends dated entries to tickers/<TICKER>/news.md, posts the digest to the
-# ticker's Discord channel, and writes the run digest. The WORKFLOW (not Claude)
-# owns all git: it commits on a feature branch, opens a PR with the digest +
-# token usage, squash-merges it, and kicks the Pages rebuild.
+# ticker's Discord channel, then (inside the action, where git auth works)
+# commits, pushes a branch, and opens a PR. A later step appends the run's token
+# usage to that PR and squash-merges it, then kicks the Pages rebuild.
 
 on:
   workflow_dispatch:
@@ -35,7 +35,7 @@ jobs:
           git config --global user.name "equity-watch-bot"
           git config --global user.email "equity-watch-bot@users.noreply.github.com"
 
-      - name: Resolve ticker, date, branch
+      - name: Resolve ticker & date
         id: meta
         env:
           RAW_TICKER: ${{ inputs.ticker }}
@@ -49,16 +49,12 @@ jobs:
             exit 1
           fi
           DATE=$(date -u +%Y-%m-%d)
-          BRANCH="whats-new/${TICKER}-${DATE}-${GITHUB_RUN_ID}"
           {
             echo "ticker=$TICKER"
             echo "date=$DATE"
-            echo "branch=$BRANCH"
+            echo "branch=whats-new/${TICKER}-${DATE}-${GITHUB_RUN_ID}"
           } >> "$GITHUB_OUTPUT"
-          echo "Resolved ticker=$TICKER date=$DATE branch=$BRANCH"
-
-      - name: Create working branch
-        run: git checkout -b "${{ steps.meta.outputs.branch }}"
+          echo "Resolved ticker=$TICKER date=$DATE"
 
       - name: Materialize Discord webhook config
         env:
@@ -78,17 +74,18 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          # Opus, always — the `opus` alias resolves to the latest Opus so it
-          # never rots to a stale dated model id.
+          # --model opus: the `opus` alias resolves to the latest Opus so it never
+          # rots to a stale dated id.
+          # --allowedTools: the headless action denies everything not on this list —
+          # without it, Task/WebSearch/Write/Edit/Bash are all blocked and the run
+          # finishes green having written nothing. Grant exactly what the check needs.
           claude_args: |
             --model opus
+            --allowedTools "Task,WebSearch,WebFetch,Read,Write,Edit,Glob,Grep,Bash"
           prompt: |
-            You are running in a fresh checkout of the equity-watch repository, already
-            on a feature branch. **You MUST NOT run any git command** (no add / commit /
-            push / checkout / branch) and MUST NOT open a pull request — the workflow owns
-            every git and PR operation. Your job is only the research, the news.md update,
-            the Discord post, and writing the digest file. Leave your edits uncommitted in
-            the working tree.
+            You are running in a fresh checkout of the roachx92/equity-watch repository.
+            Git identity is already configured and the action's git auth lets you commit,
+            push, and open a PR directly (Bash is allowed).
 
             Today's date is ${{ steps.meta.outputs.date }} (UTC). Use it as the anchor for
             the "since the last dated entry" search window and stamp it on every log entry,
@@ -113,8 +110,8 @@ jobs:
             tickers/${{ steps.meta.outputs.ticker }}/news.md exists and carries an Edge and
             numbered Tripwires. **If the ticker is NOT covered (folder, news.md, or
             Edge/Tripwires missing), STOP — do NOT build a deep-dive and do NOT invent an
-            Edge.** Write a one-line note to `whats-new-digest.md` in the repo root saying
-            the ticker isn't covered yet and a deep-dive must be run first, then finish.
+            Edge.** Print that the ticker isn't covered yet and finish WITHOUT committing or
+            opening a PR.
 
             If covered:
               - Dispatch the bounded parallel research sub-agents per news-check.md §A. They
@@ -126,18 +123,27 @@ jobs:
                 §F.1 (most recent first; never to the deep-dive report). If nothing material
                 was found, leave news.md unchanged — do NOT add a "no news" placeholder.
               - Produce the §B run-summary chat digest and write it VERBATIM to
-                `whats-new-digest.md` in the repo root. This exact text becomes the pull
-                request body, so always write it — even on a clean, nothing-fired check.
+                `whats-new-digest.md` in the repo root. Always write it — even on a clean,
+                nothing-fired check.
               - Post the digest to the ticker's Discord channel (add --tripwire-fired only
                 if a [TRIPWIRE] hit this run):
                   python scripts/notify_discord_ticker.py \
                     --ticker ${{ steps.meta.outputs.ticker }} --kind whats-new \
                     --date ${{ steps.meta.outputs.date }} --text-file whats-new-digest.md
-                The poster exits 0 and skips if no webhook is configured for the ticker —
-                that is expected, not an error.
-
-            Reminder: do not touch git. The workflow commits your news.md edits, opens the
-            PR, merges it, and rebuilds the site.
+                The poster exits 0 and skips if no webhook is configured — that is expected.
+              - PUBLISH via git (do this yourself; the workflow does NOT push):
+                  git checkout -b ${{ steps.meta.outputs.branch }}
+                  git add -A                          # whats-new-digest.md is gitignored
+                  # If news.md changed, commit it; if the check was clean (no change),
+                  # make an EMPTY commit so a PR still opens (the heartbeat):
+                  git commit -m "whats-new: ${{ steps.meta.outputs.ticker }} ${{ steps.meta.outputs.date }}" \
+                    || git commit --allow-empty -m "whats-new: ${{ steps.meta.outputs.ticker }} ${{ steps.meta.outputs.date }} (no material change)"
+                  git push -u origin ${{ steps.meta.outputs.branch }}
+                  gh pr create --base main --head ${{ steps.meta.outputs.branch }} \
+                    --title "whats-new: ${{ steps.meta.outputs.ticker }} ${{ steps.meta.outputs.date }}" \
+                    --body-file whats-new-digest.md
+                Use that EXACT PR title. Do NOT merge the PR and do NOT push to main
+                directly — a later workflow step appends token usage and squash-merges it.
 
       - name: Summarize token usage
         env:
@@ -202,48 +208,39 @@ jobs:
           echo "----- usage.md -----"
           cat "$RUNNER_TEMP/usage.md"
 
-      - name: Commit, push, open & merge PR
-        id: git
+      - name: Append token usage to the PR, then squash-merge it
+        id: merge
+        if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TICKER: ${{ steps.meta.outputs.ticker }}
           DATE: ${{ steps.meta.outputs.date }}
-          BRANCH: ${{ steps.meta.outputs.branch }}
         run: |
           set -euo pipefail
-          git add -A
-          if git diff --cached --quiet; then
-            CHANGED=false
-            git commit --allow-empty -m "whats-new: ${TICKER} ${DATE} (no material change)"
-          else
-            CHANGED=true
-            git commit -m "whats-new: ${TICKER} ${DATE}"
+          # Claude opened the PR from inside the action with this exact title.
+          pr="$(gh pr list --state open \
+                  --search "whats-new: ${TICKER} ${DATE} in:title" \
+                  --json number --jq '.[0].number')"
+          if [ -z "$pr" ] || [ "$pr" = "null" ]; then
+            echo "No open 'whats-new: ${TICKER} ${DATE}' PR found (likely the ticker is"
+            echo "not covered, so nothing was published). Nothing to merge."
+            echo "merged=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
-          echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
-          git push -u origin "$BRANCH"
-
-          # Assemble the PR body: the §B digest, then the token-usage block.
+          echo "Found PR #${pr} — appending token usage and merging."
+          gh pr view "$pr" --json body --jq '.body' > "$RUNNER_TEMP/body-cur.md" || : > "$RUNNER_TEMP/body-cur.md"
           {
-            if [ -f whats-new-digest.md ]; then
-              cat whats-new-digest.md
-            else
-              echo "_No digest was produced this run._"
-            fi
-            echo
-            echo "---"
-            echo
+            cat "$RUNNER_TEMP/body-cur.md"
+            printf '\n\n---\n\n'
             cat "$RUNNER_TEMP/usage.md"
-          } > "$RUNNER_TEMP/pr-body.md"
-
-          PR_URL=$(gh pr create --base main --head "$BRANCH" \
-            --title "whats-new: ${TICKER} ${DATE}" \
-            --body-file "$RUNNER_TEMP/pr-body.md")
-          echo "Opened $PR_URL"
-          gh pr merge "$PR_URL" --squash --delete-branch
-          echo "Squash-merged $PR_URL"
+          } > "$RUNNER_TEMP/body-new.md"
+          gh pr edit "$pr" --body-file "$RUNNER_TEMP/body-new.md" || echo "(body edit failed; merging anyway)"
+          gh pr merge "$pr" --squash --delete-branch
+          echo "merged=true" >> "$GITHUB_OUTPUT"
+          echo "Squash-merged PR #${pr}"
 
       - name: Rebuild the Pages site
-        if: steps.git.outputs.changed == 'true'
+        if: steps.merge.outputs.merged == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
