@@ -96,7 +96,7 @@ def test_should_scan_news_rate_caps_within_48h():
     matched = [("Wins contract", "contract")]
     should, reason = dispatch.should_scan_news(matched, last, now)
     assert should is False
-    assert reason == "rate-capped until 2026-07-19 13:30Z"
+    assert reason == "rate-capped until 2026-07-20 03:30Z"
 
 
 def test_should_scan_news_fires_after_48h():
