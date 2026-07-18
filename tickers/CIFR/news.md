@@ -5,7 +5,7 @@ blurb: "US bitcoin miner repositioned into an AI/HPC data-center lessor; ~$9.3B 
 
 # CIFR — Cipher Digital Inc. (NASDAQ: CIFR)
 
-**Canonical deep-dive:** [`reports/2026-07-15.md`](reports/2026-07-15.md) (full-framework run, 2026-07-15). This file holds the monitoring state; the Edge and Tripwires below are the binding pre-committed triggers for the daily watch.
+**Canonical deep-dive:** [`reports/2026-07-15.md`](reports/2026-07-15.md) (full-framework run, 2026-07-15). This file holds the monitoring state; the Edge and Tripwires below are the binding pre-committed triggers assessed on every whats-new / earnings-digest run.
 
 *(Note: renamed from "Cipher Mining Inc." to "Cipher Digital Inc." ~Feb 2026; ticker unchanged.)*
 
