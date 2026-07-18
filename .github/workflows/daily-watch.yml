@@ -27,6 +27,15 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # The routine dispatches parallel research sub-agents (Task), does
+          # web research (WebSearch/WebFetch), edits each ticker's news.md and
+          # writes summaries/<today>.md (Write/Edit), and commits + pushes via
+          # git (Bash). None of these are in the action's default headless
+          # allowlist, so without this every such call is denied and the run
+          # finishes green but writes nothing (see run 29651145196: 52 denials,
+          # no commit). Grant exactly the tools daily-watch.md needs.
+          claude_args: |
+            --allowedTools "Task,WebSearch,WebFetch,Read,Write,Edit,Glob,Grep,Bash"
           prompt: |
             You are running in a fresh checkout of the roachx92/equity-watch
             repository at the current working directory. Git identity is
