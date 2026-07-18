@@ -1,0 +1,44 @@
+name: Lint
+
+# Deterministic validation gate for the watch-list (part-2-scripts-plan.md
+# items 1/3/4): the report pointer must be current, every news.md must be
+# well-formed, and every Recent News Log entry must be structurally valid.
+# Runs the same validation scripts the per-ticker workflows rely on, so drift
+# fails here instead of silently.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install test deps
+        # PyYAML lets the resolver cross-check test exercise web/hooks/coverage.py;
+        # pytest for the scripts/ unit tests. Both stdlib-runnable otherwise.
+        run: pip install pytest pyyaml
+
+      - name: Canonical deep-dive pointer is current
+        run: python scripts/resolve_report.py --check
+
+      - name: Ticker news.md structure
+        run: python scripts/lint_news_structure.py
+
+      - name: Recent News Log entry format
+        run: python scripts/lint_news_log.py
+
+      - name: Script unit tests
+        run: python -m pytest scripts/tests/ -q
