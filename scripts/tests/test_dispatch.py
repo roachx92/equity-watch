@@ -102,6 +102,18 @@ def test_quarter_already_logged_false_when_debrief_empty():
     assert dispatch.quarter_already_logged("", "2026-07-17") is False
 
 
+def test_quarter_already_logged_ignores_date_outside_heading():
+    # The report date appears only in non-heading lines (methodology / deep-dive
+    # link) — must NOT count as logged. The prior quarter's heading date must.
+    debrief = (
+        "## Q1 2026 — reported 2026-05-07 (after close)\n\n"
+        "Sources retrieved and digest written 2026-07-17.\n"
+        "Canonical deep-dive: reports/2026-07-17.md\n"
+    )
+    assert dispatch.quarter_already_logged(debrief, "2026-07-17") is False
+    assert dispatch.quarter_already_logged(debrief, "2026-05-07") is True
+
+
 def test_load_state_missing_file_returns_empty(tmp_path):
     assert dispatch.load_state(str(tmp_path / "nope.json")) == {}
 
@@ -242,7 +254,8 @@ def test_run_dispatches_earnings_when_quarter_new(tmp_path):
 
 def test_run_skips_earnings_when_quarter_already_logged(tmp_path):
     tdir = _make_tickers(tmp_path, ["COHR"])
-    (tmp_path / "COHR" / "earnings-debrief.md").write_text("reported 2026-07-17", encoding="utf-8")
+    (tmp_path / "COHR" / "earnings-debrief.md").write_text(
+        "## Q4 FY2026 — reported 2026-07-17\n\nNumbers...\n", encoding="utf-8")
     client = _FakeClient(earnings={"COHR": [{"date": "2026-07-17", "symbol": "COHR"}]})
     now = datetime(2026, 7, 18, 13, 30, tzinfo=UTC)
     fired = []
@@ -283,6 +296,17 @@ def test_run_dry_run_does_not_mutate_state(tmp_path):
     assert state == {}
 
 
+def test_run_dispatch_failure_marks_failed_and_does_not_arm_cap(tmp_path):
+    tdir = _make_tickers(tmp_path, ["AAOI"])
+    client = _FakeClient(news={"AAOI": [{"headline": "AAOI wins contract"}]})
+    now = datetime(2026, 7, 18, 13, 30, tzinfo=UTC)
+    state = {}
+    rows = dispatch.run(tdir, client, state, now, dispatch.DEFAULT_KEYWORDS,
+                        dispatch=lambda wf, t, dry_run=False: False)
+    assert rows[0][2] == "dispatch-failed"
+    assert state == {}  # 48h cap must NOT be armed when the dispatch failed
+
+
 def test_run_isolates_per_ticker_errors(tmp_path):
     tdir = _make_tickers(tmp_path, ["AAOI", "BOOM"])
 
@@ -307,3 +331,29 @@ def test_render_summary_has_header_and_rows():
     out = dispatch.render_summary(rows)
     assert "| Ticker | Earnings | What's-new | Reason |" in out
     assert "| AAOI | — | dispatched |" in out
+
+
+def test_render_summary_escapes_pipe_in_reason():
+    rows = [("AAOI", "—", "skipped", "news error: bad|value")]
+    out = dispatch.render_summary(rows)
+    assert "bad\\|value" in out
+
+
+def test_dispatch_workflow_dry_run_returns_true_without_calling():
+    assert dispatch.dispatch_workflow("whats-new.yml", "AAOI", dry_run=True) is True
+
+
+def test_dispatch_workflow_returns_false_on_nonzero_exit(monkeypatch):
+    class _Result:
+        returncode = 1
+        stderr = "gh: not authenticated"
+    monkeypatch.setattr(dispatch.subprocess, "run", lambda *a, **k: _Result())
+    assert dispatch.dispatch_workflow("whats-new.yml", "AAOI") is False
+
+
+def test_dispatch_workflow_returns_true_on_zero_exit(monkeypatch):
+    class _Result:
+        returncode = 0
+        stderr = ""
+    monkeypatch.setattr(dispatch.subprocess, "run", lambda *a, **k: _Result())
+    assert dispatch.dispatch_workflow("whats-new.yml", "AAOI") is True

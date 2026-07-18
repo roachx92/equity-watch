@@ -62,12 +62,15 @@ def earnings_due(calendar_rows, today):
 
 def quarter_already_logged(debrief_text, report_date):
     """True if the earnings debrief already covers the quarter reported on
-    report_date. Dedup keys on the reporting date appearing in the debrief — the
-    earnings-digest workflow stamps that date on the quarter heading. A missing or
-    empty debrief means the quarter is not logged (dispatch)."""
+    report_date. Dedup keys on the quarter HEADING the earnings-digest workflow
+    writes — `## <FY period> — reported <YYYY-MM-DD>` (framework/earnings-digest.md
+    §I.5) — not on the bare date appearing anywhere, because debriefs also carry
+    that date in methodology lines, the deep-dive link, and guidance-table cells.
+    A missing or empty debrief means the quarter is not logged (dispatch)."""
     if not debrief_text:
         return False
-    return report_date in debrief_text
+    pattern = r"(?m)^##\s.*\breported\s+" + re.escape(report_date) + r"\b"
+    return re.search(pattern, debrief_text) is not None
 
 
 def load_state(path):
@@ -185,9 +188,11 @@ def run(tickers_dir, client, state, now, keywords,
                 earnings_cell = "skipped"
                 reasons.append("quarter %s already logged" % report_date)
             else:
-                dispatch("earnings-digest.yml", ticker, dry_run)
-                earnings_cell = "dispatched"
-                reasons.append("earnings reported %s" % report_date)
+                ok = dispatch("earnings-digest.yml", ticker, dry_run)
+                earnings_cell = "dispatched" if ok else "dispatch-failed"
+                reasons.append(
+                    ("earnings reported %s" % report_date) if ok
+                    else ("earnings dispatch FAILED for %s" % report_date))
         except Exception as exc:  # noqa: BLE001 - one ticker must not sink the run
             reasons.append("earnings error: %s" % exc)
 
@@ -200,10 +205,14 @@ def run(tickers_dir, client, state, now, keywords,
             should, reason = should_scan_news(matched, last_scan, now)
             reasons.append(reason)
             if should:
-                dispatch("whats-new.yml", ticker, dry_run)
-                news_cell = "dispatched"
-                if not dry_run:
-                    state.setdefault(ticker, {})["last_news_scan"] = now.isoformat()
+                ok = dispatch("whats-new.yml", ticker, dry_run)
+                if ok:
+                    news_cell = "dispatched"
+                    if not dry_run:
+                        state.setdefault(ticker, {})["last_news_scan"] = now.isoformat()
+                else:
+                    news_cell = "dispatch-failed"
+                    reasons.append("whats-new dispatch FAILED")
             elif matched:
                 news_cell = "skipped"
         except Exception as exc:  # noqa: BLE001
@@ -214,11 +223,16 @@ def run(tickers_dir, client, state, now, keywords,
 
 
 def render_summary(rows):
-    """Render the decision rows as a Markdown table for the Actions summary."""
+    """Render the decision rows as a Markdown table for the Actions summary.
+    Cell values are escaped so a `|` in a reason (e.g. an exception message)
+    cannot corrupt the table."""
+    def _cell(value):
+        return str(value).replace("|", "\\|")
     lines = ["| Ticker | Earnings | What's-new | Reason |",
              "| --- | --- | --- | --- |"]
     for ticker, earnings_cell, news_cell, reason in rows:
-        lines.append("| %s | %s | %s | %s |" % (ticker, earnings_cell, news_cell, reason))
+        lines.append("| %s | %s | %s | %s |"
+                     % (_cell(ticker), _cell(earnings_cell), _cell(news_cell), _cell(reason)))
     return "\n".join(lines)
 
 
