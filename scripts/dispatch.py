@@ -10,7 +10,9 @@ docs/superpowers/specs/2026-07-18-dispatcher-triggers-design.md.
 Python 3 stdlib only.
 """
 import re
-from datetime import timedelta
+import json
+from datetime import datetime, timedelta
+from pathlib import Path
 
 
 def material_headlines(news_items, keywords):
@@ -60,3 +62,45 @@ def quarter_already_logged(debrief_text, report_date):
     if not debrief_text:
         return False
     return report_date in debrief_text
+
+
+def load_state(path):
+    """Load the gate-state JSON. Missing or unparseable file -> {}."""
+    p = Path(path)
+    if not p.exists():
+        return {}
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def save_state(path, state):
+    """Write the gate-state JSON, creating parent directories."""
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(state, indent=2, sort_keys=True), encoding="utf-8")
+
+
+def _parse_dt(s):
+    """Parse an isoformat datetime string; None/invalid -> None."""
+    if not s:
+        return None
+    try:
+        return datetime.fromisoformat(s)
+    except ValueError:
+        return None
+
+
+def list_tickers(tickers_dir):
+    """Watch-list = subdirectories of tickers_dir that contain a news.md."""
+    base = Path(tickers_dir)
+    if not base.exists():
+        return []
+    return [p.name for p in base.iterdir() if p.is_dir() and (p / "news.md").exists()]
+
+
+def read_debrief(tickers_dir, ticker):
+    """Return tickers/<ticker>/earnings-debrief.md contents, or '' if absent."""
+    p = Path(tickers_dir) / ticker / "earnings-debrief.md"
+    return p.read_text(encoding="utf-8") if p.exists() else ""

@@ -100,3 +100,48 @@ def test_quarter_already_logged_false_when_absent():
 
 def test_quarter_already_logged_false_when_debrief_empty():
     assert dispatch.quarter_already_logged("", "2026-07-17") is False
+
+
+def test_load_state_missing_file_returns_empty(tmp_path):
+    assert dispatch.load_state(str(tmp_path / "nope.json")) == {}
+
+
+def test_save_then_load_state_roundtrips(tmp_path):
+    path = str(tmp_path / "state" / "state.json")
+    dispatch.save_state(path, {"AAOI": {"last_news_scan": "2026-07-18T13:30:00+00:00"}})
+    assert dispatch.load_state(path) == {"AAOI": {"last_news_scan": "2026-07-18T13:30:00+00:00"}}
+
+
+def test_load_state_bad_json_returns_empty(tmp_path):
+    p = tmp_path / "state.json"
+    p.write_text("{not json", encoding="utf-8")
+    assert dispatch.load_state(str(p)) == {}
+
+
+def test_parse_dt_roundtrips_utc():
+    dt = dispatch._parse_dt("2026-07-18T13:30:00+00:00")
+    assert dt.year == 2026 and dt.utcoffset() == timedelta(0)
+
+
+def test_parse_dt_none_and_garbage_return_none():
+    assert dispatch._parse_dt(None) is None
+    assert dispatch._parse_dt("not-a-date") is None
+
+
+def test_list_tickers_only_dirs_with_news_md(tmp_path):
+    (tmp_path / "AAOI").mkdir()
+    (tmp_path / "AAOI" / "news.md").write_text("x", encoding="utf-8")
+    (tmp_path / "EMPTY").mkdir()  # no news.md
+    (tmp_path / "loose.txt").write_text("x", encoding="utf-8")
+    assert dispatch.list_tickers(str(tmp_path)) == ["AAOI"]
+
+
+def test_read_debrief_absent_returns_empty(tmp_path):
+    (tmp_path / "AAOI").mkdir()
+    assert dispatch.read_debrief(str(tmp_path), "AAOI") == ""
+
+
+def test_read_debrief_returns_contents(tmp_path):
+    (tmp_path / "AAOI").mkdir()
+    (tmp_path / "AAOI" / "earnings-debrief.md").write_text("debrief body", encoding="utf-8")
+    assert dispatch.read_debrief(str(tmp_path), "AAOI") == "debrief body"
