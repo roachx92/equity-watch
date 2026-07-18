@@ -1,7 +1,7 @@
 # CLAUDE.md — equity-watch
 
 ## What this is
-A live monitoring repo for a daily "What's New" equity watch. A Claude Code Remote Routine runs each weekday, reads `daily-watch.md`, dispatches one research sub-agent per ticker, assesses findings against each ticker's pre-committed **Edge** and **Tripwires**, and commits dated entries to each ticker's `news.md`. The repo holds the lightweight monitoring state **and** the full deep-dive reports (markdown under `tickers/<TICKER>/reports/<YYYY-MM-DD>.md`); the repo is published as a MkDocs Material GitHub Pages site.
+A monitoring repo for on-demand, per-ticker equity research. Three workflows run against a watched ticker — a **what's-new** news scan, an **earnings-digest** call breakdown, and a full **deep-dive** — each dispatching research sub-agents, assessing findings against that ticker's pre-committed **Edge** and **Tripwires**, and committing dated entries to its `news.md`. The repo holds the lightweight monitoring state **and** the full deep-dive reports (markdown under `tickers/<TICKER>/reports/<YYYY-MM-DD>.md`); the repo is published as a MkDocs Material GitHub Pages site.
 
 ## Canonical-source rule
 - This repo is the **master** for the research framework. Apply the framework files as written — **never restate the rules from memory**.
@@ -11,29 +11,19 @@ A live monitoring repo for a daily "What's New" equity watch. A Claude Code Remo
 - `framework/standing-rules.md` — Sections A + E. Standing rules and honest limits; apply to EVERY response.
 - `framework/latest-updates-workflow.md` — Section F. The "what's new" analytical procedure (with §18 Tripwire/Edge assessment), **plus §F.1 — the canonical `## Recent News Log` entry format, single source of truth for how a news item gets stored in a ticker's news.md.**
 - `framework/deep-dive-template.md` — Sections B0, B, C, D, G, H. The full-diligence report standard + the four mandatory sub-agent prompt templates.
-- `framework/news-check.md` — the canonical spec shared by the daily watch and the "what's new" workflow: §A the agentic parallel-sub-agent research method (+ source-quality & first-run window), §B the run-summary chat-digest format.
+- `framework/news-check.md` — the canonical spec for the "what's new" workflow: §A the agentic parallel-sub-agent research method (+ source-quality & first-run window), §B the run-summary chat-digest format.
 - `framework/earnings-digest.md` — Section I. The earnings-call debrief procedure: three parallel sub-agents over the 8-K/EX-99.1, 10-Q, deck and call Q&A → a retail-readable breakdown (numbers · cash conversion · management's sector read cross-checked against peers · what was *dropped* from disclosure · the reaction decomposed from the sector tape) + assessment against thesis / re-rate drivers / risks / Edge + Tripwires + what to watch next. Output goes to `tickers/<TICKER>/earnings-debrief.md`; the call's discrete news items still go to the ticker's news.md per §F.1.
 
-**News-check spec split — one home each, referenced never restated:** **research it** → `news-check.md` §A · **report it** (chat digest) → `news-check.md` §B · **store it** (log entry in the ticker's news.md) → `latest-updates-workflow.md` §F.1. Both entry points (daily watch and ad-hoc) apply all three identically.
-- `daily-watch.md` — the operational procedure the routine runs (applies Sections A + F to this repo's layout).
+**News-check spec split — one home each, referenced never restated:** **research it** → `news-check.md` §A · **report it** (chat digest) → `news-check.md` §B · **store it** (log entry in the ticker's news.md) → `latest-updates-workflow.md` §F.1. The what's-new workflow applies all three.
 - `tickers/<TICKER>/earnings-debrief.md` — per-ticker **earnings debrief log**: one prepended section per quarter (most recent first), written by `framework/earnings-digest.md`. Quarters are never overwritten — the accumulated history is how management's story is tracked across calls. **One deliberate exception:** the standing `## Guidance track record` table at the top is updated in place (row added when a guide is issued, outcome filled when that period reports) and is the prospective evidence base for the next deep-dive's §13 management assessment. Optional per ticker; absent until the first digest runs.
 - `tickers/<TICKER>/news.md` — **the ticker's news.md**: per-ticker state (YAML front matter for the homepage grid, Canonical deep-dive link, thesis context, Edge, numbered Tripwires, Recent News Log). **The directory is the watch-list** — one **folder** per watched ticker, folder name = symbol; adding a ticker is "drop in a folder with a news.md," and there is no separate roster to update. A folder is the unit; the news.md is its state. The per-ticker folder exists so future per-ticker artifacts have a home without disturbing the watch-list glob.
 - `tickers/<TICKER>/reports/<YYYY-MM-DD>.md` — the ticker's **deep-dive report snapshots**, one dated file per full-framework run, written by `framework/deep-dive-template.md`. **Immutable once published** — never overwrite a prior date; a re-run drops a new dated file alongside. The newest date is the canonical deep-dive; the homepage grid resolves it automatically (`web/hooks/coverage.py`). Absent until the first deep-dive runs.
   **Resolving "the" report — always by glob, never by trust.** Any workflow that needs a ticker's deep-dive (deep-dive Step 4 seeding/refreshing news.md, whats-new/earnings-digest Step "confirm the ticker is covered," or any ad-hoc question about a ticker's report) globs `tickers/<TICKER>/reports/*.md`, sorts by date, and uses the newest — it does **not** assume the news.md `**Canonical deep-dive:**` line is current, since that line is a written pointer someone set at a point in time and can go stale (a later re-run, a manual edit, a race between sessions). If the glob's newest date disagrees with what the link says, that's real drift: use the glob result and refresh the link to match as part of the current run, don't silently propagate the stale one. This applies every time, not just right after a fresh deep-dive.
-- `summaries/<YYYY-MM-DD>.md` — per-run persisted copy of the §B run-summary
-  digest (frontmatter counts + digest body), written by `daily-watch.md` each
-  run. Consumed by the Discord notification Action; also the daily heartbeat.
-- `scripts/notify_discord.py` — dependency-free poster: parses a summary file,
-  builds a colored header embed, chunks the body under Discord's limit, POSTs to
-  the `DISCORD_WEBHOOK_URL` webhook. Locally runnable with `--dry-run`. Shares its
-  chunking/POST logic with `scripts/discord_common.py`.
-- `.github/workflows/notify-discord.yml` — on push to `summaries/**`, posts each
-  newly added summary to Discord via the poster. **This is the daily-watch (scheduled,
-  all-tickers) path — push-triggered.**
-- `scripts/notify_discord_ticker.py` — the **ad-hoc, single-ticker** Discord poster,
+- `scripts/notify_discord_ticker.py` — the per-ticker Discord poster,
   run locally by both the `whats-new` and `earnings-digest` skills at the end of every
   `/whats-new <TICKER>` or `/earnings-digest <TICKER>` run (not push-triggered — an
-  ad-hoc check isn't committed/pushed every time). **Both run types post to the same
+  ad-hoc check isn't committed/pushed every time). Shares its chunking/POST logic with
+  `scripts/discord_common.py`. **Both run types post to the same
   per-ticker channel**, so `--kind whats-new|earnings-digest` is mandatory and titles
   the embed `<TICKER> — What's New (<date>)` or `<TICKER> — Earnings Digest (<date>)`
   so the two are distinguishable in the Discord feed. Looks up the ticker in
@@ -59,10 +49,10 @@ A live monitoring repo for a daily "What's New" equity watch. A Claude Code Remo
 | I — Earnings digest workflow | `framework/earnings-digest.md` |
 
 ## Layering
-Standing rules (always) → latest-updates workflow (the method) → `daily-watch.md` (launcher/ops) → `tickers/<TICKER>/news.md` (state).
+Standing rules (always) → latest-updates workflow (the method) → `tickers/<TICKER>/news.md` (state).
 
 ## Three entry points
-- **Daily watch:** the routine reads `daily-watch.md`. Uses Sections A + F only.
+- **What's new** ("what's new on TICKER", "latest on TICKER"): use `framework/latest-updates-workflow.md` (Section F) with `framework/news-check.md`, under `framework/standing-rules.md`. The bounded, per-ticker news scan — appends to the ticker's Recent News Log and emits the §B digest.
 - **Full deep-dive** ("run the framework on TICKER"): use `framework/deep-dive-template.md` with all four sub-agent templates, under `framework/standing-rules.md`. **Start from `framework/report-template.md`, apply §B0 (output architecture — non-negotiable), and run the orchestrator plus all four sub-agents on Opus.** Do not use a previously published report as the quality precedent — build against §B0 directly; the July 2026 audit found the whole corpus below the bar.
 - **Earnings digest** ("earnings digest on TICKER", "break down TICKER's call"): use `framework/earnings-digest.md` (Section I), under `framework/standing-rules.md`. Presupposes a deep-dive and the ticker's Edge/Tripwires already exist — if they don't, build the report first. Three sub-agents, Opus-pinned. Writes the quarter's analysis to `tickers/<TICKER>/earnings-debrief.md` **and** the call's discrete news items to the ticker's news.md per §F.1.
 

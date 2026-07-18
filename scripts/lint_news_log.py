@@ -37,7 +37,7 @@ from tickerlib import news_files, repo_root  # noqa: E402
 _LOG_HEADER = "## Recent News Log"
 _ENTRY_LEAD = re.compile(r"^-\s+\d{4}-\d{2}-\d{2}(?:\s+to\s+\d{4}-\d{2}-\d{2})?\s+—\s+\[[^\]]+\]")
 _ENTRY_BULLET = re.compile(r"^-\s+\d{4}-\d{2}-\d{2}")
-_BOLD = re.compile(r"\*\*[^*]+\*\*")
+_BOLD = re.compile(r"\*\*.+?\*\*")  # a bold span may itself contain *italic* emphasis
 _LINK = re.compile(r"\]\(https?://")
 _SKELETON = "YYYY-MM-DD — [FRAMEWORK-TAG]"
 _CANONICAL_SPEC = "framework/latest-updates-workflow.md"

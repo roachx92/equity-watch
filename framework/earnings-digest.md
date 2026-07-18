@@ -32,6 +32,12 @@ Apply the Section A sourcing rules in full: **primary documents override seconda
 
 **Source quality** — apply `news-check.md` §A's guidance as written. Quote-aggregator pages are not a source for what was said on a call. **If the transcript or deck cannot be accessed, say so plainly in the digest and state what you used instead** — never reconstruct remarks you did not read (Section A: never fabricate).
 
+**Stop condition — every sub-agent prompt must carry one. MANDATORY.** A sub-agent left without an explicit stopping rule will keep searching long after it has what the digest needs, and a digest that arrives an hour late has a real cost. **Write the sufficiency test into the prompt itself**, in these terms:
+- [ ] **"Stop as soon as you can answer the numbered items above, and report what you have."** The deliverable is a brief that lets the orchestrator write §I.3–§I.4 — not an exhaustive dossier. This is a *bounded read of one event* (§I.6 depth ceiling), not the deep-dive's exhaustive-by-default standard.
+- [ ] **Give a soft budget and a hard one** — e.g. "aim for ~10–15 tool calls; if you pass ~25, stop and report what you have with the gaps named." Over-searching is a failure mode, not diligence.
+- [ ] **"A gap you name is worth more than a gap you spend ten more searches failing to close."** An explicitly flagged "could not retrieve X" is a usable result the orchestrator can caveat; twenty extra queries that still fail are pure latency. Say this in the prompt.
+- [ ] **Never let the stop condition become an excuse to skip a mandated item.** The rule is "stop when the listed items are answered *or* demonstrably unreachable" — not "stop when tired." If a required item is unreachable, that fact is itself the finding, and it must be reported, not silently dropped (it becomes a numbered caveat per §I.5).
+
 ### I.3 Part 1 — Breakdown of what was actually said
 
 The first required output part. Two things, and the second is the one that usually gets skipped:

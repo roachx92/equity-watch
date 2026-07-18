@@ -1,15 +1,15 @@
 # News check — research method (§A) & run-summary format (§B)
 
-*The single shared spec for a "what's new" news check on one or more tickers. Used by BOTH the scheduled daily watch (`daily-watch.md`, across its ticker set) and the ad-hoc "what's new / latest on [ticker]" workflow (`latest-updates-workflow.md`, Section F). **Single source of truth for (A) how to research the news and (B) how to report it in the chat digest — edit here only; the two workflows reference this file, they do not restate it.** Apply all of `standing-rules.md` (Sections A + E) throughout.*
+*The shared spec for a "what's new" news check on one or more tickers, driven by the ad-hoc "what's new / latest on [ticker]" workflow (`latest-updates-workflow.md`, Section F). **Single source of truth for (A) how to research the news and (B) how to report it in the chat digest — edit here only; the workflow references this file, it does not restate it.** Apply all of `standing-rules.md` (Sections A + E) throughout.*
 
-> **The third spec — how a news item gets STORED** (the `## Recent News Log` entry format in a ticker's news.md) — lives in **[`latest-updates-workflow.md`](latest-updates-workflow.md) §F.1**, not here. The full split: **§A research it · §B report it (chat digest) · F.1 store it (ticker's news.md).** Each has exactly one home; both entry points use all three.
+> **The third spec — how a news item gets STORED** (the `## Recent News Log` entry format in a ticker's news.md) — lives in **[`latest-updates-workflow.md`](latest-updates-workflow.md) §F.1**, not here. The full split: **§A research it · §B report it (chat digest) · F.1 store it (ticker's news.md).** Each has exactly one home; the workflow uses all three.
 
 ---
 
 ## A. Research method — parallel research sub-agents
 
-Do not research single-threaded — use the agentic, multi-agent pattern whether it's the daily watch or a one-off "what's new" request. **This is the quality bar for getting new info on a stock: parallel research sub-agents, not a single quick search.**
-- **Multiple tickers (daily watch):** dispatch **one sub-agent per ticker, all in parallel** in a single dispatch (via the Task/Agent tool).
+Do not research single-threaded — use the agentic, multi-agent pattern even for a one-off "what's new" request. **This is the quality bar for getting new info on a stock: parallel research sub-agents, not a single quick search.**
+- **Multiple tickers (a check spanning several names):** dispatch **one sub-agent per ticker, all in parallel** in a single dispatch (via the Task/Agent tool).
 - **Single ticker ("what's new on X"):** dispatch a thorough research pass on that one ticker — one dedicated sub-agent, or several in parallel split by research angle (e.g. filings/financing vs. product/competitive vs. sentiment/positioning) when the question warrants depth.
 
 Each sub-agent runs a thorough, multi-query pass — no fixed query cap; **typically 6-10+ distinct searches**, following threads, using WebFetch on primary sources where accessible. **Sub-agents research only — they must NOT edit any files.** Wait for all sub-agents to finish, then the orchestrator synthesizes every report and does all file writes itself. This mirrors the framework's Section H multi-agent pattern (`deep-dive-template.md`).
@@ -21,6 +21,7 @@ Each sub-agent's prompt must be self-contained (it has no memory of the parent c
 4. The Source-quality guidance below.
 5. An explicit hunt-list: one line per numbered Tripwire plus the Edge's specific mechanism, so the sub-agent searches for what would actually break or confirm the thesis, not just generic company news.
 6. A report-back format: every material dated item with exact date + source name **with its direct URL** (the actual article/filing/press-release link, not just a publication name) + **full substantive detail** (figures, named parties, terms — not a vague gloss), each assessed against that ticker's actual Tripwires/Edge. If a source has no directly linkable URL (e.g. a paywalled terminal feed), say so explicitly rather than omitting the link silently.
+7. **An explicit stop condition.** Bounding the *scope* is not the same as telling the agent when to *stop* — write the sufficiency test into the prompt: **"Stop as soon as you can answer the items above, and report what you have."** Give a soft budget and a hard one (e.g. "aim for ~6–10 tool calls; if you pass ~20, stop and report what you have with the gaps named"), and state plainly that **a gap you name is worth more than a gap you spend ten more searches failing to close** — a flagged "could not retrieve X" is a usable result the orchestrator can caveat, while extra queries that still fail are pure latency. The rule is "stop when the listed items are answered **or demonstrably unreachable**," never "stop when tired": an unreachable required item is itself a finding and must be reported, not silently dropped.
 
 Do not iterate to exhaustion beyond that, do not chase every tangential source, and do not re-verify facts already settled in the ticker's news.md thesis context. If a sub-agent's search turns up nothing material, that's a valid, complete result — don't force a finding. *(This bounded scan is distinct from a full "run the framework" deep dive, which IS exhaustive per Section A's Diligence-depth rule.)*
 
@@ -51,9 +52,4 @@ Order of the digest:
   Omit a ticker entirely here if it had no edge activity — don't pad with "none."
 - **📅 Next checkpoints — closes the digest.** One line per ticker with a live, dated forward test (a pending Tripwire threshold, a scheduled report, a construction/regulatory milestone named in the news items above) — `<what> <date>`, comma- or bullet-separated. This is what turns "nothing fired" into an actionable forward look rather than a dead end. Omit entirely for a ticker with no live dated checkpoint to name.
 
-For a single-ticker "what's new" request this collapses naturally to that one ticker; for the daily watch it runs across every ticker checked.
-
-> The daily watch persists this exact digest to `summaries/<date>.md` (with a
-> frontmatter counts block) so a GitHub Action can post it to Discord. That is a
-> delivery concern only — this section remains the single source of the digest
-> format; the summary file body **is** this digest, unmodified.
+For a single-ticker "what's new" request this collapses naturally to that one ticker; for a check spanning several names it runs across every ticker checked.

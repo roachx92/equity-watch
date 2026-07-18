@@ -17,6 +17,13 @@ web/site_src/
 site/
 site_src/
 
+# CI scratch — the whats-new / earnings-digest workflows write these: the full digest
+# (Discord post) and the concise PR body are separate files, neither committed.
+/whats-new-digest.md
+/whats-new-pr-body.md
+/earnings-digest-body.md
+/earnings-digest-pr-body.md
+
 # macOS
 .DS_Store
 **/.DS_Store

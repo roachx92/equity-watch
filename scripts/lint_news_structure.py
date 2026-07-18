@@ -3,9 +3,9 @@
 folder with no news.md at all.
 
 A half-created `tickers/<SYM>/` folder (no news.md) is skipped *silently* by both
-the daily watch and `web/hooks/coverage.py`, so the ticker goes unwatched and its
-coverage card never appears — no error anywhere. This linter turns that silent
-gap into a CI failure.
+the per-ticker workflows and `web/hooks/coverage.py`, so the ticker goes unwatched
+and its coverage card never appears — no error anywhere. This linter turns that
+silent gap into a CI failure.
 
 Each news.md must have:
   - YAML front matter with non-empty `company` and `blurb` (the homepage

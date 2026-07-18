@@ -1,0 +1,284 @@
+name: Earnings Digest (single ticker)
+
+# Ad-hoc, on-demand earnings-call debrief for ONE watched ticker's most recently
+# reported quarter. Manually dispatched with a required `ticker` input. Claude
+# runs the three-sub-agent breakdown on Opus, assesses the print against that
+# ticker's thesis / re-rate drivers / risks / §18 Edge+Tripwires, writes the
+# quarter's analysis to tickers/<TICKER>/earnings-debrief.md AND the call's
+# discrete news items to news.md, posts the §I.7 chat reply to Discord, then
+# (inside the action, where git auth works) commits, pushes a branch, and opens
+# a PR. A later step appends the run's token usage to that PR and squash-merges
+# it, then kicks the Pages rebuild.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: 'Ticker symbol to digest (must already be covered under tickers/<TICKER>/)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write    # gh workflow run pages.yml (workflow_dispatch) needs actions:write
+  id-token: write   # claude-code-action mints its GitHub token via OIDC
+
+jobs:
+  earnings-digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config --global user.name "equity-watch-bot"
+          git config --global user.email "equity-watch-bot@users.noreply.github.com"
+
+      - name: Resolve ticker & date
+        id: meta
+        env:
+          RAW_TICKER: ${{ inputs.ticker }}
+        run: |
+          set -euo pipefail
+          # Uppercase and strip whitespace. RAW_TICKER arrives via the env above,
+          # not interpolated inline, so a crafted ticker cannot inject shell.
+          TICKER=$(printf '%s' "$RAW_TICKER" | tr '[:lower:]' '[:upper:]' | tr -d '[:space:]')
+          if ! printf '%s' "$TICKER" | grep -Eq '^[A-Z0-9.-]{1,10}$'; then
+            echo "::error::Invalid ticker input: '$RAW_TICKER'" >&2
+            exit 1
+          fi
+          DATE=$(date -u +%Y-%m-%d)
+          {
+            echo "ticker=$TICKER"
+            echo "date=$DATE"
+            echo "branch=earnings-digest/${TICKER}-${DATE}-${GITHUB_RUN_ID}"
+          } >> "$GITHUB_OUTPUT"
+          echo "Resolved ticker=$TICKER date=$DATE"
+
+      - name: Materialize Discord webhook config
+        env:
+          WEBHOOKS_JSON: ${{ secrets.DISCORD_WEBHOOKS_JSON }}
+        run: |
+          set -euo pipefail
+          if [ -n "${WEBHOOKS_JSON:-}" ]; then
+            mkdir -p .secrets
+            printf '%s' "$WEBHOOKS_JSON" > .secrets/discord-webhooks.json
+            echo "Wrote .secrets/discord-webhooks.json from DISCORD_WEBHOOKS_JSON."
+          else
+            echo "DISCORD_WEBHOOKS_JSON not set — the Discord post will skip gracefully."
+          fi
+
+      - name: Run earnings digest
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # --model opus: §I.2 pins the orchestrator and all three sub-agents to Opus.
+          # --allowedTools: the headless action denies everything not on this list —
+          # without it, Task/WebSearch/Write/Edit/Bash are all blocked and the run
+          # finishes green having written nothing. Grant exactly what the digest needs.
+          claude_args: |
+            --model opus
+            --allowedTools "Task,WebSearch,WebFetch,Read,Write,Edit,Glob,Grep,Bash"
+          prompt: |
+            You are running in a fresh checkout of the roachx92/equity-watch repository.
+            Git identity is already configured and the action's git auth lets you commit,
+            push, and open a PR directly (Bash is allowed).
+
+            Today's date is ${{ steps.meta.outputs.date }} (UTC). Distinguish it from the
+            quarter's REPORTING date (which may be days earlier): stamp the reporting date
+            on the quarter's heading and today's date on the run/methodology line.
+
+            TARGET TICKER: ${{ steps.meta.outputs.ticker }}
+
+            This is a **FRESH RUN** on the ticker's **most recently reported quarter** — NOT
+            a retrieval of an already-written quarter. Run the earnings-digest workflow in
+            full, applying the framework files as written (never from memory — read them
+            directly):
+              1. framework/standing-rules.md — Sections A + E, binding on every step. This
+                 is a bounded read of ONE event against an already-built thesis, so Section
+                 A's "EXHAUSTIVE BY DEFAULT" depth does NOT apply (§I.6 sets a depth ceiling
+                 of ~2,000–3,000 words per quarter); every other Section A rule — numbers
+                 discipline, honest counterweight — applies in full.
+              2. framework/earnings-digest.md — Section I, the method end to end: §I.2 the
+                 three sub-agents, §I.3 the five-part breakdown, §I.4 the four-part
+                 assessment, §I.5 storage + the news.md split + the Guidance track record
+                 table, §I.6 final thoughts + depth ceiling, §I.7 the chat reply.
+              3. framework/news-check.md — §A the parallel research-sub-agent method and
+                 source-quality guidance (§I.2 builds on it).
+              4. framework/latest-updates-workflow.md — §F.1 only: the canonical Recent News
+                 Log entry format, for the news.md half of the output.
+
+            COVERAGE GUARD — do this first: a digest measures a call AGAINST an existing
+            thesis. Confirm tickers/${{ steps.meta.outputs.ticker }}/news.md exists and
+            carries an Edge and numbered Tripwires (and a deep-dive under
+            tickers/${{ steps.meta.outputs.ticker }}/reports/). **If the ticker is NOT
+            covered, STOP — do NOT build a deep-dive and do NOT invent an Edge/Tripwires.**
+            Print that the ticker isn't covered yet and finish WITHOUT committing or opening
+            a PR (there is nothing to publish).
+
+            If covered:
+              - Dispatch the THREE sub-agents per §I.2 — Numbers, Call, Sector cross-check —
+                in parallel. They research ONLY; they must not edit files. Primary documents
+                override secondary commentary; if the transcript or deck can't be accessed,
+                say so plainly. Wait for all three, then YOU do §I.3 (breakdown) and §I.4
+                (assessment).
+              - Write BOTH artifacts per §I.5:
+                  * tickers/${{ steps.meta.outputs.ticker }}/earnings-debrief.md — prepend
+                    the quarter (most recent first; never overwrite a prior quarter), and
+                    update the standing Guidance track record table in place.
+                  * tickers/${{ steps.meta.outputs.ticker }}/news.md `## Recent News Log` —
+                    the call's discrete dated items, one entry per distinct event, per §F.1.
+                If a Tripwire fires, escalate per §I.4(d). Never silently rewrite an Edge or
+                Tripwire to accommodate the print.
+              - Produce the §I.7 chat reply (lead line → Part 1 in brief → Part 2 in brief →
+                Final Thoughts → debrief file link) and write it VERBATIM to
+                `earnings-digest-body.md` in the repo root. This full, detailed digest is for
+                DISCORD — it is NOT the PR body.
+              - Post it to the ticker's Discord channel (add --tripwire-fired only if a
+                [TRIPWIRE] fired this run):
+                  python scripts/notify_discord_ticker.py \
+                    --ticker ${{ steps.meta.outputs.ticker }} --kind earnings-digest \
+                    --date ${{ steps.meta.outputs.date }} --text-file earnings-digest-body.md
+                The poster exits 0 and skips if no webhook is configured — that is expected.
+              - Write a SEPARATE, CONCISE PR body to `earnings-digest-pr-body.md` in the repo
+                root — this is what the PR shows; the full detail lives in Discord and the
+                debrief file. Keep it to just:
+                  * the lead line — the quarter, the headline result vs. the guide, and the
+                    net assessment (thesis strengthened / weakened / unchanged);
+                  * if any Tripwire fired, ONE line naming which numbered trigger fired and its
+                    pre-committed action; if none fired, one short line saying so;
+                  * a link to the debrief file `tickers/${{ steps.meta.outputs.ticker }}/earnings-debrief.md`;
+                  * a final line: "Full digest posted to Discord."
+                Do NOT reproduce the Part 1 / Part 2 in-brief blocks or the Final Thoughts here.
+                Write Tripwire references naturally (`#1`, `#2`) — a later workflow step
+                deterministically escapes every `#N` in the PR body so GitHub won't auto-link
+                them to bogus issues/PRs. No need to escape them yourself.
+              - PUBLISH via git (do this yourself; the workflow does NOT push). Run the
+                commands below verbatim — the sed line escapes `#N` in the PR body BEFORE the
+                PR is created so it's never even briefly born with a live cross-reference (a
+                later workflow step escapes it again as a deterministic backstop):
+                  git checkout -b ${{ steps.meta.outputs.branch }}
+                  git add -A                          # both *-body.md files are gitignored
+                  git commit -m "earnings-digest: ${{ steps.meta.outputs.ticker }} ${{ steps.meta.outputs.date }}"
+                  git push -u origin ${{ steps.meta.outputs.branch }}
+                  sed -i -e 's/\\#/#/g' -e 's/#\([0-9]\)/\\#\1/g' earnings-digest-pr-body.md
+                  gh pr create --base main --head ${{ steps.meta.outputs.branch }} \
+                    --title "earnings-digest: ${{ steps.meta.outputs.ticker }} ${{ steps.meta.outputs.date }}" \
+                    --body-file earnings-digest-pr-body.md
+                Use that EXACT PR title and the CONCISE body file. Do NOT merge the PR and do
+                NOT push to main directly — a later workflow step appends token usage and
+                squash-merges it.
+
+      - name: Summarize token usage
+        env:
+          EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
+        run: |
+          set -uo pipefail
+          python3 - "$EXECUTION_FILE" > "$RUNNER_TEMP/usage.md" <<'PY' || echo "_Token usage: unavailable._" > "$RUNNER_TEMP/usage.md"
+          import json, sys, pathlib
+
+          def emit(lines):
+              print("\n".join(lines))
+              sys.exit(0)
+
+          p = sys.argv[1] if len(sys.argv) > 1 else ""
+          if not p or not pathlib.Path(p).exists():
+              emit(["_Token usage: unavailable (no execution file)._"])
+
+          text = pathlib.Path(p).read_text(encoding="utf-8", errors="replace").strip()
+          records = []
+          try:
+              data = json.loads(text)
+              records = data if isinstance(data, list) else [data]
+          except json.JSONDecodeError:
+              for line in text.splitlines():
+                  line = line.strip()
+                  if not line:
+                      continue
+                  try:
+                      records.append(json.loads(line))
+                  except json.JSONDecodeError:
+                      pass
+
+          result = None
+          for r in records:
+              if isinstance(r, dict) and (r.get("type") == "result" or "total_cost_usd" in r):
+                  result = r  # keep the last matching record
+
+          if not result:
+              emit(["_Token usage: unavailable (no result record found)._"])
+
+          usage = result.get("usage") or {}
+          def n(key):
+              v = usage.get(key)
+              return v if isinstance(v, int) else 0
+
+          inp, out = n("input_tokens"), n("output_tokens")
+          cache_r, cache_c = n("cache_read_input_tokens"), n("cache_creation_input_tokens")
+          cost, turns = result.get("total_cost_usd"), result.get("num_turns")
+
+          lines = ["**Token usage**", "", "| Metric | Value |", "| --- | --- |"]
+          lines.append(f"| Input tokens | {inp:,} |")
+          lines.append(f"| Output tokens | {out:,} |")
+          if cache_r or cache_c:
+              lines.append(f"| Cache read tokens | {cache_r:,} |")
+              lines.append(f"| Cache creation tokens | {cache_c:,} |")
+          if isinstance(cost, (int, float)):
+              lines.append(f"| Cost (USD) | ${cost:.4f} |")
+          if isinstance(turns, int):
+              lines.append(f"| Turns | {turns} |")
+          emit(lines)
+          PY
+          echo "----- usage.md -----"
+          cat "$RUNNER_TEMP/usage.md"
+
+      - name: Append token usage to the PR, then squash-merge it
+        id: merge
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TICKER: ${{ steps.meta.outputs.ticker }}
+          DATE: ${{ steps.meta.outputs.date }}
+        run: |
+          set -euo pipefail
+          # Claude opened the PR from inside the action with this exact title.
+          pr="$(gh pr list --state open \
+                  --search "earnings-digest: ${TICKER} ${DATE} in:title" \
+                  --json number --jq '.[0].number')"
+          if [ -z "$pr" ] || [ "$pr" = "null" ]; then
+            echo "No open 'earnings-digest: ${TICKER} ${DATE}' PR found (likely the ticker"
+            echo "is not covered, so nothing was published). Nothing to merge."
+            echo "merged=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "Found PR #${pr} — appending token usage and merging."
+          # Append the usage block to whatever body Claude wrote. This step always
+          # rewrites the body, so it's the deterministic choke point for hardening it
+          # against GitHub auto-linking `#N` to issue/PR N: normalize first (strip any
+          # backslash the model already added) THEN escape every `#N`, so it's idempotent
+          # and can't double-escape. The usage block appended below has no `#N`.
+          gh pr view "$pr" --json body --jq '.body' > "$RUNNER_TEMP/body-cur.md" || : > "$RUNNER_TEMP/body-cur.md"
+          sed -i -e 's/\\#/#/g' -e 's/#\([0-9]\)/\\#\1/g' "$RUNNER_TEMP/body-cur.md"
+          {
+            cat "$RUNNER_TEMP/body-cur.md"
+            printf '\n\n---\n\n'
+            cat "$RUNNER_TEMP/usage.md"
+          } > "$RUNNER_TEMP/body-new.md"
+          gh pr edit "$pr" --body-file "$RUNNER_TEMP/body-new.md" || echo "(body edit failed; merging anyway)"
+          gh pr merge "$pr" --squash --delete-branch
+          echo "merged=true" >> "$GITHUB_OUTPUT"
+          echo "Squash-merged PR #${pr}"
+
+      - name: Rebuild the Pages site
+        if: steps.merge.outputs.merged == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # A merge made with GITHUB_TOKEN doesn't trigger the push-driven pages.yml
+          # (GitHub's recursion guard), so kick it explicitly.
+          gh workflow run pages.yml

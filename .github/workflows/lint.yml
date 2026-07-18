@@ -3,8 +3,8 @@ name: Lint
 # Deterministic validation gate for the watch-list (part-2-scripts-plan.md
 # items 1/3/4): the report pointer must be current, every news.md must be
 # well-formed, and every Recent News Log entry must be structurally valid.
-# Runs the same scripts the daily-watch agent invokes, so drift fails here
-# instead of silently.
+# Runs the same validation scripts the per-ticker workflows rely on, so drift
+# fails here instead of silently.
 
 on:
   push:
