@@ -9,10 +9,13 @@ docs/tasks/
 .secrets/*.json
 !.secrets/*.example.json
 
-# MkDocs build tooling & output
+# MkDocs build tooling & output. Canonical location is web/; the bare site/
+# and site_src/ rules also catch stray builds run from the repo root.
 .venv/
 web/site/
 web/site_src/
+site/
+site_src/
 
 # macOS
 .DS_Store
