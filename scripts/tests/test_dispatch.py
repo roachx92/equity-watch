@@ -198,3 +198,112 @@ def test_company_news_unexpected_shape_returns_empty():
     state = {"payload": _json.dumps({"error": "nope"})}  # not a list
     client = dispatch.FinnhubClient("KEY", opener=_fake_opener(state))
     assert client.company_news("AAOI", "2026-07-15", "2026-07-18") == []
+
+
+class _FakeClient:
+    def __init__(self, earnings=None, news=None):
+        self._earnings = earnings or {}
+        self._news = news or {}
+
+    def earnings_calendar(self, symbol, frm, to):
+        return self._earnings.get(symbol, [])
+
+    def company_news(self, symbol, frm, to):
+        return self._news.get(symbol, [])
+
+
+def _make_tickers(tmp_path, names):
+    for n in names:
+        (tmp_path / n).mkdir()
+        (tmp_path / n / "news.md").write_text("state", encoding="utf-8")
+    return str(tmp_path)
+
+
+def test_run_dispatches_whats_new_on_material_news(tmp_path):
+    tdir = _make_tickers(tmp_path, ["AAOI"])
+    client = _FakeClient(news={"AAOI": [{"headline": "AAOI wins hyperscaler contract"}]})
+    now = datetime(2026, 7, 18, 13, 30, tzinfo=UTC)
+    fired = []
+    rows = dispatch.run(tdir, client, {}, now, dispatch.DEFAULT_KEYWORDS,
+                        dispatch=lambda wf, t, dry_run=False: fired.append((wf, t)) or True)
+    assert ("whats-new.yml", "AAOI") in fired
+    assert rows[0][2] == "dispatched"
+
+
+def test_run_dispatches_earnings_when_quarter_new(tmp_path):
+    tdir = _make_tickers(tmp_path, ["COHR"])
+    client = _FakeClient(earnings={"COHR": [{"date": "2026-07-17", "symbol": "COHR"}]})
+    now = datetime(2026, 7, 18, 13, 30, tzinfo=UTC)
+    fired = []
+    dispatch.run(tdir, client, {}, now, dispatch.DEFAULT_KEYWORDS,
+                 dispatch=lambda wf, t, dry_run=False: fired.append((wf, t)) or True)
+    assert ("earnings-digest.yml", "COHR") in fired
+
+
+def test_run_skips_earnings_when_quarter_already_logged(tmp_path):
+    tdir = _make_tickers(tmp_path, ["COHR"])
+    (tmp_path / "COHR" / "earnings-debrief.md").write_text("reported 2026-07-17", encoding="utf-8")
+    client = _FakeClient(earnings={"COHR": [{"date": "2026-07-17", "symbol": "COHR"}]})
+    now = datetime(2026, 7, 18, 13, 30, tzinfo=UTC)
+    fired = []
+    dispatch.run(tdir, client, {}, now, dispatch.DEFAULT_KEYWORDS,
+                 dispatch=lambda wf, t, dry_run=False: fired.append((wf, t)) or True)
+    assert fired == []
+
+
+def test_run_rate_caps_and_records_state(tmp_path):
+    tdir = _make_tickers(tmp_path, ["AAOI"])
+    client = _FakeClient(news={"AAOI": [{"headline": "AAOI guidance raised"}]})
+    now = datetime(2026, 7, 18, 13, 30, tzinfo=UTC)
+    state = {"AAOI": {"last_news_scan": (now - timedelta(hours=5)).isoformat()}}
+    fired = []
+    rows = dispatch.run(tdir, client, state, now, dispatch.DEFAULT_KEYWORDS,
+                        dispatch=lambda wf, t, dry_run=False: fired.append((wf, t)) or True)
+    assert fired == []
+    assert "rate-capped" in rows[0][3]
+
+
+def test_run_updates_state_on_fire(tmp_path):
+    tdir = _make_tickers(tmp_path, ["AAOI"])
+    client = _FakeClient(news={"AAOI": [{"headline": "AAOI wins contract"}]})
+    now = datetime(2026, 7, 18, 13, 30, tzinfo=UTC)
+    state = {}
+    dispatch.run(tdir, client, state, now, dispatch.DEFAULT_KEYWORDS,
+                 dispatch=lambda wf, t, dry_run=False: True)
+    assert state["AAOI"]["last_news_scan"] == now.isoformat()
+
+
+def test_run_dry_run_does_not_mutate_state(tmp_path):
+    tdir = _make_tickers(tmp_path, ["AAOI"])
+    client = _FakeClient(news={"AAOI": [{"headline": "AAOI wins contract"}]})
+    now = datetime(2026, 7, 18, 13, 30, tzinfo=UTC)
+    state = {}
+    dispatch.run(tdir, client, state, now, dispatch.DEFAULT_KEYWORDS,
+                 dispatch=lambda wf, t, dry_run=False: True, dry_run=True)
+    assert state == {}
+
+
+def test_run_isolates_per_ticker_errors(tmp_path):
+    tdir = _make_tickers(tmp_path, ["AAOI", "BOOM"])
+
+    class _Boom(_FakeClient):
+        def company_news(self, symbol, frm, to):
+            if symbol == "BOOM":
+                raise RuntimeError("api down")
+            return super().company_news(symbol, frm, to)
+
+    client = _Boom(news={"AAOI": [{"headline": "AAOI wins contract"}]})
+    now = datetime(2026, 7, 18, 13, 30, tzinfo=UTC)
+    fired = []
+    rows = dispatch.run(tdir, client, {}, now, dispatch.DEFAULT_KEYWORDS,
+                        dispatch=lambda wf, t, dry_run=False: fired.append((wf, t)) or True)
+    assert ("whats-new.yml", "AAOI") in fired          # AAOI still processed
+    boom_row = [r for r in rows if r[0] == "BOOM"][0]
+    assert "news error" in boom_row[3]
+
+
+def test_render_summary_has_header_and_rows():
+    rows = [("AAOI", "—", "dispatched", 'keyword: "contract" (1 headline(s))')]
+    out = dispatch.render_summary(rows)
+    assert "| Ticker | Earnings | What's-new | Reason |" in out
+    assert "| AAOI | — | dispatched |" in out

@@ -9,11 +9,15 @@ docs/superpowers/specs/2026-07-18-dispatcher-triggers-design.md.
 
 Python 3 stdlib only.
 """
+import argparse
+import os
 import re
 import json
+import subprocess
+import sys
 import urllib.parse
 import urllib.request
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
@@ -133,3 +137,119 @@ class FinnhubClient:
     def company_news(self, symbol, frm, to):
         data = self._get("/company-news", {"symbol": symbol, "from": frm, "to": to})
         return data if isinstance(data, list) else []
+
+
+# Materiality keyword set — the coarse pre-filter that decides a headline is
+# worth a paid Opus scan. Edit here to tune. Word-boundary, case-insensitive.
+DEFAULT_KEYWORDS = [
+    "earnings", "results", "guidance", "forecast", "outlook",
+    "contract", "award", "deal", "offering", "dilution", "raise",
+    "downgrade", "upgrade", "price target", "SEC", "8-K", "10-Q",
+    "CEO", "CFO", "resign", "appoint", "merger", "acquire",
+    "acquisition", "buyout", "halt", "recall", "lawsuit",
+    "investigation", "bankruptcy",
+]
+
+
+def dispatch_workflow(workflow_file, ticker, dry_run=False):
+    """Fire a workflow_dispatch for one ticker via the gh CLI. Returns True on
+    success. dry_run prints nothing and skips the call (returns True)."""
+    if dry_run:
+        return True
+    cmd = ["gh", "workflow", "run", workflow_file, "-f", "ticker=" + ticker]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        sys.stderr.write("dispatch failed for %s (%s): %s\n"
+                         % (ticker, workflow_file, result.stderr.strip()))
+        return False
+    return True
+
+
+def run(tickers_dir, client, state, now, keywords,
+        dispatch=dispatch_workflow, dry_run=False):
+    """Per-ticker decision loop. Mutates `state` in place when a scan fires
+    (unless dry_run). Returns summary rows: (ticker, earnings_cell, news_cell, reason)."""
+    today = now.date()
+    rows = []
+    for ticker in sorted(list_tickers(tickers_dir)):
+        earnings_cell, news_cell, reasons = "—", "—", []
+
+        # --- Earnings trigger (stateless, repo-read dedup) ---
+        try:
+            cal = client.earnings_calendar(
+                ticker, (today - timedelta(days=1)).isoformat(), today.isoformat())
+            report_date = earnings_due(cal, today)
+            if report_date is None:
+                reasons.append("no calendar report")
+            elif quarter_already_logged(read_debrief(tickers_dir, ticker), report_date):
+                earnings_cell = "skipped"
+                reasons.append("quarter %s already logged" % report_date)
+            else:
+                dispatch("earnings-digest.yml", ticker, dry_run)
+                earnings_cell = "dispatched"
+                reasons.append("earnings reported %s" % report_date)
+        except Exception as exc:  # noqa: BLE001 - one ticker must not sink the run
+            reasons.append("earnings error: %s" % exc)
+
+        # --- What's-new gate (keyword filter + 48h cap) ---
+        try:
+            last_scan = _parse_dt((state.get(ticker) or {}).get("last_news_scan"))
+            frm = (last_scan.date() if last_scan else today - timedelta(days=3)).isoformat()
+            news = client.company_news(ticker, frm, today.isoformat())
+            matched = material_headlines(news, keywords)
+            should, reason = should_scan_news(matched, last_scan, now)
+            reasons.append(reason)
+            if should:
+                dispatch("whats-new.yml", ticker, dry_run)
+                news_cell = "dispatched"
+                if not dry_run:
+                    state.setdefault(ticker, {})["last_news_scan"] = now.isoformat()
+            elif matched:
+                news_cell = "skipped"
+        except Exception as exc:  # noqa: BLE001
+            reasons.append("news error: %s" % exc)
+
+        rows.append((ticker, earnings_cell, news_cell, "; ".join(reasons)))
+    return rows
+
+
+def render_summary(rows):
+    """Render the decision rows as a Markdown table for the Actions summary."""
+    lines = ["| Ticker | Earnings | What's-new | Reason |",
+             "| --- | --- | --- | --- |"]
+    for ticker, earnings_cell, news_cell, reason in rows:
+        lines.append("| %s | %s | %s | %s |" % (ticker, earnings_cell, news_cell, reason))
+    return "\n".join(lines)
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="Deterministic equity-watch dispatcher.")
+    ap.add_argument("--tickers-dir", default="tickers")
+    ap.add_argument("--state-file", default=".dispatch-state/state.json")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="print the decision table without dispatching or saving state")
+    args = ap.parse_args(argv)
+
+    api_key = os.environ.get("FINNHUB_API_KEY", "")
+    if not api_key:
+        sys.stderr.write("FINNHUB_API_KEY not set — cannot run dispatcher.\n")
+        return 1
+
+    now = datetime.now(timezone.utc)
+    client = FinnhubClient(api_key)
+    state = load_state(args.state_file)
+    rows = run(args.tickers_dir, client, state, now, DEFAULT_KEYWORDS, dry_run=args.dry_run)
+    if not args.dry_run:
+        save_state(args.state_file, state)
+
+    summary = render_summary(rows)
+    print(summary)
+    step_summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    if step_summary:
+        with open(step_summary, "a", encoding="utf-8") as fh:
+            fh.write("## Dispatcher run (%s)\n\n%s\n" % (now.date().isoformat(), summary))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
