@@ -35,6 +35,7 @@ jobs:
           # finishes green but writes nothing (see run 29651145196: 52 denials,
           # no commit). Grant exactly the tools daily-watch.md needs.
           claude_args: |
+            --model opus
             --allowedTools "Task,WebSearch,WebFetch,Read,Write,Edit,Glob,Grep,Bash"
           prompt: |
             You are running in a fresh checkout of the roachx92/equity-watch
