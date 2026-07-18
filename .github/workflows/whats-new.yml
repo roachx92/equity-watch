@@ -83,6 +83,7 @@ jobs:
           # never rots to a stale dated model id.
           claude_args: |
             --model opus
+            --allowedTools "Task,WebSearch,WebFetch,Read,Write,Edit,Glob,Grep,Bash"
           prompt: |
             You are running in a fresh checkout of the equity-watch repository, already
             on a feature branch. **You MUST NOT run any git command** (no add / commit /
