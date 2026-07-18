@@ -25,6 +25,7 @@ jobs:
           git config --global user.email "equity-watch-bot@users.noreply.github.com"
 
       - name: Run daily equity watch
+        id: claude
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -58,6 +59,64 @@ jobs:
             committing and pushing any changes to the default branch, and
             producing the final run summary (tripwires first, per-ticker recap
             conditional on a hit).
+
+      - name: Post token usage & cost to the daily-watch PR
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
+        run: |
+          # Audit token efficiency: the action writes an SDK execution log
+          # (execution_file output) whose final "result" object carries the
+          # aggregate cost/tokens for the whole run (main loop + sub-agents).
+          # Parse it and post a summary comment on the day's PR so cost/turns/
+          # token counts are auditable per run. Runs before the auto-merge
+          # step below so the comment lands while the PR is still open; the
+          # comment persists on the PR after it is merged.
+          set -euo pipefail
+          date="$(date -u +%Y-%m-%d)"
+          pr="$(gh pr list --state open \
+                  --search "daily watch: ${date} in:title" \
+                  --json number --jq '.[0].number')"
+          if [ -z "$pr" ] || [ "$pr" = "null" ]; then
+            echo "No open 'daily watch: ${date}' PR found; skipping token comment."
+            exit 0
+          fi
+          if [ -z "${EXECUTION_FILE:-}" ] || [ ! -f "${EXECUTION_FILE}" ]; then
+            echo "No execution file at '${EXECUTION_FILE:-}'; skipping token comment."
+            exit 0
+          fi
+
+          # Final result object (last one, in case of retries).
+          result="$(jq -c '[.[] | select(.type=="result")] | last // {}' "${EXECUTION_FILE}")"
+          cost="$(jq -r '.total_cost_usd // 0'          <<<"$result")"
+          turns="$(jq -r '.num_turns // 0'              <<<"$result")"
+          secs="$(jq -r '((.duration_ms // 0)/1000)|floor' <<<"$result")"
+          denials="$(jq -r '.permission_denials_count // 0' <<<"$result")"
+          # Dump whatever token fields exist verbatim, so a renamed subfield
+          # never silently drops from the audit.
+          usage_json="$(jq '{usage, modelUsage, model_usage} | with_entries(select(.value != null))' <<<"$result")"
+
+          {
+            echo "### 🧮 Token usage & cost — daily watch ${date}"
+            echo
+            echo "| Metric | Value |"
+            echo "|---|---|"
+            printf '| Total cost | $%s |\n' "$cost"
+            printf '| Turns | %s |\n' "$turns"
+            printf '| Wall-clock | %ss |\n' "$secs"
+            printf '| Permission denials | %s |\n' "$denials"
+            echo
+            echo "<details><summary>Token usage detail</summary>"
+            echo
+            echo '```json'
+            echo "$usage_json"
+            echo '```'
+            echo "</details>"
+          } > token-usage-comment.md
+
+          gh pr comment "$pr" --body-file token-usage-comment.md
+          echo "Posted token-usage comment to PR #${pr}."
 
       - name: Auto-merge the daily-watch PR
         if: success()
