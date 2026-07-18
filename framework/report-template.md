@@ -57,13 +57,13 @@ segment is the equity story vs. ballast.>
 <Each: Driver | Mechanism | Est. multiple impact (confidence) | Timing | Durability.
 Then: near-term binary gates (ordered), then net re-rate verdict naming the dominant bucket.>
 
-## 4. Competitive comparison & moat
-<Level 2 landscape-by-role table; market-share tier table with a Basis/reliability column;
-closest-rival head-to-head; source-reliability tiering; explicit moat verdict.>
-
-## 5. Technological moat & competitive technologies
+## 4. Technological moat & competitive technologies
 <Level 1 competing-technologies table with a Trade-off column; convergence read; defensibility
 verdict: durable / emerging / absent.>
+
+## 5. Competitive comparison & moat
+<Level 2 landscape-by-role table; market-share tier table with a Basis/reliability column;
+closest-rival head-to-head; source-reliability tiering; explicit moat verdict.>
 
 ## 6. Secular / thematic positioning
 <First- vs second-derivative exposure.>
