@@ -1,8 +1,7 @@
 """Shared Discord-webhook posting helpers — stdlib only.
 
-Used by both notify_discord.py (the daily-watch summary poster, CI-triggered)
-and notify_discord_ticker.py (the ad-hoc per-ticker poster, run locally at
-the end of a /whats-new session).
+Used by notify_discord_ticker.py (the ad-hoc per-ticker poster, run locally at
+the end of a /whats-new or /earnings-digest session).
 """
 import json
 import time

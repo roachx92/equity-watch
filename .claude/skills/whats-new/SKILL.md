@@ -89,8 +89,7 @@ Tripwire and Edge and nothing fired.
 Immediately after producing the run summary, post it to that ticker's Discord channel via
 `scripts/notify_discord_ticker.py` — **this runs locally, right in the session, regardless of
 whether anything was committed or pushed to GitHub** (ad-hoc runs don't push on every check, so
-there's no CI push event to hang this off of; see `scripts/notify_discord.py` for the *separate*
-daily-watch poster, which IS push-triggered).
+there's no CI push event to hang this off of).
 
 ```
 python scripts/notify_discord_ticker.py --ticker <TICKER> --kind whats-new --date <today's-date> \
@@ -104,7 +103,7 @@ python scripts/notify_discord_ticker.py --ticker <TICKER> --kind whats-new --dat
 - Write the exact §B chat digest (the same text shown in the reply) to a scratch file and pass
   it via `--text-file` (or pipe it via stdin without that flag).
 - Pass `--tripwire-fired` whenever any `[TRIPWIRE]` hit this run — it colors the Discord embed
-  red instead of green, mirroring the daily-watch poster's convention.
+  red instead of green (green is the default, no-tripwire color).
 - **The script skips gracefully (exit 0, a one-line stderr note) if the ticker has no webhook
   configured** in `.secrets/discord-webhooks.json` (a local, gitignored file — see
   `.secrets/discord-webhooks.example.json` for the template). This is expected for tickers that

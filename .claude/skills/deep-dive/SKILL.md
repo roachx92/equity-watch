@@ -76,11 +76,11 @@ ticker's `news.md`; the `tickers/` directory **is** the watch-list. After the re
   `## Recent News Log` seeded with the standard header note pointing at
   `framework/latest-updates-workflow.md` §F.1 (the canonical entry format — don't restate it).
 - Set/refresh its `**Canonical deep-dive:**` line to link the new report file. **Verify it's actually the newest** by globbing `tickers/<TICKER>/reports/*.md` and sorting by date (per CLAUDE.md's report-resolution rule) rather than assuming today's write is trivially latest — a backfilled or out-of-order run could mean it isn't.
-- The Edge/Tripwires in the ticker's news.md are the binding pre-committed triggers the daily
-  watch and the whats-new skill assess against — mirror them faithfully, don't paraphrase away
-  the specifics.
-- A report without its ticker folder is invisible to the daily watch and the homepage build —
-  this step is not optional for a new name.
+- The Edge/Tripwires in the ticker's news.md are the binding pre-committed triggers the
+  whats-new and earnings-digest skills assess against — mirror them faithfully, don't paraphrase
+  away the specifics.
+- A report without its ticker folder is invisible to the whats-new/earnings-digest workflows and
+  the homepage build — this step is not optional for a new name.
 
 ## Step 5 — commit
 Commit the new report and the created/updated ticker news.md with a clear message (e.g.
