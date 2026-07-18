@@ -64,3 +64,39 @@ def test_should_scan_news_fires_after_48h():
     matched = [("Wins contract", "contract")]
     should, _ = dispatch.should_scan_news(matched, last, now)
     assert should is True
+
+
+from datetime import date
+
+
+def test_earnings_due_returns_recent_report_in_window():
+    rows = [{"date": "2026-07-17", "symbol": "COHR"}]
+    assert dispatch.earnings_due(rows, date(2026, 7, 18)) == "2026-07-17"
+
+
+def test_earnings_due_returns_today_report():
+    rows = [{"date": "2026-07-18", "symbol": "COHR"}]
+    assert dispatch.earnings_due(rows, date(2026, 7, 18)) == "2026-07-18"
+
+
+def test_earnings_due_ignores_reports_outside_window():
+    rows = [{"date": "2026-07-15", "symbol": "COHR"}, {"date": "2026-11-05", "symbol": "COHR"}]
+    assert dispatch.earnings_due(rows, date(2026, 7, 18)) is None
+
+
+def test_earnings_due_empty_calendar_is_none():
+    assert dispatch.earnings_due([], date(2026, 7, 18)) is None
+
+
+def test_quarter_already_logged_true_when_date_present():
+    debrief = "## Q4 FY2026 — reported 2026-07-17\n\nNumbers...\n"
+    assert dispatch.quarter_already_logged(debrief, "2026-07-17") is True
+
+
+def test_quarter_already_logged_false_when_absent():
+    debrief = "## Q3 FY2026 — reported 2026-04-30\n"
+    assert dispatch.quarter_already_logged(debrief, "2026-07-17") is False
+
+
+def test_quarter_already_logged_false_when_debrief_empty():
+    assert dispatch.quarter_already_logged("", "2026-07-17") is False

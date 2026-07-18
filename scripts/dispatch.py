@@ -42,3 +42,21 @@ def should_scan_news(matched, last_scan, now, cap_hours=48):
         return (False, "rate-capped until " + resume.strftime("%Y-%m-%d %H:%MZ"))
     keyword = matched[0][1]
     return (True, 'keyword: "%s" (%d headline(s))' % (keyword, len(matched)))
+
+
+def earnings_due(calendar_rows, today):
+    """Return the most recent report date (YYYY-MM-DD str) in [today-1, today]
+    from Finnhub earningsCalendar rows, or None. `today` is a date object."""
+    window = {(today - timedelta(days=1)).isoformat(), today.isoformat()}
+    dates = sorted({r.get("date") for r in calendar_rows if r.get("date") in window})
+    return dates[-1] if dates else None
+
+
+def quarter_already_logged(debrief_text, report_date):
+    """True if the earnings debrief already covers the quarter reported on
+    report_date. Dedup keys on the reporting date appearing in the debrief — the
+    earnings-digest workflow stamps that date on the quarter heading. A missing or
+    empty debrief means the quarter is not logged (dispatch)."""
+    if not debrief_text:
+        return False
+    return report_date in debrief_text
