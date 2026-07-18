@@ -339,6 +339,12 @@ def test_render_summary_escapes_pipe_in_reason():
     assert "bad\\|value" in out
 
 
+def test_write_summary_file_writes_table_and_creates_parent(tmp_path):
+    target = tmp_path / "nested" / "summary.md"
+    dispatch.write_summary_file(str(target), "| Ticker | Earnings |\n| --- | --- |")
+    assert target.read_text(encoding="utf-8") == "| Ticker | Earnings |\n| --- | --- |"
+
+
 def test_dispatch_workflow_dry_run_returns_true_without_calling():
     assert dispatch.dispatch_workflow("whats-new.yml", "AAOI", dry_run=True) is True
 

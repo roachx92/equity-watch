@@ -7,8 +7,11 @@ name: Dispatcher (deterministic triggers)
 # Earnings: dispatched the morning after a Finnhub-calendar report, deduped by
 # reading tickers/<T>/earnings-debrief.md. What's-new: a keyword-filtered news
 # gate with a 48h per-ticker rate cap; gate state lives in the Actions cache
-# (never committed to main). See
-# docs/superpowers/specs/2026-07-18-dispatcher-triggers-design.md.
+# (never committed to main). Every run posts the decision table to a dedicated
+# Discord channel (heartbeat) via scripts/notify_discord_dispatch.py + the
+# DISCORD_DISPATCHER_WEBHOOK secret — skips gracefully if the secret is unset.
+# See docs/superpowers/specs/2026-07-18-dispatcher-triggers-design.md and
+# docs/superpowers/specs/2026-07-18-dispatcher-discord-notification-design.md.
 
 on:
   schedule:
@@ -55,6 +58,17 @@ jobs:
         run: |
           set -euo pipefail
           python3 scripts/dispatch.py ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      - name: Notify Discord
+        if: always()
+        env:
+          DISCORD_DISPATCHER_WEBHOOK: ${{ secrets.DISCORD_DISPATCHER_WEBHOOK }}
+        run: |
+          set -euo pipefail
+          python3 scripts/notify_discord_dispatch.py \
+            --summary-file .dispatch-state/summary.md \
+            --date "$(date -u +%Y-%m-%d)" \
+            --status "${{ job.status }}"
 
       - name: Save gate state
         if: always()

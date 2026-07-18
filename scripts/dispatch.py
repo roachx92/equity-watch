@@ -236,10 +236,21 @@ def render_summary(rows):
     return "\n".join(lines)
 
 
+def write_summary_file(path, summary):
+    """Write the rendered decision table to `path` (creating parents) so a
+    separate workflow step (the Discord notifier) can read the exact same table.
+    Derived output, not gate state — written on both real and dry runs."""
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(summary, encoding="utf-8")
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Deterministic equity-watch dispatcher.")
     ap.add_argument("--tickers-dir", default="tickers")
     ap.add_argument("--state-file", default=".dispatch-state/state.json")
+    ap.add_argument("--summary-file", default=".dispatch-state/summary.md",
+                    help="also write the rendered decision table here (for the Discord notifier)")
     ap.add_argument("--dry-run", action="store_true",
                     help="print the decision table without dispatching or saving state")
     args = ap.parse_args(argv)
@@ -258,6 +269,7 @@ def main(argv=None):
 
     summary = render_summary(rows)
     print(summary)
+    write_summary_file(args.summary_file, summary)
     step_summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if step_summary:
         with open(step_summary, "a", encoding="utf-8") as fh:
