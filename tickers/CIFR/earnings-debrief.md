@@ -152,13 +152,13 @@ Cipher does not guide, so the Δ below is **against consensus only** — there w
 
 #### (a) The underlying investment thesis
 
-The thesis rests on this conjunction: **the ~$9.3B backlog converts on schedule from ~Q4 2026, and the remaining capex gets funded without forced dilution.**
+The thesis rests on this conjunction: **the ~$11.4B backlog converts on schedule from ~Q4 2026, and the remaining capex gets funded without forced dilution.** *(Updated 2026-07-18 — the deep-dive's original $9.3B figure was stale; see §2(d) and the report's own erratum.)*
 
 - **Leg 1 — "backlog converts on schedule": supported, on company-reported evidence only.** The strongest datapoint is quiet and structural: the **Oct-2026 NOI window start carried forward unchanged** from the Q4 deck. Had commencement slipped, that number had to move. It didn't. Equipment-secured percentages (Black Pearl 93% Phase I / 80% Phase II; Barber Lake ~99%) are specific and falsifiable. **But the schedule has no independent corroboration**, and the outside evidence on ERCOT cuts the other way.
 - **Leg 2 — "funded without forced dilution": supported, and this is where the call is strongest.** Zero equity issued, $1.97B raised entirely as project debt, revolver closed undrawn, bonds above par. Discounted by the guidance track record: **too few resolved rows to discount by** — but the release itself admits **"equity funding is still required"** for the third campus, and the CFO's no-equity language narrowed from "currently contracted developments" to "near-term."
 - **Leg 3 — untested and unasked: the counterparties.** Nothing on Fluidstack's credit. Not one analyst asked.
 
-**A leg the deep-dive got wrong: the backlog is $11.4B / 700 MW / three leases, not $9.3B / two.** See §2(d).
+**A leg the deep-dive originally got wrong: the backlog is $11.4B / 700 MW / three leases, not $9.3B / two.** *(Corrected in the report on 2026-07-18.)* See §2(d).
 
 #### (b) Re-rating drivers — four buckets, kept separate
 
@@ -199,7 +199,7 @@ The Edge's **skeptical core is corroborated**: six analysts, **zero questions on
 
 **But two of the Edge's own load-bearing numbers are wrong, and per §I.4(d) I am flagging rather than rewriting them:**
 
-1. **"the ~$9.3B backlog" is stale.** Cipher disclosed **~$11.4B / 700 MW / three leases on this call — 2026-05-05, two months before the deep-dive was written.** The Edge's central sentence quotes a number the company had already superseded. *(Two independent agents corroborate $11.4B from deck coverage; it is **absent from the press-release text** and the deck PDF itself was never opened — treat as [T], deck-via-coverage, not [P].)*
+1. **"the ~$9.3B backlog" was stale — CORRECTED 2026-07-18.** Cipher disclosed **~$11.4B / 700 MW / three leases on this call — 2026-05-05, two months before the deep-dive was written.** The Edge's central sentence quoted a number the company had already superseded. *(Two independent agents corroborate $11.4B from deck coverage; it is **absent from the press-release text** and the deck PDF itself was never opened — treat as [T], deck-via-coverage, not [P].)* **The deep-dive report and this digest have both now been updated to $11.4B** (per the report's erratum and the reader's explicit correction request); the finding above is preserved as the historical record of how the error was caught.
 2. **"$715M cash against ~$4.73B debt" materially overstates the funding gap.** It omits **$3.53B of restricted construction cash**. Total cash+restricted is **$4.25B**; net debt is **~$486M**. Both quoted figures are individually correct and the framing built from them is not.
 
 **Neither is a reason to soften the Edge — the skepticism survives both corrections.** But an Edge whose headline number is two months stale is measuring against the wrong thing, and **Tripwire #4 is drafted against a mechanism that has largely already been dismantled.** Both need a deliberate re-underwrite decision, made explicitly. **That is your call to make, not this digest's.**
@@ -209,7 +209,7 @@ The Edge's **skeptical core is corroborated**: six analysts, **zero questions on
 - 🎯 **Thesis legs:** Leg 1 "backlog converts on schedule" — *supported on company evidence only* (Oct-2026 window held), no independent corroboration. Leg 2 "funded without forced dilution" — *strengthened*, the call's strongest leg. Leg 3 counterparties — *left untested*, not one analyst asked.
 - 🔄 **Re-rate:** the print *removed no discount* — fundamental bucket contributed nothing (FY26 revenue cut ~44%). Only **structural** moved positively (third IG lease + first corporate revolver); **sentiment/technical** carries the next 12 months.
 - ⚠️ **Risks:** *escalated* — ERCOT/energization and quality-of-earnings (payables-financed OCF). *De-escalated* — Fluidstack (raised, not stressed) and near-term liquidity (net debt ~$486M, not the implied $4B). Pre-Mortem unchanged: an energization slip forces an equity raise into a de-rated stock.
-- 🚨 **Tripwires & Edge:** ✅ all four checked, none fire (#1 reaffirmed, #2 live but cuts against, #3 moved favorably, #4 premise dismantled). 🔴 **EDGE−** against the *bullish* variant — it delivered its best evidence (a third IG lease) and earned zero premium. Note: the Edge's own numbers ($9.3B backlog, $715M-vs-$4.73B) are stale and need a deliberate re-underwrite.
+- 🚨 **Tripwires & Edge:** ✅ all four checked, none fire (#1 reaffirmed, #2 live but cuts against, #3 moved favorably, #4 premise dismantled). 🔴 **EDGE−** against the *bullish* variant — it delivered its best evidence (a third IG lease) and earned zero premium. Note: the Edge's own numbers ($9.3B backlog, $715M-vs-$4.73B) were stale — **corrected 2026-07-18** in both the deep-dive report and this digest (backlog now $11.4B; the $715M-vs-$4.73B framing still omits the $3.53B of restricted cash, see below).
 
 ### 3. Final thoughts — what to watch going forward
 
