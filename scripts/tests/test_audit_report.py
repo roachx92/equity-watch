@@ -136,6 +136,27 @@ def test_baseline_pins_the_comparison_date(tmp_path):
     assert pinned["tripwires_fired"] == [2]
 
 
+def test_pinned_baseline_is_labelled_and_not_called_the_report_age(tmp_path):
+    """A pinned baseline is the caller's date, not the report's.
+
+    These evidence strings get quoted into a report's provenance block, so
+    asserting "the report is Nd old" about a supplied date would put a false
+    statement into the permanent record.
+    """
+    d = _mk(tmp_path, reports=("2026-07-18",),
+            entries=[_entry("2026-03-01", tag="[Financials/Capital stack]")])
+    real = ar.audit_ticker(d, TODAY)
+    assert real["baseline_source"] == "latest-report"
+    assert real["verdict"] == "CLEAN"  # 1-day-old report
+
+    forced = ar.audit_ticker(d, TODAY, baseline="2026-01-01")
+    assert forced["baseline_source"] == "pinned"
+    assert forced["latest_report"] == "2026-07-18"
+    assert not any("report is" in e for e in forced["evidence"]), \
+        "must not assert the report's age from a caller-supplied baseline"
+    assert any("pinned baseline" in e for e in forced["evidence"])
+
+
 def test_idempotent(tmp_path):
     d = _mk(tmp_path, entries=[_entry("2026-02-01", extra="[EDGE−]")])
     assert ar.audit_ticker(d, TODAY) == ar.audit_ticker(d, TODAY)

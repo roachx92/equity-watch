@@ -143,10 +143,19 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
     if linked and linked != on_disk:
         result["drift"] = {"linked": linked, "latest": on_disk}
 
+    # A pinned baseline is not necessarily the report's own date. Keep the two
+    # distinguishable: the evidence strings get quoted into a report's
+    # provenance block, so "the report is 199d old" must not be asserted about
+    # a date the caller supplied.
     base = baseline or on_disk
+    pinned = baseline is not None and baseline != on_disk
     result["baseline"] = base
+    result["baseline_source"] = "pinned" if pinned else "latest-report"
+    result["latest_report"] = on_disk
     age = _days_between(base, today)
     result["age_days"] = age
+    span = (f"{age}d of history since pinned baseline {base}" if pinned
+            else f"report is {age}d old")
 
     fired: list[int | None] = []
     early: list[int | None] = []
@@ -195,7 +204,7 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
         ev.append(f"{quarters} quarters reported since {base}, absent from the report")
         result["verdict"] = "REFRESH"
     elif age >= AGE_FOR_REFRESH_DAYS and unincorporated:
-        ev.append(f"report is {age}d old with {unincorporated} unincorporated items")
+        ev.append(f"{span} with {unincorporated} unincorporated items")
         result["verdict"] = "REFRESH"
 
     # early-warning never escalates the route, but always breaks the silence
@@ -248,13 +257,18 @@ def main() -> int:
     if args.as_json:
         print(json.dumps(results, indent=2))
     else:
-        print(f"Staleness audit — {today}\n")
+        print(f"Staleness audit — {today}")
+        if args.baseline:
+            print(f"⚠ BASELINE PINNED to {args.baseline} — ages and evidence below are "
+                  "measured from that date, NOT from each report's own date.")
+        print()
         width = max((len(r["ticker"]) for r in results), default=6)
         for r in results:
             bell = "!" if r["notify"] else " "
             age = f"{r.get('age_days', '?')}d"
+            mark = "*" if r.get("baseline_source") == "pinned" else " "
             print(f"{bell} {r['ticker']:<{width}}  {r['verdict']:<14} {age:>6}"
-                  f"  base {r.get('baseline', '—')}")
+                  f"  base {r.get('baseline', '—')}{mark}")
             for line in r["evidence"]:
                 print(f"    · {line}")
             if r["work_streams"]:
