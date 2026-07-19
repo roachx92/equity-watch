@@ -162,6 +162,65 @@ expensively-won corrections (the IBIDY pre-funding finding).
 So `news.md` log entries and `earnings-debrief` figures go into sub-agent prompts; the Edge
 blockquote does not.
 
+## When and how the audit runs
+
+### Cadence — two triggers, not one
+
+The dispatcher runs daily (`30 13 * * 1-5`), but staleness moves on a weekly-to-quarterly
+clock. **Auditing daily would produce a channel you learn to ignore.** Instead:
+
+1. **Event-driven, per ticker.** The audit's inputs change at exactly one moment — when a
+   `whats-new` or `earnings-digest` run commits a new log entry or quarter. Trigger on the
+   push rather than coupling the workflows:
+
+   ```yaml
+   on:
+     push:
+       paths: ['tickers/**/news.md', 'tickers/**/earnings-debrief.md']
+   ```
+
+   Both heavy workflows squash-merge to `main`, so this fires automatically and audits only
+   the affected ticker, the moment a `[TRIPWIRE]` or `[EDGE−]` is logged. **No self-trigger
+   loop**: the audit writes state to the Actions cache and never commits.
+
+2. **Weekly sweep** (`schedule`, Monday morning) — catches pure time-based drift (report age
+   crossing 90/180d, quarters accumulating) that no event fires. Monday so the week opens
+   with the decision.
+
+Plus `workflow_dispatch` for manual runs, matching the dispatcher's `dry_run` convention.
+
+**Own workflow (`audit.yml`), not a step inside `dispatcher.yml`** — the cadences differ, and
+folding a weekly job into a daily cron needs a day-of-week guard that the separate trigger
+set avoids entirely.
+
+### Reporting — by exception
+
+Reuses the dispatcher's plumbing: Actions-cache state (`.audit-state`, its own key
+namespace, mirroring the deliberate choice to keep gate state out of `main`) and a Discord
+poster shaped like `notify_discord_dispatch.py`.
+
+- **Silent when CLEAN.** A weekly "all fine" post is how a channel becomes ignorable.
+- **Post on non-CLEAN or on state change**, with re-nag suppression: do not repeat the same
+  verdict for ~30 days unless it *escalates*. Cache eviction causes at worst one duplicate
+  nudge — acceptable.
+- **Always write the artifact** even when silent, so a human can confirm the audit ran.
+- **Routing:** a per-ticker verdict goes to that ticker's own Discord channel, alongside the
+  news that caused it; the weekly roll-up goes to the dispatcher channel.
+- **Content must be actionable**: the verdict, the *specific evidence* that produced it
+  (e.g. "2 `[EDGE−]` since 2026-07-15; Q2 reported 2026-08-06 absent from report"), and the
+  exact command to run.
+
+### Human-in-the-loop is currently structural, not just policy
+
+**There is no `deep-dive.yml` workflow.** `whats-new` and `earnings-digest` each have one;
+a deep-dive re-run is session-only. So the audit *cannot* dispatch a re-run the way the
+dispatcher fires the other two — it can only recommend, and a human runs `/deep-dive`.
+
+This matches the intent, and it is worth recording that the guarantee is **load-bearing**:
+if a `deep-dive.yml` is ever added, the structural block disappears and the audit will need
+an explicit **"recommend only, never dispatch"** rule written into it, plus the removal of
+`actions: write` from its permissions.
+
 ## Deliverables
 
 1. **`framework/staleness-audit.md`** — Section J. The method: signals, routing table, the
@@ -174,13 +233,26 @@ blockquote does not.
 3. **`.claude/skills/audit/SKILL.md`** — launcher. Runs the deterministic tier, then the
    bounded judgment pass only for escalated tickers, then reports the routing decision.
    **Does not itself re-run a deep-dive** — it recommends; the human dispatches.
-4. **Tests** — `scripts/tests/test_audit_report.py`, following existing conventions.
+4. **`.github/workflows/audit.yml`** — weekly sweep + push-triggered per-ticker re-audit +
+   `workflow_dispatch`. Actions-cache state, exception-only Discord reporting.
+   **No `actions: write`** — it has nothing to dispatch, and withholding the permission
+   makes the recommend-only property enforceable rather than merely intended.
+5. **`scripts/notify_discord_audit.py`** *(or a `--kind audit` mode on the existing ticker
+   poster)* — decide at implementation time; the existing poster already takes `--kind`, so
+   extending it is likely cheaper than a third script. Note `notify_discord_dispatch.py` and
+   `notify_discord_ticker.py` already coexist, so a third would be the point at which the
+   posters want consolidating (cf. the 3a code-dedup work).
+6. **Tests** — `scripts/tests/test_audit_report.py`, following existing conventions.
+   Must cover the tag-grammar polarity cases explicitly: `[TRIPWIRE #4 — reaffirmed, does
+   not fire]` and `[TRIPWIRE #4 — touched, not sustained]` must **not** route to
+   RE-UNDERWRITE, and U+2212 vs ASCII minus must both parse.
 
 ## Open questions
 
-1. **Does the dispatcher call this?** The cron dispatcher already enumerates tickers. A
-   weekly `audit_report.py --json` run could post a staleness digest to Discord. Deferred —
-   spec the manual path first, wire automation once the thresholds prove themselves.
+1. ~~**Does the dispatcher call this?**~~ **Resolved 2026-07-18** — see "When and how the
+   audit runs" above. Own `audit.yml` (weekly sweep + push-triggered per-ticker), reporting
+   by exception to Discord. The audit **informs**; the human decides and dispatches the
+   re-run. Not folded into `dispatcher.yml` because the cadences differ.
 2. **Price drift threshold.** Needs a Finnhub quote and a judgment call on what magnitude
    makes §14 stale. Proposal: leave price drift out of v1; the quarter-count and
    tag-accumulation signals are repo-local and sufficient to prove the routing.
