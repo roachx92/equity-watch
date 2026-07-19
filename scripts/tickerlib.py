@@ -21,6 +21,9 @@ _FRONT_MATTER = re.compile(r"^---\n(.*?)\n---\n?", re.DOTALL)
 _LOG_HEADER = "## Recent News Log"
 _ENTRY_BULLET = re.compile(r"^-\s+(\d{4}-\d{2}-\d{2})")
 _CANONICAL_LINK = re.compile(r"\*\*Canonical deep-dive:\*\*.*?(\d{4}-\d{2}-\d{2})\.md")
+_TRIPWIRE_HEADER = "## Tripwires"
+_TRIPWIRE_MARKER = re.compile(r"\((\d+)\)")
+_EXPIRES = re.compile(r"\[expires:\s*(\d{4}-\d{2}-\d{2})\]")
 
 # --- Assessment-tag grammar (§F.1) -----------------------------------------
 # Shared by lint_news_log.py and the staleness audit, so both classify a tag
@@ -171,6 +174,45 @@ def canonical_report_date(news_text: str) -> str | None:
     """
     match = _CANONICAL_LINK.search(news_text)
     return match.group(1) if match else None
+
+
+def tripwire_expiries(news_text: str) -> dict[int, str]:
+    """{tripwire number: expiry date} from `[expires: YYYY-MM-DD]` annotations.
+
+    Scoped to the `## Tripwires` section. Each numbered trigger `(n)` owns the
+    annotations between its marker and the next; a trigger without one simply
+    isn't tracked (returns no entry), which the audit surfaces as untracked
+    rather than guessing a window. Expiry means the trigger's own window has
+    closed — the event it watched has resolved or its premise has lapsed — NOT
+    that it fired. An expired tripwire still on the watch-list is dead weight
+    that reads as coverage, which is worse than an empty slot.
+    """
+    lines = news_text.splitlines()
+    section: list[str] = []
+    in_section = False
+    for line in lines:
+        if line.startswith("## "):
+            in_section = line.strip().startswith(_TRIPWIRE_HEADER)
+            continue
+        if in_section:
+            section.append(line)
+    text = "\n".join(section)
+
+    out: dict[int, str] = {}
+    markers = list(_TRIPWIRE_MARKER.finditer(text))
+    for i, m in enumerate(markers):
+        n = int(m.group(1))
+        # Numbered triggers count 1..k in order; skip stray parenthesised
+        # numbers in prose (they'd be out of sequence or duplicated).
+        if n != len(out) + 1:
+            continue
+        end = markers[i + 1].start() if i + 1 < len(markers) else len(text)
+        hit = _EXPIRES.search(text, m.end(), end)
+        if hit:
+            out[n] = hit.group(1)
+        else:
+            out[n] = ""  # tracked as present-but-undated
+    return {n: d for n, d in out.items()}
 
 
 def latest_report_date(ticker_dir: Path) -> str | None:

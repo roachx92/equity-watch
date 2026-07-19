@@ -199,6 +199,63 @@ def test_past_horizon_dispatches_all_four(tmp_path):
     assert any("horizon" in e for e in r["evidence"])
 
 
+# --- tripwire expiry: dated windows, flagged-never-removed ------------------
+
+def _with_tripwires(root, block, **kw):
+    d = _mk(root, **kw)
+    news = d / "news.md"
+    body = news.read_text(encoding="utf-8").replace(
+        "## Recent News Log",
+        "## Tripwires (pre-committed exit / re-underwrite triggers)\n"
+        + block + "\n\n## Recent News Log")
+    news.write_text(body, encoding="utf-8")
+    return d
+
+
+def test_expired_tripwire_escalates_and_notifies(tmp_path):
+    d = _with_tripwires(tmp_path,
+        "> ... (1) first thing [expires: 2026-06-30]; "
+        "(2) second thing [expires: 2027-06-30].",
+        reports=("2026-07-10",))
+    r = ar.audit_ticker(d, TODAY)  # today = 2026-07-19 > #1's window
+    assert r["tripwires_expired"] == [1]
+    assert r["verdict"] == "ESCALATE"
+    assert r["notify"] is True
+    assert any("EXPIRED" in e and "never silently" in e for e in r["evidence"])
+
+
+def test_unexpired_tripwires_stay_silent(tmp_path):
+    d = _with_tripwires(tmp_path,
+        "> ... (1) first thing [expires: 2027-06-30]; "
+        "(2) second thing [expires: 2027-12-31].",
+        reports=("2026-07-10",))
+    r = ar.audit_ticker(d, TODAY)
+    assert r["tripwires_expired"] == []
+    assert r["verdict"] == "CLEAN"
+    assert r["notify"] is False
+
+
+def test_undated_tripwire_is_surfaced_not_guessed(tmp_path):
+    d = _with_tripwires(tmp_path,
+        "> ... (1) dated thing [expires: 2027-06-30]; (2) undated thing.",
+        reports=("2026-07-10",))
+    r = ar.audit_ticker(d, TODAY)
+    assert r["tripwires_undated"] == [2]
+    assert r["verdict"] == "CLEAN", "missing a date is hygiene, not staleness"
+    assert any("no [expires:" in e for e in r["evidence"])
+
+
+def test_fired_outranks_expired(tmp_path):
+    d = _with_tripwires(tmp_path,
+        "> ... (1) old window [expires: 2026-06-30]; (2) live one [expires: 2027-12-31].",
+        reports=("2026-07-10",),
+        entries=[_entry("2026-07-12", extra="[TRIPWIRE #2 — fires]")])
+    r = ar.audit_ticker(d, TODAY)
+    assert r["verdict"] == "RE-UNDERWRITE"          # the fire wins the verdict
+    assert r["tripwires_expired"] == [1]            # …but expiry still surfaces
+    assert any("EXPIRED" in e for e in r["evidence"])
+
+
 # --- hygiene ---------------------------------------------------------------
 
 def test_canonical_link_drift_is_reported(tmp_path):

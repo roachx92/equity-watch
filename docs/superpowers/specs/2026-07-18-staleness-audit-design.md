@@ -70,6 +70,7 @@ Computed from the repo alone, except where noted:
 | `[TRIPWIRE]` hits | tripwire tags on entries after the report date |
 | Quarters reported since | `earnings-debrief.md` `## <period> — reported <date>` headings after the report date |
 | Canonical-link drift | `news.md` `Canonical deep-dive:` link vs. glob-latest (a hygiene error, per CLAUDE.md's report-resolution rule) |
+| Tripwire expiry | `[expires: YYYY-MM-DD]` annotations in the `## Tripwires` section vs. **today** (not the baseline — expiry is a property of the trigger's own window). Added 2026-07-19; grammar below. |
 | Price/multiple drift — **deferred, not in v1** (see Open questions #2) | one Finnhub quote vs. the report's reference price. Listed only to record what was considered: adopting it would make the audit non-repo-local and break the recompute-on-demand property the provenance block depends on. |
 
 ### Judgment (bounded LLM pass, only when the deterministic tier flags)
@@ -78,11 +79,24 @@ Computed from the repo alone, except where noted:
   as opposed to merely postdating it? This is the CIFR `$9.3B` case and is the highest-value
   question the audit asks.
 - **Edge status** — pressured vs. genuinely falsified.
-- **Tripwire expiry** — *are the triggers still live?* CIFR's four Tripwires are all keyed to
-  pre-2027 events; by mid-2027 most will have resolved, leaving the watch-list toothless
-  while still looking populated. **A watch-list of resolved triggers is worse than an empty
-  one**, because it reads as coverage. This check has no deterministic proxy and is the
-  reason the audit cannot be fully scripted.
+- **Tripwire expiry — the "what replaces it" half.** *Detection* became deterministic on
+  2026-07-19: every tripwire now carries an `[expires: YYYY-MM-DD]` annotation (the date its
+  window closes or its premise lapses — CIFR's four are all keyed to pre-2027 events, and by
+  mid-2027 most will have resolved, leaving the watch-list toothless while still looking
+  populated; **a watch-list of resolved triggers is worse than an empty one**, because it
+  reads as coverage). The deterministic tier compares those dates to today and flags. What
+  it cannot do is decide **what happens next** — whether the expired trigger gets removed,
+  re-dated because its window genuinely moved (a slipped commencement date), or replaced by
+  a successor trigger from a re-underwrite. That is a judgment about the thesis, and per
+  `standing-rules.md` §A it is an **explicit human decision**: the audit flags, never edits.
+
+  **Grammar** (parsed by `tickerlib.tripwire_expiries`): inside the `## Tripwires` section,
+  each numbered trigger `(n)` owns the `[expires: YYYY-MM-DD]` between its marker and the
+  next. The date comes from the trigger's own text where it names a window (a print date, a
+  guided ship window, a commencement target), else ~12 months from the report as a review
+  horizon. A trigger without an annotation is surfaced as **untracked** (hygiene, not
+  staleness) rather than guessed at. Expiry ≠ fired: expiry means the window closed
+  *without* the trigger firing.
 
 ## Tag grammar — a blocking prerequisite
 
@@ -145,7 +159,8 @@ Deterministic tier runs first and is cheap; it either clears the ticker or escal
 | **CLEAN** | No unincorporated items, no fired tags, <90d old. *An `early-warning` tag leaves the verdict CLEAN but forces a post — see below.* | None. Record the check. |
 | **PATCH** | Contradiction check finds a claim that was wrong *when written* | Erratum in place per the immutability rule. No re-run. |
 | **REFRESH** | Facts stale (≥2 quarters reported, or ≥90d with unincorporated catalysts) but Edge/Tripwires intact | **Seeded** re-run → new dated report, dispatching **the agents the audit's work order names** — see "REFRESH dispatches a work order" below. Not a fixed count. |
-| **RE-UNDERWRITE** | A tripwire **affirmatively fired** (per the tag-grammar polarity rule — *not* merely surfaced) · ≥2 `[EDGE−]` accumulated · Edge assessed as falsified · Tripwires expired by resolution | **Full** `/deep-dive` re-run, all four sub-agents. |
+| **ESCALATE** *(deterministic tier only — never a final answer)* | ≥2 `[EDGE−]` accumulated · a tripwire's `[expires:]` date has passed unfired | Judgment tier reads the entries and decides: pressured vs. falsified for the Edge; remove / re-date / replace for an expired trigger. A count is a proxy for pressure, never evidence of change — the live corpus proves it (CIFR's two `[EDGE−]` entries both say the Edge's core was *corroborated*). |
+| **RE-UNDERWRITE** | A tripwire **affirmatively fired** (per the tag-grammar polarity rule — *not* merely surfaced; the deterministic tier may relay this because a prior run already made the assessment) · judgment tier concludes the Edge is falsified | **Full** `/deep-dive` re-run, all four sub-agents. |
 
 `≥2 [EDGE−]` is not invented — `latest-updates-workflow.md` §F already states that an
 accumulation of EDGE− means the differentiated thesis is failing even with no Tripwire

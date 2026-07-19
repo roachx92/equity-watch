@@ -65,6 +65,7 @@ from tickerlib import (  # noqa: E402
     log_entries,
     parse_assessment_tags,
     ticker_dirs,
+    tripwire_expiries,
 )
 
 #: A report older than this stops being coverable by a targeted work order:
@@ -205,9 +206,24 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
                 early.append(tag["number"])
 
     quarters = _quarters_since(ticker_dir / "earnings-debrief.md", base)
+
+    # Tripwire expiry — checked against *today*, not the baseline: expiry is a
+    # property of the trigger's own window, not of what got logged since the
+    # report. An expired trigger has resolved or lost its premise without
+    # firing; it can no longer do its job, but it still *reads* as coverage —
+    # which Section J calls worse than an empty slot. Removal is never done
+    # here (the audit must not write news.md — standing-rules §A): it is
+    # flagged for an explicit human decision.
+    expiries = tripwire_expiries(text)
+    today_iso = today.isoformat()
+    expired = sorted(n for n, d in expiries.items() if d and d < today_iso)
+    undated = sorted(n for n, d in expiries.items() if not d)
+
     result.update(unincorporated=unincorporated, edge_neg=edge_neg,
                   edge_pos=edge_pos, quarters_since=quarters,
-                  tripwires_fired=fired, tripwires_early_warning=early)
+                  tripwires_fired=fired, tripwires_early_warning=early,
+                  tripwires_expired=expired, tripwires_undated=undated,
+                  tripwire_expiries=expiries)
 
     ev = result["evidence"]
 
@@ -233,10 +249,27 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
         ev.append(f"{span} with {unincorporated} unincorporated items")
         result["verdict"] = "REFRESH"
 
+    # Expired tripwires escalate (never conclude — replacing a trigger is a
+    # re-underwrite-sized judgment) unless a fire already outranks them.
+    if expired and result["verdict"] != "RE-UNDERWRITE":
+        result["verdict"] = "ESCALATE"
+    if expired:
+        names = ", ".join(f"#{n}" for n in expired)
+        ev.append(
+            f"tripwire {names} EXPIRED (window closed without firing: "
+            + ", ".join(f"#{n} on {expiries[n]}" for n in expired)
+            + ") — dead trigger still reads as coverage; remove or replace it "
+              "via explicit decision, never silently")
+
     # early-warning never escalates the route, but always breaks the silence
     if early:
         names = ", ".join(f"#{n}" if n else "#?" for n in early)
         ev.append(f"tripwire {names} early-warning — approaching, not tripped")
+
+    if undated:
+        names = ", ".join(f"#{n}" for n in undated)
+        ev.append(f"tripwire {names} carries no [expires: YYYY-MM-DD] annotation "
+                  "— expiry can't be tracked; date it")
 
     if result["verdict"] == "REFRESH":
         if age >= STALENESS_HORIZON_DAYS:
