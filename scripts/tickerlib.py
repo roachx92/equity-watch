@@ -23,6 +23,27 @@ _ENTRY_BULLET = re.compile(
     r"^-\s+(\d{4}-\d{2}-\d{2})(?:\s+to\s+(\d{4}-\d{2}-\d{2}))?"
 )
 _CANONICAL_LINK = re.compile(r"\*\*Canonical deep-dive:\*\*.*?(\d{4}-\d{2}-\d{2})\.md")
+
+#: The closed sector vocabulary (§K.2). Closed for the same reason §F.1's tag
+#: vocabulary is: an open one drifts, and the corpus already shows what that
+#: looks like (`Catalyst/Re-rate driver` vs `Catalysts/Re-rate drivers` vs
+#: `Sentiment/Re-rate drivers` all coexist as framework tags today). Adding a
+#: slug is a deliberate act: define it in framework/sector-lens.md §K.2 in the
+#: same commit that first uses it.
+SECTOR_SLUGS = (
+    "adv-packaging",
+    "ai-dc-lessor",
+    "ai-optics",
+    "btc-mining",
+    "catv-broadband",
+)
+_SECTOR_HEADER = "## Sector lens"
+#: A membership bullet opens bold, then the slug in backticks:
+#: ``- **`ai-optics` — sole.** …``. The trailing role/prose is free text. The
+#: "not a sector" / "deliberately excluded" notes each ticker carries open bold
+#: with a *word* rather than a backtick, so they correctly do not match.
+_SECTOR_BULLET = re.compile(r"^-\s+\*\*`([a-z0-9-]+)`")
+
 _TRIPWIRE_HEADER = "## Tripwires"
 _TRIPWIRE_MARKER = re.compile(r"\((\d+)\)")
 #: An `| # | Expires |` table row — trigger number, then an optional date (blank
@@ -193,6 +214,29 @@ def canonical_report_date(news_text: str) -> str | None:
     """
     match = _CANONICAL_LINK.search(news_text)
     return match.group(1) if match else None
+
+
+def sector_slugs(news_text: str) -> list[str]:
+    """Sector slugs a ticker is assigned to, from its `## Sector lens` section.
+
+    Reads the membership bullets (``- **`slug`** …``) and ignores the prose
+    around them, so the "deliberately excluded" / "not a sector" notes each
+    ticker carries — which explain what was considered and rejected — do not
+    read as memberships. Returns slugs in document order; validation against
+    `SECTOR_SLUGS` is the linter's job, not this parser's.
+    """
+    out: list[str] = []
+    in_section = False
+    for line in news_text.splitlines():
+        if line.startswith("## "):
+            in_section = line.strip().startswith(_SECTOR_HEADER)
+            continue
+        if not in_section:
+            continue
+        match = _SECTOR_BULLET.match(line)
+        if match and match.group(1) not in out:
+            out.append(match.group(1))
+    return out
 
 
 def tripwire_expiries(news_text: str) -> dict[int, str]:

@@ -10,8 +10,12 @@ silent gap into a CI failure.
 Each news.md must have:
   - YAML front matter with non-empty `company` and `blurb` (the homepage
     coverage grid reads these — `web/hooks/coverage.py`).
-  - the sections `## Thesis context`, `## Edge`, `## Tripwires`,
-    `## Recent News Log`.
+  - the sections `## Thesis context`, `## Edge`, `## Sector lens`,
+    `## Tripwires`, `## Recent News Log`.
+  - at least one sector membership, drawn from the closed vocabulary in
+    `framework/sector-lens.md` §K.2. An unassigned ticker is a silent blind
+    spot: the sector sub-agent has nothing to search, and an angle nobody
+    searches produces no entries — which reads exactly like "nothing happened"
 
 Python 3 stdlib only. Exit 1 on any violation.
 """
@@ -22,12 +26,19 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from tickerlib import front_matter, repo_root, ticker_dirs  # noqa: E402
+from tickerlib import (  # noqa: E402
+    SECTOR_SLUGS,
+    front_matter,
+    repo_root,
+    sector_slugs,
+    ticker_dirs,
+)
 
 _REQUIRED_FM = ("company", "blurb")
 _REQUIRED_SECTIONS = (
     "## Thesis context",
     "## Edge",
+    "## Sector lens",
     "## Tripwires",
     "## Recent News Log",
 )
@@ -46,6 +57,23 @@ def lint_news(path: Path) -> list[str]:
         # startswith match so `## Thesis context (one-paragraph)` counts.
         if not any(h.startswith(section) for h in heads):
             problems.append(f"missing section `{section}`")
+
+    # §K.1: at least one sector is mandatory — everything trades against
+    # something. Unknown slugs are rejected rather than accepted-and-warned:
+    # the vocabulary is closed (§K.2), and a typo'd slug would silently route
+    # the sector sub-agent to no registry entry at all.
+    slugs = sector_slugs(text)
+    if not slugs:
+        problems.append(
+            "no sector membership in `## Sector lens` — expected at least one "
+            "``- **`<slug>`** …`` bullet (framework/sector-lens.md §K.1)"
+        )
+    for slug in slugs:
+        if slug not in SECTOR_SLUGS:
+            problems.append(
+                f"unknown sector `{slug}` — not in the closed vocabulary "
+                f"({', '.join(SECTOR_SLUGS)}); define it in §K.2 first"
+            )
     return problems
 
 

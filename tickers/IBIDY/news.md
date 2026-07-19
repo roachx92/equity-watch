@@ -15,6 +15,12 @@ Ibiden is the leading maker of the highest-complexity organic ABF FC-BGA package
 
 > Your edge — what do you believe that the crowd doesn't? The differentiated view here is NOT 'AI is big and Ibiden makes AI substrates' (that is consensus, and it is why the stock is up ~474% and trades at ~41x EV/EBITDA). The genuine variant view — surfaced from packaging-industry insight — is that the market is treating glass-core substrates as a clean existential threat, when in fact glass swaps the substrate CORE while the ABF build-up still laminates on top, so Ibiden's build-up expertise carries over and it holds a CoPoS seat. If that read is right, the glass 'de-rating' risk is over-feared and the real risk is milder (share/margin erosion, not displacement). If you do NOT hold a differentiated view like this, you are simply agreeing with a richly-priced consensus — size accordingly.
 
+## Sector lens
+*Assigned 2026-07-19 per `framework/sector-lens.md` §K.1, derived from the deep-dive's §5/§6/§10 and anchored against its §18.*
+
+- **`adv-packaging` — sole.** Channels: **demand**, **supply** and **peer-comp**. Both of the load-bearing tripwires are sector events rather than company events: Tripwire #1 is NVIDIA shifting high-end substrate allocation toward **Unimicron** (a named peer — the peer-pricing test answered outright), and Tripwire #3 is the glass-core substitution clock pulling forward ahead of ~2028. Tripwire #2 (utilization vs. capex) is the classic substrate over-build trap, which is a cycle-level variable.
+- **Shares this slug with LPKF — and the signs can invert.** An early glass-core HVM commitment is `[EDGE+]` for LPKF but tripwire-adjacent here (#3). Per §K.5, assess against *this* ticker's §18, never against a sector-level sentiment read.
+
 ## Tripwires (pre-committed exit / re-underwrite triggers)
 *Verbatim from the original deep-dive, §16. Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
 

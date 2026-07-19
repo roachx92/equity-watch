@@ -18,6 +18,9 @@ para
 ## Edge
 edge
 
+## Sector lens
+- **`ai-optics` — sole.** Channel: **demand**.
+
 ## Tripwires
 1. t
 
@@ -65,3 +68,31 @@ def test_thesis_heading_with_suffix_accepted(tmp_path):
     # "## Thesis context (one-paragraph)" must satisfy "## Thesis context".
     d = _mk(tmp_path, "ABC")
     assert lns.lint_news(d / "news.md") == []
+
+
+def test_missing_sector_lens_section_flagged(tmp_path, capsys):
+    text = WELL_FORMED.replace(
+        "## Sector lens\n- **`ai-optics` — sole.** Channel: **demand**.\n\n", "")
+    _mk(tmp_path, "ABC", text=text)
+    assert lns.main(["--root", str(tmp_path)]) == 1
+    assert "Sector lens" in capsys.readouterr().out
+
+
+def test_sector_lens_present_but_empty_flagged(tmp_path, capsys):
+    """A heading with no membership bullet is the silent case: the section
+    exists so a structure check passes, but the sector agent has nothing to
+    search and the miss produces no entries."""
+    text = WELL_FORMED.replace("- **`ai-optics` — sole.** Channel: **demand**.",
+                               "*TBD — not yet assigned.*")
+    _mk(tmp_path, "ABC", text=text)
+    assert lns.main(["--root", str(tmp_path)]) == 1
+    assert "no sector membership" in capsys.readouterr().out
+
+
+def test_unknown_sector_slug_rejected(tmp_path, capsys):
+    """Closed vocabulary: a typo'd slug would route the sector agent to no
+    registry entry at all, so it fails rather than warning."""
+    text = WELL_FORMED.replace("`ai-optics`", "`ai-optics-typo`")
+    _mk(tmp_path, "ABC", text=text)
+    assert lns.main(["--root", str(tmp_path)]) == 1
+    assert "unknown sector" in capsys.readouterr().out

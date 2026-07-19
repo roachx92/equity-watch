@@ -15,6 +15,12 @@ WhiteFiber is a sub-scale neocloud (GPU cloud + colocation) carved out of Bit Di
 
 > Your edge — what do you believe that the crowd doesn't? The Street lumps WhiteFiber in with money-losing neoclouds, and the July 2026 "Meta Compute" headline hit it by association (CoreWeave/Nebius fell 10-12%). The genuine variant view: WhiteFiber's direct customer is Nscale, NOT Meta — and Nscale just raised a $2B Series C ($14.6B post) plus a $900M revolver, so its ability to pay is stronger than the sympathy selloff implied; NC-1 is a real, permitted, powered site (power is the true bottleneck). If NC-1 financing closes and Nscale bills on schedule, the ~$921M backlog converts and WhiteFiber re-rates largely independent of neocloud sentiment. (If instead you believe the crowd UNDER-appreciates the single-counterparty risk, the honest edge is bearish. Either way, a real edge here is a specific view on Nscale's solvency and NC-1 financing — not a bet on the neocloud tape.)
 
+## Sector lens
+*Assigned 2026-07-19 per `framework/sector-lens.md` §K.1, derived from the deep-dive's §5/§6/§10 and anchored against its §18.*
+
+- **`ai-dc-lessor` — sole.** Channels: **peer-comp** and **demand**. The thesis reduces to one neocloud counterparty — Nscale is ~94% of colo backlog — so neocloud funding and credit conditions *are* the pre-mortem, and Tripwire #2 watches exactly that. Tripwire #1 (NC-1 permanent financing) is priced off the same datacenter-financing conditions the peer complex trades on.
+- **Not a sector: the Bit Digital overhang.** Tripwire #4 (the ~70% holder's no-sell pledge lapsing) is holder-specific supply on a thin float — a company-specific structural risk, not a theme the market prices across a peer set. Per §K.1's anchoring rule it earns no slug.
+
 ## Tripwires (pre-committed exit / re-underwrite triggers)
 *Verbatim from the original deep-dive, §16. Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
 

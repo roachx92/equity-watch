@@ -153,3 +153,61 @@ def test_entry_date_range_uses_the_end_date():
 
 def test_entry_date_no_match_returns_none():
     assert tl.entry_date("not a bullet at all") is None
+
+
+# --- sector lens (§K) -------------------------------------------------------
+
+_SECTOR_DOC = """# T
+
+## Edge
+> variant view
+
+## Sector lens
+*Assigned per §K.1.*
+
+- **`ai-optics` — sole.** Channels: **demand** and **supply**. Tripwire #3 is capex.
+- **Deliberately excluded: industrial lasers.** No Tripwire turns on them.
+
+## Tripwires
+> (1) thing.
+"""
+
+
+def test_sector_slugs_reads_membership_bullets():
+    assert tl.sector_slugs(_SECTOR_DOC) == ["ai-optics"]
+
+
+def test_sector_slugs_ignores_exclusion_notes():
+    """The 'deliberately excluded' / 'not a sector' notes explain what was
+    considered and rejected -- they must not read as memberships."""
+    assert "industrial" not in " ".join(tl.sector_slugs(_SECTOR_DOC))
+
+
+def test_sector_slugs_handles_dual_membership_in_order():
+    doc = _SECTOR_DOC.replace(
+        "- **`ai-optics` — sole.** Channels: **demand** and **supply**. Tripwire #3 is capex.",
+        "- **`ai-optics`.** Channels: **supply**.\n- **`catv-broadband`.** Channels: **demand**.")
+    assert tl.sector_slugs(doc) == ["ai-optics", "catv-broadband"]
+
+
+def test_sector_slugs_scoped_to_its_own_section():
+    """A backticked slug quoted elsewhere in the file is not a membership."""
+    doc = _SECTOR_DOC.replace("## Edge\n> variant view",
+                              "## Edge\n- **`btc-mining`** is discussed here but not assigned.")
+    assert tl.sector_slugs(doc) == ["ai-optics"]
+
+
+def test_sector_slugs_absent_section_returns_empty():
+    assert tl.sector_slugs("# T\n\n## Edge\n> x\n") == []
+
+
+def test_every_live_ticker_has_a_known_sector():
+    """The corpus itself must satisfy §K.1 -- at least one, all in-vocabulary."""
+    for d in tl.ticker_dirs():
+        news = d / "news.md"
+        if not news.is_file():
+            continue
+        slugs = tl.sector_slugs(news.read_text(encoding="utf-8"))
+        assert slugs, f"{d.name} has no sector assigned"
+        for s in slugs:
+            assert s in tl.SECTOR_SLUGS, f"{d.name}: unknown sector {s}"

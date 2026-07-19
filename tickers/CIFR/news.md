@@ -21,6 +21,12 @@ Cipher is a US Bitcoin miner that has legally and operationally repositioned int
 >
 > *(Backlog figure corrected 2026-07-18 from a stale $9.3B to the actual $11.4B/three-lease book — see the deep-dive report's erratum. The counterparty-stack phrasing was updated to reflect that the third lease is also AWS-guaranteed, not a distinct "second hyperscaler.")*
 
+## Sector lens
+*Assigned 2026-07-19 per `framework/sector-lens.md` §K.1, derived from `reports/2026-07-15.md` §5/§6/§10 and anchored against its §18.*
+
+- **`ai-dc-lessor` — primary.** Channels: **peer-comp** (dominant) and **demand**. The log already prices CIFR against Hut 8, CleanSpark, TeraWulf and CORZ: the 2026-07-09→17 entry records a ~25% drawdown driven entirely by sector de-risking plus peers signing leases CIFR didn't match, with no CIFR event at all. Tripwires #1–#3 are all lessor-complex variables (rent commencement, capex financing, tenant/neocloud credit).
+- **`btc-mining` — residual, sunsets with Tripwire #4.** Channel: **regime**. Mining is still the only recognized-revenue source funding the bridge to HPC rent, which is exactly what Tripwire #4 watches. The membership dies when HPC rent commences — the same event that expires #4 (2026-12-31), so it is reviewed in that decision, not separately.
+
 ## Tripwires (pre-committed exit / re-underwrite triggers)
 *Derived from `reports/2026-07-15.md` §16 (primary tripwire) plus the report's risk/financing analysis (§7, §8, §14). Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
 

@@ -83,7 +83,15 @@ list, one `- **(n)** ...` line per numbered trigger** (not one dense paragraph) 
 what every current ticker's news.md does, and it's what keeps a five-trigger name like COHR
 scannable instead of a wall of text. Splitting a report's prose into one bullet per `(n)` is
 a formatting change only — never reword, drop, or merge what a trigger actually says.
-Followed by an **`| # | Expires |` table**, one row per trigger, dating when its own window
+Then a **`## Sector lens`** section — assign the ticker's sector(s) per
+`framework/sector-lens.md` §K.1, **derived from this report's §5/§6/§10 and anchored against
+its §18** (a derivation, not new research: the competitive-landscape sub-agent already mapped
+the peer set). Ordering is forced — membership only counts if a numbered Tripwire or an Edge
+branch references one of the sector's variables, so it cannot be assigned before §18 exists.
+Name the **transmission channel** per sector (demand / peer-comp / supply / regime) and any
+sunset condition, anchored to the Tripwire whose expiry is the same event. At least one sector
+is mandatory; slugs come from the closed §K.2 vocabulary, and a genuinely new one is defined
+in §K.2 **in the same commit**. Followed by an **`| # | Expires |` table**, one row per trigger, dating when its own window
 closes or its premise lapses (from the trigger's text where it names one — a print date, a
 guided window, a commencement target — else ~12 months out as a review horizon). The date is
 its own field, never an inline annotation inside the trigger prose — the prose stays
