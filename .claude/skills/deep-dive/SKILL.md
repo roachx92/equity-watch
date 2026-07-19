@@ -78,12 +78,35 @@ this is a RE-RUN.** (Per `standing-rules.md` §A, "The pre-committed Edge & Trip
 Create the folder and the file, modeling an existing one (e.g. `tickers/CIFR/news.md`):
 frontmatter (`company`, `blurb` — these feed the homepage coverage grid via
 `web/hooks/coverage.py`), a one-paragraph thesis context, the **Edge** and **numbered
-Tripwires** derived **verbatim from the report's §18**, and an empty `## Recent News Log`
+Tripwires** derived **verbatim from the report's §18** — **each tripwire annotated
+`[expires: YYYY-MM-DD]`**: the date its own window closes or its premise lapses (from the
+trigger's text where it names one — a print date, a guided window, a commencement target —
+else ~12 months out as a review horizon). The audit tracks these deterministically; an
+expired, unfired trigger is dead weight that reads as coverage, and gets flagged for
+explicit removal/replacement, never removed silently. Then an empty `## Recent News Log`
 seeded with the standard header note pointing at `framework/latest-updates-workflow.md` §F.1
 (the canonical entry format — don't restate it). There is nothing to overwrite here, so
 deriving into `news.md` is correct.
 
 ### 4b. RE-RUN — `news.md` already has pre-committed Edge/Tripwires
+
+**First: this report supersedes a predecessor, so it owes a provenance block**
+(`framework/staleness-audit.md` §J.7). The trigger is **repo state — a prior dated report
+exists** — *not* whether an audit prompted the run: a human types `/deep-dive <T>` with no
+flag and possibly no memory of a three-week-old nudge, so gating on "was this
+audit-triggered?" would silently skip the block on every hand-initiated re-run.
+
+Source it by **re-running the audit live** — its own outputs are ephemeral, so there is
+nothing stored to quote:
+```
+python scripts/audit_report.py --ticker <TICKER> --baseline <superseded-report-date> --json
+```
+**`--baseline` is mandatory here.** Signals are measured from `latest_report_date()`, so once
+Step 3 has written today's report the default baseline becomes *today*, every signal collapses
+to empty, and the audit returns CLEAN with no evidence — the block would then state,
+confidently, that nothing was stale. Pass the date of the report being superseded, which is
+also the right question: *what happened since the report I am replacing?*
+
 - **Do NOT overwrite them. Not even to "mirror" the new report.** They are binding and were
   fixed in advance; silently replacing them is the exact failure `standing-rules.md` §A and
   `earnings-digest.md` §I.4(d) forbid. The new report keeps its own freshly-derived §18 —
@@ -119,12 +142,18 @@ deriving into `news.md` is correct.
   committed. Default to **not** promoting; silence is not consent. If told to promote, write it
   as its **own visible commit**, separate from the report commit, so the change to the binding
   triggers is never buried inside a report diff.
-- **Record the diff, the causes, and what was or wasn't promoted in the report itself** — in its
-  closing Sources/Methodology/Caveats block (§B0), alongside the model used — so the reasoning
-  survives the session rather than living only in a chat reply that scrolls away. Write it into
-  the report file you created in Step 3, before Step 5 commits it: a report is immutable **once
-  published**, and it is not published until it is committed, so amending it within the run that
-  created it is correct, not a violation.
+- **Write the provenance block into the report**, in its closing Sources/Methodology/Caveats
+  section (§B0), alongside the model used — so the reasoning survives the session rather than
+  living only in a chat reply that scrolls away. Per §J.7 it carries: **which audit triggered
+  it** (the live re-run above), dated; **the specific signals with their evidence**; **the
+  prior report it supersedes**, linked; **the work order run and what it excluded** — on a
+  full four-agent run that is one line saying so, on a partial refresh it is the load-bearing
+  disclosure; and **the Edge diff with its causes** and what was or wasn't promoted.
+  Compose it here and write it into the file Step 3 created, before Step 5 commits: a report
+  is immutable **once published**, and it is not published until committed, so amending it
+  within the run that created it is correct, not a violation.
+  **Never write "routine refresh; updated for latest data"** — §J.7 names that as the failure
+  mode, because it tells a future reader nothing about whether the refresh was warranted.
 
 ### Both paths
 - Set/refresh the `**Canonical deep-dive:**` line to link the new report file. **Verify it's

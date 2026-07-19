@@ -32,7 +32,12 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from tickerlib import news_files, parse_assessment_tags, repo_root  # noqa: E402
+from tickerlib import (  # noqa: E402
+    log_entries,
+    news_files,
+    parse_assessment_tags,
+    repo_root,
+)
 
 _LOG_HEADER = "## Recent News Log"
 _ENTRY_LEAD = re.compile(r"^-\s+\d{4}-\d{2}-\d{2}(?:\s+to\s+\d{4}-\d{2}-\d{2})?\s+—\s+\[[^\]]+\]")
@@ -41,19 +46,6 @@ _BOLD = re.compile(r"\*\*.+?\*\*")  # a bold span may itself contain *italic* em
 _LINK = re.compile(r"\]\(https?://")
 _SKELETON = "YYYY-MM-DD — [FRAMEWORK-TAG]"
 _CANONICAL_SPEC = "framework/latest-updates-workflow.md"
-
-
-def log_entries(text: str) -> list[tuple[int, str]]:
-    """(1-based line number, line) for each bullet in the Recent News Log section."""
-    lines = text.splitlines()
-    out, in_section = [], False
-    for i, line in enumerate(lines, start=1):
-        if line.startswith("## "):
-            in_section = line.strip() == _LOG_HEADER
-            continue
-        if in_section and _ENTRY_BULLET.match(line):
-            out.append((i, line))
-    return out
 
 
 def lint_entry(line: str) -> tuple[list[str], list[str]]:

@@ -18,6 +18,13 @@ from pathlib import Path
 _DATE_FILE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.md$")
 _FRONT_MATTER = re.compile(r"^---\n(.*?)\n---\n?", re.DOTALL)
 
+_LOG_HEADER = "## Recent News Log"
+_ENTRY_BULLET = re.compile(r"^-\s+(\d{4}-\d{2}-\d{2})")
+_CANONICAL_LINK = re.compile(r"\*\*Canonical deep-dive:\*\*.*?(\d{4}-\d{2}-\d{2})\.md")
+_TRIPWIRE_HEADER = "## Tripwires"
+_TRIPWIRE_MARKER = re.compile(r"\((\d+)\)")
+_EXPIRES = re.compile(r"\[expires:\s*(\d{4}-\d{2}-\d{2})\]")
+
 # --- Assessment-tag grammar (§F.1) -----------------------------------------
 # Shared by lint_news_log.py and the staleness audit, so both classify a tag
 # identically. Polarity is what routing keys off, so misclassifying is
@@ -132,6 +139,80 @@ def front_matter(path: Path) -> dict:
             val = val[1:-1]
         data[key.strip()] = val
     return data
+
+
+def log_entries(text: str) -> list[tuple[int, str]]:
+    """(1-based line number, line) for each bullet in the Recent News Log section.
+
+    Scoped to lines *under* the `## Recent News Log` heading on purpose: every
+    news.md carries a header note that documents the tag format, and a naive
+    whole-file scan reads those examples as real tagged entries.
+    """
+    lines = text.splitlines()
+    out, in_section = [], False
+    for i, line in enumerate(lines, start=1):
+        if line.startswith("## "):
+            in_section = line.strip() == _LOG_HEADER
+            continue
+        if in_section and _ENTRY_BULLET.match(line):
+            out.append((i, line))
+    return out
+
+
+def entry_date(line: str) -> str | None:
+    """The leading `YYYY-MM-DD` of a log entry line, or None."""
+    match = _ENTRY_BULLET.match(line)
+    return match.group(1) if match else None
+
+
+def canonical_report_date(news_text: str) -> str | None:
+    """The date in the `**Canonical deep-dive:**` link, or None if absent.
+
+    Compared against `latest_report_date()` to detect pointer drift — the link
+    is a written pointer someone set at a point in time (CLAUDE.md), so it can
+    go stale and must never be trusted as the resolver.
+    """
+    match = _CANONICAL_LINK.search(news_text)
+    return match.group(1) if match else None
+
+
+def tripwire_expiries(news_text: str) -> dict[int, str]:
+    """{tripwire number: expiry date} from `[expires: YYYY-MM-DD]` annotations.
+
+    Scoped to the `## Tripwires` section. Each numbered trigger `(n)` owns the
+    annotations between its marker and the next; a trigger without one simply
+    isn't tracked (returns no entry), which the audit surfaces as untracked
+    rather than guessing a window. Expiry means the trigger's own window has
+    closed — the event it watched has resolved or its premise has lapsed — NOT
+    that it fired. An expired tripwire still on the watch-list is dead weight
+    that reads as coverage, which is worse than an empty slot.
+    """
+    lines = news_text.splitlines()
+    section: list[str] = []
+    in_section = False
+    for line in lines:
+        if line.startswith("## "):
+            in_section = line.strip().startswith(_TRIPWIRE_HEADER)
+            continue
+        if in_section:
+            section.append(line)
+    text = "\n".join(section)
+
+    out: dict[int, str] = {}
+    markers = list(_TRIPWIRE_MARKER.finditer(text))
+    for i, m in enumerate(markers):
+        n = int(m.group(1))
+        # Numbered triggers count 1..k in order; skip stray parenthesised
+        # numbers in prose (they'd be out of sequence or duplicated).
+        if n != len(out) + 1:
+            continue
+        end = markers[i + 1].start() if i + 1 < len(markers) else len(text)
+        hit = _EXPIRES.search(text, m.end(), end)
+        if hit:
+            out[n] = hit.group(1)
+        else:
+            out[n] = ""  # tracked as present-but-undated
+    return {n: d for n, d in out.items()}
 
 
 def latest_report_date(ticker_dir: Path) -> str | None:

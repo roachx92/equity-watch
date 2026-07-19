@@ -1,0 +1,134 @@
+name: Staleness audit
+
+# Section J's deterministic tier (scripts/audit_report.py, NO Claude) — decides
+# whether each watched ticker's dated deep-dive report has gone stale against
+# everything logged since, and reports by exception.
+#
+# Two triggers covering DIFFERENT populations, which is why both exist:
+#   * push on tickers/**  — the audit's inputs change at exactly one moment,
+#     when a whats-new / earnings-digest run commits a log entry or a quarter.
+#     Audits the affected tickers the moment an [EDGE−] or a fired tripwire lands.
+#   * weekly sweep        — covers the QUIET tickers the push trigger structurally
+#     cannot reach. A name with no material news for three months never fires a
+#     push, and that is exactly the report aging into staleness unnoticed.
+#
+# The audit RECOMMENDS; a human runs /deep-dive. That is enforced, not merely
+# intended: this workflow deliberately withholds `actions: write`, so it CANNOT
+# dispatch another workflow even if a future change tried to. See framework/
+# staleness-audit.md §J.1, and do not add the permission.
+#
+# It also never commits — the audit is stateless by design (§J.7) and committing
+# would create a self-trigger loop against its own push trigger on tickers/**.
+# The only state is the re-nag suppression record in the Actions cache.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tickers/**/news.md'
+      - 'tickers/**/earnings-debrief.md'
+  schedule:
+    - cron: '0 13 * * 1'      # ~09:00 ET Monday — the week opens with the decision
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: 'Audit a single ticker (blank = the whole watch-list)'
+        type: string
+        default: ''
+      dry_run:
+        description: 'Decide and render without posting to Discord or saving state'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  # NO `actions: write` — see the header. The audit has nothing to dispatch.
+
+concurrency:
+  group: staleness-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Restore re-nag suppression state
+        uses: actions/cache/restore@v4
+        with:
+          path: .audit-state
+          key: audit-state-v1-${{ github.run_id }}
+          restore-keys: |
+            audit-state-v1-
+
+      - name: Materialize Discord webhook config
+        env:
+          WEBHOOKS_JSON: ${{ secrets.DISCORD_WEBHOOKS_JSON }}
+        run: |
+          set -euo pipefail
+          mkdir -p .secrets
+          if [ -n "${WEBHOOKS_JSON:-}" ]; then
+            printf '%s' "$WEBHOOKS_JSON" > .secrets/discord-webhooks.json
+            echo "Wrote .secrets/discord-webhooks.json from DISCORD_WEBHOOKS_JSON."
+          else
+            echo "DISCORD_WEBHOOKS_JSON not set — per-ticker posts will skip gracefully."
+          fi
+
+      - name: Run the deterministic tier
+        id: audit
+        run: |
+          set -euo pipefail
+          TICKER_ARG=""
+          if [ -n "${{ inputs.ticker }}" ]; then
+            TICKER_ARG="--ticker ${{ inputs.ticker }}"
+          fi
+          mkdir -p .audit-state
+          # Human-readable table into the job summary; JSON for the notifier.
+          # `|| true` on the table run only: a non-zero exit here means canonical
+          # link drift (hygiene), which must not abort the notify step — the
+          # drift is itself something a human needs told about.
+          python3 scripts/audit_report.py $TICKER_ARG --json > .audit-state/results.json
+          python3 scripts/audit_report.py $TICKER_ARG | tee .audit-state/table.txt || true
+          {
+            echo '## Staleness audit'
+            echo '```'
+            cat .audit-state/table.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Decide and post (exception-only)
+        run: |
+          set -euo pipefail
+          python3 scripts/audit_notify.py \
+            --results .audit-state/results.json \
+            --state .audit-state/seen.json \
+            --rollup-file .audit-state/summary.md \
+            ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      - name: Post the sweep roll-up to the dispatcher channel
+        # Scheduled sweep only: the push trigger is per-ticker and already spoke
+        # in each ticker's own channel, so a repo-wide roll-up would be noise.
+        if: github.event_name == 'schedule' && !inputs.dry_run
+        env:
+          DISCORD_DISPATCHER_WEBHOOK: ${{ secrets.DISCORD_DISPATCHER_WEBHOOK }}
+        run: |
+          set -euo pipefail
+          python3 scripts/notify_discord_dispatch.py \
+            --summary-file .audit-state/summary.md \
+            --label 'Staleness audit' \
+            --date "$(date -u +%Y-%m-%d)" \
+            --status "${{ job.status }}"
+
+      - name: Save re-nag suppression state
+        if: always() && !inputs.dry_run
+        uses: actions/cache/save@v4
+        with:
+          path: .audit-state
+          key: audit-state-v1-${{ github.run_id }}
