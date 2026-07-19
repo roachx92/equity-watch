@@ -136,3 +136,20 @@ def test_multiple_tags_on_one_line():
     line = "- 2026-01-01 — [Tag] — **H**. x → y. [TRIPWIRE #1 — fires] [EDGE−]"
     got = {(t["kind"], t["polarity"]) for t in tl.parse_assessment_tags(line)}
     assert got == {("TRIPWIRE", "fired"), ("EDGE", "negative")}
+
+
+def test_entry_date_single_date():
+    assert tl.entry_date("- 2026-07-09 — [Tag] — **H**. x → y.") == "2026-07-09"
+
+
+def test_entry_date_range_uses_the_end_date():
+    """A range's content is 'as of' its later date — an entry that starts before
+    a baseline but ends after it is post-baseline information, not pre-baseline.
+    This is the CIFR case: '2026-07-09 to 2026-07-17' carrying an [EDGE−] was
+    invisible to the staleness audit when keyed off the 7/9 start."""
+    line = "- 2026-07-09 to 2026-07-17 — [Tag] — **H**. x → y. [EDGE−]"
+    assert tl.entry_date(line) == "2026-07-17"
+
+
+def test_entry_date_no_match_returns_none():
+    assert tl.entry_date("not a bullet at all") is None

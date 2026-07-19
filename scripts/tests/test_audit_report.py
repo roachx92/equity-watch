@@ -75,6 +75,23 @@ def test_two_edge_negatives_escalate_rather_than_conclude(tmp_path):
     assert "escalation_question" in r
 
 
+def test_range_entry_counts_from_its_end_date_not_its_start(tmp_path):
+    """The CIFR case: a `DATE to DATE` entry whose start predates the baseline
+    but whose end postdates it must not be invisible to the audit.
+
+    Two [EDGE-] entries, one a range starting *before* the report and ending
+    *after* it. Keying off the start date alone would treat this as pre-report
+    and miss it entirely -- the pair must still escalate.
+    """
+    d = _mk(tmp_path, reports=("2026-07-15",),
+            entries=["- 2026-07-09 to 2026-07-17 — [Tag] — **H**. x → y. [EDGE−]",
+                     _entry("2026-07-16", extra="[EDGE−]")])
+    r = ar.audit_ticker(d, TODAY)
+    assert r["unincorporated"] == 2
+    assert r["edge_neg"] == 2
+    assert r["verdict"] == "ESCALATE"
+
+
 def test_fired_tripwire_may_conclude_because_it_relays_an_assessment(tmp_path):
     """`fires` is a prior run's explicit call against the trigger, not an inference."""
     d = _mk(tmp_path, reports=("2026-07-10",),
