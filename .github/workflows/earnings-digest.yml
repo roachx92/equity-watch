@@ -77,6 +77,10 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # The dispatcher fires this workflow via `gh workflow run`, so the
+          # triggering actor is github-actions[bot]; the action blocks bot-triggered
+          # runs unless the bot is allowlisted here.
+          allowed_bots: "github-actions"
           # --model opus: §I.2 pins the orchestrator and all three sub-agents to Opus.
           # --allowedTools: the headless action denies everything not on this list —
           # without it, Task/WebSearch/Write/Edit/Bash are all blocked and the run
