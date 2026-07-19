@@ -166,8 +166,22 @@ blockquote does not.
 
 ### Cadence — two triggers, not one
 
-The dispatcher runs daily (`30 13 * * 1-5`), but staleness moves on a weekly-to-quarterly
-clock. **Auditing daily would produce a channel you learn to ignore.** Instead:
+**Separate how often the audit *runs* from how often it *speaks*.** These are different
+questions and conflating them produces bad cadence reasoning. The audit is cheap,
+deterministic and repo-local, so running it often is fine — verdicts stay fresh. Noise is
+controlled entirely in the reporting layer (exception-only, state-change, re-nag
+suppression), not by throttling the trigger.
+
+**This is safe only because the expensive tier is escalation-gated.** The judgment (LLM)
+pass runs *solely* when the deterministic tier flags. If that gating is ever weakened,
+frequent running stops being cheap and the cadence argument has to be reopened.
+
+Measured frequency (2026-07-18, trailing 30 days): `news.md` changed **3–7 times per
+ticker** — not daily, even though the dispatcher runs every weekday. Three things hold it
+down: the dispatcher's keyword gate, its 48h per-ticker rate cap, and §F's rule forbidding
+"no news" placeholder entries, so `news.md` only changes when something material was found.
+
+The two triggers cover **different populations**, which is why both are needed:
 
 1. **Event-driven, per ticker.** The audit's inputs change at exactly one moment — when a
    `whats-new` or `earnings-digest` run commits a new log entry or quarter. Trigger on the
@@ -183,15 +197,19 @@ clock. **Auditing daily would produce a channel you learn to ignore.** Instead:
    the affected ticker, the moment a `[TRIPWIRE]` or `[EDGE−]` is logged. **No self-trigger
    loop**: the audit writes state to the Actions cache and never commits.
 
-2. **Weekly sweep** (`schedule`, Monday morning) — catches pure time-based drift (report age
-   crossing 90/180d, quarters accumulating) that no event fires. Monday so the week opens
-   with the decision.
+2. **Weekly sweep** (`schedule`, Monday morning) — covers the **quiet tickers the push
+   trigger structurally cannot reach.** A ticker with no material news for three months
+   never fires a push, and that is *exactly* the ticker whose report is aging into
+   staleness unnoticed. The sweep is not a throttled version of the push trigger; it covers
+   a disjoint population (time-driven drift on inactive names vs. event-driven drift on
+   active ones). Monday so the week opens with the decision.
 
 Plus `workflow_dispatch` for manual runs, matching the dispatcher's `dry_run` convention.
 
-**Own workflow (`audit.yml`), not a step inside `dispatcher.yml`** — the cadences differ, and
-folding a weekly job into a daily cron needs a day-of-week guard that the separate trigger
-set avoids entirely.
+**Own workflow (`audit.yml`), not a step inside `dispatcher.yml`** — because the audit needs a
+**`push` trigger the dispatcher does not have**, and a step inside a cron-only workflow
+cannot express that. A separate workflow also keeps the audit's cache namespace, permissions
+(notably *no* `actions: write`) and failure modes independent of the dispatcher's.
 
 ### Reporting — by exception
 
@@ -252,7 +270,8 @@ an explicit **"recommend only, never dispatch"** rule written into it, plus the 
 1. ~~**Does the dispatcher call this?**~~ **Resolved 2026-07-18** — see "When and how the
    audit runs" above. Own `audit.yml` (weekly sweep + push-triggered per-ticker), reporting
    by exception to Discord. The audit **informs**; the human decides and dispatches the
-   re-run. Not folded into `dispatcher.yml` because the cadences differ.
+   re-run. Not folded into `dispatcher.yml` because the audit needs a `push` trigger the
+   cron-only dispatcher cannot express.
 2. **Price drift threshold.** Needs a Finnhub quote and a judgment call on what magnitude
    makes §14 stale. Proposal: leave price drift out of v1; the quarter-count and
    tag-accumulation signals are repo-local and sufficient to prove the routing.
