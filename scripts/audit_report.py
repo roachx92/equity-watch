@@ -7,10 +7,28 @@ derived from the repo, then either clears the ticker or escalates it to the
 bounded judgment (LLM) pass. That escalation gate is what makes this cheap
 enough to run on every push.
 
-Verdicts (Section J routing table):
+This tier **clears or escalates — it does not conclude**. That is the whole
+two-tier design, and the boundary is load-bearing:
+
   CLEAN          — nothing to do. Record the check.
-  REFRESH        — facts stale, Edge/Tripwires intact. Seeded re-run.
-  RE-UNDERWRITE  — a tripwire fired, or the Edge is accumulating disconfirmation.
+  REFRESH        — facts stale (quarters reported, age + unincorporated items).
+                   Pure counting, no judgment, so this tier may issue it.
+  RE-UNDERWRITE  — a tripwire tag *explicitly says* `fires`. A prior run already
+                   made that assessment against the pre-committed trigger, so
+                   this tier is relaying a determination, not inferring one.
+  ESCALATE       — pressure accumulated, but deciding what it *means* needs the
+                   judgment tier. Never a final answer.
+
+`[EDGE−]` accumulation routes to ESCALATE, not RE-UNDERWRITE, and the live
+corpus shows why. Both of CIFR's `[EDGE−]` entries say in their own text that
+the Edge's *core* was corroborated — one states "The Edge's skeptical core is
+corroborated, not weakened" — because that Edge is two-sided ("either the
+bullish variant … or the bearish variant … pick a side"), so an item can cut
+against one branch while confirming the thesis. Counting the tags says
+"disconfirmation accumulated"; only reading them says whether the Edge is
+*pressured* or *falsified*, and only the Step 4b diff against a freshly
+re-derived §18 proves it actually changed. A count is a proxy for pressure —
+never evidence of change.
 
 PATCH is deliberately absent: it requires the judgment tier's contradiction
 check ("was this claim wrong *when written*?"), which no script can answer.
@@ -62,9 +80,11 @@ QUARTERS_FOR_REFRESH = 2
 #: With unincorporated items present, this much age routes to REFRESH.
 AGE_FOR_REFRESH_DAYS = 90
 
-#: Accumulated disconfirmation that means the variant view is failing even with
-#: no tripwire fired — §F already states this; the audit wires it to a route.
-EDGE_NEG_FOR_REUNDERWRITE = 2
+#: Accumulated disconfirmation worth a human/LLM look. §F states that an
+#: accumulation of EDGE− means the differentiated thesis is failing even with no
+#: tripwire fired — but the tag is binary while an Edge can be two-sided, so this
+#: threshold escalates for judgment rather than concluding.
+EDGE_NEG_FOR_ESCALATION = 2
 
 #: Framework tag fragment → the sub-agent work-stream that owns it. Used only to
 #: *suggest* a work order; the vocabulary is open and has drifted, so the
@@ -196,10 +216,16 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
         names = ", ".join(f"#{n}" if n else "#?" for n in fired)
         ev.append(f"tripwire {names} FIRED since {base} — pre-committed action is due")
         result["verdict"] = "RE-UNDERWRITE"
-    elif edge_neg >= EDGE_NEG_FOR_REUNDERWRITE:
+    elif edge_neg >= EDGE_NEG_FOR_ESCALATION:
         ev.append(f"{edge_neg} [EDGE−] since {base} (vs {edge_pos} [EDGE+]) — "
-                  "the variant view is accumulating disconfirmation")
-        result["verdict"] = "RE-UNDERWRITE"
+                  "disconfirmation accumulating; judgment tier must read the "
+                  "entries and decide pressured vs. falsified (a count cannot)")
+        result["verdict"] = "ESCALATE"
+        result["escalation_question"] = (
+            "Is the Edge genuinely falsified, or merely pressured? Read each "
+            "[EDGE−] entry in full — a two-sided Edge can be corroborated at its "
+            "core by an item that cuts against one of its branches."
+        )
     elif quarters >= QUARTERS_FOR_REFRESH:
         ev.append(f"{quarters} quarters reported since {base}, absent from the report")
         result["verdict"] = "REFRESH"

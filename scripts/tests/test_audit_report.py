@@ -58,9 +58,27 @@ def test_fired_tripwire_routes_to_reunderwrite(tmp_path):
     assert r["notify"] is True
 
 
-def test_two_edge_negatives_route_to_reunderwrite(tmp_path):
-    d = _mk(tmp_path, entries=[_entry("2026-02-01", extra="[EDGE−]"),
-                               _entry("2026-02-02", extra="[EDGE−]")])
+def test_two_edge_negatives_escalate_rather_than_conclude(tmp_path):
+    """A count is a proxy for pressure, never evidence the Edge changed.
+
+    CIFR on the live corpus has two [EDGE−] entries whose own text says the
+    Edge's core was corroborated -- a two-sided Edge can be confirmed at its
+    core by an item cutting against one branch. Concluding RE-UNDERWRITE from
+    the count alone produces a false positive on real data.
+    """
+    d = _mk(tmp_path, reports=("2026-07-10",),
+            entries=[_entry("2026-07-12", extra="[EDGE−]"),
+                     _entry("2026-07-13", extra="[EDGE−]")])
+    r = ar.audit_ticker(d, TODAY)
+    assert r["verdict"] == "ESCALATE"
+    assert r["notify"] is True
+    assert "escalation_question" in r
+
+
+def test_fired_tripwire_may_conclude_because_it_relays_an_assessment(tmp_path):
+    """`fires` is a prior run's explicit call against the trigger, not an inference."""
+    d = _mk(tmp_path, reports=("2026-07-10",),
+            entries=[_entry("2026-07-12", extra="[TRIPWIRE #1 — fires]")])
     assert ar.audit_ticker(d, TODAY)["verdict"] == "RE-UNDERWRITE"
 
 
@@ -119,7 +137,7 @@ def test_early_warning_rides_along_on_an_independent_verdict(tmp_path):
         _entry("2026-02-01", extra="[EDGE−]"), _entry("2026-02-02", extra="[EDGE−]"),
         _entry("2026-02-03", extra="[TRIPWIRE #1 — early-warning]")])
     r = ar.audit_ticker(d, TODAY)
-    assert r["verdict"] == "RE-UNDERWRITE"
+    assert r["verdict"] == "ESCALATE"  # from the EDGE− pair, not the early-warning
     assert any("early-warning" in e for e in r["evidence"])
 
 
