@@ -266,10 +266,23 @@ A REFRESH or RE-UNDERWRITE produces a **new dated report** (decided 2026-07-18).
 file must carry a **dated provenance block**, in the same position and spirit as the
 erratum block, naming *specifically* why it superseded its predecessor.
 
-**It belongs in the report, not only in the audit's Discord message or the PR body.** Those
-scroll away; the report is the durable artifact. A reader opening
-`reports/2026-11-01.md` months later must be able to see why it replaced
-`reports/2026-07-15.md` without archaeology. The corpus already half-does this — AAOI's
+**Both, always — this is additive, not a relocation.** The Discord message still fires
+exactly as specified under "Reporting — by exception"; the provenance block is a *second*
+record, not a replacement for the first. They serve different jobs and neither substitutes
+for the other:
+
+| | Discord message | Provenance block in the report |
+|---|---|---|
+| **Job** | Timely nudge — *act on this now* | Durable provenance — *why this report exists* |
+| **Timing** | At audit time, before any re-run | Written into the new report, after the re-run |
+| **Lifetime** | Scrolls away | Permanent, versioned with the corpus |
+| **Audience** | You, this week | Any reader, any time later |
+
+A reader opening `reports/2026-11-01.md` months later must be able to see why it replaced
+`reports/2026-07-15.md` without archaeology — and equally, an audit that finds something
+must reach you at the time even if no re-run is ever dispatched. **A REFRESH that produced
+no Discord message, or a Discord message that produced no provenance block, is a bug in
+either direction.** The corpus already half-does this — AAOI's
 07-17 report says it *"supersedes — but does not overwrite — the immutable 2026-07-14
 snapshot"* — but records the supersession without the **reasons**. This formalizes the
 missing half.
