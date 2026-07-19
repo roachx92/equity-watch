@@ -16,6 +16,8 @@ name: Dispatcher (deterministic triggers)
 on:
   schedule:
     - cron: '30 13 * * 1-5'   # ~09:30 ET, weekdays; catches prior-day AMC + same-morning BMO
+                              # (earnings look-back reaches back over the weekend so a
+                              #  Friday-after-market report isn't missed — see dispatch.py)
   workflow_dispatch:
     inputs:
       dry_run:
