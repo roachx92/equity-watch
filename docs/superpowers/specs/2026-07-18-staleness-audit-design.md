@@ -260,6 +260,39 @@ unattended. Nothing else.
 arrive carrying the verdict, the specific evidence, and the exact command, so the human is
 approving or declining rather than investigating from scratch.
 
+### Refresh provenance — every audit-triggered report states why it exists
+
+A REFRESH or RE-UNDERWRITE produces a **new dated report** (decided 2026-07-18). That new
+file must carry a **dated provenance block**, in the same position and spirit as the
+erratum block, naming *specifically* why it superseded its predecessor.
+
+**It belongs in the report, not only in the audit's Discord message or the PR body.** Those
+scroll away; the report is the durable artifact. A reader opening
+`reports/2026-11-01.md` months later must be able to see why it replaced
+`reports/2026-07-15.md` without archaeology. The corpus already half-does this — AAOI's
+07-17 report says it *"supersedes — but does not overwrite — the immutable 2026-07-14
+snapshot"* — but records the supersession without the **reasons**. This formalizes the
+missing half.
+
+Required contents:
+
+- **Which audit triggered it**, dated, and the verdict (REFRESH / RE-UNDERWRITE).
+- **The specific signals that fired, with their evidence** — dated and citable, e.g.
+  *"2 `[EDGE−]` logged 2026-08-02 and 2026-09-14; Q2 FY2027 reported 2026-08-06 absent from
+  the prior report."*
+- **The prior report it supersedes**, linked.
+- **The Edge diff.** Per the asymmetric-context rule the orchestrator re-derives the Edge
+  independently and compares it to the prior one — **this block is where that diff lands.**
+  If the Edge came out materially unchanged, *say so explicitly*: a thesis surviving
+  independent re-derivation is a real finding, not an absence of one. If it changed, that is
+  the single most important sentence in the new report.
+
+**The failure mode to prevent:** *"Routine refresh; updated for latest data."* That tells a
+future reader nothing about whether the refresh was warranted, what moved, or what might
+have been missed — and it makes the refresh chain unauditable exactly when someone is trying
+to reconstruct how a view evolved. **Reasons must be specific and evidence-linked, or the
+block has failed its purpose.**
+
 ### Human-in-the-loop is currently structural, not just policy
 
 **There is no `deep-dive.yml` workflow.** `whats-new` and `earnings-digest` each have one;
@@ -292,7 +325,13 @@ an explicit **"recommend only, never dispatch"** rule written into it, plus the 
    extending it is likely cheaper than a third script. Note `notify_discord_dispatch.py` and
    `notify_discord_ticker.py` already coexist, so a third would be the point at which the
    posters want consolidating (cf. the 3a code-dedup work).
-6. **Tests** — `scripts/tests/test_audit_report.py`, following existing conventions.
+6. **Provenance block wiring** — the block is *conditional*: an initial deep-dive has no
+   predecessor and carries none, so it does not belong in `report-template.md` as a standing
+   section. Instead: **Section J defines its shape** (single source of truth), and the
+   **deep-dive skill** gains a step — when a run is audit-triggered, emit the block and
+   perform the Edge diff against the superseded report. `report-template.md` gets a one-line
+   conditional pointer, not a copy of the format.
+7. **Tests** — `scripts/tests/test_audit_report.py`, following existing conventions.
    Must cover the tag-grammar polarity cases explicitly: `[TRIPWIRE #4 — reaffirmed, does
    not fire]` and `[TRIPWIRE #4 — touched, not sustained]` must **not** route to
    RE-UNDERWRITE, and U+2212 vs ASCII minus must both parse.
@@ -304,12 +343,19 @@ an explicit **"recommend only, never dispatch"** rule written into it, plus the 
    by exception to Discord. The audit **informs**; the human decides and dispatches the
    re-run. Not folded into `dispatcher.yml` because the audit needs a `push` trigger the
    cron-only dispatcher cannot express.
-2. **Price drift threshold.** Needs a Finnhub quote and a judgment call on what magnitude
-   makes §14 stale. Proposal: leave price drift out of v1; the quarter-count and
-   tag-accumulation signals are repo-local and sufficient to prove the routing.
-3. **Does REFRESH really need a new dated file?** It produces a new dated report under this
-   spec. The alternative (delta doc) fragments the current view across N files, which the
-   "one home each" rule argues against.
+2. ~~**Price drift threshold.**~~ **Resolved 2026-07-18 — out of v1.** No Finnhub quote, no
+   price/multiple signal. The audit stays **fully repo-local and deterministic**, which is
+   what keeps it cheap enough to run on every push (see the escalation-gating caveat above)
+   and keeps it free of an external API dependency and its failure modes. The quarter-count
+   and tag-accumulation signals are sufficient to prove the routing. Revisit only if v1
+   demonstrably misses staleness that a price signal would have caught.
+3. ~~**Does REFRESH really need a new dated file?**~~ **Resolved 2026-07-18 — yes.** REFRESH
+   produces a new dated report, not a delta doc, so the current view always lives in exactly
+   one file (per the "one home each" rule) and the prior snapshot stays immutable. Each such
+   report carries the provenance block specified above.
+
+*(No open questions remain. The remaining prerequisite is the §F.1 tag-grammar
+follow-up, tracked in "Tag grammar" above as a separate PR.)*
 
 ## Out of scope
 
