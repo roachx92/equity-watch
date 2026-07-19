@@ -80,3 +80,32 @@ def test_main_fails_on_malformed_entry(tmp_path):
         f'---\ncompany: "x"\nblurb: "y"\n---\n## Recent News Log\n{bad}\n', encoding="utf-8"
     )
     assert lnl.main(["--root", str(tmp_path)]) == 1
+
+
+# --- assessment-tag grammar enforcement (§F.1) -----------------------------
+
+def _entry(tag):
+    return f"- 2026-01-01 — [Sentiment] — **H**. detail → impact. Source: [x](https://e.com). {tag}"
+
+
+def test_lint_accepts_canonical_tags():
+    for tag in ("[EDGE+]", "[EDGE−]", "[EDGE~]", "[TRIPWIRE #2 — fires]",
+                "[TRIPWIRE #4 — does not fire]"):
+        problems, _ = lnl.lint_entry(_entry(tag))
+        assert problems == [], f"{tag} should be valid, got {problems}"
+
+
+def test_lint_hard_fails_unrecognised_status():
+    problems, _ = lnl.lint_entry(_entry("[TRIPWIRE #9 — something novel]"))
+    assert any("unrecognised assessment tag" in p for p in problems)
+
+
+def test_lint_hard_fails_tripwire_without_number():
+    problems, _ = lnl.lint_entry(_entry("[TRIPWIRE — fires]"))
+    assert any("missing its `#n`" in p for p in problems)
+
+
+def test_lint_warns_but_accepts_legacy_spelling():
+    problems, warnings = lnl.lint_entry(_entry("[TRIPWIRE #4 — touched, not sustained]"))
+    assert problems == []
+    assert any("legacy tag spelling" in w for w in warnings)

@@ -18,6 +18,80 @@ from pathlib import Path
 _DATE_FILE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.md$")
 _FRONT_MATTER = re.compile(r"^---\n(.*?)\n---\n?", re.DOTALL)
 
+# --- Assessment-tag grammar (§F.1) -----------------------------------------
+# Shared by lint_news_log.py and the staleness audit, so both classify a tag
+# identically. Polarity is what routing keys off, so misclassifying is
+# expensive: a tripwire that says "does not fire" must never read as fired.
+
+#: Any dash a writer might use where §F.1 specifies one.
+_DASHES = "—–−-"  # em, en, true-minus, hyphen
+_TAG = re.compile(r"\[(TRIPWIRE|EDGE)([^\]]*)\]")
+_TRIPWIRE_NUM = re.compile(r"#\s*(\d+)")
+
+#: Canonical tripwire statuses → polarity. Order matters: the first substring
+#: match wins, so "does not fire" is tested before the bare "fire".
+_TRIPWIRE_STATUS = (
+    ("does not fire", "not-fired"),
+    ("not sustained", "not-fired"),
+    ("checked", "not-fired"),
+    ("early-warning", "early-warning"),
+    ("live, unresolved", "early-warning"),
+    ("fires", "fired"),
+    ("fired", "fired"),
+)
+
+#: Legacy status spellings accepted on read but flagged for canonicalisation.
+_TRIPWIRE_LEGACY = ("not sustained", "live, unresolved", "checked")
+
+
+def parse_assessment_tags(line: str) -> list[dict]:
+    """Classify every `[TRIPWIRE …]` / `[EDGE …]` tag on one log-entry line.
+
+    Returns one dict per tag: ``kind`` (TRIPWIRE|EDGE), ``polarity``,
+    ``number`` (tripwires), ``raw``, and ``legacy`` (True when the spelling is
+    accepted but non-canonical).
+
+    **Polarity defaults to the cheaper/safer value when a status is
+    unrecognised** — ``None`` — so an unparseable tag never routes a caller to
+    the expensive branch on its own. Callers must surface ``polarity is None``
+    rather than silently treating it as a fire.
+    """
+    out: list[dict] = []
+    for kind, body in _TAG.findall(line):
+        raw, rest = f"[{kind}{body}]", body.strip()
+        if kind == "EDGE":
+            # §F.1: edges are BINARY — [EDGE+] or [EDGE−], no neutral, no
+            # qualifiers. "neutral" exists here only to classify legacy corpus
+            # entries ("[EDGE — live test, unresolved]") without hard-failing
+            # them; it is not a writable form and routes to nothing.
+            sign = rest[:1]
+            if sign == "+":
+                polarity = "positive"
+                legacy = "," in rest  # e.g. "[EDGE+, tangential]" — qualifier dropped
+            elif sign in "−-–—~" and sign:
+                if "live test" in rest.lower() or sign == "~":
+                    polarity, legacy = "neutral", True  # legacy only
+                else:
+                    # A leading dash is the minus sign; U+2212 is canonical.
+                    polarity, legacy = "negative", sign != "−"
+            else:
+                polarity, legacy = None, False  # bare [EDGE] or unknown — undefined
+            out.append({"kind": "EDGE", "polarity": polarity, "number": None,
+                        "raw": raw, "legacy": legacy})
+            continue
+
+        num = _TRIPWIRE_NUM.search(rest)
+        low = rest.lower()
+        polarity = next((p for token, p in _TRIPWIRE_STATUS if token in low), None)
+        out.append({
+            "kind": "TRIPWIRE",
+            "polarity": polarity,
+            "number": int(num.group(1)) if num else None,
+            "raw": raw,
+            "legacy": any(t in low for t in _TRIPWIRE_LEGACY),
+        })
+    return out
+
 
 def repo_root() -> Path:
     """Repo root, resolved from this file's location (scripts/ sits at the root)."""
