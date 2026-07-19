@@ -105,6 +105,10 @@ WORK_STREAM_HINTS = (
     ("catalyst", "sector"),
     ("secular", "sector"),
     ("valuation", "sector"),
+    # §K.7: `[Sector/<slug>]` is a routing key, not just a label — a stale
+    # sector-tagged entry must send the REFRESH work order to the agent that
+    # owns that ground.
+    ("sector/", "sector"),
 )
 
 

@@ -15,6 +15,12 @@ LPKF is the pure-play, IP-protected leader in LIDE (Laser-Induced Deep Etching) 
 
 > Your edge — what do you believe that the crowd doesn't? Note that consensus here is already skeptical, not complacent — every analyst target (€10–€13) sits below spot (€17.15), so the market has NOT simply bid this to an uncritical high. The genuine variant view has to be sharper than "glass substrates are real": it is a specific view on timing and credibility — e.g., that the missed 30 Jun deadline is a one-off slip rather than a pattern, and that the 23 Jul 2026 H1 report or a subsequent quarter will deliver the first hard glass-HVM order the market is bracing against. If you don't hold a specific view on WHEN the order lands and WHY the first miss won't repeat, you don't have an edge here — you're just underwriting the same option premium the sell-side has already flagged as rich.
 
+## Sector lens
+*Assigned 2026-07-19 per `framework/sector-lens.md` §K.1, derived from the deep-dive's §5/§6/§10 and anchored against its §18.*
+
+- **`adv-packaging` — sole.** Channels: **demand** and **peer-comp**. Tripwire #2 is a rival TGV method (Philoptics is named) winning a major design socket — a direct peer-set variable. Tripwire #4 is the glass volume-production timeline slipping past 2027, i.e. the same glass-core roadmap clock the slug's watch items track. The whole thesis is an option on glass/TGV adoption, so sector roadmap news *is* the thesis news.
+- **Shares this slug with IBIDY — and the signs can invert.** An early glass-core HVM commitment is `[EDGE+]` here but tripwire-adjacent for IBIDY (#3). Per §K.5, assess against *this* ticker's §18.
+
 ## Tripwires (pre-committed exit / re-underwrite triggers)
 *Verbatim from the original deep-dive, §16. Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
 

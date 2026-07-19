@@ -84,7 +84,7 @@ continue here. If the report exists but the news.md has no Edge/Tripwires, deriv
 **that same latest report** you just resolved by glob — its Final thoughts & conclusion section —
 and **state which dated report you used**. Never derive from the `Canonical deep-dive:` link or a
 report you already had open: these become the binding pre-committed triggers, so seeding them from
-a superseded snapshot installs a stale thesis as the baseline. **Write the tripwires as a
+a superseded snapshot installs a stale thesis as the baseline. **Assign the ticker's sector(s)** in a `## Sector lens` section per `framework/sector-lens.md` §K.1 — derived from that same report's §5/§6/§10 and anchored against its §18, with the transmission channel named per sector and slugs from the closed §K.2 vocabulary. **Write the tripwires as a
 bullet list, one `- **(n)** ...` line per numbered trigger, not one dense paragraph** — split
 a report's prose into one bullet per `(n)` as a formatting change only, never rewording,
 dropping, or merging what a trigger says. **Append the `| # | Expires |`

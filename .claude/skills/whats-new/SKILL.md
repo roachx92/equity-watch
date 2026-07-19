@@ -55,7 +55,7 @@ file): don't rebuild the deep-dive. Per §F step 4, derive them from **the lates
 just resolved by glob**, and **state which dated report you used**. Never derive from the
 `Canonical deep-dive:` link or an older snapshot — these become the *binding* pre-committed
 triggers, so seeding them from a superseded report installs a stale thesis as the baseline
-for every future run. **Write the tripwires as a bullet list, one `- **(n)** ...` line per
+for every future run. **Assign the ticker's sector(s)** in a `## Sector lens` section per `framework/sector-lens.md` §K.1 — derived from that same report's §5/§6/§10 and anchored against its §18, with the transmission channel named per sector and slugs from the closed §K.2 vocabulary. **Write the tripwires as a bullet list, one `- **(n)** ...` line per
 numbered trigger, not one dense paragraph** — split a report's prose into one bullet per
 `(n)` as a formatting change only, never rewording, dropping, or merging what a trigger says.
 **Append the `| # | Expires |` table** (`framework/staleness-audit.md`
@@ -75,6 +75,14 @@ mechanism; the report-back format (dated items, direct source URLs, full substan
 and **an explicit stop condition** with a tool-call budget. **Sub-agents research only — they
 must NOT edit files.**
 
+**Always dispatch one additional sector/thematic agent** — per `framework/sector-lens.md` §K.4,
+alongside the company-specific angles, on every run. Company-specific angles only surface events
+the *company* generated; a material sector event moves the ticker with no company event at all
+(CIFR's 2026-07-09→17 entry is a ~25% drawdown with zero CIFR news), and that miss is silent.
+Its prompt carries the ticker's `## Sector lens` verbatim, the §K.2 registry watch items for each
+of its slugs, the same window and the same Edge/Tripwires, and requires the **transmission
+channel** (demand / peer-comp / supply / regime) named per item.
+
 ## Step 4 — assess, then write to the ticker's news.md
 Wait for the sub-agents, then yourself:
 - **Categorize** each material event against the framework sections (short `[TAG]`).
@@ -82,6 +90,10 @@ Wait for the sub-agents, then yourself:
   trigger fired, how close to threshold, the pre-committed action) — highest priority, surface
   it at the TOP. Tag `[EDGE+]` / `[EDGE−]` for items that corroborate/undermine the variant view;
   call out an accumulation of `[EDGE−]` even if no single tripwire fired.
+- **Assess sector findings identically** — same questions, same tags, against *this* ticker's
+  §18 (never a sector-level sentiment score: one headline can point opposite ways for two
+  tickers sharing a slug). Apply the **§K.6 materiality bar** before logging, and tag logged
+  ones `[Sector/<slug>]` with the transmission channel named in the `→ impact` clause (§K.7).
 - **Append full-detail, dated entries** to the ticker's `news.md` `## Recent News Log` per the
   canonical entry format in `framework/latest-updates-workflow.md` §F.1 (most recent first,
   never to the deep-dive report — that's a frozen snapshot). Apply §F.1 as written; do not
