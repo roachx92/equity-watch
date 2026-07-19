@@ -52,10 +52,25 @@ def should_scan_news(matched, last_scan, now, cap_hours=48):
     return (True, 'keyword: "%s" (%d headline(s))' % (keyword, len(matched)))
 
 
-def earnings_due(calendar_rows, today):
-    """Return the most recent report date (YYYY-MM-DD str) in [today-1, today]
-    from Finnhub earningsCalendar rows, or None. `today` is a date object."""
-    window = {(today - timedelta(days=1)).isoformat(), today.isoformat()}
+# How many days of earnings calendar to look back each run. The cron runs
+# weekdays only (see dispatcher.yml), so a Friday-after-market report — whose
+# "morning after" is a Saturday with no scheduled run — would fall outside a
+# bare [today-1, today] window and never dispatch. A 4-day look-back lets
+# Monday's run reach back through the weekend to Friday, and absorbs a single
+# market holiday adjacent to the weekend. The overlap it creates on ordinary
+# weekdays is harmless: the debrief-heading dedup (quarter_already_logged)
+# skips any quarter already digested, at no extra Finnhub cost (one calendar
+# call either way). A closed stretch longer than this — e.g. Thu report before
+# a Fri holiday + weekend + Mon holiday — remains a manual-dispatch edge.
+EARNINGS_LOOKBACK_DAYS = 4
+
+
+def earnings_due(calendar_rows, today, lookback_days=EARNINGS_LOOKBACK_DAYS):
+    """Return the most recent report date (YYYY-MM-DD str) within the look-back
+    window ending today (inclusive of both ends), or None, from Finnhub
+    earningsCalendar rows. `today` is a date object. See EARNINGS_LOOKBACK_DAYS
+    for why the window spans several days rather than just [today-1, today]."""
+    window = {(today - timedelta(days=n)).isoformat() for n in range(lookback_days + 1)}
     dates = sorted({r.get("date") for r in calendar_rows if r.get("date") in window})
     return dates[-1] if dates else None
 
@@ -180,7 +195,9 @@ def run(tickers_dir, client, state, now, keywords,
         # --- Earnings trigger (stateless, repo-read dedup) ---
         try:
             cal = client.earnings_calendar(
-                ticker, (today - timedelta(days=1)).isoformat(), today.isoformat())
+                ticker,
+                (today - timedelta(days=EARNINGS_LOOKBACK_DAYS)).isoformat(),
+                today.isoformat())
             report_date = earnings_due(cal, today)
             if report_date is None:
                 reasons.append("no calendar report")

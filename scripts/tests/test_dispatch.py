@@ -80,8 +80,26 @@ def test_earnings_due_returns_today_report():
 
 
 def test_earnings_due_ignores_reports_outside_window():
-    rows = [{"date": "2026-07-15", "symbol": "COHR"}, {"date": "2026-11-05", "symbol": "COHR"}]
+    # Just past the look-back edge (today-5) and far in the future are both out.
+    rows = [{"date": "2026-07-13", "symbol": "COHR"}, {"date": "2026-11-05", "symbol": "COHR"}]
     assert dispatch.earnings_due(rows, date(2026, 7, 18)) is None
+
+
+def test_earnings_due_catches_friday_amc_on_monday():
+    # The gap this look-back fixes: a Friday-after-market report (2026-07-17,
+    # a Friday) caught by Monday's run (2026-07-20). A bare [today-1, today]
+    # window {Sun, Mon} would miss it.
+    rows = [{"date": "2026-07-17", "symbol": "COHR"}]
+    assert dispatch.earnings_due(rows, date(2026, 7, 20)) == "2026-07-17"
+
+
+def test_earnings_due_window_lower_bound_inclusive():
+    # today-LOOKBACK is inside the window; today-(LOOKBACK+1) is not.
+    today = date(2026, 7, 18)
+    edge = (today - timedelta(days=dispatch.EARNINGS_LOOKBACK_DAYS)).isoformat()
+    beyond = (today - timedelta(days=dispatch.EARNINGS_LOOKBACK_DAYS + 1)).isoformat()
+    assert dispatch.earnings_due([{"date": edge}], today) == edge
+    assert dispatch.earnings_due([{"date": beyond}], today) is None
 
 
 def test_earnings_due_empty_calendar_is_none():
