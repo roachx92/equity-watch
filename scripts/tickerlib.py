@@ -19,7 +19,9 @@ _DATE_FILE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.md$")
 _FRONT_MATTER = re.compile(r"^---\n(.*?)\n---\n?", re.DOTALL)
 
 _LOG_HEADER = "## Recent News Log"
-_ENTRY_BULLET = re.compile(r"^-\s+(\d{4}-\d{2}-\d{2})")
+_ENTRY_BULLET = re.compile(
+    r"^-\s+(\d{4}-\d{2}-\d{2})(?:\s+to\s+(\d{4}-\d{2}-\d{2}))?"
+)
 _CANONICAL_LINK = re.compile(r"\*\*Canonical deep-dive:\*\*.*?(\d{4}-\d{2}-\d{2})\.md")
 _TRIPWIRE_HEADER = "## Tripwires"
 _TRIPWIRE_MARKER = re.compile(r"\((\d+)\)")
@@ -166,9 +168,20 @@ def log_entries(text: str) -> list[tuple[int, str]]:
 
 
 def entry_date(line: str) -> str | None:
-    """The leading `YYYY-MM-DD` of a log entry line, or None."""
+    """A log entry's effective date for staleness purposes, or None.
+
+    §F.1 entries may be a single date or a `DATE to DATE` range (e.g. an
+    event that unfolded over several days). The *end* date is what matters —
+    a range's content is "as of" its later date, so a range starting before
+    a report but ending after it is genuinely post-report information, not
+    pre-report. Keying off the leading date alone made such an entry (and
+    any [EDGE-]/tripwire tag on it) invisible to the staleness audit whenever
+    its start predated the baseline even though its end postdated it.
+    """
     match = _ENTRY_BULLET.match(line)
-    return match.group(1) if match else None
+    if not match:
+        return None
+    return match.group(2) or match.group(1)
 
 
 def canonical_report_date(news_text: str) -> str | None:
