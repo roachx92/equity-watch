@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Post an ad-hoc chat digest (whats-new or earnings-digest) to a ticker's Discord channel.
+"""Post a per-ticker digest (whats-new, earnings-digest or staleness audit) to Discord.
 
 Run locally at the end of a /whats-new or /earnings-digest <TICKER> session (not
 CI-triggered — ad-hoc runs aren't pushed to GitHub on every check, so there's no
@@ -23,6 +23,7 @@ DEFAULT_CONFIG = Path(__file__).resolve().parents[1] / ".secrets" / "discord-web
 KIND_LABELS = {
     "whats-new": "What's New",
     "earnings-digest": "Earnings Digest",
+    "audit": "Staleness Audit",
 }
 
 
