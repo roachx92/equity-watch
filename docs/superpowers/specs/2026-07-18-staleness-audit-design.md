@@ -306,6 +306,45 @@ have been missed — and it makes the refresh chain unauditable exactly when som
 to reconstruct how a view evolved. **Reasons must be specific and evidence-linked, or the
 block has failed its purpose.**
 
+#### Where the block's contents come from — re-derive, don't persist
+
+The audit's own outputs are both **ephemeral by design**: the Discord message scrolls away,
+and the `.audit-state` cache is evictable and deliberately never committed. So at the moment
+the human runs `/deep-dive` — which may be days or weeks after the audit flagged the ticker
+— there is **no stored audit record for the provenance block to quote**. That is not a hole
+to fill with a new store; it is a signal that the block should be **recomputed, not
+recalled**.
+
+**Rule: an audit-triggered deep-dive re-runs the audit itself, live, immediately before
+writing the new report, and builds the provenance block from that run.** Concretely, the
+deep-dive skill's audit-triggered path invokes `scripts/audit_report.py --ticker <T> --json`
+and renders the block from its output.
+
+This works because **every deterministic signal is a pure function of current repo state** —
+unincorporated items, `[EDGE−]` accumulation, tripwire tags, and quarters-reported are all
+recomputed from `news.md` and `earnings-debrief.md` against the (still unchanged) prior
+report date. Re-running them at refresh time yields the same verdict, or a **more current**
+one if something else landed in the interval — which is strictly better than quoting a
+verdict that has since gone stale. The judgment-tier contradiction check likewise does not
+need persisting: the refresh's own sub-agent research covers that ground anyway, and the
+Edge diff is by definition produced *during* the re-run, not before it.
+
+**Why not a committed audit log** (e.g. an append-only `tickers/<T>/audit-log.md`): it would
+buy a permanent record of runs the spec has already decided not to keep (**silent when
+CLEAN**), and it would cost the two properties that make the audit cheap enough to run on
+every push — it must stay **stateless and idempotent**, and it must **never commit**, which
+is what closes the self-trigger loop against its own `push` trigger on `tickers/**`. A store
+whose only consumer can recompute its contents on demand is not worth those costs. Revisit
+only if a signal is ever added that is **not** recomputable from the repo (a point-in-time
+price quote being the obvious candidate — and note this is a second, independent reason
+price drift was ruled out of v1).
+
+**Consequence for reporting:** the Discord message and the provenance block are not just
+different in job and lifetime (table above) — they are **separately derived**, from two
+audit runs at two different times. If they disagree, the *report block is authoritative*
+(it is the more recent computation) and the divergence is itself worth a sentence in the
+block: something moved between the flag and the refresh.
+
 ### Human-in-the-loop is currently structural, not just policy
 
 **There is no `deep-dive.yml` workflow.** `whats-new` and `earnings-digest` each have one;
@@ -326,6 +365,10 @@ an explicit **"recommend only, never dispatch"** rule written into it, plus the 
    (`latest_report_date`, `ticker_dirs`, `front_matter`); no new parsers. Emits a per-ticker
    verdict table; `--json` for machine use; exits non-zero only on canonical-link drift
    (a genuine hygiene error), never on staleness (which is a decision, not a failure).
+   **Must be stateless and idempotent** — every signal recomputed from repo state on each
+   invocation, no writes to the repo. This is what lets the deep-dive skill re-run it at
+   refresh time to build the provenance block (see "Where the block's contents come from"),
+   and what keeps its own `push` trigger loop-free. `--ticker <T>` scopes it to one name.
 3. **`.claude/skills/audit/SKILL.md`** — launcher. Runs the deterministic tier, then the
    bounded judgment pass only for escalated tickers, then reports the routing decision.
    **Does not itself re-run a deep-dive** — it recommends; the human dispatches.
@@ -341,13 +384,18 @@ an explicit **"recommend only, never dispatch"** rule written into it, plus the 
 6. **Provenance block wiring** — the block is *conditional*: an initial deep-dive has no
    predecessor and carries none, so it does not belong in `report-template.md` as a standing
    section. Instead: **Section J defines its shape** (single source of truth), and the
-   **deep-dive skill** gains a step — when a run is audit-triggered, emit the block and
+   **deep-dive skill** gains a step — when a run is audit-triggered, **re-run
+   `audit_report.py --ticker <T> --json` live** to source the verdict and evidence (they are
+   not stored anywhere; see "Where the block's contents come from"), emit the block, and
    perform the Edge diff against the superseded report. `report-template.md` gets a one-line
    conditional pointer, not a copy of the format.
 7. **Tests** — `scripts/tests/test_audit_report.py`, following existing conventions.
    Must cover the tag-grammar polarity cases explicitly: `[TRIPWIRE #4 — reaffirmed, does
    not fire]` and `[TRIPWIRE #4 — touched, not sustained]` must **not** route to
-   RE-UNDERWRITE, and U+2212 vs ASCII minus must both parse.
+   RE-UNDERWRITE, and U+2212 vs ASCII minus must both parse. **Plus idempotence:** two
+   invocations against unchanged repo state must return an identical verdict and evidence
+   set — the provenance block's correctness rests on that property, so it is a test, not an
+   assumption.
 
 ## Open questions
 
