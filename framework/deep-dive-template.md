@@ -14,11 +14,18 @@ source of truth and is published via GitHub Pages — no `.docx`, no external sy
 `news.md` as part of this run: that folder is the watch-list entry, and the per-ticker
 workflows (whats-new, earnings-digest) and the site build enumerate `tickers/*/` to find it.
 The news.md carries YAML front matter (`company`,
-`blurb` — these feed the published homepage coverage grid via `hooks/coverage.py`), the
+`blurb` — these feed the published homepage coverage grid via `web/hooks/coverage.py`), the
 `**Canonical deep-dive:**` link, one-paragraph thesis context, and the §18 **Edge** and
 numbered **Tripwires** derived from this report. A report without its ticker folder is
 invisible to the watch-list; a folder without a `news.md` is skipped by both those workflows
 and the site build.
+
+**If the ticker is already covered** (its `news.md` carries an Edge and numbered Tripwires),
+this run is a **re-run**, however it was requested — and the report's freshly-derived §18
+**must not be written over the pre-committed Edge/Tripwires in `news.md`**. Derive §18 into
+the new dated report as normal, then **diff it against the binding version and surface the
+difference** for a human decision. See `standing-rules.md` §A ("The pre-committed Edge &
+Tripwires") for the invariant and the deep-dive skill's Step 4b for the procedure.
 
 ---
 

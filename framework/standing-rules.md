@@ -31,6 +31,15 @@
 - [ ] **Clarify genuinely ambiguous asks** before answering (don't guess between materially different interpretations).
 - [ ] **Keep the mechanics straight** — revenue hits the income statement; backlog/prepayments sit on the balance sheet; a re-rate is multiple expansion, not price rising because revenue grew.
 
+### The pre-committed Edge & Tripwires — a hard invariant
+
+*Binds every workflow that can write to a ticker's `news.md`: deep-dive, whats-new, earnings-digest, and any future audit. Stated here, in Section A, precisely because it must reach the workflows that do **not** read Section I.*
+
+- [ ] **A ticker's `news.md` Edge and numbered Tripwires are only ever written by an explicit human decision — never as a side effect of generating a report.** They are pre-committed and binding; their entire value is that they were fixed *in advance*, so a threshold cannot be quietly softened once it is crossed or approached. A deep-dive **always** derives its own §18 into its own dated report — that is correct and expected, and a report is a snapshot. **Promoting that §18 into `news.md` is a separate act that requires the human to say so.**
+- [ ] **Detect a re-run from repo state, not from how the request was phrased.** If `tickers/<TICKER>/news.md` already carries an Edge and numbered Tripwires, the run is a re-run **by definition** — regardless of the wording used ("refresh the report"), whether an audit triggered it, or whether the session has any prior context. Check the file; do not infer from the instruction.
+- [ ] **On a re-run: write the new report, leave `news.md`'s Edge/Tripwires untouched, and surface the diff.** Divergence between the new report's freshly-derived §18 and the binding version in `news.md` is **the finding**, not a discrepancy to silently reconcile. Present it and let the human decide whether to promote it. *(Seeding is different: a ticker with no `news.md` yet has nothing to overwrite — derive and create.)*
+- [ ] **When in doubt, do not write.** A new report plus an unresolved diff is always recoverable; a silently overwritten Tripwire is not, because nothing records what it used to say.
+
 ### Constraints
 - [ ] **Not financial advice** — flag it on decision-shaped questions. Provide information and a framework, not directives to buy or sell.
 - [ ] **Paraphrase; minimal quotes; no reproduction of copyrighted source text.**

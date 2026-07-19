@@ -67,18 +67,45 @@ Sources/Methodology/Caveats block with the model used. One dated snapshot per ru
 overwrite a prior date's file.
 
 ## Step 4 — seed / update the ticker's news.md
-Each watched ticker is a **folder** under `tickers/`, named for the symbol, holding that
-ticker's `news.md`; the `tickers/` directory **is** the watch-list. After the report is written:
-- If `tickers/<TICKER>/news.md` does not exist, create the folder and the file, modeling an
-  existing one (e.g. `tickers/CIFR/news.md`): frontmatter (`company`, `blurb` — these feed the
-  homepage coverage grid via `web/hooks/coverage.py`), a one-paragraph thesis context, the **Edge**
-  and **numbered Tripwires** derived **verbatim from the report's §18**, and an empty
-  `## Recent News Log` seeded with the standard header note pointing at
-  `framework/latest-updates-workflow.md` §F.1 (the canonical entry format — don't restate it).
-- Set/refresh its `**Canonical deep-dive:**` line to link the new report file. **Verify it's actually the newest** by globbing `tickers/<TICKER>/reports/*.md` and sorting by date (per CLAUDE.md's report-resolution rule) rather than assuming today's write is trivially latest — a backfilled or out-of-order run could mean it isn't.
-- The Edge/Tripwires in the ticker's news.md are the binding pre-committed triggers the
-  whats-new and earnings-digest skills assess against — mirror them faithfully, don't paraphrase
-  away the specifics.
+
+**First, branch on repo state — not on how the request was phrased.** Check whether
+`tickers/<TICKER>/news.md` already carries an **Edge** and numbered **Tripwires**. That check
+alone decides which path you are on. "Refresh the report", a bare re-run, an audit-triggered
+run and a cold-context session all land in the same place: **if prior Edge/Tripwires exist,
+this is a RE-RUN.** (Per `standing-rules.md` §A, "The pre-committed Edge & Tripwires".)
+
+### 4a. SEED — no `news.md`, or one without Edge/Tripwires (a new name)
+Create the folder and the file, modeling an existing one (e.g. `tickers/CIFR/news.md`):
+frontmatter (`company`, `blurb` — these feed the homepage coverage grid via
+`web/hooks/coverage.py`), a one-paragraph thesis context, the **Edge** and **numbered
+Tripwires** derived **verbatim from the report's §18**, and an empty `## Recent News Log`
+seeded with the standard header note pointing at `framework/latest-updates-workflow.md` §F.1
+(the canonical entry format — don't restate it). There is nothing to overwrite here, so
+deriving into `news.md` is correct.
+
+### 4b. RE-RUN — `news.md` already has pre-committed Edge/Tripwires
+- **Do NOT overwrite them. Not even to "mirror" the new report.** They are binding and were
+  fixed in advance; silently replacing them is the exact failure `standing-rules.md` §A and
+  `earnings-digest.md` §I.4(d) forbid. The new report keeps its own freshly-derived §18 —
+  that is what a dated snapshot is for.
+- **Diff the new §18 against the version in `news.md`**, and report it explicitly:
+  - **Edge** — did the independently re-derived variant view come out the same, sharpened, or
+    genuinely different? **If it is materially unchanged, say so** — a thesis surviving
+    independent re-derivation is a finding, not an absence of one.
+  - **Tripwires** — per trigger: unchanged · re-worded · **resolved** (the event it watched has
+    happened, so it can no longer fire) · newly proposed. **Flag resolved triggers loudly**: a
+    watch-list of already-resolved triggers still *looks* populated while being toothless, which
+    is worse than an empty one.
+- **Leave the decision to the human.** Present the diff and the recommendation; do not promote
+  the new Edge/Tripwires into `news.md` unless explicitly told to. If told to, do it as its own
+  visible change, not folded into the report commit.
+- Record the diff in the report's provenance block (see Step 3) so it survives the session.
+
+### Both paths
+- Set/refresh the `**Canonical deep-dive:**` line to link the new report file. **Verify it's
+  actually the newest** by globbing `tickers/<TICKER>/reports/*.md` and sorting by date (per
+  CLAUDE.md's report-resolution rule) rather than assuming today's write is trivially latest —
+  a backfilled or out-of-order run could mean it isn't.
 - A report without its ticker folder is invisible to the whats-new/earnings-digest workflows and
   the homepage build — this step is not optional for a new name.
 
