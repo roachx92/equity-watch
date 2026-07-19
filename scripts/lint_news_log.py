@@ -32,7 +32,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from tickerlib import news_files, repo_root  # noqa: E402
+from tickerlib import news_files, parse_assessment_tags, repo_root  # noqa: E402
 
 _LOG_HEADER = "## Recent News Log"
 _ENTRY_LEAD = re.compile(r"^-\s+\d{4}-\d{2}-\d{2}(?:\s+to\s+\d{4}-\d{2}-\d{2})?\s+—\s+\[[^\]]+\]")
@@ -68,6 +68,20 @@ def lint_entry(line: str) -> tuple[list[str], list[str]]:
     warnings = []
     if "Source:" not in line or not _LINK.search(line):
         warnings.append("bare source, no linked citation (`Source:` + [label](http…))")
+
+    # Assessment-tag grammar (§F.1). Polarity drives the staleness audit's
+    # routing, so an unclassifiable tag is a hard failure: silently treating it
+    # as either fired or not-fired would misroute an expensive decision.
+    for tag in parse_assessment_tags(line):
+        if tag["polarity"] is None:
+            problems.append(
+                f"unrecognised assessment tag {tag['raw']} — §F.1 defines "
+                f"[EDGE+] / [EDGE−] / [EDGE~] and [TRIPWIRE #n — fires|early-warning|does not fire]"
+            )
+        elif tag["legacy"]:
+            warnings.append(f"legacy tag spelling {tag['raw']} — canonicalise per §F.1")
+        if tag["kind"] == "TRIPWIRE" and tag["number"] is None:
+            problems.append(f"tripwire tag {tag['raw']} missing its `#n` — which trigger?")
     return problems, warnings
 
 
@@ -87,6 +101,12 @@ def _restatement_leaks(root: Path) -> list[str]:
 
 
 def main(argv=None) -> int:
+    # Findings quote em-dashes, §, and U+2212 from the entries themselves;
+    # a cp1252 console would mojibake them (or crash on write).
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
+
     ap = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
     ap.add_argument("--root", default=None, help="repo root (default: auto)")
     args = ap.parse_args(argv)

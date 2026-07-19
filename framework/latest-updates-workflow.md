@@ -59,7 +59,50 @@ YYYY-MM-DD — [FRAMEWORK-TAG] — **Headline**. Full detail of the event → im
 - **`YYYY-MM-DD`** — the event's date, not the run date.
 - **`[FRAMEWORK-TAG]`** — the framework section the event actually touches (Business model, Catalysts, Re-rate drivers, Moat/Competition, Tech moat, Secular, Financials/Capital stack, Risks/Concentration, Bull/Base/Bear, Bottleneck, Sentiment, Asymmetry, Management/Insider, Valuation, Thesis). Short tag, right after the date.
 - **Headline** — bolded, one line, leads the summary portion so the entry is scannable before the full detail.
-- **`[TRIPWIRE]` / `[EDGE+]` / `[EDGE−]`** — per the mandatory assessment in step 4 above, **at the very end of the entry, after the source citation** — mirrors the chat-digest per-item line format in §F.3, so the headline and its substance read first and the tripwire/edge classification reads as the entry's closing verdict. Include only when one applies; omit entirely otherwise, don't pad with "none." **This positional change is forward-looking only** — it governs new entries; existing log entries are historical record and are never rewritten to match a later format revision.
+- **Assessment tag** — per the mandatory assessment in step 4 above, **at the very end of the entry, after the source citation** — mirrors the chat-digest per-item line format in §F.3, so the headline and its substance read first and the classification reads as the entry's closing verdict. Include only when one applies; omit entirely otherwise, don't pad with "none." **This positional rule is forward-looking only** — it governs new entries; existing log entries are historical record and are never rewritten to match a later format revision. The vocabulary is closed — see below.
+
+### Assessment-tag grammar (CLOSED VOCABULARY)
+
+**Why this is closed rather than free-text:** these tags are not decoration. The staleness
+audit routes off their **polarity**, and a misread is expensive in a specific direction — a
+tripwire whose own text says *"does not fire"* must never be counted as fired, or it
+dispatches a full four-sub-agent re-underwrite for nothing. Free-text statuses cannot be
+classified reliably, so the vocabulary is fixed and machine-checked
+(`scripts/lint_news_log.py`, via `tickerlib.parse_assessment_tags`).
+
+**Edge tags** — three polarities, matching §F.3's 🟢 / 🔴 / ⚪:
+
+| Tag | Meaning |
+|---|---|
+| `[EDGE+]` | Corroborates the variant view |
+| `[EDGE−]` | Cuts against it — consensus was right, the edge is eroding (**U+2212**, not a hyphen) |
+| `[EDGE~]` | A live test of the Edge, not yet resolved either way |
+
+An optional qualifier may follow a comma: `[EDGE+, tangential]`.
+
+**Tripwire tags** — always numbered, always with a status:
+
+```
+[TRIPWIRE #<n> — <status>]
+```
+
+| Status | Meaning | Audit polarity |
+|---|---|---|
+| `fires` | The pre-committed trigger tripped. The stated action (exit / re-underwrite) is due. | **fired** |
+| `early-warning` | Moving toward the threshold; not tripped. State the distance. | early-warning |
+| `does not fire` | Assessed against the trigger and explicitly did **not** trip. | not-fired |
+
+Free elaboration may follow the status keyword: `[TRIPWIRE #4 — does not fire, touched but
+not sustained]`. **`#n` is mandatory** — "which trigger" is the whole point; an unnumbered
+tripwire tag is a lint failure.
+
+**A tag with no recognised status is a hard lint failure**, deliberately: an unclassifiable
+tag would otherwise be silently assumed one way or the other by the audit.
+
+**Legacy spellings** already in the corpus (`[EDGE — live test, unresolved]`,
+`[TRIPWIRE #n — live, unresolved]`, `… — touched, not sustained`) are **accepted on read and
+mapped**, but flagged as warnings for canonicalisation. Per the rule above, they are **not**
+retroactively rewritten — history stands as written.
 
 ### Content rules
 
