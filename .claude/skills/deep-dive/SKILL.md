@@ -119,8 +119,12 @@ deriving into `news.md` is correct.
   committed. Default to **not** promoting; silence is not consent. If told to promote, write it
   as its **own visible commit**, separate from the report commit, so the change to the binding
   triggers is never buried inside a report diff.
-- Record the diff, the causes, and what was or wasn't promoted in the report's provenance block
-  (see Step 3), so the reasoning survives the session.
+- **Record the diff, the causes, and what was or wasn't promoted in the report itself** — in its
+  closing Sources/Methodology/Caveats block (§B0), alongside the model used — so the reasoning
+  survives the session rather than living only in a chat reply that scrolls away. Write it into
+  the report file you created in Step 3, before Step 5 commits it: a report is immutable **once
+  published**, and it is not published until it is committed, so amending it within the run that
+  created it is correct, not a violation.
 
 ### Both paths
 - Set/refresh the `**Canonical deep-dive:**` line to link the new report file. **Verify it's
