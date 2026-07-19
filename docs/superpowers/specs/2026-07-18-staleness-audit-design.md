@@ -144,7 +144,7 @@ Deterministic tier runs first and is cheap; it either clears the ticker or escal
 |---|---|---|
 | **CLEAN** | No unincorporated items, no fired tags, <90d old. *An `early-warning` tag leaves the verdict CLEAN but forces a post — see below.* | None. Record the check. |
 | **PATCH** | Contradiction check finds a claim that was wrong *when written* | Erratum in place per the immutability rule. No re-run. |
-| **REFRESH** | Facts stale (≥2 quarters reported, or ≥90d with unincorporated catalysts) but Edge/Tripwires intact | **Seeded** re-run → new dated report. Two sub-agents (filing + sector) rather than four; structural sections (business model, value-chain position) verified rather than re-derived. |
+| **REFRESH** | Facts stale (≥2 quarters reported, or ≥90d with unincorporated catalysts) but Edge/Tripwires intact | **Seeded** re-run → new dated report, dispatching **the agents the audit's work order names** — see "REFRESH dispatches a work order" below. Not a fixed count. |
 | **RE-UNDERWRITE** | A tripwire **affirmatively fired** (per the tag-grammar polarity rule — *not* merely surfaced) · ≥2 `[EDGE−]` accumulated · Edge assessed as falsified · Tripwires expired by resolution | **Full** `/deep-dive` re-run, all four sub-agents. |
 
 `≥2 [EDGE−]` is not invented — `latest-updates-workflow.md` §F already states that an
@@ -184,6 +184,67 @@ tripwires three states under §F.1's "does the value change what happens?" test.
 Where other signals independently produce a REFRESH or RE-UNDERWRITE, any live
 `early-warning` tags ride along in that message as supporting evidence. **They colour a
 verdict; they never cause one.**
+
+### REFRESH dispatches a work order, not a fixed agent count
+
+An earlier draft specified REFRESH as "two sub-agents (filing + sector)." That number was
+arbitrary, and it contradicted `standing-rules.md` §A ("Always dispatch four parallel
+sub-agents… All four are mandatory") with no stated exception — so the cheap path had no
+mechanism and the two documents disagreed.
+
+**A partial re-run is only defensible if the audit says *what* is stale and dispatches
+exactly the agents that own it.** The audit already computes dated, specific evidence in
+order to justify its verdict; that same evidence *is* the work order. Requiring the audit to
+emit it costs nothing extra and turns "spend less" from a hopeful default into a targeted
+repair with a stated scope.
+
+**Routing evidence → work-stream.** §F.1 log entries already carry a categorising framework
+tag, which maps onto the four hard-coded agent templates:
+
+| Evidence in the audit's finding | Agent dispatched |
+|---|---|
+| `[Financials/…]`, `[Management/Insider]`, capital stack, a quarter reported since the report | **filing** (§H) |
+| `[Risks/Concentration]`, anchor tenant / customer / financing-partner news | **counterparty** (§H) |
+| `[Moat/Competition]`, `[Tech moat]` | **competitive-landscape** (§G) |
+| `[Sentiment/…]`, `[Catalyst/Re-rate driver]`, secular-demand items | **sector** (§H) |
+
+The judgment tier does this mapping, not the deterministic tier: the framework-tag vocabulary
+is **open and has drifted** (`Catalyst/Re-rate driver` vs. `Catalysts/Re-rate drivers` vs.
+`Sentiment/Re-rate drivers` all appear in the corpus today), so it cannot be matched
+reliably by a script. That is the same failure the assessment tags had before #50, one layer
+over. Closing that vocabulary would let the deterministic tier route directly and is a
+worthwhile follow-up — **but it is not a blocker**, because REFRESH is an escalated verdict
+and the judgment pass is already running by the time a work order is needed.
+
+**The work order names, per stale area:** the work-stream, the specific claim or section to
+re-verify, and the dated evidence that flagged it. The agent set is the union of the
+work-streams named — one, two, three, or four. **If it comes out as all four, it is not a
+REFRESH**; run it as a full re-underwrite and say so.
+
+#### The safeguard this requires: section-level provenance
+
+A partial re-run produces a report with **today's date on sections that were not
+re-researched.** Left unmarked, that is precisely the failure this spec already names as
+worse than obvious staleness — *"fresh numbers under conclusions reasoned from superseded
+ones… it reads as current while being wrong, and nothing flags it."* A narrower agent set
+therefore **buys a disclosure obligation, not just a saving**:
+
+- **Every section states its provenance** — re-researched this run, or carried forward
+  unchanged from `<prior-report-date>`.
+- **The provenance block lists the work order and, explicitly, what was *not* re-researched.**
+  The omissions are the part a future reader cannot reconstruct.
+
+#### The backstop: absence of logged news decays as evidence
+
+The work order can only name what the audit can *see*, and what it can see comes from
+`news.md` — which comes from prior what's-new runs. **A section that went stale with no
+logged news is invisible to it.** Guarding against exactly that unknown-unknown is why the
+four-agent mandate exists.
+
+So "no logged news in area X" is a proxy for "area X is still current," and that proxy decays
+with time. **Beyond a staleness horizon — proposed: the prior report older than ~180 days —
+run all four regardless of how narrow the work order is.** This number is a judgment call to
+tune with use, not a derived one; it is stated as arbitrary rather than dressed up.
 
 ## Asymmetric context — the anchoring rule for REFRESH and RE-UNDERWRITE
 
@@ -342,6 +403,11 @@ Required contents:
   *"2 `[EDGE−]` logged 2026-08-02 and 2026-09-14; Q2 FY2027 reported 2026-08-06 absent from
   the prior report."*
 - **The prior report it supersedes**, linked.
+- **The work order that was run, and what it excluded** — which agents were dispatched and,
+  explicitly, **which sections were carried forward rather than re-researched** (see
+  "section-level provenance"). On a full four-agent re-underwrite this is one line saying so;
+  on a partial refresh it is the load-bearing disclosure, because the omissions are what a
+  future reader cannot reconstruct from the file.
 - **The Edge diff.** Per the asymmetric-context rule the orchestrator re-derives the Edge
   independently and compares it to the prior one — **this block is where that diff lands.**
   If the Edge came out materially unchanged, *say so explicitly*: a thesis surviving
@@ -448,7 +514,13 @@ an explicit **"recommend only, never dispatch"** rule written into it, plus the 
    the new report has already been written (see "Ordering is load-bearing").
 3. **`.claude/skills/audit/SKILL.md`** — launcher. Runs the deterministic tier, then the
    bounded judgment pass only for escalated tickers, then reports the routing decision.
-   **Does not itself re-run a deep-dive** — it recommends; the human dispatches.
+   **On a REFRESH verdict it must emit the work order** — the work-streams to dispatch, the
+   specific claim/section each must re-verify, and the dated evidence behind each — since the
+   judgment tier is the only layer that can map the open framework-tag vocabulary onto the
+   four agent templates. A REFRESH verdict without a work order is incomplete output: it
+   licenses a narrower run without stating its scope, which is the one thing
+   `standing-rules.md` §A's exception forbids. **Does not itself re-run a deep-dive** — it
+   recommends; the human dispatches.
 4. **`.github/workflows/audit.yml`** — weekly sweep + push-triggered per-ticker re-audit +
    `workflow_dispatch`. Actions-cache state, exception-only Discord reporting.
    **No `actions: write`** — it has nothing to dispatch, and withholding the permission
