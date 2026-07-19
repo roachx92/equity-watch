@@ -18,6 +18,10 @@ from pathlib import Path
 _DATE_FILE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.md$")
 _FRONT_MATTER = re.compile(r"^---\n(.*?)\n---\n?", re.DOTALL)
 
+_LOG_HEADER = "## Recent News Log"
+_ENTRY_BULLET = re.compile(r"^-\s+(\d{4}-\d{2}-\d{2})")
+_CANONICAL_LINK = re.compile(r"\*\*Canonical deep-dive:\*\*.*?(\d{4}-\d{2}-\d{2})\.md")
+
 # --- Assessment-tag grammar (§F.1) -----------------------------------------
 # Shared by lint_news_log.py and the staleness audit, so both classify a tag
 # identically. Polarity is what routing keys off, so misclassifying is
@@ -132,6 +136,41 @@ def front_matter(path: Path) -> dict:
             val = val[1:-1]
         data[key.strip()] = val
     return data
+
+
+def log_entries(text: str) -> list[tuple[int, str]]:
+    """(1-based line number, line) for each bullet in the Recent News Log section.
+
+    Scoped to lines *under* the `## Recent News Log` heading on purpose: every
+    news.md carries a header note that documents the tag format, and a naive
+    whole-file scan reads those examples as real tagged entries.
+    """
+    lines = text.splitlines()
+    out, in_section = [], False
+    for i, line in enumerate(lines, start=1):
+        if line.startswith("## "):
+            in_section = line.strip() == _LOG_HEADER
+            continue
+        if in_section and _ENTRY_BULLET.match(line):
+            out.append((i, line))
+    return out
+
+
+def entry_date(line: str) -> str | None:
+    """The leading `YYYY-MM-DD` of a log entry line, or None."""
+    match = _ENTRY_BULLET.match(line)
+    return match.group(1) if match else None
+
+
+def canonical_report_date(news_text: str) -> str | None:
+    """The date in the `**Canonical deep-dive:**` link, or None if absent.
+
+    Compared against `latest_report_date()` to detect pointer drift — the link
+    is a written pointer someone set at a point in time (CLAUDE.md), so it can
+    go stale and must never be trusted as the resolver.
+    """
+    match = _CANONICAL_LINK.search(news_text)
+    return match.group(1) if match else None
 
 
 def latest_report_date(ticker_dir: Path) -> str | None:
