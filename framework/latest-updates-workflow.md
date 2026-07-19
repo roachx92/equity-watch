@@ -70,15 +70,29 @@ dispatches a full four-sub-agent re-underwrite for nothing. Free-text statuses c
 classified reliably, so the vocabulary is fixed and machine-checked
 (`scripts/lint_news_log.py`, via `tickerlib.parse_assessment_tags`).
 
-**Edge tags** — three polarities, matching §F.3's 🟢 / 🔴 / ⚪:
+**Edge tags — binary. There are exactly two, and no qualifiers:**
 
 | Tag | Meaning |
 |---|---|
 | `[EDGE+]` | Corroborates the variant view |
 | `[EDGE−]` | Cuts against it — consensus was right, the edge is eroding (**U+2212**, not a hyphen) |
-| `[EDGE~]` | A live test of the Edge, not yet resolved either way |
 
-An optional qualifier may follow a comma: `[EDGE+, tangential]`.
+**If an item does neither, it carries no Edge tag** — per the omit rule above. Do not invent a
+neutral tag and do not append qualifiers (`[EDGE+, tangential]`): the strength, the nuance and
+the "why" already live in the entry's mandatory full detail and `→ impact` clause, where a
+human reads them. A qualifier adds nothing a machine can use and nothing a reader lacks.
+
+> **Not to be confused with §F.3's ⚪ "EDGE live test."** That is a *digest-level status* —
+> what state the Edge is in right now, summarised across the run — not a per-item
+> classification. An individual news item either corroborated the variant view or cut against
+> it; the Edge as a whole can separately be under an unresolved live test. Two different
+> questions, two different layers.
+
+**The rule that decides whether a tag value should exist: does it change what happens?**
+`[EDGE−]` counts toward the audit's re-underwrite threshold and `[EDGE+]` is its
+counterweight, so both earn their place. A neutral value would route to nothing. (This is
+also why tripwires legitimately carry three statuses while edges carry two — each tripwire
+status routes differently; see below.)
 
 **Tripwire tags** — always numbered, always with a status:
 
@@ -100,9 +114,10 @@ tripwire tag is a lint failure.
 tag would otherwise be silently assumed one way or the other by the audit.
 
 **Legacy spellings** already in the corpus (`[EDGE — live test, unresolved]`,
-`[TRIPWIRE #n — live, unresolved]`, `… — touched, not sustained`) are **accepted on read and
-mapped**, but flagged as warnings for canonicalisation. Per the rule above, they are **not**
-retroactively rewritten — history stands as written.
+`[EDGE+, tangential]`, `[TRIPWIRE #n — live, unresolved]`, `… — touched, not sustained`) are
+**accepted on read and mapped**, but flagged as warnings for canonicalisation. Per the rule
+above, they are **not** retroactively rewritten — history stands as written. New entries use
+the closed vocabulary only.
 
 ### Content rules
 

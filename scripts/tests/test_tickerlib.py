@@ -116,14 +116,20 @@ def test_edge_signs_and_unicode_minus():
     assert ascii_minus["polarity"] == "negative" and ascii_minus["legacy"] is True
 
 
-def test_edge_live_test_is_neutral_not_negative():
-    """Must not count toward the audit's >=2 EDGE- re-underwrite threshold."""
+def test_edge_live_test_is_legacy_neutral_not_negative():
+    """Legacy-only. Neutral routes to nothing, so it must not count toward the
+    audit's >=2 EDGE- re-underwrite threshold, and must flag for canonicalising
+    -- F.1 edges are binary."""
     t = _tag("[EDGE — live test, unresolved]")
     assert t["polarity"] == "neutral"
+    assert t["legacy"] is True
 
 
-def test_edge_qualifier_preserves_polarity():
-    assert _tag("[EDGE+, tangential]")["polarity"] == "positive"
+def test_edge_qualifier_parses_but_is_legacy():
+    """F.1 drops qualifiers: nuance belongs in the entry body, not the tag."""
+    t = _tag("[EDGE+, tangential]")
+    assert t["polarity"] == "positive"
+    assert t["legacy"] is True
 
 
 def test_multiple_tags_on_one_line():

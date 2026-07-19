@@ -60,22 +60,22 @@ def parse_assessment_tags(line: str) -> list[dict]:
     for kind, body in _TAG.findall(line):
         raw, rest = f"[{kind}{body}]", body.strip()
         if kind == "EDGE":
+            # §F.1: edges are BINARY — [EDGE+] or [EDGE−], no neutral, no
+            # qualifiers. "neutral" exists here only to classify legacy corpus
+            # entries ("[EDGE — live test, unresolved]") without hard-failing
+            # them; it is not a writable form and routes to nothing.
             sign = rest[:1]
             if sign == "+":
-                polarity, legacy = "positive", False
-            elif sign in "−-–—" and sign:
-                # A leading dash is the minus sign; U+2212 is canonical.
-                polarity = "negative"
-                legacy = sign != "−"
-                # "[EDGE — live test…]" is a neutral live test, not a negative.
-                if "live test" in rest.lower():
-                    polarity, legacy = "neutral", True
-            elif rest[:1] == "~":
-                polarity, legacy = "neutral", False
-            elif not rest:
-                polarity, legacy = None, False  # bare [EDGE] — undefined
+                polarity = "positive"
+                legacy = "," in rest  # e.g. "[EDGE+, tangential]" — qualifier dropped
+            elif sign in "−-–—~" and sign:
+                if "live test" in rest.lower() or sign == "~":
+                    polarity, legacy = "neutral", True  # legacy only
+                else:
+                    # A leading dash is the minus sign; U+2212 is canonical.
+                    polarity, legacy = "negative", sign != "−"
             else:
-                polarity, legacy = None, False
+                polarity, legacy = None, False  # bare [EDGE] or unknown — undefined
             out.append({"kind": "EDGE", "polarity": polarity, "number": None,
                         "raw": raw, "legacy": legacy})
             continue
