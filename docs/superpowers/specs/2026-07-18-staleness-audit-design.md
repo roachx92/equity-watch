@@ -228,6 +228,38 @@ poster shaped like `notify_discord_dispatch.py`.
   (e.g. "2 `[EDGE−]` since 2026-07-15; Q2 reported 2026-08-06 absent from report"), and the
   exact command to run.
 
+### Does REFRESH auto-run? No — and the reason is §I.4(d), not cost
+
+**Every route that regenerates a report is human-prompted, REFRESH included.** The
+governing rule already exists in `earnings-digest.md` §I.4(d):
+
+> **Never silently rewrite the Edge or the Tripwires.** They are pre-committed in the
+> ticker's news.md and are binding… leave the re-underwrite as an explicit decision for the
+> reader to make deliberately.
+
+A REFRESH produces a **new dated report**, which re-derives §18 — the Edge and the numbered
+Tripwires — and `news.md`'s `Canonical deep-dive:` link then resolves to it. An automated
+REFRESH would therefore **silently replace the reader's pre-committed exit triggers**, which
+is exactly what §I.4(d) forbids; routing it through a workflow instead of a digest does not
+make it a different act. The failure mode is concrete: you could wake up to different
+Tripwires than you committed to, which destroys the property that makes them worth having.
+
+**The tempting middle option — "auto-update facts, human-gate the thesis" — does not
+survive the evidence.** CIFR's stale `$9.3B` sat *inside the Edge's central sentence*
+("the entire sell-side thesis rests on the same fact — the ~$9.3B backlog"). A facts-only
+auto-refresh would have either left the Edge quoting a superseded number or silently edited
+it. Facts and thesis are not cleanly separable, and **a report with fresh numbers under
+conclusions reasoned from superseded ones is worse than an obviously stale one** — it reads
+as current while being wrong, and nothing flags it.
+
+**What may auto-run:** canonical-link drift only (`news.md` pointing at a non-latest
+report). Pure hygiene, zero judgment content, already deterministic — this may open a PR
+unattended. Nothing else.
+
+**The correct lever is cheapness of the decision, not removal of it.** The audit should
+arrive carrying the verdict, the specific evidence, and the exact command, so the human is
+approving or declining rather than investigating from scratch.
+
 ### Human-in-the-loop is currently structural, not just policy
 
 **There is no `deep-dive.yml` workflow.** `whats-new` and `earnings-digest` each have one;
@@ -281,7 +313,9 @@ an explicit **"recommend only, never dispatch"** rule written into it, plus the 
 
 ## Out of scope
 
-- Automating the re-run itself. The audit **recommends**; a human dispatches `/deep-dive`.
+- Automating any re-run — **REFRESH and RE-UNDERWRITE alike**. The audit **recommends**; a
+  human dispatches `/deep-dive`. Governed by §I.4(d), not by cost; see the REFRESH section
+  above. The sole exception is canonical-link drift, which may auto-PR.
 - Retroactively auditing the existing corpus (a one-time backfill, separate).
 - Any change to `/whats-new` or `/earnings-digest`.
 - Rewriting published judgments — explicitly forbidden by the immutability rule above.
