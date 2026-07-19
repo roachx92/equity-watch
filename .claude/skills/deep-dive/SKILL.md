@@ -88,18 +88,39 @@ deriving into `news.md` is correct.
   fixed in advance; silently replacing them is the exact failure `standing-rules.md` §A and
   `earnings-digest.md` §I.4(d) forbid. The new report keeps its own freshly-derived §18 —
   that is what a dated snapshot is for.
-- **Diff the new §18 against the version in `news.md`**, and report it explicitly:
+- **Diff the new §18 against the version in `news.md`, state the differences plainly, and
+  explain *why each one changed*.** A diff alone is not enough — the cause is what tells the
+  reader whether the change should be adopted. Show old vs. new side by side:
   - **Edge** — did the independently re-derived variant view come out the same, sharpened, or
     genuinely different? **If it is materially unchanged, say so** — a thesis surviving
     independent re-derivation is a finding, not an absence of one.
-  - **Tripwires** — per trigger: unchanged · re-worded · **resolved** (the event it watched has
-    happened, so it can no longer fire) · newly proposed. **Flag resolved triggers loudly**: a
-    watch-list of already-resolved triggers still *looks* populated while being toothless, which
-    is worse than an empty one.
-- **Leave the decision to the human.** Present the diff and the recommendation; do not promote
-  the new Edge/Tripwires into `news.md` unless explicitly told to. If told to, do it as its own
-  visible change, not folded into the report commit.
-- Record the diff in the report's provenance block (see Step 3) so it survives the session.
+  - **Tripwires** — per numbered trigger: unchanged · re-worded · threshold moved · **resolved**
+    (the event it watched has happened, so it can no longer fire) · newly proposed · dropped.
+    **Flag resolved triggers loudly**: a watch-list of already-resolved triggers still *looks*
+    populated while being toothless, which is worse than an empty one.
+
+- **Classify the cause of every change — this is the test for whether to adopt it:**
+
+  | Cause | What it means | Recommendation |
+  |---|---|---|
+  | **The world moved** | A dated event genuinely shifted the thesis — cite the `news.md` entry, debrief finding, or filing that did it | **Adopt** — the old trigger is measuring a world that no longer exists |
+  | **The prior was wrong** | An error in the original: a stale figure, a misread filing, a superseded number | **Adopt** — and note it as a correction, not an evolution |
+  | **Re-derivation drift** | The new run simply phrased or weighted it differently, with **no new evidence behind the change** | **Do NOT adopt** — see below |
+
+  **Re-derivation drift is the dangerous one.** If an Edge or Tripwire "changed" but you cannot
+  point to dated evidence that caused it, the change is noise from re-running the derivation,
+  not a finding. Adopting it erodes the pre-commitment exactly as badly as a silent overwrite
+  would — only with a human rubber-stamping it. **A change with no evidence behind it is a
+  reason to keep the original wording**, and should be presented that way.
+
+- **Then offer to overwrite, itemised and opt-in.** Ask explicitly whether to promote the new
+  Edge and each changed Tripwire into `news.md`, **one at a time rather than all-or-nothing** —
+  the reader may accept a corrected Edge while deliberately keeping Tripwire #2 as originally
+  committed. Default to **not** promoting; silence is not consent. If told to promote, write it
+  as its **own visible commit**, separate from the report commit, so the change to the binding
+  triggers is never buried inside a report diff.
+- Record the diff, the causes, and what was or wasn't promoted in the report's provenance block
+  (see Step 3), so the reasoning survives the session.
 
 ### Both paths
 - Set/refresh the `**Canonical deep-dive:**` line to link the new report file. **Verify it's
