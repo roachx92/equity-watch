@@ -55,7 +55,10 @@ file): don't rebuild the deep-dive. Per §F step 4, derive them from **the lates
 just resolved by glob**, and **state which dated report you used**. Never derive from the
 `Canonical deep-dive:` link or an older snapshot — these become the *binding* pre-committed
 triggers, so seeding them from a superseded report installs a stale thesis as the baseline
-for every future run.
+for every future run. **Append the `| # | Expires |` table** (`framework/staleness-audit.md`
+§J.4) right after the tripwire prose — one row per numbered trigger, dated from the trigger's
+own text where it names a window, else ~12 months out as a review horizon; the date is its
+own field, never spliced into the verbatim prose.
 
 ## Step 3 — dispatch bounded research sub-agents, in parallel
 Per `latest-updates-workflow.md` §F.2: **do not research single-threaded.** Dispatch a thorough

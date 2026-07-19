@@ -268,8 +268,8 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
 
     if undated:
         names = ", ".join(f"#{n}" for n in undated)
-        ev.append(f"tripwire {names} carries no [expires: YYYY-MM-DD] annotation "
-                  "— expiry can't be tracked; date it")
+        ev.append(f"tripwire {names} has no row (or a blank date) in the "
+                  "`| # | Expires |` table — expiry can't be tracked; date it")
 
     if result["verdict"] == "REFRESH":
         if age >= STALENESS_HORIZON_DAYS:

@@ -23,7 +23,13 @@ _ENTRY_BULLET = re.compile(r"^-\s+(\d{4}-\d{2}-\d{2})")
 _CANONICAL_LINK = re.compile(r"\*\*Canonical deep-dive:\*\*.*?(\d{4}-\d{2}-\d{2})\.md")
 _TRIPWIRE_HEADER = "## Tripwires"
 _TRIPWIRE_MARKER = re.compile(r"\((\d+)\)")
-_EXPIRES = re.compile(r"\[expires:\s*(\d{4}-\d{2}-\d{2})\]")
+#: An `| # | Expires |` table row — trigger number, then an optional date (blank
+#: cell = tracked but undated). Not the prose: the trigger text stays verbatim
+#: from the report, so expiry lives in its own field rather than as an inline
+#: annotation buried mid-sentence.
+_EXPIRES_ROW = re.compile(
+    r"^\|\s*(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2})?\s*\|", re.MULTILINE
+)
 
 # --- Assessment-tag grammar (§F.1) -----------------------------------------
 # Shared by lint_news_log.py and the staleness audit, so both classify a tag
@@ -177,15 +183,19 @@ def canonical_report_date(news_text: str) -> str | None:
 
 
 def tripwire_expiries(news_text: str) -> dict[int, str]:
-    """{tripwire number: expiry date} from `[expires: YYYY-MM-DD]` annotations.
+    """{tripwire number: expiry date} from the `| # | Expires |` table.
 
-    Scoped to the `## Tripwires` section. Each numbered trigger `(n)` owns the
-    annotations between its marker and the next; a trigger without one simply
-    isn't tracked (returns no entry), which the audit surfaces as untracked
-    rather than guessing a window. Expiry means the trigger's own window has
-    closed — the event it watched has resolved or its premise has lapsed — NOT
-    that it fired. An expired tripwire still on the watch-list is dead weight
-    that reads as coverage, which is worse than an empty slot.
+    Scoped to the `## Tripwires` section. The numbered triggers `(n)` in the
+    prose (which stays verbatim from the report — never rewritten to carry a
+    date inline) establish which numbers exist; a small table below the prose
+    carries each one's date in its own field: `| 1 | 2027-03-31 |`. A trigger
+    with no row, or a row with a blank date cell, is tracked-but-undated
+    (returns ""), which the audit surfaces rather than guessing a window.
+
+    Expiry means the trigger's own window has closed — the event it watched
+    has resolved or its premise has lapsed — NOT that it fired. An expired
+    tripwire still on the watch-list is dead weight that reads as coverage,
+    which is worse than an empty slot.
     """
     lines = news_text.splitlines()
     section: list[str] = []
@@ -198,21 +208,16 @@ def tripwire_expiries(news_text: str) -> dict[int, str]:
             section.append(line)
     text = "\n".join(section)
 
-    out: dict[int, str] = {}
-    markers = list(_TRIPWIRE_MARKER.finditer(text))
-    for i, m in enumerate(markers):
+    # Which trigger numbers exist, from the prose markers (1..k in order; a
+    # stray out-of-sequence parenthesised number in free text is skipped).
+    numbers: list[int] = []
+    for m in _TRIPWIRE_MARKER.finditer(text):
         n = int(m.group(1))
-        # Numbered triggers count 1..k in order; skip stray parenthesised
-        # numbers in prose (they'd be out of sequence or duplicated).
-        if n != len(out) + 1:
-            continue
-        end = markers[i + 1].start() if i + 1 < len(markers) else len(text)
-        hit = _EXPIRES.search(text, m.end(), end)
-        if hit:
-            out[n] = hit.group(1)
-        else:
-            out[n] = ""  # tracked as present-but-undated
-    return {n: d for n, d in out.items()}
+        if n == len(numbers) + 1:
+            numbers.append(n)
+
+    dates = {int(m.group(1)): (m.group(2) or "") for m in _EXPIRES_ROW.finditer(text)}
+    return {n: dates.get(n, "") for n in numbers}
 
 
 def latest_report_date(ticker_dir: Path) -> str | None:

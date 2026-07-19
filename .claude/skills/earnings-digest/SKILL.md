@@ -84,7 +84,10 @@ continue here. If the report exists but the news.md has no Edge/Tripwires, deriv
 **that same latest report** you just resolved by glob — its Final thoughts & conclusion section —
 and **state which dated report you used**. Never derive from the `Canonical deep-dive:` link or a
 report you already had open: these become the binding pre-committed triggers, so seeding them from
-a superseded snapshot installs a stale thesis as the baseline.
+a superseded snapshot installs a stale thesis as the baseline. **Append the `| # | Expires |`
+table** (`framework/staleness-audit.md` §J.4) right after the tripwire prose — one row per
+numbered trigger, dated from the trigger's own text where it names a window, else ~12 months out
+as a review horizon; the date is its own field, never spliced into the verbatim prose.
 
 Then read the thesis context you're assessing against — the ticker's news.md (quote the Edge and
 Tripwires **verbatim**, never paraphrased), plus the deep-dive's thesis synthesis, re-rate map,

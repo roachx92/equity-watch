@@ -22,9 +22,16 @@ Cipher is a US Bitcoin miner that has legally and operationally repositioned int
 > *(Backlog figure corrected 2026-07-18 from a stale $9.3B to the actual $11.4B/three-lease book — see the deep-dive report's erratum. The counterparty-stack phrasing was updated to reflect that the third lease is also AWS-guaranteed, not a distinct "second hyperscaler.")*
 
 ## Tripwires (pre-committed exit / re-underwrite triggers)
-*Derived from `reports/2026-07-15.md` §16 (primary tripwire) plus the report's risk/financing analysis (§7, §8, §14). Expiry dates `[expires: YYYY-MM-DD]` appended 2026-07-19 (explicit decision, §J tripwire-expiry tracking) — the date each trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
+*Derived from `reports/2026-07-15.md` §16 (primary tripwire) plus the report's risk/financing analysis (§7, §8, §14). Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
 
-> Pre-commit to re-underwriting or exiting if ANY of these specific, observable events occurs: **(1)** the first HPC rent-commencement milestone (Black Pearl/AWS or Barber Lake/Fluidstack) **slips materially past ~Q4 2026** — the "backlog converts on schedule" thesis breaks; this is the single highest-priority trigger. [expires: 2027-03-31] **(2)** A **large, dilutive equity raise executed at a de-rated price** (forced dilution into weakness) to plug the capex-vs-cash gap ($715M cash vs. multi-GW capex ahead). [expires: 2027-06-30] **(3)** **Fluidstack shows funding/credit stress** that the capped ($1.73B) Google backstop would not fully cover, OR any HPC tenant defaults/renegotiates/delays its take. [expires: 2027-06-30] **(4)** **BTC falls materially further** while mining is still the only recognized-revenue source, breaking the self-funding bridge before HPC rent begins. [expires: 2026-12-31] Any one = the thesis is impaired; decide the action now, not after the drawdown.
+> Pre-commit to re-underwriting or exiting if ANY of these specific, observable events occurs: **(1)** the first HPC rent-commencement milestone (Black Pearl/AWS or Barber Lake/Fluidstack) **slips materially past ~Q4 2026** — the "backlog converts on schedule" thesis breaks; this is the single highest-priority trigger. **(2)** A **large, dilutive equity raise executed at a de-rated price** (forced dilution into weakness) to plug the capex-vs-cash gap ($715M cash vs. multi-GW capex ahead). **(3)** **Fluidstack shows funding/credit stress** that the capped ($1.73B) Google backstop would not fully cover, OR any HPC tenant defaults/renegotiates/delays its take. **(4)** **BTC falls materially further** while mining is still the only recognized-revenue source, breaking the self-funding bridge before HPC rent begins. Any one = the thesis is impaired; decide the action now, not after the drawdown.
+
+| # | Expires |
+|---|---|
+| 1 | 2027-03-31 |
+| 2 | 2027-06-30 |
+| 3 | 2027-06-30 |
+| 4 | 2026-12-31 |
 
 ## Recent News Log
 *(Entry format: [`framework/latest-updates-workflow.md`](../../framework/latest-updates-workflow.md) §F.1 — the single source of truth. Tag only when an item actually bears on the sections above, using the closed vocabulary in §F.1 — `[EDGE+]`/`[EDGE−]` (binary — omit if neither) and `[TRIPWIRE #n — fires|early-warning|does not fire]`. Seeded 2026-07-15 from the initial full-report build.)*

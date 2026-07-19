@@ -78,11 +78,12 @@ this is a RE-RUN.** (Per `standing-rules.md` §A, "The pre-committed Edge & Trip
 Create the folder and the file, modeling an existing one (e.g. `tickers/CIFR/news.md`):
 frontmatter (`company`, `blurb` — these feed the homepage coverage grid via
 `web/hooks/coverage.py`), a one-paragraph thesis context, the **Edge** and **numbered
-Tripwires** derived **verbatim from the report's §18** — **each tripwire annotated
-`[expires: YYYY-MM-DD]`**: the date its own window closes or its premise lapses (from the
-trigger's text where it names one — a print date, a guided window, a commencement target —
-else ~12 months out as a review horizon). The audit tracks these deterministically; an
-expired, unfired trigger is dead weight that reads as coverage, and gets flagged for
+Tripwires** derived **verbatim from the report's §18** — followed by an **`| # | Expires |`
+table**, one row per trigger, dating when its own window closes or its premise lapses (from
+the trigger's text where it names one — a print date, a guided window, a commencement target
+— else ~12 months out as a review horizon). The date is its own field, never an inline
+annotation inside the trigger prose — the prose stays verbatim. The audit tracks these
+deterministically; an expired, unfired trigger is dead weight that reads as coverage, and gets flagged for
 explicit removal/replacement, never removed silently. Then an empty `## Recent News Log`
 seeded with the standard header note pointing at `framework/latest-updates-workflow.md` §F.1
 (the canonical entry format — don't restate it). There is nothing to overwrite here, so
