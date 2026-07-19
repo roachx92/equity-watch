@@ -50,6 +50,13 @@ news.md `Canonical deep-dive:` line says; if it's stale, refresh it as part of t
 `framework/deep-dive-template.md`), which creates the ticker's folder and news.md and derives
 the Edge/Tripwires into it, then continue here.
 
+**Middle case — reports exist but news.md has no Edge/Tripwires** (a deleted or half-created
+file): don't rebuild the deep-dive. Per §F step 4, derive them from **the latest report you
+just resolved by glob**, and **state which dated report you used**. Never derive from the
+`Canonical deep-dive:` link or an older snapshot — these become the *binding* pre-committed
+triggers, so seeding them from a superseded report installs a stale thesis as the baseline
+for every future run.
+
 ## Step 3 — dispatch bounded research sub-agents, in parallel
 Per `latest-updates-workflow.md` §F.2: **do not research single-threaded.** Dispatch a thorough
 parallel sub-agent pass (one dedicated agent, or several split by angle — filings/financing vs.

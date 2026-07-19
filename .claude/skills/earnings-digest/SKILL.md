@@ -80,8 +80,11 @@ degrades into a summary. Check for `tickers/<TICKER>/news.md` carrying an **Edge
 sorting by date** (per CLAUDE.md's report-resolution rule) — don't just trust whatever the
 news.md `Canonical deep-dive:` line says; if it's stale, refresh it as part of this run.
 **If the name isn't covered yet, build the deep-dive first** (use the `deep-dive` skill), then
-continue here. If the report exists but the news.md has no Edge/Tripwires, derive them from the
-report's Final thoughts & conclusion section first and say that you did.
+continue here. If the report exists but the news.md has no Edge/Tripwires, derive them first from
+**that same latest report** you just resolved by glob — its Final thoughts & conclusion section —
+and **state which dated report you used**. Never derive from the `Canonical deep-dive:` link or a
+report you already had open: these become the binding pre-committed triggers, so seeding them from
+a superseded snapshot installs a stale thesis as the baseline.
 
 Then read the thesis context you're assessing against — the ticker's news.md (quote the Edge and
 Tripwires **verbatim**, never paraphrased), plus the deep-dive's thesis synthesis, re-rate map,

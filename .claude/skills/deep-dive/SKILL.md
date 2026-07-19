@@ -67,18 +67,66 @@ Sources/Methodology/Caveats block with the model used. One dated snapshot per ru
 overwrite a prior date's file.
 
 ## Step 4 — seed / update the ticker's news.md
-Each watched ticker is a **folder** under `tickers/`, named for the symbol, holding that
-ticker's `news.md`; the `tickers/` directory **is** the watch-list. After the report is written:
-- If `tickers/<TICKER>/news.md` does not exist, create the folder and the file, modeling an
-  existing one (e.g. `tickers/CIFR/news.md`): frontmatter (`company`, `blurb` — these feed the
-  homepage coverage grid via `web/hooks/coverage.py`), a one-paragraph thesis context, the **Edge**
-  and **numbered Tripwires** derived **verbatim from the report's §18**, and an empty
-  `## Recent News Log` seeded with the standard header note pointing at
-  `framework/latest-updates-workflow.md` §F.1 (the canonical entry format — don't restate it).
-- Set/refresh its `**Canonical deep-dive:**` line to link the new report file. **Verify it's actually the newest** by globbing `tickers/<TICKER>/reports/*.md` and sorting by date (per CLAUDE.md's report-resolution rule) rather than assuming today's write is trivially latest — a backfilled or out-of-order run could mean it isn't.
-- The Edge/Tripwires in the ticker's news.md are the binding pre-committed triggers the
-  whats-new and earnings-digest skills assess against — mirror them faithfully, don't paraphrase
-  away the specifics.
+
+**First, branch on repo state — not on how the request was phrased.** Check whether
+`tickers/<TICKER>/news.md` already carries an **Edge** and numbered **Tripwires**. That check
+alone decides which path you are on. "Refresh the report", a bare re-run, an audit-triggered
+run and a cold-context session all land in the same place: **if prior Edge/Tripwires exist,
+this is a RE-RUN.** (Per `standing-rules.md` §A, "The pre-committed Edge & Tripwires".)
+
+### 4a. SEED — no `news.md`, or one without Edge/Tripwires (a new name)
+Create the folder and the file, modeling an existing one (e.g. `tickers/CIFR/news.md`):
+frontmatter (`company`, `blurb` — these feed the homepage coverage grid via
+`web/hooks/coverage.py`), a one-paragraph thesis context, the **Edge** and **numbered
+Tripwires** derived **verbatim from the report's §18**, and an empty `## Recent News Log`
+seeded with the standard header note pointing at `framework/latest-updates-workflow.md` §F.1
+(the canonical entry format — don't restate it). There is nothing to overwrite here, so
+deriving into `news.md` is correct.
+
+### 4b. RE-RUN — `news.md` already has pre-committed Edge/Tripwires
+- **Do NOT overwrite them. Not even to "mirror" the new report.** They are binding and were
+  fixed in advance; silently replacing them is the exact failure `standing-rules.md` §A and
+  `earnings-digest.md` §I.4(d) forbid. The new report keeps its own freshly-derived §18 —
+  that is what a dated snapshot is for.
+- **Diff the new §18 against the version in `news.md`, state the differences plainly, and
+  explain *why each one changed*.** A diff alone is not enough — the cause is what tells the
+  reader whether the change should be adopted. Show old vs. new side by side:
+  - **Edge** — did the independently re-derived variant view come out the same, sharpened, or
+    genuinely different? **If it is materially unchanged, say so** — a thesis surviving
+    independent re-derivation is a finding, not an absence of one.
+  - **Tripwires** — per numbered trigger: unchanged · re-worded · threshold moved · **resolved**
+    (the event it watched has happened, so it can no longer fire) · newly proposed · dropped.
+    **Flag resolved triggers loudly**: a watch-list of already-resolved triggers still *looks*
+    populated while being toothless, which is worse than an empty one.
+
+- **Classify the cause of every change — this is the test for whether to adopt it:**
+
+  | Cause | What it means | Recommendation |
+  |---|---|---|
+  | **The world moved** | A dated event genuinely shifted the thesis — cite the `news.md` entry, debrief finding, or filing that did it | **Adopt** — the old trigger is measuring a world that no longer exists |
+  | **The prior was wrong** | An error in the original: a stale figure, a misread filing, a superseded number | **Adopt** — and note it as a correction, not an evolution |
+  | **Re-derivation drift** | The new run simply phrased or weighted it differently, with **no new evidence behind the change** | **Do NOT adopt** — see below |
+
+  **Re-derivation drift is the dangerous one.** If an Edge or Tripwire "changed" but you cannot
+  point to dated evidence that caused it, the change is noise from re-running the derivation,
+  not a finding. Adopting it erodes the pre-commitment exactly as badly as a silent overwrite
+  would — only with a human rubber-stamping it. **A change with no evidence behind it is a
+  reason to keep the original wording**, and should be presented that way.
+
+- **Then offer to overwrite, itemised and opt-in.** Ask explicitly whether to promote the new
+  Edge and each changed Tripwire into `news.md`, **one at a time rather than all-or-nothing** —
+  the reader may accept a corrected Edge while deliberately keeping Tripwire #2 as originally
+  committed. Default to **not** promoting; silence is not consent. If told to promote, write it
+  as its **own visible commit**, separate from the report commit, so the change to the binding
+  triggers is never buried inside a report diff.
+- Record the diff, the causes, and what was or wasn't promoted in the report's provenance block
+  (see Step 3), so the reasoning survives the session.
+
+### Both paths
+- Set/refresh the `**Canonical deep-dive:**` line to link the new report file. **Verify it's
+  actually the newest** by globbing `tickers/<TICKER>/reports/*.md` and sorting by date (per
+  CLAUDE.md's report-resolution rule) rather than assuming today's write is trivially latest —
+  a backfilled or out-of-order run could mean it isn't.
 - A report without its ticker folder is invisible to the whats-new/earnings-digest workflows and
   the homepage build — this step is not optional for a new name.
 
