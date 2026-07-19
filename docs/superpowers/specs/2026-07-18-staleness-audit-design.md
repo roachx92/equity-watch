@@ -70,7 +70,7 @@ Computed from the repo alone, except where noted:
 | `[TRIPWIRE]` hits | tripwire tags on entries after the report date |
 | Quarters reported since | `earnings-debrief.md` `## <period> — reported <date>` headings after the report date |
 | Canonical-link drift | `news.md` `Canonical deep-dive:` link vs. glob-latest (a hygiene error, per CLAUDE.md's report-resolution rule) |
-| Price/multiple drift *(optional)* | one Finnhub quote vs. the report's reference price — the dispatcher already holds this dependency |
+| Price/multiple drift — **deferred, not in v1** (see Open questions #2) | one Finnhub quote vs. the report's reference price. Listed only to record what was considered: adopting it would make the audit non-repo-local and break the recompute-on-demand property the provenance block depends on. |
 
 ### Judgment (bounded LLM pass, only when the deterministic tier flags)
 
@@ -113,18 +113,28 @@ The deterministic tier therefore **must** parse, not match:
 
 1. **Normalize the sign** — accept U+2212 (`−`), ASCII `-`, and U+2013/2014 dashes.
 2. **Split tag from status** — `[TRIPWIRE #n — <status>]` yields a number and a free-text status.
-3. **Classify status polarity, defaulting to "not fired."** Only an *affirmative* fire
-   (bare `[TRIPWIRE]`, or a status like `live, unresolved` / `fires`) routes to
-   RE-UNDERWRITE. Anything matching `does not fire` · `not sustained` · `checked` ·
-   `reaffirmed` · `early-warning` counts as **surfaced-but-not-fired** — it raises the
-   verdict to REFRESH at most, never RE-UNDERWRITE. **Default to the cheaper route when the
-   status is unrecognized**, and print the unparsed tag so a human sees it. A false CLEAN is
-   recoverable next audit; a false RE-UNDERWRITE burns four Opus agents immediately.
+3. **Classify status polarity against the closed §F.1 vocabulary, defaulting to the cheaper
+   route.** Only `fires` routes to RE-UNDERWRITE. `does not fire` (and the legacy spellings
+   `not sustained` / `checked`) is **not-fired** and routes to nothing. `early-warning` (and
+   legacy `live, unresolved`) is its own polarity and **does not escalate the route** — see
+   "Decision: `early-warning` alerts, it does not escalate" below. An unrecognised status is
+   a **hard lint failure at write time**, so it should not reach the audit; if one does,
+   treat it as not-fired and print the raw tag. A false CLEAN is recoverable next audit; a
+   false RE-UNDERWRITE burns four Opus agents immediately.
 
-**Framework follow-up (separate PR):** §F.1 should define the closed vocabulary and status
-grammar this parser assumes, and `lint_news_log.py` should enforce it — otherwise the
-grammar keeps drifting and the parser rots. Spec'd here because the audit depends on it;
-not bundled, because it touches the log format and every ticker file that follows it.
+   *Note what is deliberately **not** on the fired list: a **bare `[TRIPWIRE]`** and
+   `live, unresolved`. Earlier drafts of this spec routed both to RE-UNDERWRITE. §F.1 now
+   makes `#n` plus a recognised status mandatory (so a bare tag is a lint failure, not an
+   implied fire), and maps `live, unresolved` to early-warning — "unresolved" describes a
+   trigger still being watched, which is the opposite of one that tripped.*
+
+**Framework prerequisite — landed.** §F.1 now defines the closed vocabulary and status
+grammar this parser assumes, `tickerlib.parse_assessment_tags` implements it, and
+`lint_news_log.py` enforces it (#50, merged 2026-07-19). Kept as a separate change because it
+touches the log format and every ticker file that follows it. **`parse_assessment_tags` is
+the single classifier** — `audit_report.py` must call it rather than growing a second
+parser, or the two drift and the audit silently re-acquires the bug this section exists to
+prevent.
 
 ## Routing
 
@@ -132,14 +142,48 @@ Deterministic tier runs first and is cheap; it either clears the ticker or escal
 
 | Verdict | Trigger | Treatment |
 |---|---|---|
-| **CLEAN** | No unincorporated items, no tags, <90d old | None. Record the check. |
+| **CLEAN** | No unincorporated items, no fired tags, <90d old. *An `early-warning` tag leaves the verdict CLEAN but forces a post — see below.* | None. Record the check. |
 | **PATCH** | Contradiction check finds a claim that was wrong *when written* | Erratum in place per the immutability rule. No re-run. |
-| **REFRESH** | Facts stale (≥2 quarters reported, or material price/multiple drift, or ≥90d with unincorporated catalysts) but Edge/Tripwires intact | **Seeded** re-run → new dated report. Two sub-agents (filing + sector) rather than four; structural sections (business model, value-chain position) verified rather than re-derived. |
+| **REFRESH** | Facts stale (≥2 quarters reported, or ≥90d with unincorporated catalysts) but Edge/Tripwires intact | **Seeded** re-run → new dated report. Two sub-agents (filing + sector) rather than four; structural sections (business model, value-chain position) verified rather than re-derived. |
 | **RE-UNDERWRITE** | A tripwire **affirmatively fired** (per the tag-grammar polarity rule — *not* merely surfaced) · ≥2 `[EDGE−]` accumulated · Edge assessed as falsified · Tripwires expired by resolution | **Full** `/deep-dive` re-run, all four sub-agents. |
 
 `≥2 [EDGE−]` is not invented — `latest-updates-workflow.md` §F already states that an
 accumulation of EDGE− means the differentiated thesis is failing even with no Tripwire
 fired. That rule exists and is currently unused as a trigger; this wires it up.
+
+### Decision: `early-warning` alerts, it does not escalate
+
+An `early-warning` tag means the pre-committed trigger is being **approached and has not
+tripped**. Earlier drafts routed it to "REFRESH at most." That is a category error, and
+`standing-rules.md` §A says why:
+
+> their entire value is that they were fixed *in advance*, so a threshold cannot be quietly
+> softened once it is crossed **or approached**.
+
+A REFRESH produces a new dated report, which re-derives §18 and then prompts to promote the
+new Edge and Tripwires into `news.md`. So routing `early-warning` → REFRESH **manufactures a
+threshold-rewrite opportunity at exactly the moment the threshold is being approached** —
+the specific failure the pre-commitment exists to prevent. It also acts on a trigger that the
+pre-commitment explicitly says is not yet the trigger, which is the same softening from the
+other direction.
+
+**Resolution — separate the verdict from the notification.** This is the same split the
+cadence section already draws between how often the audit *runs* and how often it *speaks*:
+
+- **Verdict: unchanged.** `early-warning` never escalates the route on its own. It carries no
+  weight toward RE-UNDERWRITE and does not by itself produce a REFRESH.
+- **Notification: forced.** An `early-warning` **breaks the silent-when-CLEAN rule** and
+  posts — naming the tripwire `#n`, its stated distance from the threshold, and the
+  pre-committed action that *would* become due if it trips. Approaching a trigger is high
+  signal for a human even when it is correctly no signal for the router.
+
+The three statuses therefore still each route differently — `fires` → RE-UNDERWRITE,
+`early-warning` → CLEAN-but-loud, `does not fire` → CLEAN and silent — which is what earns
+tripwires three states under §F.1's "does the value change what happens?" test.
+
+Where other signals independently produce a REFRESH or RE-UNDERWRITE, any live
+`early-warning` tags ride along in that message as supporting evidence. **They colour a
+verdict; they never cause one.**
 
 ## Asymmetric context — the anchoring rule for REFRESH and RE-UNDERWRITE
 
@@ -218,6 +262,10 @@ namespace, mirroring the deliberate choice to keep gate state out of `main`) and
 poster shaped like `notify_discord_dispatch.py`.
 
 - **Silent when CLEAN.** A weekly "all fine" post is how a channel becomes ignorable.
+  **One exception: a CLEAN verdict carrying an `early-warning` tag still posts** (see the
+  early-warning decision above) — the verdict and the notification are separate outputs, so
+  `audit_report.py` emits a `notify` flag independent of the verdict rather than the poster
+  inferring "post if not CLEAN."
 - **Post on non-CLEAN or on state change**, with re-nag suppression: do not repeat the same
   verdict for ~30 days unless it *escalates*. Cache eviction causes at worst one duplicate
   nudge — acceptable.
@@ -438,6 +486,9 @@ an explicit **"recommend only, never dispatch"** rule written into it, plus the 
    `--baseline <older-date>` must still return the pre-existing signals, where the default
    baseline would return CLEAN. That is the regression test for the failure mode described
    under "Ordering is load-bearing" — the one that fails silently toward "all clear."
+   **Plus the early-warning split:** an `early-warning` tag alone must leave the verdict
+   CLEAN *and* set `notify` — assert **both** halves, since a test checking only the verdict
+   would pass while the alert was silently dropped.
 
 ## Open questions
 
@@ -457,8 +508,13 @@ an explicit **"recommend only, never dispatch"** rule written into it, plus the 
    one file (per the "one home each" rule) and the prior snapshot stays immutable. Each such
    report carries the provenance block specified above.
 
-*(No open questions remain. The remaining prerequisite is the §F.1 tag-grammar
-follow-up, tracked in "Tag grammar" above as a separate PR.)*
+4. ~~**Does `early-warning` justify a REFRESH?**~~ **Resolved 2026-07-19 — no.** It alerts
+   without escalating the route; see "Decision: `early-warning` alerts, it does not escalate."
+   Routing it to REFRESH would create a threshold-rewrite opportunity precisely when the
+   threshold is being approached, which `standing-rules.md` §A forbids in as many words.
+
+*(No open questions remain, and the §F.1 tag-grammar prerequisite has landed (#50). The spec
+is complete as a design; nothing under Deliverables is implemented yet.)*
 
 ## Out of scope
 
