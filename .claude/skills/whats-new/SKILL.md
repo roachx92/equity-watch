@@ -55,8 +55,11 @@ file): don't rebuild the deep-dive. Per §F step 4, derive them from **the lates
 just resolved by glob**, and **state which dated report you used**. Never derive from the
 `Canonical deep-dive:` link or an older snapshot — these become the *binding* pre-committed
 triggers, so seeding them from a superseded report installs a stale thesis as the baseline
-for every future run. **Append the `| # | Expires |` table** (`framework/staleness-audit.md`
-§J.4) right after the tripwire prose — one row per numbered trigger, dated from the trigger's
+for every future run. **Write the tripwires as a bullet list, one `- **(n)** ...` line per
+numbered trigger, not one dense paragraph** — split a report's prose into one bullet per
+`(n)` as a formatting change only, never rewording, dropping, or merging what a trigger says.
+**Append the `| # | Expires |` table** (`framework/staleness-audit.md`
+§J.4) right after the tripwire bullets — one row per numbered trigger, dated from the trigger's
 own text where it names a window, else ~12 months out as a review horizon; the date is its
 own field, never spliced into the verbatim prose.
 

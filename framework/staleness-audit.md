@@ -73,7 +73,7 @@ A tag that says `fires` is different in kind: a prior run already made that asse
 
 Every tripwire's window eventually closes: the print it watched happens, the commencement target passes, the premise lapses. **An expired, unfired trigger still reads as coverage while being dead — worse than an empty slot**, because a watch-list of resolved triggers looks populated.
 
-**Grammar.** The date is its own field, not an inline annotation buried mid-sentence — the trigger prose stays verbatim from the report. Inside `## Tripwires`, immediately after the numbered `(n) …` prose, a small table carries one row per trigger:
+**Grammar.** The date is its own field, not an inline annotation buried mid-sentence — the trigger prose stays verbatim from the report. Inside `## Tripwires`, the numbered `(n) …` triggers are written as a bullet list (one `- **(n)** …` line each, not one dense paragraph — a report's prose is split into bullets as a formatting change only, never reworded), and immediately after them a small table carries one row per trigger:
 
 ```
 | # | Expires |
