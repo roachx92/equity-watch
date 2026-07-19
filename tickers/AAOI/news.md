@@ -16,12 +16,14 @@ AAOI is a small, US-based, **vertically-integrated** optics maker: it grows its 
 ## Tripwires (pre-committed exit / re-underwrite triggers)
 *Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
 
-> Pre-commit to re-underwriting or exiting if ANY of these specific, observable events occurs:
-> **(1) Digicomm / CATV channel breaks** — any quarter with a Digicomm accounts-receivable reserve or write-down, a further material extension of Digicomm DSO (AR was $222.7M / 74.5% of total AR at 3/31/26 on "longer than typical terms"), OR Digicomm/CATV revenue falling >30% QoQ as the DOCSIS 4.0 build saturates. This is the fastest-acting invalidation — one private distributor carries the balance sheet.
-> **(2) Supply-security edge evaporates** — a named hyperscaler (Microsoft or Amazon) publicly qualifying/second-sourcing a competing supplier (Coherent/Lumentum/InnoLight/Eoptolink) into an AAOI socket, OR two consecutive quarters of datacenter gross-margin compression signalling the EML shortage has eased and pricing power is gone.
-> **(3) The AI ramp slips** — the >$200M 1.6T order (announced 2026-03-09) fails to ship on the guided Q3–Q4 2026 window (a push into 2027), OR the FY2026 revenue guide (>$1.1B) or non-GAAP operating-income guide (>$140M) is cut.
-> **(4) The dilution-funded model strains** — an equity raise executed at a materially *de-rated* price (forced dilution into weakness), or ATM/converts capacity exhausted while capex continues — because the thesis and the financing both rest on the same elevated equity price.
-> Any one = the thesis is impaired; decide the action now, not after the drawdown.
+Pre-commit to re-underwriting or exiting if ANY of these specific, observable events occurs:
+
+- **(1) Digicomm / CATV channel breaks** — any quarter with a Digicomm accounts-receivable reserve or write-down, a further material extension of Digicomm DSO (AR was $222.7M / 74.5% of total AR at 3/31/26 on "longer than typical terms"), OR Digicomm/CATV revenue falling >30% QoQ as the DOCSIS 4.0 build saturates. This is the fastest-acting invalidation — one private distributor carries the balance sheet.
+- **(2) Supply-security edge evaporates** — a named hyperscaler (Microsoft or Amazon) publicly qualifying/second-sourcing a competing supplier (Coherent/Lumentum/InnoLight/Eoptolink) into an AAOI socket, OR two consecutive quarters of datacenter gross-margin compression signalling the EML shortage has eased and pricing power is gone.
+- **(3) The AI ramp slips** — the >$200M 1.6T order (announced 2026-03-09) fails to ship on the guided Q3–Q4 2026 window (a push into 2027), OR the FY2026 revenue guide (>$1.1B) or non-GAAP operating-income guide (>$140M) is cut.
+- **(4) The dilution-funded model strains** — an equity raise executed at a materially *de-rated* price (forced dilution into weakness), or ATM/converts capacity exhausted while capex continues — because the thesis and the financing both rest on the same elevated equity price.
+
+Any one = the thesis is impaired; decide the action now, not after the drawdown.
 
 | # | Expires |
 |---|---|

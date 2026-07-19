@@ -18,7 +18,13 @@ Ibiden is the leading maker of the highest-complexity organic ABF FC-BGA package
 ## Tripwires (pre-committed exit / re-underwrite triggers)
 *Verbatim from the original deep-dive, §16. Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
 
-> Your tripwire — what would prove you wrong? Pre-commit to re-underwriting or exiting if ANY of these specific, observable events occurs: (1) NVIDIA publicly shifts high-end substrate allocation toward Unimicron (breaks the #1-customer moat); (2) two consecutive prints show Ono/new-plant utilization stalling below plan while capex keeps rising — i.e., capacity outrunning demand (the classic substrate over-build trap); or (3) a glass-core high-volume-manufacturing commitment for a flagship AI accelerator lands materially before ~2028 AND names a supplier other than Ibiden (the substitution clock pulling forward against you). Any one = the thesis is broken; decide the action now, not after the drawdown.
+Your tripwire — what would prove you wrong? Pre-commit to re-underwriting or exiting if ANY of these specific, observable events occurs:
+
+- **(1)** NVIDIA publicly shifts high-end substrate allocation toward Unimicron (breaks the #1-customer moat).
+- **(2)** two consecutive prints show Ono/new-plant utilization stalling below plan while capex keeps rising — i.e., capacity outrunning demand (the classic substrate over-build trap).
+- **(3)** a glass-core high-volume-manufacturing commitment for a flagship AI accelerator lands materially before ~2028 AND names a supplier other than Ibiden (the substitution clock pulling forward against you).
+
+Any one = the thesis is broken; decide the action now, not after the drawdown.
 
 | # | Expires |
 |---|---|

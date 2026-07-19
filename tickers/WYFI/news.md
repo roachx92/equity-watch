@@ -18,7 +18,14 @@ WhiteFiber is a sub-scale neocloud (GPU cloud + colocation) carved out of Bit Di
 ## Tripwires (pre-committed exit / re-underwrite triggers)
 *Verbatim from the original deep-dive, §16. Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
 
-> Your tripwire — what would prove you wrong? Pre-commit to re-underwriting or exiting if ANY of these fire: (1) NC-1 permanent financing fails to close, or closes on punitive / heavily-dilutive terms — the build stays stranded on the 9.5% related-party bridge; (2) Nscale shows credit stress, renegotiates, or delays its colocation take — since Nscale is ~94% of colo backlog, this is the Pre-Mortem (§8) and it breaks the core thesis; (3) the Q2/Q3'26 prints show the Nscale phases NOT billing at margin on schedule — backlog isn't converting to recognized revenue; (4) Bit Digital signals intent to sell (or the 2026 no-sell pledge lapses and supply hits the thin float). Any one = thesis broken; decide the action now, not after the drawdown.
+Your tripwire — what would prove you wrong? Pre-commit to re-underwriting or exiting if ANY of these fire:
+
+- **(1)** NC-1 permanent financing fails to close, or closes on punitive / heavily-dilutive terms — the build stays stranded on the 9.5% related-party bridge.
+- **(2)** Nscale shows credit stress, renegotiates, or delays its colocation take — since Nscale is ~94% of colo backlog, this is the Pre-Mortem (§8) and it breaks the core thesis.
+- **(3)** the Q2/Q3'26 prints show the Nscale phases NOT billing at margin on schedule — backlog isn't converting to recognized revenue.
+- **(4)** Bit Digital signals intent to sell (or the 2026 no-sell pledge lapses and supply hits the thin float).
+
+Any one = thesis broken; decide the action now, not after the drawdown.
 
 | # | Expires |
 |---|---|

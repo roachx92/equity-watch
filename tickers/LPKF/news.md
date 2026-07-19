@@ -18,7 +18,14 @@ LPKF is the pure-play, IP-protected leader in LIDE (Laser-Induced Deep Etching) 
 ## Tripwires (pre-committed exit / re-underwrite triggers)
 *Verbatim from the original deep-dive, §16. Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
 
-> Your tripwire — what would prove you wrong? Pre-commit to re-underwriting or exiting if ANY of these fire: (1) a SECOND missed or slipped LIDE first-series-order date after the 30 Jun 2026 miss — credibility gone, the option premium has no basis left to hold; (2) a rival TGV method (e.g., Philoptics) wins a named major design socket — erodes LIDE-as-standard, the core of the moat; (3) a deeply dilutive capital raise goes through (the activist Active Ownership fight resolves against management) on the thin float; (4) the glass volume-production timeline slips materially past 2027. Any one of these breaks the thesis — decide the action now, not after the drawdown.
+Your tripwire — what would prove you wrong? Pre-commit to re-underwriting or exiting if ANY of these fire:
+
+- **(1)** a SECOND missed or slipped LIDE first-series-order date after the 30 Jun 2026 miss — credibility gone, the option premium has no basis left to hold.
+- **(2)** a rival TGV method (e.g., Philoptics) wins a named major design socket — erodes LIDE-as-standard, the core of the moat.
+- **(3)** a deeply dilutive capital raise goes through (the activist Active Ownership fight resolves against management) on the thin float.
+- **(4)** the glass volume-production timeline slips materially past 2027.
+
+Any one of these breaks the thesis — decide the action now, not after the drawdown.
 
 | # | Expires |
 |---|---|

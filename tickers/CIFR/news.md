@@ -24,7 +24,14 @@ Cipher is a US Bitcoin miner that has legally and operationally repositioned int
 ## Tripwires (pre-committed exit / re-underwrite triggers)
 *Derived from `reports/2026-07-15.md` §16 (primary tripwire) plus the report's risk/financing analysis (§7, §8, §14). Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
 
-> Pre-commit to re-underwriting or exiting if ANY of these specific, observable events occurs: **(1)** the first HPC rent-commencement milestone (Black Pearl/AWS or Barber Lake/Fluidstack) **slips materially past ~Q4 2026** — the "backlog converts on schedule" thesis breaks; this is the single highest-priority trigger. **(2)** A **large, dilutive equity raise executed at a de-rated price** (forced dilution into weakness) to plug the capex-vs-cash gap ($715M cash vs. multi-GW capex ahead). **(3)** **Fluidstack shows funding/credit stress** that the capped ($1.73B) Google backstop would not fully cover, OR any HPC tenant defaults/renegotiates/delays its take. **(4)** **BTC falls materially further** while mining is still the only recognized-revenue source, breaking the self-funding bridge before HPC rent begins. Any one = the thesis is impaired; decide the action now, not after the drawdown.
+Pre-commit to re-underwriting or exiting if ANY of these specific, observable events occurs:
+
+- **(1)** the first HPC rent-commencement milestone (Black Pearl/AWS or Barber Lake/Fluidstack) **slips materially past ~Q4 2026** — the "backlog converts on schedule" thesis breaks; this is the single highest-priority trigger.
+- **(2)** A **large, dilutive equity raise executed at a de-rated price** (forced dilution into weakness) to plug the capex-vs-cash gap ($715M cash vs. multi-GW capex ahead).
+- **(3)** **Fluidstack shows funding/credit stress** that the capped ($1.73B) Google backstop would not fully cover, OR any HPC tenant defaults/renegotiates/delays its take.
+- **(4)** **BTC falls materially further** while mining is still the only recognized-revenue source, breaking the self-funding bridge before HPC rent begins.
+
+Any one = the thesis is impaired; decide the action now, not after the drawdown.
 
 | # | Expires |
 |---|---|
