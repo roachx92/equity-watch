@@ -200,23 +200,28 @@ def test_past_horizon_dispatches_all_four(tmp_path):
 
 
 # --- tripwire expiry: dated windows, flagged-never-removed ------------------
+#
+# The trigger prose (verbatim from the report) carries only the `(n)` markers;
+# expiry lives in its own `| # | Expires |` table below the prose, never as an
+# inline annotation mid-sentence.
 
-def _with_tripwires(root, block, **kw):
+def _with_tripwires(root, prose, rows, **kw):
+    """`prose` is the `(n) ...` blockquote text; `rows` is [(n, date_or_None), ...]."""
     d = _mk(root, **kw)
     news = d / "news.md"
+    table = "\n\n| # | Expires |\n|---|---|\n" + "\n".join(
+        f"| {n} | {date or ''} |" for n, date in rows)
     body = news.read_text(encoding="utf-8").replace(
         "## Recent News Log",
         "## Tripwires (pre-committed exit / re-underwrite triggers)\n"
-        + block + "\n\n## Recent News Log")
+        f"> {prose}" + table + "\n\n## Recent News Log")
     news.write_text(body, encoding="utf-8")
     return d
 
 
 def test_expired_tripwire_escalates_and_notifies(tmp_path):
-    d = _with_tripwires(tmp_path,
-        "> ... (1) first thing [expires: 2026-06-30]; "
-        "(2) second thing [expires: 2027-06-30].",
-        reports=("2026-07-10",))
+    d = _with_tripwires(tmp_path, "(1) first thing; (2) second thing.",
+        [(1, "2026-06-30"), (2, "2027-06-30")], reports=("2026-07-10",))
     r = ar.audit_ticker(d, TODAY)  # today = 2026-07-19 > #1's window
     assert r["tripwires_expired"] == [1]
     assert r["verdict"] == "ESCALATE"
@@ -225,10 +230,8 @@ def test_expired_tripwire_escalates_and_notifies(tmp_path):
 
 
 def test_unexpired_tripwires_stay_silent(tmp_path):
-    d = _with_tripwires(tmp_path,
-        "> ... (1) first thing [expires: 2027-06-30]; "
-        "(2) second thing [expires: 2027-12-31].",
-        reports=("2026-07-10",))
+    d = _with_tripwires(tmp_path, "(1) first thing; (2) second thing.",
+        [(1, "2027-06-30"), (2, "2027-12-31")], reports=("2026-07-10",))
     r = ar.audit_ticker(d, TODAY)
     assert r["tripwires_expired"] == []
     assert r["verdict"] == "CLEAN"
@@ -236,19 +239,25 @@ def test_unexpired_tripwires_stay_silent(tmp_path):
 
 
 def test_undated_tripwire_is_surfaced_not_guessed(tmp_path):
-    d = _with_tripwires(tmp_path,
-        "> ... (1) dated thing [expires: 2027-06-30]; (2) undated thing.",
-        reports=("2026-07-10",))
+    d = _with_tripwires(tmp_path, "(1) dated thing; (2) undated thing.",
+        [(1, "2027-06-30"), (2, None)], reports=("2026-07-10",))
     r = ar.audit_ticker(d, TODAY)
     assert r["tripwires_undated"] == [2]
     assert r["verdict"] == "CLEAN", "missing a date is hygiene, not staleness"
-    assert any("no [expires:" in e for e in r["evidence"])
+    assert any("no row" in e for e in r["evidence"])
+
+
+def test_tripwire_with_no_table_row_at_all_is_also_undated(tmp_path):
+    """A trigger the table simply omits is untracked, same as a blank cell."""
+    d = _with_tripwires(tmp_path, "(1) dated thing; (2) forgotten thing.",
+        [(1, "2027-06-30")], reports=("2026-07-10",))  # no row 2 at all
+    r = ar.audit_ticker(d, TODAY)
+    assert r["tripwires_undated"] == [2]
 
 
 def test_fired_outranks_expired(tmp_path):
-    d = _with_tripwires(tmp_path,
-        "> ... (1) old window [expires: 2026-06-30]; (2) live one [expires: 2027-12-31].",
-        reports=("2026-07-10",),
+    d = _with_tripwires(tmp_path, "(1) old window; (2) live one.",
+        [(1, "2026-06-30"), (2, "2027-12-31")], reports=("2026-07-10",),
         entries=[_entry("2026-07-12", extra="[TRIPWIRE #2 — fires]")])
     r = ar.audit_ticker(d, TODAY)
     assert r["verdict"] == "RE-UNDERWRITE"          # the fire wins the verdict

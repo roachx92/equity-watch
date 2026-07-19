@@ -42,7 +42,7 @@ Repo-local, stdlib-only, no network, no LLM. **Stateless and idempotent**: every
 | `[EDGE−]` / `[EDGE+]` accumulation | assessment tags on those entries |
 | Tripwire hits by polarity | `fires` / `early-warning` / `does not fire`, with `#n` |
 | Quarters reported since | `earnings-debrief.md` headings after the baseline |
-| **Tripwire expiry** | `[expires: YYYY-MM-DD]` annotations vs. **today** (§J.4) |
+| **Tripwire expiry** | `| # | Expires |` table vs. **today** (§J.4) |
 | Canonical-link drift | `news.md` link vs. glob-latest — a hygiene error, per CLAUDE.md's report-resolution rule |
 
 **Tag polarity comes from `tickerlib.parse_assessment_tags`** — the same classifier `lint_news_log.py` uses. A second parser would drift and silently re-acquire the false-positive it exists to prevent: `[TRIPWIRE #4 — reaffirmed, does not fire]` must never read as fired.
@@ -58,7 +58,7 @@ Repo-local, stdlib-only, no network, no LLM. **Stateless and idempotent**: every
 | Verdict | Trigger | Treatment |
 |---|---|---|
 | **CLEAN** | No unincorporated items, nothing fired or expired, report recent | None. Record the check. *(An `early-warning` leaves the verdict CLEAN but forces a post — §J.5.)* |
-| **ESCALATE** *(deterministic tier only — never a final answer)* | ≥2 `[EDGE−]` · a tripwire's `[expires:]` date passed unfired | Judgment tier decides what it means. |
+| **ESCALATE** *(deterministic tier only — never a final answer)* | ≥2 `[EDGE−]` · a tripwire's `Expires` date passed unfired | Judgment tier decides what it means. |
 | **PATCH** | Judgment tier finds a claim that was wrong **when written** | Erratum in place per §J.8. No re-run. |
 | **REFRESH** | Facts stale (≥2 quarters reported, or ≥90d with unincorporated items) but Edge/Tripwires intact | Seeded re-run → new dated report, dispatching the agents the **work order** names (§J.6). |
 | **RE-UNDERWRITE** | A tripwire tag explicitly says `fires` · judgment tier concludes the Edge is falsified | **Full** `/deep-dive`, all four sub-agents. |
@@ -73,12 +73,21 @@ A tag that says `fires` is different in kind: a prior run already made that asse
 
 Every tripwire's window eventually closes: the print it watched happens, the commencement target passes, the premise lapses. **An expired, unfired trigger still reads as coverage while being dead — worse than an empty slot**, because a watch-list of resolved triggers looks populated.
 
-**Grammar.** Inside `## Tripwires`, each numbered trigger `(n)` carries `[expires: YYYY-MM-DD]` between its marker and the next. Parsed by `tickerlib.tripwire_expiries`.
+**Grammar.** The date is its own field, not an inline annotation buried mid-sentence — the trigger prose stays verbatim from the report. Inside `## Tripwires`, immediately after the numbered `(n) …` prose, a small table carries one row per trigger:
+
+```
+| # | Expires |
+|---|---|
+| 1 | 2027-03-31 |
+| 2 | 2027-06-30 |
+```
+
+Parsed by `tickerlib.tripwire_expiries`, which reads the trigger numbers from the prose's `(n)` markers and the dates from the table.
 
 - **The date** comes from the trigger's own text where it names a window (a print date, a guided ship window, a commencement target); otherwise ~12 months from the report as a review horizon.
 - **Checked against today**, not the baseline — expiry is a property of the trigger's own window, not of what got logged since the report.
 - **Expiry ≠ fired.** It means the window closed *without* the trigger firing.
-- **A trigger with no annotation is surfaced as untracked** (hygiene, not staleness) rather than guessed at.
+- **A trigger with a blank cell, or no row at all, is surfaced as untracked** (hygiene, not staleness) rather than guessed at.
 
 **Detection is deterministic; the response is not.** An expired trigger has three possible fates — **removed** (the question it asked is settled), **re-dated** (its window genuinely moved, e.g. a slipped commencement), or **replaced** by a successor from a re-underwrite. Which one applies is a judgment about the thesis, so per §J.1 the audit flags it and **a human decides**. Never auto-remove: silently deleting a trigger destroys the pre-commitment as surely as silently rewriting one.
 
