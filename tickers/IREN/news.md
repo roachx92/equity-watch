@@ -15,10 +15,30 @@ IREN is an Australian-incorporated, NASDAQ-listed (US domestic filer since FY202
 
 > The crowd is currently pricing IREN as a *failed landlord* — punishing it with a ~50% discount to the lease-signing cohort for lacking bond-like certainty — while the actual position is a *pre-revenue operator whose build is already ~96% financed at investment-grade cost against AAA/AA offtake*. The variant view must pick a side of one specific question: **is the $134M-recognized vs. $3.1B-contracted gap a timing artifact or a demand mirage?** The bullish variant: it is timing — prepayments are already landing on the balance sheet ($120.4M deferred revenue), the GPU capex is funded, acceptance is mechanical once Dell delivers, and the market is applying a demand-risk discount to what is actually schedule risk on an AAA counterparty's committed tranches. The bearish variant: the market is right about the wrong thing — Microsoft will deliver, but the *uncontracted* $1.8B and everything beyond tranche 4 lands into an AI-capex digestion, and the operator model's utilization risk shows up exactly when the mining cash flow that funds the bridge has been deliberately shut off. If you hold neither view with specificity — if your thesis is just "the contracts are real" — you own consensus with leverage, at 4× beta, into a tape that has stopped paying for announcements.
 
-## Tripwires (pre-committed exit / re-underwrite triggers)
-*Verbatim from `reports/2026-07-19.md` §18 (primary tripwire + pre-committed secondaries):*
+## Sector lens
+*Assigned 2026-07-20 per `framework/sector-lens.md` §K.1, derived from `reports/2026-07-19.md` §5/§6/§10 and anchored against its §18.*
 
-> **(1)** **A Microsoft tranche delivery/acceptance milestone slips — evidenced by the $9.7B failing to begin entering RPO by the FY2026 annual report (~Aug–Sep 2026), or management re-dating tranche commissioning beyond CY2026 on any call.** RPO is the un-spinnable number: signatures don't move it, only accepted delivery does. Pre-committed action: exit or fully re-underwrite on the first slip — do not average into a schedule miss on the #1 contract, because the entire financing stack (prepayments, the A-rated GPU debt, the ATM's viability) is sequenced off that schedule. **(2)** The end-CY2026 print shows the "$3.7B ARR" target abandoned, re-dated, or filled with undisclosed/startup-credit counterparties → re-underwrite (the growth leg is broken even if Microsoft performs). **(3)** Cumulative ATM issuance materially accelerates below ~$30/share (dilution into weakness — the pre-mortem spiral's first observable link) → exit. **(4)** BTC sustained below ~$50K while mining still funds the bridge (pre-AI-revenue opex cover breaks) → reassess sizing immediately.
+- **`ai-dc-lessor` — primary.** Channels: **peer-comp** (dominant) and **demand**. §5 pairs IREN directly against CIFR/WULF/HUT/APLD/CLSK/GLXY — the same cohort CIFR trades against — and §5's moat verdict names the erosion path as hyperscaler disintermediation, with **Meta Compute (7/1) as the demonstrated mechanism**. Tripwire #1 (Microsoft tranche/RPO) and #2 (ARR target) are both peer-comp/demand-complex variables.
+- **`btc-mining` — residual, sunsets with Tripwire #4.** Channel: **regime**. Legacy BTC exposure that management is actively amputating (Childress mining wind-down, ~FY2027 completion per §3's re-rate table) — mirrors CIFR's identical residual-sector pattern. Tripwire #4 watches exactly this: BTC sustained below ~$50K while mining still funds the pre-AI-revenue bridge. Membership dies when the wind-down completes, the same event that expires #4.
+
+## Tripwires (pre-committed exit / re-underwrite triggers)
+*Trigger identity (the numbering) from `reports/2026-07-19.md` §18 (primary tripwire + pre-committed secondaries). Expiry dates in the table below (§J.4); per-trigger change history, if any, in a Change log beneath it.*
+
+Pre-commit to exiting or re-underwriting if ANY of these fire:
+
+- **(1)** A Microsoft tranche delivery/acceptance milestone slips — evidenced by the $9.7B failing to begin entering RPO by the FY2026 annual report (~Aug–Sep 2026), or management re-dating tranche commissioning beyond CY2026 on any call. RPO is the un-spinnable number: signatures don't move it, only accepted delivery does. Pre-committed action: exit or fully re-underwrite on the first slip — do not average into a schedule miss on the #1 contract, because the entire financing stack (prepayments, the A-rated GPU debt, the ATM's viability) is sequenced off that schedule.
+- **(2)** The end-CY2026 print shows the "$3.7B ARR" target abandoned, re-dated, or filled with undisclosed/startup-credit counterparties → re-underwrite (the growth leg is broken even if Microsoft performs).
+- **(3)** Cumulative ATM issuance materially accelerates below ~$30/share (dilution into weakness — the pre-mortem spiral's first observable link) → exit.
+- **(4)** BTC sustained below ~$50K while mining still funds the bridge (pre-AI-revenue opex cover breaks) → reassess sizing immediately.
+
+Any one of these breaks the thesis — decide the action now, not after the drawdown.
+
+| # | Expires |
+|---|---|
+| 1 | 2026-09-30 |
+| 2 | 2027-02-28 |
+| 3 | 2027-07-31 |
+| 4 | 2027-06-30 |
 
 ## Recent News Log
 *(Entry format: [`framework/latest-updates-workflow.md`](../../framework/latest-updates-workflow.md) §F.1 — the single source of truth. Tag only when an item actually bears on the sections above, using the closed vocabulary in §F.1 — `[EDGE+]`/`[EDGE−]` (binary — omit if neither) and `[TRIPWIRE #n — fires|early-warning|does not fire]`. Seeded 2026-07-19 from the initial full-report build.)*
