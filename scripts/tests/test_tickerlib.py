@@ -211,3 +211,27 @@ def test_every_live_ticker_has_a_known_sector():
         assert slugs, f"{d.name} has no sector assigned"
         for s in slugs:
             assert s in tl.SECTOR_SLUGS, f"{d.name}: unknown sector {s}"
+
+
+def test_change_log_subsection_is_excluded_from_trigger_parsing():
+    """§J.4's `### Change log` lives inside `## Tripwires` but is prose about
+    past changes. It must be scoped out structurally, so a change-log line may
+    contain a parenthesised in-sequence number without inventing a trigger."""
+    doc = """# T
+
+## Tripwires
+- **(1)** first thing.
+- **(2)** second thing.
+
+| # | Expires |
+|---|---|
+| 1 | 2027-03-31 |
+| 2 | 2027-06-30 |
+
+### Change log
+- **2026-07-19** — #2 sharpened. The prior bar (3) was not meaningful, and a
+  successor trigger (4) was considered and rejected.
+
+## Recent News Log
+"""
+    assert tl.tripwire_expiries(doc) == {1: "2027-03-31", 2: "2027-06-30"}

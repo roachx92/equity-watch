@@ -261,6 +261,13 @@ def tripwire_expiries(news_text: str) -> dict[int, str]:
         if line.startswith("## "):
             in_section = line.strip().startswith(_TRIPWIRE_HEADER)
             continue
+        # Stop at any `###` subheading — notably `### Change log` (§J.4), which
+        # lives inside `## Tripwires` but is free prose about *past* changes.
+        # Scoping it out structurally means a change-log line may say anything,
+        # including a parenthesised number, without being read as a trigger.
+        if line.startswith("### "):
+            in_section = False
+            continue
         if in_section:
             section.append(line)
     text = "\n".join(section)

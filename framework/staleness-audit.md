@@ -89,6 +89,21 @@ Parsed by `tickerlib.tripwire_expiries`, which reads the trigger numbers from th
 - **Expiry ≠ fired.** It means the window closed *without* the trigger firing.
 - **A trigger with a blank cell, or no row at all, is surfaced as untracked** (hygiene, not staleness) rather than guessed at.
 
+**Change history goes in a `### Change log`, never inline in a trigger.** When a promotion re-words, re-causes or re-dates a trigger, the reasoning belongs in an optional `### Change log` block **below the expiry table**, one dated line per change — *not* in an italic `*(sharpened 2026-07-19: …)*` parenthetical hanging off the trigger bullet.
+
+The reason is mechanical, not aesthetic. Every research sub-agent is instructed to quote the numbered Tripwires **verbatim** (§F.2), and an inline annotation gets quoted with them — so a *prior report's finding* ("Samsung EM is already dual-sourced") enters a fresh research prompt dressed as part of the pre-commitment. That is both token waste on every dispatch and a mild anchoring contamination of exactly the kind §J.7's asymmetric-context rule exists to prevent. Keeping the annotation out of the bullet means "quote the tripwires verbatim" stays correct in every prompt that says it, present and future, with no per-prompt carve-out to drift out of sync.
+
+```
+| # | Expires |
+|---|---|
+| 1 | 2027-03-31 |
+
+### Change log
+- **2026-07-19** — #2 *sharpened*: narrowed to a named **first HVM socket**. Cause: diligence found the account already dual-sourced, so the prior bar was no longer meaningful.
+```
+
+The full reasoning for any promotion lives in the superseding report's Refresh Provenance block (§J.7); the change log is the pointer, not the argument.
+
 **Detection is deterministic; the response is not.** An expired trigger has three possible fates — **removed** (the question it asked is settled), **re-dated** (its window genuinely moved, e.g. a slipped commencement), or **replaced** by a successor from a re-underwrite. Which one applies is a judgment about the thesis, so per §J.1 the audit flags it and **a human decides**. Never auto-remove: silently deleting a trigger destroys the pre-commitment as surely as silently rewriting one.
 
 ## J.5 — Reporting: by exception

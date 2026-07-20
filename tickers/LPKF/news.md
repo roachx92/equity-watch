@@ -11,7 +11,7 @@ blurb: "Pure-play IP leader in LIDE glass-substrate structuring equipment — a 
 LPKF is the pure-play, IP-protected leader in LIDE (Laser-Induced Deep Etching) glass-substrate structuring equipment — a picks-and-shovels play on glass-core substrates for AI advanced packaging. The core business is loss-making and cyclical; the equity is priced as an option on the glass ramp (~2027 volume, customer-gated). It ran ~3x in 2026 then pulled back; every sell-side target sits below spot.
 
 ## Edge (variant view — what the crowd may have wrong)
-*Promoted 2026-07-19 (explicit human decision) from `reports/2026-07-19.md` §18, replacing the version derived from the original deep-dive (§16). Cause: the world moved / the prior was incomplete — not re-derivation drift. Two dated facts drove the change, both from the 2026-06-04 AGM and neither reflected in the superseded report: management guided ramp ≥2027 with high volume only from **2029** (vs. the 2027 the prior Edge assumed), and FY2026 guidance explicitly excludes Advanced Semiconductor Packaging volume orders because timing is gated by downstream qualification LPKF does not control. Full diff and reasoning: `reports/2026-07-19.md`'s Refresh Provenance block.*
+*Promoted 2026-07-19 from [`reports/2026-07-19.md`](reports/2026-07-19.md) §18 (explicit human decision), replacing the version derived from the original deep-dive §16. Cause and full diff: that report's Refresh Provenance block.*
 
 > Your edge — what do you believe that the crowd doesn't? The crowd — and the prior underwriting of this name — debates *when the first order lands*, treating 23 July as the referendum. The variant view is that **timing is the wrong axis**: management has already told the market the ramp is 2027 and high volume is 2029, and FY26 guidance excludes ASP volume orders because the gate is downstream qualification LPKF does not control. Reframed, this is not an order-timing trade but a **financing-duration** problem — whether €5.8m of cash plus a €15.5m lender-consent facility bridges to a 2029 payoff without a raise at a de-rated price into an 89.4% float. If you do not hold a specific view on **how the wait gets funded**, you do not have an edge here; you are underwriting a date the company has already walked back.
 
@@ -22,14 +22,14 @@ LPKF is the pure-play, IP-protected leader in LIDE (Laser-Induced Deep Etching) 
 - **Shares this slug with IBIDY — and the signs can invert.** An early glass-core HVM commitment is `[EDGE+]` here but tripwire-adjacent for IBIDY (#3). Per §K.5, assess against *this* ticker's §18.
 
 ## Tripwires (pre-committed exit / re-underwrite triggers)
-*Trigger identity (the numbering) preserved from the original deep-dive (§16); text for #2–#4 promoted 2026-07-19 (explicit human decision) from `reports/2026-07-19.md` §18 — see that report's Refresh Provenance block for the itemised diff and per-trigger cause. #1 is unchanged. Expiry dates tracked in the table below (§J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
+*Trigger identity (the numbering) is stable across promotions — #2 is always "the design-socket trigger," #3 "the dilution trigger," #4 "the glass-timeline trigger." Expiry dates in the table below (§J.4); per-trigger change history in the Change log beneath it.*
 
 Your tripwire — what would prove you wrong? Pre-commit to re-underwriting or exiting if ANY of these fire:
 
-- **(1)** a SECOND missed or slipped LIDE first-series-order date after the 30 Jun 2026 miss — credibility gone, the option premium has no basis left to hold. *(unchanged)*
-- **(2)** a rival TGV method (e.g., Philoptics, Han's Laser) wins a named **first HVM socket** — erodes LIDE-as-standard, the core of the moat. *(sharpened 2026-07-19: Samsung EM is already confirmed dual-sourced with Philoptics, so "wins a socket" was no longer a meaningful bar — the first HVM reference line is what actually decides the moat question.)*
-- **(3)** an **equity raise executed at a de-rated price**, or a disclosed adverse change to the syndicated credit facility (reduction, non-extension, or a covenant breach). *(re-caused 2026-07-19: the original cause — "the activist Active Ownership fight resolves against management" — is stale; that fight resolved cooperatively on 2026-06-04 when AOC partner Paul Owsianowski joined the supervisory board. The underlying dilution risk this trigger protects against has not gone away — it has shifted from activist-driven to burn-driven: €5.8m cash vs. a ~€7m quarterly EBIT loss behind a facility resizable only with the lenders' consent.)*
-- **(4)** the glass volume-production timeline slips materially past **2029**. *(threshold moved 2026-07-19: management's own 2026-06-04 AGM guidance set high-volume output at 2029, not the 2027 this trigger originally watched — the prior threshold was arguably already crossed by management's own words, which would have made this trigger unfireable as written.)*
+- **(1)** a SECOND missed or slipped LIDE first-series-order date after the 30 Jun 2026 miss — credibility gone, the option premium has no basis left to hold.
+- **(2)** a rival TGV method (e.g., Philoptics, Han's Laser) wins a named **first HVM socket** — erodes LIDE-as-standard, the core of the moat.
+- **(3)** an **equity raise executed at a de-rated price**, or a disclosed adverse change to the syndicated credit facility (reduction, non-extension, or a covenant breach).
+- **(4)** the glass volume-production timeline slips materially past **2029**.
 
 Any one of these breaks the thesis — decide the action now, not after the drawdown.
 
@@ -39,6 +39,14 @@ Any one of these breaks the thesis — decide the action now, not after the draw
 | 2 | 2027-07-31 |
 | 3 | 2027-07-31 |
 | 4 | 2030-03-31 |
+
+### Change log
+*Per §J.4 — the pointer, not the argument. Full reasoning for each change is in the superseding report's Refresh Provenance block.*
+
+- **2026-07-19** — **#1** *unchanged*.
+- **2026-07-19** — **#2** *sharpened*: narrowed to a named **first HVM socket**. Cause: diligence found Samsung EM already dual-sourced with Philoptics, so "wins a socket" was no longer a meaningful bar — the first HVM reference line is what actually decides the moat question. ([`reports/2026-07-19.md`](reports/2026-07-19.md))
+- **2026-07-19** — **#3** *re-caused*: trigger text now names the actual mechanism (a de-rated raise, or an adverse credit-facility change). Cause: the original stated cause — "the activist Active Ownership fight resolves against management" — went stale when that fight resolved *cooperatively* on 2026-06-04 (AOC partner Paul Owsianowski joined the supervisory board). The dilution risk itself did not go away; it shifted from activist-driven to burn-driven (€5.8m cash vs. a ~€7m quarterly EBIT loss behind a lender-consent facility). ([`reports/2026-07-19.md`](reports/2026-07-19.md))
+- **2026-07-19** — **#4** *threshold moved* 2027 → **2029**, expiry 2028-03-31 → 2030-03-31. Cause: management's own 2026-06-04 AGM guidance set high-volume output at 2029; the prior threshold was arguably already crossed by management's own words, which would have made this trigger unfireable as written. ([`reports/2026-07-19.md`](reports/2026-07-19.md))
 
 ## Recent News Log
 *(Entry format: [`framework/latest-updates-workflow.md`](../../framework/latest-updates-workflow.md) §F.1 — the single source of truth. Tag only when an item actually bears on the sections above, using the closed vocabulary in §F.1 — `[EDGE+]`/`[EDGE−]` (binary — omit if neither) and `[TRIPWIRE #n — fires|early-warning|does not fire]`.)*

@@ -68,10 +68,13 @@ Per `latest-updates-workflow.md` §F.2: **do not research single-threaded.** Dis
 parallel sub-agent pass (one dedicated agent, or several split by angle — filings/financing vs.
 product/competitive vs. sentiment/positioning — when depth is warranted). Each self-contained
 prompt must include all seven items §F.2 lists: today's date + ticker; an instruction to
-`Read tickers/<TICKER>/news.md` (the ticker's news.md) and quote its exact Edge and numbered
-Tripwires **verbatim**; the search window (since the last dated log entry, or ~14 days back if
-the log is empty); the source-quality guidance; a hunt-list of one line per Tripwire + the Edge
-mechanism; the report-back format (dated items, direct source URLs, full substantive detail);
+`Read tickers/<TICKER>/news.md` (the ticker's news.md) and quote **verbatim** its exact Edge, its
+numbered Tripwires **each paired with its `Expires` date** from the `| # | Expires |` table, and
+its `## Sector lens` — quoting the **trigger text only**, never the italic provenance preamble or
+`### Change log` (archival edit-history, not the pre-commitment); the search window (since the
+last dated log entry, or ~14 days back if the log is empty); the source-quality guidance; a
+hunt-list of one line per Tripwire + the Edge mechanism, **ordered nearest-expiry-first with each
+trigger's date on its line**; the report-back format (dated items, direct source URLs, full substantive detail);
 and **an explicit stop condition** with a tool-call budget. **Sub-agents research only — they
 must NOT edit files.**
 
