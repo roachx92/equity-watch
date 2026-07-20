@@ -2,7 +2,7 @@
 
 *Section J of the equity research framework. The single source of truth for the audit method: its signals, its routing, and the rules governing what it may and may not do. Other files reference this one — they do not restate it.*
 
-*Design rationale and the decisions behind each rule: [`docs/superpowers/specs/2026-07-18-staleness-audit-design.md`](../docs/superpowers/specs/2026-07-18-staleness-audit-design.md).*
+*Design rationale and the decisions behind each rule: [`docs/superpowers/specs/2026-07-18-staleness-audit-design.md`](https://github.com/roachx92/equity-watch/blob/main/docs/superpowers/specs/2026-07-18-staleness-audit-design.md) (design specs live in the repo but are not published to the site — see the note in `web/scripts/build.sh` on what the published tree contains).*
 
 ---
 
