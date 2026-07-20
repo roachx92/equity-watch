@@ -15,36 +15,42 @@ Cipher is a US Bitcoin miner that has legally and operationally repositioned int
 *(Note: the backlog figure above was corrected 2026-07-18 from a stale ~$9.3B/two-lease figure the deep-dive originally used — see the report's erratum and [`earnings-debrief.md`](earnings-debrief.md) §2(d).)*
 
 ## Edge (variant view — what the crowd may have wrong)
-*Verbatim from `reports/2026-07-15.md` §16:*
+*Promoted 2026-07-20 from [`reports/2026-07-20.md`](reports/2026-07-20.md) §18 (explicit human decision), replacing the version derived from the original deep-dive §16. Cause: the world moved / the prior was incomplete — not re-derivation drift. Full diff and reasoning: that report's Refresh Provenance block.*
 
-> Consensus here is *already uniformly bullish* (Strong Buy, zero holds/sells, stock up ~240%), and the entire sell-side thesis rests on the same fact — the ~$11.4B backlog — so "the HPC pivot is real" is **not** an edge; it is the consensus you'd be paying for. A genuine variant view has to be sharper and pick a side: **either** (bullish variant) the market is under-crediting the *quality and diversification* of Cipher's specific counterparty stack (two direct AWS leases + Google-backstopped Fluidstack) and its 4.2 GW power runway, so Cipher deserves a premium *within* the cohort rather than a peer-average multiple — **or** (bearish variant) the market is under-pricing the execution-and-financing gap: $715M cash against ~$4.73B debt and multi-GW of remaining capex, with *zero* HPC delivered and first delivery a binary "show-me" event. If you do not hold a specific, defensible view on whether Black Pearl/Barber Lake energize on schedule in Q4 2026 and how the remaining capex gets funded, you do not have an edge here — you are underwriting a richly-priced, crowded consensus at a point of maximum expectation.
->
-> *(Backlog figure corrected 2026-07-18 from a stale $9.3B to the actual $11.4B/three-lease book — see the deep-dive report's erratum. The counterparty-stack phrasing was updated to reflect that the third lease is also AWS-guaranteed, not a distinct "second hyperscaler.")*
+> Sixteen analysts, zero holds and zero sells, average target $32.53, all underwriting the same fact: an $11.3B contracted book with investment-grade counterparties. That is consensus, not edge. The variant view is that **counterparty quality and execution risk are not two independent legs of this thesis — they are the same leg.** The 10-K says the guarantees "will only be effective after rent commencement," and that a delay-driven termination "would not trigger the tenants' guarantee either." So the credit quality everyone is paying for is **contingent on the exact milestone that constitutes the risk** — it protects the thesis only in the states of the world where the thesis was already fine. Layer on a second, almost entirely unpriced mechanism: the Google warrant's **$430.0M ratchet**, vesting at Barber Lake commencement, which forces additional shares or cash if the stock is below ~**$17.79** on that date — a price it printed as recently as 7/17. The differentiated call is that **this is not a $11.3B-backlog story with timing risk; it is a single-quarter binary in which four mechanisms — guarantee vesting, dilution ratchet, debt amortization start, and ERCOT classification — all resolve together.** If you do not hold a specific view on the September–October 2026 window *and* on where the share price sits when it opens, you do not have an edge here; you are paying par for contracted backlog and receiving an unhedged date.
 
 ## Sector lens
 *Assigned 2026-07-19 per `framework/sector-lens.md` §K.1, derived from `reports/2026-07-15.md` §5/§6/§10 and anchored against its §18.*
 
 - **`ai-dc-lessor` — primary.** Channels: **peer-comp** (dominant) and **demand**. The log already prices CIFR against Hut 8, CleanSpark, TeraWulf and CORZ: the 2026-07-09→17 entry records a ~25% drawdown driven entirely by sector de-risking plus peers signing leases CIFR didn't match, with no CIFR event at all. Tripwires #1–#3 are all lessor-complex variables (rent commencement, capex financing, tenant/neocloud credit).
-- **`btc-mining` — residual, sunsets with Tripwire #4.** Channel: **regime**. Mining is still the only recognized-revenue source funding the bridge to HPC rent, which is exactly what Tripwire #4 watches. The membership dies when HPC rent commences — the same event that expires #4 (2026-12-31), so it is reviewed in that decision, not separately.
+- **`btc-mining` — residual.** Channel: **regime**. Mining is still the only recognized-revenue source funding the bridge to HPC rent. **Note:** the tripwire this membership originally sunset with (BTC-linked #4) was replaced 2026-07-20 with a lease-signing-cadence trigger — see the Tripwires Change log. Sunset condition under review; the residual regime exposure itself is unchanged for now.
 
 ## Tripwires (pre-committed exit / re-underwrite triggers)
-*Derived from `reports/2026-07-15.md` §16 (primary tripwire) plus the report's risk/financing analysis (§7, §8, §14). Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
+*Trigger identity (the numbering) from the original deep-dive (§16). Text for #1–#4 promoted 2026-07-20 (explicit human decision) from `reports/2026-07-20.md` §18 — #4 is a full replacement, not a re-wording; see the Change log below and that report's Refresh Provenance block for the itemised diff and per-trigger cause. Expiry dates in the table below (§J.4).*
 
-Pre-commit to re-underwriting or exiting if ANY of these specific, observable events occurs:
+Pre-commit to re-underwriting or exiting if ANY of these fire:
 
-- **(1)** the first HPC rent-commencement milestone (Black Pearl/AWS or Barber Lake/Fluidstack) **slips materially past ~Q4 2026** — the "backlog converts on schedule" thesis breaks; this is the single highest-priority trigger.
-- **(2)** A **large, dilutive equity raise executed at a de-rated price** (forced dilution into weakness) to plug the capex-vs-cash gap ($715M cash vs. multi-GW capex ahead).
-- **(3)** **Fluidstack shows funding/credit stress** that the capped ($1.73B) Google backstop would not fully cover, OR any HPC tenant defaults/renegotiates/delays its take.
-- **(4)** **BTC falls materially further** while mining is still the only recognized-revenue source, breaking the self-funding bridge before HPC rent begins.
+- **(1)** the first HPC rent-commencement milestone (Black Pearl, or Barber Lake Ph. I against its stated 2026-09-30 target) **slips past 2026-12-31**, or an **ERCOT Batch Zero classification on/after 2026-08-07 excludes any of the three campuses** — the leading indicator of the same failure.
+- **(2)** any **dilution event executed below ~$17.79** — whether a discretionary ATM/equity raise into weakness *or* the non-discretionary Google warrant ratchet firing at the Barber Lake commencement date.
+- **(3)** **Fluidstack shows funding or credit stress**, or any tenant defaults, renegotiates or delays — the specific test being stress that the capped $1.73B backstop would not cover, noting the backstop supports *project debt* and so protects lenders ahead of Cipher's equity.
+- **(4)** a **second consecutive quarter passes with no new lease signed** while the peer cohort continues signing — the growth leg breaking even if the contracted book performs.
 
 Any one = the thesis is impaired; decide the action now, not after the drawdown.
 
 | # | Expires |
 |---|---|
-| 1 | 2027-03-31 |
-| 2 | 2027-06-30 |
+| 1 | 2026-12-31 |
+| 2 | 2027-01-31 |
 | 3 | 2027-06-30 |
-| 4 | 2026-12-31 |
+| 4 | 2027-07-31 |
+
+### Change log
+*Per §J.4 — the pointer, not the argument. Full reasoning for each change is in the superseding report's Refresh Provenance block.*
+
+- **2026-07-20** — **#1** *sharpened*: added the specific 2026-09-30 Barber Lake Ph. I target, moved the threshold to a dated 2026-12-31 (from ~Q4 2026), and added the ERCOT 8/07 Batch Zero classification as a leading indicator of the same failure. ([`reports/2026-07-20.md`](reports/2026-07-20.md))
+- **2026-07-20** — **#2** *broadened*: the original watched only a discretionary dilutive raise. Cause: the Google warrant's $430.0M ratchet is **non-discretionary** dilution below ~$17.79 that fires automatically at Barber Lake commencement regardless of management action, and the original text would not have caught it. ([`reports/2026-07-20.md`](reports/2026-07-20.md))
+- **2026-07-20** — **#3** *sharpened*: added the specific test that the Google backstop supports *project debt* — it protects lenders ahead of Cipher's equity — and that Fluidstack's aggregate lease book across the cohort (~$27B) has only ~23% backstop coverage. ([`reports/2026-07-20.md`](reports/2026-07-20.md))
+- **2026-07-20** — **#4** *replaced* (BTC threshold → lease-signing cadence). Cause: CIFR fell 39.8% (6/18→7/17) *while Bitcoin rose*, and rallied +17% on a day BTC was flat — the AI-datacenter factor dominates roughly 5:1 on a mining segment being deliberately wound down, so a BTC-keyed trigger was measuring the wrong risk. Replacement watches the growth leg, where diligence found CIFR genuinely losing ground (Hut 8 and TeraWulf both leapfrogged its backlog this month). **This changes what sunsets `btc-mining` sector membership** (§K.1) — flagged there, not yet resolved. ([`reports/2026-07-20.md`](reports/2026-07-20.md))
 
 ## Recent News Log
 *(Entry format: [`framework/latest-updates-workflow.md`](../../framework/latest-updates-workflow.md) §F.1 — the single source of truth. Tag only when an item actually bears on the sections above, using the closed vocabulary in §F.1 — `[EDGE+]`/`[EDGE−]` (binary — omit if neither) and `[TRIPWIRE #n — fires|early-warning|does not fire]`. Seeded 2026-07-15 from the initial full-report build.)*
