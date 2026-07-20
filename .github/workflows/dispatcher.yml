@@ -12,10 +12,26 @@ name: Dispatcher (deterministic triggers)
 # DISCORD_DISPATCHER_WEBHOOK secret — skips gracefully if the secret is unset.
 # See docs/superpowers/specs/2026-07-18-dispatcher-triggers-design.md and
 # docs/superpowers/specs/2026-07-18-dispatcher-discord-notification-design.md.
+#
+# TARGET: 06:30 America/Los_Angeles, every weekday. GitHub Actions cron has no
+# timezone support and runs in UTC only, so a single fixed-UTC entry drifts an
+# hour wrong across the US DST transition (twice a year). Fixed here with the
+# standard two-cron-plus-guard pattern: both the PDT-UTC-offset time and the
+# PST-UTC-offset time are scheduled every weekday, and the "Check Pacific time
+# window" step below no-ops whichever of the two doesn't match the *current*
+# wall-clock Pacific hour — so exactly one of them actually runs the job on
+# any given day, year-round, with no daylight-saving maintenance required.
+#
+# This does NOT guarantee the exact minute the job starts. GitHub Actions
+# scheduled workflows are documented to run late under platform load, and on
+# this repo that has meant delays of hours, not minutes (see the 2026-07-20
+# run: 13:30 UTC target, ~19:17 UTC actual start) -- that is a platform-level
+# queuing behavior with no user-side fix, not a bug in this cron config.
 
 on:
   schedule:
-    - cron: '30 13 * * 1-5'   # ~09:30 ET, weekdays; catches prior-day AMC + same-morning BMO
+    - cron: '30 13 * * 1-5'   # 06:30 PDT (UTC-7) -- live roughly mid-Mar to early-Nov
+    - cron: '30 14 * * 1-5'   # 06:30 PST (UTC-8) -- live roughly early-Nov to mid-Mar
                               # (earnings look-back reaches back over the weekend so a
                               #  Friday-after-market report isn't missed — see dispatch.py)
   workflow_dispatch:
@@ -37,15 +53,49 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
+      - name: Check Pacific time window (skip the mistimed DST cron entry)
+        id: check_time
+        run: |
+          set -euo pipefail
+          # Only the schedule trigger needs gating -- a manual workflow_dispatch
+          # always means "run now", DST guard or not.
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Don't assume the runner image has tzdata -- verify, and install it
+          # if not, rather than let an unresolved TZ name silently fall back to
+          # UTC and pick the wrong branch every single run.
+          zone="$(TZ='America/Los_Angeles' date +%Z)"
+          if [ "$zone" = "UTC" ] || [ "$zone" = "GMT" ]; then
+            echo "TZ database missing or America/Los_Angeles unresolved (got zone '$zone') -- installing tzdata."
+            sudo apt-get update -qq && sudo apt-get install -y -qq tzdata
+            zone="$(TZ='America/Los_Angeles' date +%Z)"
+            if [ "$zone" = "UTC" ] || [ "$zone" = "GMT" ]; then
+              echo "::error::America/Los_Angeles still unresolved after installing tzdata -- refusing to guess. Fix the runner image rather than silently running on the wrong side of DST."
+              exit 1
+            fi
+          fi
+          hour="$(TZ='America/Los_Angeles' date +%H)"
+          if [ "$hour" = "06" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping: this cron entry's UTC offset doesn't match the current Pacific time (local hour is $hour, not 06) -- the other scheduled entry is the one live for the current DST state."
+          fi
+
       - name: Checkout repository
+        if: steps.check_time.outputs.should_run != 'false'
         uses: actions/checkout@v4
 
       - name: Set up Python
+        if: steps.check_time.outputs.should_run != 'false'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Restore gate state
+        if: steps.check_time.outputs.should_run != 'false'
         uses: actions/cache/restore@v4
         with:
           path: .dispatch-state
@@ -54,6 +104,7 @@ jobs:
             dispatch-state-v1-
 
       - name: Run dispatcher
+        if: steps.check_time.outputs.should_run != 'false'
         env:
           FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -62,7 +113,7 @@ jobs:
           python3 scripts/dispatch.py ${{ inputs.dry_run && '--dry-run' || '' }}
 
       - name: Notify Discord
-        if: always()
+        if: always() && steps.check_time.outputs.should_run != 'false'
         env:
           DISCORD_DISPATCHER_WEBHOOK: ${{ secrets.DISCORD_DISPATCHER_WEBHOOK }}
         run: |
@@ -73,7 +124,7 @@ jobs:
             --status "${{ job.status }}"
 
       - name: Save gate state
-        if: always()
+        if: always() && steps.check_time.outputs.should_run != 'false'
         uses: actions/cache/save@v4
         with:
           path: .dispatch-state
