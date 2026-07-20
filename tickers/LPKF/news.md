@@ -5,31 +5,31 @@ blurb: "Pure-play IP leader in LIDE glass-substrate structuring equipment — a 
 
 # LPKF — LPKF Laser & Electronics SE (Xetra: LPK / OTC: LPKFF)
 
-**Canonical deep-dive:** [`reports/2026-07-14.md`](reports/2026-07-14.md) (generated 2026-07-14). Full-diligence snapshots land at `reports/<YYYY-MM-DD>.md`; this line links to the latest. This file holds only the monitoring state.
+**Canonical deep-dive:** [`reports/2026-07-19.md`](reports/2026-07-19.md) (full-framework re-run, 2026-07-19; supersedes — but does not overwrite — the immutable [2026-07-14](reports/2026-07-14.md) snapshot). Full-diligence snapshots land at `reports/<YYYY-MM-DD>.md`; this line links to the latest (resolved by glob). This file holds only the monitoring state; the Edge and Tripwires below are the **binding** pre-committed triggers. The 2026-07-19 re-run left them untouched and proposed changes in its Refresh Provenance block; those changes were promoted here on 2026-07-19 by explicit human decision (see the Edge/Tripwires sections below for the per-item diff and cause).
 
 ## Thesis context (one-paragraph)
 LPKF is the pure-play, IP-protected leader in LIDE (Laser-Induced Deep Etching) glass-substrate structuring equipment — a picks-and-shovels play on glass-core substrates for AI advanced packaging. The core business is loss-making and cyclical; the equity is priced as an option on the glass ramp (~2027 volume, customer-gated). It ran ~3x in 2026 then pulled back; every sell-side target sits below spot.
 
 ## Edge (variant view — what the crowd may have wrong)
-*Verbatim from the original deep-dive, §16:*
+*Promoted 2026-07-19 (explicit human decision) from `reports/2026-07-19.md` §18, replacing the version derived from the original deep-dive (§16). Cause: the world moved / the prior was incomplete — not re-derivation drift. Two dated facts drove the change, both from the 2026-06-04 AGM and neither reflected in the superseded report: management guided ramp ≥2027 with high volume only from **2029** (vs. the 2027 the prior Edge assumed), and FY2026 guidance explicitly excludes Advanced Semiconductor Packaging volume orders because timing is gated by downstream qualification LPKF does not control. Full diff and reasoning: `reports/2026-07-19.md`'s Refresh Provenance block.*
 
-> Your edge — what do you believe that the crowd doesn't? Note that consensus here is already skeptical, not complacent — every analyst target (€10–€13) sits below spot (€17.15), so the market has NOT simply bid this to an uncritical high. The genuine variant view has to be sharper than "glass substrates are real": it is a specific view on timing and credibility — e.g., that the missed 30 Jun deadline is a one-off slip rather than a pattern, and that the 23 Jul 2026 H1 report or a subsequent quarter will deliver the first hard glass-HVM order the market is bracing against. If you don't hold a specific view on WHEN the order lands and WHY the first miss won't repeat, you don't have an edge here — you're just underwriting the same option premium the sell-side has already flagged as rich.
+> Your edge — what do you believe that the crowd doesn't? The crowd — and the prior underwriting of this name — debates *when the first order lands*, treating 23 July as the referendum. The variant view is that **timing is the wrong axis**: management has already told the market the ramp is 2027 and high volume is 2029, and FY26 guidance excludes ASP volume orders because the gate is downstream qualification LPKF does not control. Reframed, this is not an order-timing trade but a **financing-duration** problem — whether €5.8m of cash plus a €15.5m lender-consent facility bridges to a 2029 payoff without a raise at a de-rated price into an 89.4% float. If you do not hold a specific view on **how the wait gets funded**, you do not have an edge here; you are underwriting a date the company has already walked back.
 
 ## Sector lens
 *Assigned 2026-07-19 per `framework/sector-lens.md` §K.1, derived from the deep-dive's §5/§6/§10 and anchored against its §18.*
 
-- **`adv-packaging` — sole.** Channels: **demand** and **peer-comp**. Tripwire #2 is a rival TGV method (Philoptics is named) winning a major design socket — a direct peer-set variable. Tripwire #4 is the glass volume-production timeline slipping past 2027, i.e. the same glass-core roadmap clock the slug's watch items track. The whole thesis is an option on glass/TGV adoption, so sector roadmap news *is* the thesis news.
+- **`adv-packaging` — sole.** Channels: **demand** and **peer-comp**. Tripwire #2 is a rival TGV method (Philoptics, Han's Laser) winning a named first HVM socket — a direct peer-set variable. Tripwire #4 is the glass volume-production timeline slipping materially past 2029 (management's own 2026-06-04 AGM guidance), i.e. the same glass-core roadmap clock the slug's watch items track. The whole thesis is an option on glass/TGV adoption, so sector roadmap news *is* the thesis news.
 - **Shares this slug with IBIDY — and the signs can invert.** An early glass-core HVM commitment is `[EDGE+]` here but tripwire-adjacent for IBIDY (#3). Per §K.5, assess against *this* ticker's §18.
 
 ## Tripwires (pre-committed exit / re-underwrite triggers)
-*Verbatim from the original deep-dive, §16. Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
+*Trigger identity (the numbering) preserved from the original deep-dive (§16); text for #2–#4 promoted 2026-07-19 (explicit human decision) from `reports/2026-07-19.md` §18 — see that report's Refresh Provenance block for the itemised diff and per-trigger cause. #1 is unchanged. Expiry dates tracked in the table below (§J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
 
 Your tripwire — what would prove you wrong? Pre-commit to re-underwriting or exiting if ANY of these fire:
 
-- **(1)** a SECOND missed or slipped LIDE first-series-order date after the 30 Jun 2026 miss — credibility gone, the option premium has no basis left to hold.
-- **(2)** a rival TGV method (e.g., Philoptics) wins a named major design socket — erodes LIDE-as-standard, the core of the moat.
-- **(3)** a deeply dilutive capital raise goes through (the activist Active Ownership fight resolves against management) on the thin float.
-- **(4)** the glass volume-production timeline slips materially past 2027.
+- **(1)** a SECOND missed or slipped LIDE first-series-order date after the 30 Jun 2026 miss — credibility gone, the option premium has no basis left to hold. *(unchanged)*
+- **(2)** a rival TGV method (e.g., Philoptics, Han's Laser) wins a named **first HVM socket** — erodes LIDE-as-standard, the core of the moat. *(sharpened 2026-07-19: Samsung EM is already confirmed dual-sourced with Philoptics, so "wins a socket" was no longer a meaningful bar — the first HVM reference line is what actually decides the moat question.)*
+- **(3)** an **equity raise executed at a de-rated price**, or a disclosed adverse change to the syndicated credit facility (reduction, non-extension, or a covenant breach). *(re-caused 2026-07-19: the original cause — "the activist Active Ownership fight resolves against management" — is stale; that fight resolved cooperatively on 2026-06-04 when AOC partner Paul Owsianowski joined the supervisory board. The underlying dilution risk this trigger protects against has not gone away — it has shifted from activist-driven to burn-driven: €5.8m cash vs. a ~€7m quarterly EBIT loss behind a facility resizable only with the lenders' consent.)*
+- **(4)** the glass volume-production timeline slips materially past **2029**. *(threshold moved 2026-07-19: management's own 2026-06-04 AGM guidance set high-volume output at 2029, not the 2027 this trigger originally watched — the prior threshold was arguably already crossed by management's own words, which would have made this trigger unfireable as written.)*
 
 Any one of these breaks the thesis — decide the action now, not after the drawdown.
 
@@ -38,7 +38,7 @@ Any one of these breaks the thesis — decide the action now, not after the draw
 | 1 | 2027-03-31 |
 | 2 | 2027-07-31 |
 | 3 | 2027-07-31 |
-| 4 | 2028-03-31 |
+| 4 | 2030-03-31 |
 
 ## Recent News Log
 *(Entry format: [`framework/latest-updates-workflow.md`](../../framework/latest-updates-workflow.md) §F.1 — the single source of truth. Tag only when an item actually bears on the sections above, using the closed vocabulary in §F.1 — `[EDGE+]`/`[EDGE−]` (binary — omit if neither) and `[TRIPWIRE #n — fires|early-warning|does not fire]`.)*
