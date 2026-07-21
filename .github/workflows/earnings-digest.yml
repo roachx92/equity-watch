@@ -59,19 +59,6 @@ jobs:
           } >> "$GITHUB_OUTPUT"
           echo "Resolved ticker=$TICKER date=$DATE"
 
-      - name: Materialize Discord webhook config
-        env:
-          WEBHOOKS_JSON: ${{ secrets.DISCORD_WEBHOOKS_JSON }}
-        run: |
-          set -euo pipefail
-          if [ -n "${WEBHOOKS_JSON:-}" ]; then
-            mkdir -p .secrets
-            printf '%s' "$WEBHOOKS_JSON" > .secrets/discord-webhooks.json
-            echo "Wrote .secrets/discord-webhooks.json from DISCORD_WEBHOOKS_JSON."
-          else
-            echo "DISCORD_WEBHOOKS_JSON not set — the Discord post will skip gracefully."
-          fi
-
       - name: Run earnings digest
         id: claude
         uses: anthropics/claude-code-action@v1
@@ -144,12 +131,11 @@ jobs:
                 Final Thoughts → debrief file link) and write it VERBATIM to
                 `earnings-digest-body.md` in the repo root. This full, detailed digest is for
                 DISCORD — it is NOT the PR body.
-              - Post it to the ticker's Discord channel (add --tripwire-fired only if a
-                [TRIPWIRE] fired this run):
-                  python scripts/notify_discord_ticker.py \
-                    --ticker ${{ steps.meta.outputs.ticker }} --kind earnings-digest \
-                    --date ${{ steps.meta.outputs.date }} --text-file earnings-digest-body.md
-                The poster exits 0 and skips if no webhook is configured — that is expected.
+              - Do NOT post to Discord — a later workflow step posts deterministically from
+                earnings-digest-body.md. Only signal a fired tripwire: if any [TRIPWIRE] fired
+                this run, create an empty file `earnings-digest-tripwire.flag` in the repo root
+                (it is gitignored, so your `git add -A` will not stage it); otherwise do not
+                create it.
               - Write a SEPARATE, CONCISE PR body to `earnings-digest-pr-body.md` in the repo
                 root — this is what the PR shows; the full detail lives in Discord and the
                 debrief file. Keep it to just:
@@ -157,8 +143,7 @@ jobs:
                     net assessment (thesis strengthened / weakened / unchanged);
                   * if any Tripwire fired, ONE line naming which numbered trigger fired and its
                     pre-committed action; if none fired, one short line saying so;
-                  * a link to the debrief file `tickers/${{ steps.meta.outputs.ticker }}/earnings-debrief.md`;
-                  * a final line: "Full digest posted to Discord."
+                  * a link to the debrief file `tickers/${{ steps.meta.outputs.ticker }}/earnings-debrief.md`.
                 Do NOT reproduce the Part 1 / Part 2 in-brief blocks or the Final Thoughts here.
                 Write Tripwire references naturally (`#1`, `#2`) — a later workflow step
                 deterministically escapes every `#N` in the PR body so GitHub won't auto-link
@@ -178,6 +163,24 @@ jobs:
                 Use that EXACT PR title and the CONCISE body file. Do NOT merge the PR and do
                 NOT push to main directly — a later workflow step appends token usage and
                 squash-merges it.
+
+      - name: Post digest to Discord
+        if: always()
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          TICKER: ${{ steps.meta.outputs.ticker }}
+          DATE: ${{ steps.meta.outputs.date }}
+        run: |
+          set -uo pipefail
+          if [ ! -s earnings-digest-body.md ]; then
+            echo "No earnings-digest-body.md produced — nothing to post."
+            exit 0
+          fi
+          FLAG=""
+          [ -f earnings-digest-tripwire.flag ] && FLAG="--tripwire-fired"
+          python3 scripts/notify_discord_ticker.py \
+            --ticker "$TICKER" --kind earnings-digest --date "$DATE" \
+            --text-file earnings-digest-body.md --require-channel $FLAG
 
       - name: Summarize token usage
         env:
