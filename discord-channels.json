@@ -1,6 +1,7 @@
 {
   "_comment": "Committed, NON-SECRET: Discord channel/guild IDs are visible to anyone in the server. Single source of truth for ticker->channel routing (replaces the old gitignored webhook map). Onboard a ticker with scripts/onboard_discord_channel.py, then commit this file. Keys are ticker symbols; values are channel-ID snowflakes. _dispatcher is the dispatcher/audit heartbeat channel.",
   "_guild_id": "1526854603008905276",
+  "_dispatcher": "1528163401291923466",
   "AAOI": "1527764579940044811",
   "CIFR": "1527758659910631597",
   "COHR": "1528137183716835370",
