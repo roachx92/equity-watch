@@ -28,6 +28,44 @@ def _slug(name):
     return "-".join(name.strip().lower().split())
 
 
+def ensure_channel(ticker, name=None, config=channelmap.DEFAULT_PATH, dry_run=False):
+    """Idempotently ensure `ticker` has a channel in the committed map.
+
+    Returns (action, channel_id) where action is one of:
+      'already-mapped' — the ticker already had a channel_id (channel_id returned)
+      'would-create'   — dry-run: a channel would be created (channel_id None)
+      'adopted'        — an existing guild channel matched by slug was mapped
+      'created'        — a new channel was created and mapped
+    Raises ValueError if the ticker is unmapped and no `_guild_id` is configured.
+    Reused by both the onboard CLI and sync_discord_channels.py.
+    """
+    ticker = ticker.strip().upper()
+
+    existing = channelmap.resolve(ticker, config)
+    if existing:
+        return ("already-mapped", existing)
+
+    gid = channelmap.guild_id(config)
+    if not gid:
+        raise ValueError(f"no _guild_id in {config}")
+
+    name = name or ticker.lower()
+
+    if dry_run:
+        return ("would-create", None)
+
+    match = None
+    target = _slug(name)
+    for ch in list_channels(gid):
+        if ch.get("type") == 0 and _slug(ch.get("name", "")) == target:
+            match = str(ch["id"])
+            break
+
+    channel_id = match or create_channel(gid, name)
+    channelmap.write_channel(ticker, channel_id, config)
+    return (("adopted" if match else "created"), channel_id)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Ensure a ticker's Discord channel exists and is mapped.")
     ap.add_argument("--ticker", required=True, help="ticker symbol, e.g. WYFI")
@@ -38,34 +76,21 @@ def main(argv=None):
     args = ap.parse_args(argv)
 
     ticker = args.ticker.strip().upper()
-
-    existing = channelmap.resolve(ticker, args.config)
-    if existing:
-        print(f"[onboard] {ticker} already mapped to channel {existing} — no-op.")
-        return 0
-
-    gid = channelmap.guild_id(args.config)
-    if not gid:
-        print(f"[onboard] no _guild_id in {args.config} — cannot create a channel.", file=sys.stderr)
-        return 1
-
     name = args.name or ticker.lower()
 
-    if args.dry_run:
+    try:
+        action, channel_id = ensure_channel(ticker, args.name, args.config, args.dry_run)
+    except ValueError as exc:
+        print(f"[onboard] {exc} — cannot create a channel.", file=sys.stderr)
+        return 1
+
+    if action == "already-mapped":
+        print(f"[onboard] {ticker} already mapped to channel {channel_id} — no-op.")
+    elif action == "would-create":
+        gid = channelmap.guild_id(args.config)
         print(f"[onboard] would ensure channel '{name}' in guild {gid} and map {ticker}.")
-        return 0
-
-    match = None
-    target = _slug(name)
-    for ch in list_channels(gid):
-        if ch.get("type") == 0 and _slug(ch.get("name", "")) == target:
-            match = str(ch["id"])
-            break
-
-    channel_id = match or create_channel(gid, name)
-    channelmap.write_channel(ticker, channel_id, args.config)
-    verb = "adopted" if match else "created"
-    print(f"[onboard] {verb} channel '{name}' ({channel_id}); wrote {ticker} to {args.config}. Commit it.")
+    else:
+        print(f"[onboard] {action} channel '{name}' ({channel_id}); wrote {ticker} to {args.config}. Commit it.")
     return 0
 
 
