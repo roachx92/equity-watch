@@ -19,7 +19,6 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import channelmap  # noqa: E402
 from onboard_discord_channel import ensure_channel  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -44,19 +43,24 @@ def main(argv=None):
     ap = argparse.ArgumentParser(
         description="Create Discord channels for any watched ticker missing one."
     )
-    ap.add_argument("--config", default=str(channelmap.DEFAULT_PATH),
-                    help=f"path to the committed channel map (default: {channelmap.DEFAULT_PATH})")
+    ap.add_argument("--config", default=None,
+                    help="path to the committed channel map (default: <repo-root>/discord-channels.json)")
     ap.add_argument("--repo-root", default=str(REPO_ROOT),
                     help="repo root holding the tickers/ watch-list (default: this repo)")
     ap.add_argument("--dry-run", action="store_true",
                     help="report which channels would be created, create nothing")
     args = ap.parse_args(argv)
 
+    # Keep the map coupled to the watch-list it's reconciling: default --config to
+    # the map inside --repo-root, so a non-default --repo-root can't silently read
+    # tickers from one checkout while writing the map of another.
+    config = args.config or str(Path(args.repo_root) / "discord-channels.json")
+
     tickers = watched_tickers(args.repo_root)
     provisioned = []
     try:
         for ticker in tickers:
-            action, channel_id = ensure_channel(ticker, None, args.config, args.dry_run)
+            action, channel_id = ensure_channel(ticker, None, config, args.dry_run)
             if action != "already-mapped":
                 provisioned.append((ticker, action, channel_id))
                 suffix = f" ({channel_id})" if channel_id else ""

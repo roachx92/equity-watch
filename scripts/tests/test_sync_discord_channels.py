@@ -74,6 +74,21 @@ def test_sync_dry_run_writes_nothing(tmp_path, monkeypatch, capsys):
     assert "would-create" in capsys.readouterr().out
 
 
+def test_sync_config_defaults_to_repo_root_map(tmp_path, monkeypatch, capsys):
+    # --repo-root given, --config omitted: the map inside repo-root must be used,
+    # not the packaged default map elsewhere on disk.
+    root = _repo(tmp_path, ["WYFI"])
+    (pathlib.Path(root) / "discord-channels.json").write_text(
+        json.dumps({"_guild_id": "77"}), encoding="utf-8")
+    monkeypatch.setattr(onb, "list_channels", lambda gid, token=None: [])
+    monkeypatch.setattr(onb, "create_channel", lambda gid, name, token=None: "999")
+
+    rc = sync.main(["--repo-root", root])
+    assert rc == 0
+    raw = json.loads((pathlib.Path(root) / "discord-channels.json").read_text(encoding="utf-8"))
+    assert raw["WYFI"] == "999"
+
+
 def test_sync_missing_guild_fails_loud(tmp_path, capsys):
     root = _repo(tmp_path, ["WYFI"])
     cfg = _cfg(tmp_path, {"AAOI": "111"})  # no _guild_id, WYFI unmapped

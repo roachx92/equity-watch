@@ -82,11 +82,11 @@ jobs:
           BRANCH="discord-channel-sync/${GITHUB_SHA::7}"
           git checkout -b "$BRANCH"
           git add discord-channels.json
-          git commit -m "discord-channels: auto-create channels for new tickers"
+          git commit -m "discord-channels: provision channels for new tickers"
           git push -u origin "$BRANCH"
           PR_URL=$(gh pr create --base main --head "$BRANCH" \
-            --title "discord-channels: auto-create channels for new tickers" \
-            --body "Automated by the Discord channel-sync workflow: created a Discord channel for each newly-added ticker folder and recorded its channel id in the committed \`discord-channels.json\`.")
+            --title "discord-channels: provision channels for new tickers" \
+            --body "Automated by the Discord channel-sync workflow: provisioned a Discord channel (created, or adopted an existing same-named one) for each newly-added ticker folder and recorded its channel id in the committed \`discord-channels.json\`.")
           echo "Opened $PR_URL"
           gh pr merge "$PR_URL" --squash --delete-branch
           echo "Squash-merged $PR_URL"
