@@ -2,6 +2,8 @@ import json
 import sys
 import pathlib
 
+import pytest
+
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 import channelmap  # noqa: E402
 
@@ -37,6 +39,13 @@ def test_guild_and_dispatcher(tmp_path):
 
 def test_load_missing_file_returns_empty(tmp_path):
     assert channelmap.load(str(tmp_path / "nope.json")) == {}
+
+
+def test_load_malformed_json_raises_clear_error(tmp_path):
+    p = tmp_path / "discord-channels.json"
+    p.write_text("{ not valid json ", encoding="utf-8")
+    with pytest.raises(ValueError, match="not valid JSON"):
+        channelmap.load(str(p))
 
 
 def test_write_channel_upserts_and_preserves_reserved(tmp_path):

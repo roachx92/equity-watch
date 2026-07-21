@@ -143,24 +143,6 @@ jobs:
             Reminder: do not touch git. The workflow commits your news.md edits, opens the
             PR, merges it, and rebuilds the site.
 
-      - name: Post digest to Discord
-        if: always()
-        env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-          TICKER: ${{ steps.meta.outputs.ticker }}
-          DATE: ${{ steps.meta.outputs.date }}
-        run: |
-          set -uo pipefail
-          if [ ! -s whats-new-digest.md ]; then
-            echo "No whats-new-digest.md produced — nothing to post."
-            exit 0
-          fi
-          FLAG=""
-          [ -f whats-new-tripwire.flag ] && FLAG="--tripwire-fired"
-          python3 scripts/notify_discord_ticker.py \
-            --ticker "$TICKER" --kind whats-new --date "$DATE" \
-            --text-file whats-new-digest.md --require-channel $FLAG
-
       - name: Summarize token usage
         env:
           EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
@@ -273,6 +255,24 @@ jobs:
           echo "Opened $PR_URL"
           gh pr merge "$PR_URL" --squash --delete-branch
           echo "Squash-merged $PR_URL"
+
+      - name: Post digest to Discord
+        if: always()
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          TICKER: ${{ steps.meta.outputs.ticker }}
+          DATE: ${{ steps.meta.outputs.date }}
+        run: |
+          set -uo pipefail
+          if [ ! -s whats-new-digest.md ]; then
+            echo "No whats-new-digest.md produced — nothing to post."
+            exit 0
+          fi
+          FLAG=""
+          [ -f whats-new-tripwire.flag ] && FLAG="--tripwire-fired"
+          python3 scripts/notify_discord_ticker.py \
+            --ticker "$TICKER" --kind whats-new --date "$DATE" \
+            --text-file whats-new-digest.md --require-channel $FLAG
 
       - name: Rebuild the Pages site
         if: steps.git.outputs.changed == 'true'

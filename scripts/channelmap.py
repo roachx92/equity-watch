@@ -22,7 +22,10 @@ def load(path=DEFAULT_PATH):
     p = Path(path)
     if not p.exists():
         return {}
-    return json.loads(p.read_text(encoding="utf-8"))
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"discord-channels.json is not valid JSON ({path}): {exc}") from exc
 
 
 def resolve(ticker, path=DEFAULT_PATH):
