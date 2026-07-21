@@ -61,3 +61,16 @@ def test_dry_run_does_not_write(tmp_path, monkeypatch, capsys):
     raw = json.loads(pathlib.Path(cfg).read_text(encoding="utf-8"))
     assert "WYFI" not in raw
     assert "would ensure" in capsys.readouterr().out
+
+
+def test_adopts_themed_name_channel_via_slug(tmp_path, monkeypatch, capsys):
+    cfg = _cfg(tmp_path, {"_guild_id": "77"})
+    monkeypatch.setattr(onb, "list_channels",
+                        lambda gid, token=None: [{"id": "555", "name": "wyfi-warden", "type": 0}])
+    monkeypatch.setattr(onb, "create_channel",
+                        lambda *a, **k: (_ for _ in ()).throw(AssertionError("should adopt, not create")))
+    rc = onb.main(["--ticker", "WYFI", "--name", "WYFI Warden", "--config", str(cfg)])
+    assert rc == 0
+    raw = json.loads(pathlib.Path(cfg).read_text(encoding="utf-8"))
+    assert raw["WYFI"] == "555"
+    assert "adopted" in capsys.readouterr().out

@@ -22,6 +22,12 @@ import channelmap  # noqa: E402
 from discord_common import create_channel, list_channels  # noqa: E402
 
 
+def _slug(name):
+    """Approximate Discord's channel-name slugification for matching: lowercase,
+    collapse whitespace runs to single hyphens, strip surrounding whitespace."""
+    return "-".join(name.strip().lower().split())
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Ensure a ticker's Discord channel exists and is mapped.")
     ap.add_argument("--ticker", required=True, help="ticker symbol, e.g. WYFI")
@@ -50,8 +56,9 @@ def main(argv=None):
         return 0
 
     match = None
+    target = _slug(name)
     for ch in list_channels(gid):
-        if ch.get("name") == name and ch.get("type") == 0:
+        if ch.get("type") == 0 and _slug(ch.get("name", "")) == target:
             match = str(ch["id"])
             break
 
