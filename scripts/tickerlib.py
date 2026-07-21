@@ -35,6 +35,7 @@ SECTOR_SLUGS = (
     "ai-dc-lessor",
     "ai-optics",
     "btc-mining",
+    "btc-treasury",
     "catv-broadband",
 )
 _SECTOR_HEADER = "## Sector lens"
