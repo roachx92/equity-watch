@@ -68,19 +68,6 @@ jobs:
           restore-keys: |
             audit-state-v1-
 
-      - name: Materialize Discord webhook config
-        env:
-          WEBHOOKS_JSON: ${{ secrets.DISCORD_WEBHOOKS_JSON }}
-        run: |
-          set -euo pipefail
-          mkdir -p .secrets
-          if [ -n "${WEBHOOKS_JSON:-}" ]; then
-            printf '%s' "$WEBHOOKS_JSON" > .secrets/discord-webhooks.json
-            echo "Wrote .secrets/discord-webhooks.json from DISCORD_WEBHOOKS_JSON."
-          else
-            echo "DISCORD_WEBHOOKS_JSON not set — per-ticker posts will skip gracefully."
-          fi
-
       - name: Run the deterministic tier
         id: audit
         run: |
@@ -104,6 +91,8 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Decide and post (exception-only)
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: |
           set -euo pipefail
           python3 scripts/audit_notify.py \
@@ -117,7 +106,7 @@ jobs:
         # in each ticker's own channel, so a repo-wide roll-up would be noise.
         if: github.event_name == 'schedule' && !inputs.dry_run
         env:
-          DISCORD_DISPATCHER_WEBHOOK: ${{ secrets.DISCORD_DISPATCHER_WEBHOOK }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: |
           set -euo pipefail
           python3 scripts/notify_discord_dispatch.py \
