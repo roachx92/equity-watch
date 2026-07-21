@@ -18,11 +18,13 @@ Part 1 reorganized the markdown. Part 2 moves the remaining **deterministic** wo
 
 7. **Summary-count stamper. — DROPPED.** *(Was: `scripts/summarize_counts.py` stamping `tickers_checked`/`tripwires_fired`/`edge_shifts` onto `summaries/<date>.md`.)* Superseded with the `summaries/<date>.md` run-digest itself when the all-ticker daily watch was retired (PR #29); the per-ticker digest carries no aggregate count block.
 
-6. **Discord notification of the per-ticker digest. — DONE.** At the end of a `/whats-new`
-   or `/earnings-digest <TICKER>` run, `scripts/notify_discord_ticker.py` posts the §B
-   chat digest (colored header embed + chunked body) to that ticker's Discord webhook,
-   looked up in `.secrets/discord-webhooks.json`. Runs locally in-session — deterministic
-   plumbing outside the LLM's assessment, the dividing-line pattern in action.
+6. **Discord notification of the per-ticker digest. — DONE.** At the end of a
+   `whats-new.yml` or `earnings-digest.yml` run, `scripts/notify_discord_ticker.py`
+   posts the §B chat digest (colored header embed + chunked body) to that ticker's
+   Discord channel, resolved from the committed `discord-channels.json` map
+   (`scripts/channelmap.py`) and posted via the Discord bot (single `DISCORD_BOT_TOKEN`
+   repo secret — no more per-channel webhooks). Runs as a deterministic workflow step,
+   not inside the Claude agent prompt — the dividing-line pattern in action.
 
 *(Superseded, July 2026 — dropped: the scheduled all-ticker daily watch and its
 `summaries/<date>.md` → push-triggered Discord pipeline. The pipeline is now per-ticker,
