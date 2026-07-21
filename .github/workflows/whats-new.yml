@@ -61,19 +61,6 @@ jobs:
       - name: Create working branch
         run: git checkout -b "${{ steps.meta.outputs.branch }}"
 
-      - name: Materialize Discord webhook config
-        env:
-          WEBHOOKS_JSON: ${{ secrets.DISCORD_WEBHOOKS_JSON }}
-        run: |
-          set -euo pipefail
-          if [ -n "${WEBHOOKS_JSON:-}" ]; then
-            mkdir -p .secrets
-            printf '%s' "$WEBHOOKS_JSON" > .secrets/discord-webhooks.json
-            echo "Wrote .secrets/discord-webhooks.json from DISCORD_WEBHOOKS_JSON."
-          else
-            echo "DISCORD_WEBHOOKS_JSON not set — the Discord post will skip gracefully."
-          fi
-
       - name: Run what's-new check
         id: claude
         uses: anthropics/claude-code-action@v1
@@ -136,13 +123,10 @@ jobs:
                 `whats-new-digest.md` in the repo root. This full, detailed digest is for
                 DISCORD — it is NOT the PR body. Always write it, even on a clean,
                 nothing-fired check.
-              - Post the digest to the ticker's Discord channel (add --tripwire-fired only
-                if a [TRIPWIRE] hit this run):
-                  python scripts/notify_discord_ticker.py \
-                    --ticker ${{ steps.meta.outputs.ticker }} --kind whats-new \
-                    --date ${{ steps.meta.outputs.date }} --text-file whats-new-digest.md
-                The poster exits 0 and skips if no webhook is configured for the ticker —
-                that is expected, not an error.
+              - Do NOT post to Discord — a later workflow step posts deterministically from
+                whats-new-digest.md. Only signal a fired tripwire: if any [TRIPWIRE] hit this
+                run, create an empty file `whats-new-tripwire.flag` in the repo root (it is
+                gitignored); otherwise do not create it.
               - Write a SEPARATE, CONCISE PR body to `whats-new-pr-body.md` in the repo root —
                 this is what the PR shows; the full item list and assessment live in Discord
                 and in news.md. Always write it, even on a clean check. Keep it to just:
@@ -271,6 +255,24 @@ jobs:
           echo "Opened $PR_URL"
           gh pr merge "$PR_URL" --squash --delete-branch
           echo "Squash-merged $PR_URL"
+
+      - name: Post digest to Discord
+        if: always()
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          TICKER: ${{ steps.meta.outputs.ticker }}
+          DATE: ${{ steps.meta.outputs.date }}
+        run: |
+          set -uo pipefail
+          if [ ! -s whats-new-digest.md ]; then
+            echo "No whats-new-digest.md produced — nothing to post."
+            exit 0
+          fi
+          FLAG=""
+          [ -f whats-new-tripwire.flag ] && FLAG="--tripwire-fired"
+          python3 scripts/notify_discord_ticker.py \
+            --ticker "$TICKER" --kind whats-new --date "$DATE" \
+            --text-file whats-new-digest.md --require-channel $FLAG
 
       - name: Rebuild the Pages site
         if: steps.git.outputs.changed == 'true'

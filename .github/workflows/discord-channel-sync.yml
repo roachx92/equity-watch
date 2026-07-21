@@ -1,0 +1,92 @@
+name: Discord channel sync
+
+# Provision a Discord channel for any watched ticker that doesn't have one yet.
+#
+# The watch-list is the tickers/ directory (one folder per name). A new ticker —
+# added by a deep-dive that seeds tickers/<T>/news.md — should get its Discord
+# channel automatically, so posting "just works" on its first whats-new /
+# earnings-digest run without a manual onboarding step.
+#
+# scripts/sync_discord_channels.py (NO Claude) enumerates the watch-list, creates
+# a bot channel for each unmapped ticker (idempotent — already-mapped tickers are
+# skipped), and writes the ids into the committed discord-channels.json. This
+# workflow then publishes that map change via the repo's branch → PR → squash-merge
+# convention, so the routing map's only writer path stays reviewed.
+#
+# Idempotent + loop-safe: the only commit it makes touches discord-channels.json
+# (never tickers/**), so it cannot re-trigger itself; and a GITHUB_TOKEN merge does
+# not fire further workflows. Auto-created channels get the default lowercased-ticker
+# name — onboard a themed name manually first if you want one (the sync then skips it).
+#
+# Requires the DISCORD_BOT_TOKEN repo secret (bot with Manage Channels). If the
+# secret is unset the sync step's create call fails loudly — that is intended; the
+# whole point is that a missing channel is visible, not silent.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tickers/**/news.md'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'List channels that would be created, create/commit nothing'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+# Serialize so two ticker pushes can't race on discord-channels.json / open
+# duplicate sync PRs.
+concurrency:
+  group: discord-channel-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config --global user.name "equity-watch-bot"
+          git config --global user.email "equity-watch-bot@users.noreply.github.com"
+
+      - name: Create channels for unmapped tickers
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python3 scripts/sync_discord_channels.py --dry-run
+          else
+            python3 scripts/sync_discord_channels.py
+          fi
+
+      - name: Open & squash-merge PR if the map changed
+        if: ${{ inputs.dry_run != true }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- discord-channels.json; then
+            echo "No channel-map changes — nothing to publish."
+            exit 0
+          fi
+          BRANCH="discord-channel-sync/${GITHUB_SHA::7}"
+          git checkout -b "$BRANCH"
+          git add discord-channels.json
+          git commit -m "discord-channels: provision channels for new tickers"
+          git push -u origin "$BRANCH"
+          PR_URL=$(gh pr create --base main --head "$BRANCH" \
+            --title "discord-channels: provision channels for new tickers" \
+            --body "Automated by the Discord channel-sync workflow: provisioned a Discord channel (created, or adopted an existing same-named one) for each newly-added ticker folder and recorded its channel id in the committed \`discord-channels.json\`.")
+          echo "Opened $PR_URL"
+          gh pr merge "$PR_URL" --squash --delete-branch
+          echo "Squash-merged $PR_URL"

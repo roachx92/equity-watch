@@ -23,6 +23,8 @@ site_src/
 /whats-new-pr-body.md
 /earnings-digest-body.md
 /earnings-digest-pr-body.md
+/whats-new-tripwire.flag
+/earnings-digest-tripwire.flag
 
 # macOS
 .DS_Store

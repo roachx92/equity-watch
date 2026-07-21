@@ -9,7 +9,8 @@ name: Dispatcher (deterministic triggers)
 # gate with a 48h per-ticker rate cap; gate state lives in the Actions cache
 # (never committed to main). Every run posts the decision table to a dedicated
 # Discord channel (heartbeat) via scripts/notify_discord_dispatch.py + the
-# DISCORD_DISPATCHER_WEBHOOK secret — skips gracefully if the secret is unset.
+# DISCORD_BOT_TOKEN secret — skips gracefully if the _dispatcher channel is
+# not mapped in discord-channels.json.
 # See docs/superpowers/specs/2026-07-18-dispatcher-triggers-design.md and
 # docs/superpowers/specs/2026-07-18-dispatcher-discord-notification-design.md.
 
@@ -64,7 +65,7 @@ jobs:
       - name: Notify Discord
         if: always()
         env:
-          DISCORD_DISPATCHER_WEBHOOK: ${{ secrets.DISCORD_DISPATCHER_WEBHOOK }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: |
           set -euo pipefail
           python3 scripts/notify_discord_dispatch.py \
