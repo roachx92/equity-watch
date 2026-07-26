@@ -1,6 +1,6 @@
 ---
 company: "WhiteFiber · NASDAQ"
-blurb: "Sub-scale neocloud on a thin float; the thesis reduces to the ~$865M Nscale colocation deal converting on schedule."
+blurb: "Sub-scale AI-datacenter lessor on an 11M-share float; a well-priced 40MW lease whose sole tenant is building 1.2GW of its own — the question is duration and the second tenant, not credit."
 ---
 
 # WYFI — WhiteFiber, Inc. (NASDAQ: WYFI)
@@ -8,28 +8,29 @@ blurb: "Sub-scale neocloud on a thin float; the thesis reduces to the ~$865M Nsc
 **Canonical deep-dive:** [`reports/2026-07-25.md`](reports/2026-07-25.md) (full-framework re-run, 2026-07-25; supersedes — but does not overwrite — the immutable [2026-07-14](reports/2026-07-14.md) snapshot). Full-diligence snapshots land at `reports/<YYYY-MM-DD>.md`; this line links to the latest (resolved by glob). This file holds only the monitoring state; the Edge and Tripwires below are the **binding** pre-committed triggers. **The 2026-07-25 re-run left them untouched** and proposed changes in its Refresh Provenance block — including a re-derived Edge, a re-pointed Tripwire #2, and a newly proposed fifth trigger — **awaiting an explicit human decision.**
 
 ## Thesis context (one-paragraph)
-WhiteFiber is a sub-scale neocloud (GPU cloud + colocation) carved out of Bit Digital (which owns ~70%), on a thin ~11-12M-share float with very high short interest. The whole thesis reduces to one contract: the ~$865M/10-yr Nscale colocation deal is ~94% of the colo backlog. NC-1 (Madison, NC) is a genuinely powered site; the build is bridge-financed pending permanent financing. It is a levered, single-counterparty conversion story, not a diversified compounder.
+WhiteFiber runs a GPU cloud (Iceland) and an AI/HPC colocation business (Enovum/Montreal + the NC-1 campus in Madison, NC), carved out of Bit Digital (~70.1% owner), on an **11.19M-share free float** against 38.61M shares outstanding, with ~36% short interest. One contract dominates: the **~$865M/10-yr/40MW Nscale colocation deal is ~94% of the $920.95M colocation RPO**, and **zero Nscale revenue has been recognized**. NC-1 is genuinely powered (54MW delivered, 99MW agreed with Duke); the build remains bridge-financed pending a permanent close. The lease itself prices *above* peers per MW-year — the issues are **duration** (10 years vs peers' 15–25), **scale** (40MW vs a cohort holding gigawatts), and a tenant simultaneously building **1.2GW** of its own capacity in Texas. *(Updated 2026-07-25 alongside the Edge/Tripwire promotion; prior text framed this as a pure conversion story, which the re-derived Edge supersedes.)*
 
 ## Edge (variant view — what the crowd may have wrong)
-*Verbatim from the original deep-dive, §16:*
+*Promoted 2026-07-25 from [`reports/2026-07-25.md`](reports/2026-07-25.md) §18 (explicit human decision), replacing the version derived from the original deep-dive §16. Cause: the world moved / the prior was incomplete — not re-derivation drift. Full diff and reasoning: that report's Refresh Provenance block.*
 
-> Your edge — what do you believe that the crowd doesn't? The Street lumps WhiteFiber in with money-losing neoclouds, and the July 2026 "Meta Compute" headline hit it by association (CoreWeave/Nebius fell 10-12%). The genuine variant view: WhiteFiber's direct customer is Nscale, NOT Meta — and Nscale just raised a $2B Series C ($14.6B post) plus a $900M revolver, so its ability to pay is stronger than the sympathy selloff implied; NC-1 is a real, permitted, powered site (power is the true bottleneck). If NC-1 financing closes and Nscale bills on schedule, the ~$921M backlog converts and WhiteFiber re-rates largely independent of neocloud sentiment. (If instead you believe the crowd UNDER-appreciates the single-counterparty risk, the honest edge is bearish. Either way, a real edge here is a specific view on Nscale's solvency and NC-1 financing — not a bet on the neocloud tape.)
+> Your edge — what do you believe that the crowd doesn't? The prior underwriting of this name, and the crowd, framed the question as **"can Nscale pay?"** — with the corollary that if it can, WhiteFiber re-rates independently of the neocloud tape. **That proposition has now been tested in the open and it failed.** Nscale's credit demonstrably strengthened over six weeks (a **$900M twelve-bank revolver closed 7 Jul 2026**, atop a $2B Series C at $14.6B post and a ~$6bn Microsoft compute contract), and across that same window WhiteFiber fell from **$44.77 (22 Jun) to $23.63 (24 Jul)** — a 47% de-rating *into improving counterparty news*. The variant view is that **counterparty credit was never the pricing variable, and the market has already said so.** What actually prices this equity is (a) its beta to a factor it does not control — 0.68 correlation to CoreWeave, 1.18 beta, ~157% realized vol, **2× down-capture against 0.4× up-capture** on an 11.19M float — and (b) **whether a second tenant ever signs**, because a 10-year, one-building, 40 MW position whose sole tenant is simultaneously building **1.2 GW of its own capacity** in Texas is not an annuity; it is a **wasting lease with a renewal cliff**. If you do not hold a specific view on **who signs the next NC-1 tranche, and when**, you do not have an edge here; you are underwriting a backlog whose credit question is already solved and already in the price.
 
 ## Sector lens
 *Assigned 2026-07-19 per `framework/sector-lens.md` §K.1, derived from the deep-dive's §5/§6/§10 and anchored against its §18.*
 
-- **`ai-dc-lessor` — sole.** Channels: **peer-comp** and **demand**. The thesis reduces to one neocloud counterparty — Nscale is ~94% of colo backlog — so neocloud funding and credit conditions *are* the pre-mortem, and Tripwire #2 watches exactly that. Tripwire #1 (NC-1 permanent financing) is priced off the same datacenter-financing conditions the peer complex trades on.
+- **`ai-dc-lessor` — sole.** Channels: **peer-comp** (dominant) and **demand**. Anchoring re-stated 2026-07-25 after the Edge/Tripwire promotion: the Edge now turns *explicitly* on a peer-comp variable — WYFI's 0.68 correlation to CoreWeave, 1.18 beta, and 2× down / 0.4× up capture against the neocloud complex — so sector membership is anchored more strongly than before, not less. Tripwire #1 (NC-1 permanent financing) is priced off the datacenter-financing conditions the peer complex trades on; Tripwire #5 (a second, non-Nscale tenant) is decided in the same tenant pool the cohort competes for, where peers quote 300 MW blocks against WhiteFiber's 40 MW.
 - **Not a sector: the Bit Digital overhang.** Tripwire #4 (the ~70% holder's no-sell pledge lapsing) is holder-specific supply on a thin float — a company-specific structural risk, not a theme the market prices across a peer set. Per §K.1's anchoring rule it earns no slug.
 
 ## Tripwires (pre-committed exit / re-underwrite triggers)
-*Verbatim from the original deep-dive, §16. Expiry dates tracked in the table below (added 2026-07-19, explicit decision, §J tripwire-expiry tracking) — the date each numbered trigger's window closes or its premise lapses; trigger text unchanged. An expired, unfired trigger is flagged by the audit for removal/replacement, never removed silently.*
+*Trigger identity (the numbering) is stable across promotions — #1 is always "the financing trigger," #2 "the Nscale-counterparty trigger," #3 "the billing/conversion trigger," #4 "the Bit Digital overhang trigger." Text for #1–#4 promoted 2026-07-25 (explicit human decision) from [`reports/2026-07-25.md`](reports/2026-07-25.md) §18; **#5 is newly added** in the same decision. Expiry dates in the table below (§J.4); per-trigger change history in the Change log beneath it.*
 
 Your tripwire — what would prove you wrong? Pre-commit to re-underwriting or exiting if ANY of these fire:
 
-- **(1)** NC-1 permanent financing fails to close, or closes on punitive / heavily-dilutive terms — the build stays stranded on the 9.5% related-party bridge.
-- **(2)** Nscale shows credit stress, renegotiates, or delays its colocation take — since Nscale is ~94% of colo backlog, this is the Pre-Mortem (§8) and it breaks the core thesis.
-- **(3)** the Q2/Q3'26 prints show the Nscale phases NOT billing at margin on schedule — backlog isn't converting to recognized revenue.
-- **(4)** Bit Digital signals intent to sell (or the 2026 no-sell pledge lapses and supply hits the thin float).
+- **(1)** NC-1 permanent financing **fails to close by 2026-12-31**, or closes on punitive / heavily-dilutive terms — including **any equity raise executed below the $25.91 convert strike** — leaving the build stranded on the 9.5% related-party bridge with its **3% OID and 1.1× MOIC floor**, or a disclosed adverse change to the RBC or Landsbankinn facilities (covenant breach, non-extension, reduction).
+- **(2)** **Nscale directs its capacity growth to its own campuses rather than expanding at NC-1, or signals non-renewal** — the tenant-becomes-competitor path, given it is already building ~240 MW in Texas toward 1.2 GW plus 90 MW in the UK. (Its *credit* question is substantially resolved by the 7 Jul 2026 twelve-bank revolver; the residual counterparty risk is renewal, not solvency.)
+- **(3)** the Q2 2026 print (provisionally 2026-08-13) or any subsequent print shows the Nscale phases **still NOT billing at margin** — a **fourth slipped date**, after 30 Apr → 30 May → "June 2026" → "during Q2" — backlog isn't converting to recognized revenue.
+- **(4)** Bit Digital signals intent to sell, **its 2026 no-sell pledge lapses on 31 Dec 2026 without renewal, or its ETH-collateralized facility is margin-called** — any of which puts ~27M shares or the bridge itself in play against an 11.19M float.
+- **(5)** NC-1's next tranche remains **unleased to a second, non-Nscale tenant through 2027-06-30** — confirming this is a single-lease asset rather than a platform.
 
 Any one = thesis broken; decide the action now, not after the drawdown.
 
@@ -39,6 +40,16 @@ Any one = thesis broken; decide the action now, not after the drawdown.
 | 2 | 2027-07-31 |
 | 3 | 2026-12-31 |
 | 4 | 2027-03-31 |
+| 5 | 2027-06-30 |
+
+### Change log
+*Per §J.4 — the pointer, not the argument. Full reasoning for each change is in the superseding report's Refresh Provenance block.*
+
+- **2026-07-25** — **#1** *sharpened*: added the dated **2026-12-31** close deadline, the **$25.91 convert-strike** reference for "heavily dilutive," the bridge's 3% OID / 1.1× MOIC terms, and the RBC/Landsbankinn facilities. Cause: the original was undated and therefore unfireable on timing alone; the convert strike gives "dilutive" an observable line. ([`reports/2026-07-25.md`](reports/2026-07-25.md))
+- **2026-07-25** — **#2** *re-pointed* (credit stress → renewal / tenant-becomes-competitor). Cause: the world moved — Nscale's **$900M twelve-bank revolver closed 7 Jul 2026** atop a $14.6B Series C and a ~$6bn Microsoft contract, substantially retiring the solvency risk the trigger was written for, while diligence surfaced that Nscale is building ~240 MW in Texas toward **1.2 GW** plus 90 MW in the UK. As written the trigger watched a risk the evidence had largely resolved. ([`reports/2026-07-25.md`](reports/2026-07-25.md))
+- **2026-07-25** — **#3** *sharpened*: names the **fourth** slipped date explicitly and dates the first test to the Q2 print. Cause: the prior was wrong to imply a single schedule — three slips are now documented across the 8-K (30 Apr/30 May), 10-K ("June 2026") and 10-Q ("during Q2"). ([`reports/2026-07-25.md`](reports/2026-07-25.md))
+- **2026-07-25** — **#4** *broadened*: added the **31 Dec 2026 pledge-lapse date** and an **ETH-facility margin call** as equivalent triggers. Cause: the pledge is voluntary and covers calendar 2026 only, and ETH at ~$1,861–1,885 (24 Jul 2026) sits ~39% below Bit Digital's ~$3,045 cost basis and ~11% below its 31 Mar mark — a margin call would force the same outcome by a different route. ([`reports/2026-07-25.md`](reports/2026-07-25.md))
+- **2026-07-25** — **#5** *newly added*: no second, non-Nscale NC-1 tenant through 2027-06-30. Cause: the re-derived Edge turns on whether this is a platform or a single lease, and without this trigger that Edge would be unfalsifiable. ([`reports/2026-07-25.md`](reports/2026-07-25.md))
 
 ## Recent News Log
 *(Entry format: [`framework/latest-updates-workflow.md`](../../framework/latest-updates-workflow.md) §F.1 — the single source of truth. Tag only when an item actually bears on the sections above, using the closed vocabulary in §F.1 — `[EDGE+]`/`[EDGE−]` (binary — omit if neither) and `[TRIPWIRE #n — fires|early-warning|does not fire]`.)*
