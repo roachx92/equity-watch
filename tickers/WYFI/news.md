@@ -5,7 +5,7 @@ blurb: "Sub-scale neocloud on a thin float; the thesis reduces to the ~$865M Nsc
 
 # WYFI — WhiteFiber, Inc. (NASDAQ: WYFI)
 
-**Canonical deep-dive:** [`reports/2026-07-14.md`](reports/2026-07-14.md) (generated 2026-07-14). Full-diligence snapshots land at `reports/<YYYY-MM-DD>.md`; this line links to the latest. This file holds only the monitoring state.
+**Canonical deep-dive:** [`reports/2026-07-25.md`](reports/2026-07-25.md) (full-framework re-run, 2026-07-25; supersedes — but does not overwrite — the immutable [2026-07-14](reports/2026-07-14.md) snapshot). Full-diligence snapshots land at `reports/<YYYY-MM-DD>.md`; this line links to the latest (resolved by glob). This file holds only the monitoring state; the Edge and Tripwires below are the **binding** pre-committed triggers. **The 2026-07-25 re-run left them untouched** and proposed changes in its Refresh Provenance block — including a re-derived Edge, a re-pointed Tripwire #2, and a newly proposed fifth trigger — **awaiting an explicit human decision.**
 
 ## Thesis context (one-paragraph)
 WhiteFiber is a sub-scale neocloud (GPU cloud + colocation) carved out of Bit Digital (which owns ~70%), on a thin ~11-12M-share float with very high short interest. The whole thesis reduces to one contract: the ~$865M/10-yr Nscale colocation deal is ~94% of the colo backlog. NC-1 (Madison, NC) is a genuinely powered site; the build is bridge-financed pending permanent financing. It is a levered, single-counterparty conversion story, not a diversified compounder.
