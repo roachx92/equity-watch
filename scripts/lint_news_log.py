@@ -15,6 +15,12 @@ Warning — printed, does NOT fail (exit stays 0):
      Older entries predate the link requirement (bare `Source: GlobeNewswire`),
      so this is surfaced, not blocked, until a cleanup pass. Promote to a hard
      fail once the corpus is linked.
+  6. stays within §F.1's ~1,200-character ceiling. **Scoped to entries dated on
+     or after LENGTH_RULE_FROM**, because §F.1's length rule is explicitly
+     forward-looking: the log is a dated record of what was known when, and
+     existing entries are never rewritten to match a later format revision.
+     Without that scoping the warning would flood on historical entries nobody
+     is permitted to fix.
 
 Real entries use compound tags (`[Sentiment/Valuation]`), status suffixes
 (`[TRIPWIRE #4 — touched, not sustained]`), and date ranges — all valid here.
@@ -33,11 +39,21 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from tickerlib import (  # noqa: E402
+    entry_date,
     log_entries,
     news_files,
     parse_assessment_tags,
     repo_root,
 )
+
+#: §F.1's length ceiling. Not a hard limit — an entry that genuinely needs 1,300
+#: characters is fine; one that needs 4,000 is the research pass pasted in rather
+#: than distilled, and that is what this catches.
+LENGTH_CEILING = 1200
+
+#: The date §F.1's length rule was adopted. Entries dated before this predate the
+#: rule and are historical record — never rewritten (§F.1), so never warned about.
+LENGTH_RULE_FROM = "2026-07-29"
 
 _LOG_HEADER = "## Recent News Log"
 _ENTRY_LEAD = re.compile(r"^-\s+\d{4}-\d{2}-\d{2}(?:\s+to\s+\d{4}-\d{2}-\d{2})?\s+—\s+\[[^\]]+\]")
@@ -60,6 +76,15 @@ def lint_entry(line: str) -> tuple[list[str], list[str]]:
     warnings = []
     if "Source:" not in line or not _LINK.search(line):
         warnings.append("bare source, no linked citation (`Source:` + [label](http…))")
+
+    when = entry_date(line)
+    if when and when >= LENGTH_RULE_FROM and len(line) > LENGTH_CEILING:
+        warnings.append(
+            f"{len(line)} chars — over §F.1's ~{LENGTH_CEILING}-char ceiling. "
+            "Cut broad-market colour, prose on tripwires this item does not "
+            "move, and commentary on prior entries; keep the figures that "
+            "change the assessment and the → clause"
+        )
 
     # Assessment-tag grammar (§F.1). Polarity drives the staleness audit's
     # routing, so an unclassifiable tag is a hard failure: silently treating it

@@ -128,9 +128,17 @@ occurred**, so a later reader can tell an indirect move from a direct one — e.
 
 ### Content rules
 
-- **Full detail — do NOT compress to a vague one-liner.** Carry the research pass's full substantive detail *into the entry itself*: exact figures, named counterparties, named sources, deal terms. The log entry must stand on its own without the reader going back to the source; a gloss like "reported strong results" is a failure of this rule.
+**Length ceiling — roughly 1,200 characters (~150–200 words) per entry.** A log nobody re-reads has failed at its actual job, which is to be the accumulated state a future run and a future reader work from. Entries that run 3,000–5,000 characters are not more rigorous; they are the research pass pasted in rather than distilled, and the finding drowns.
+
+**Reference instance:** IREN's **2026-07-01 Together AI entry** (`tickers/IREN/news.md`) — read it there rather than from a copy here. ~1,200 characters, and every part earns its place: a one-sentence headline carrying a single finding, two sentences of figures, an explicit `→` clause naming the *specific* tripwire clause it bears on, the honest limits in one clause, source, tags. That shape is the target.
+
+- **Detail that changes the assessment stays; everything else goes.** The anti-gloss rule still binds — "reported strong results" is still a failure, and exact figures, named counterparties and deal terms still belong *in* the entry so it stands on its own. But that was never a licence for length. **Cut:** broad-market colour that is not about this ticker (index levels, peer ticks, macro narration beyond the one line that explains the move); prose assessment of tripwires the item does **not** move (the tag says it — `[TRIPWIRE #3 — does not fire]` needs no paragraph); meta-commentary about what a *previous* entry said; and multi-sentence confidence essays where one clause does the work ("price is quote-derived, moderate confidence").
+- **One finding per headline.** If the bolded headline needs two "and"s or an em-dashed second clause to fit everything, that is two entries.
 - **One entry per distinct event.** Split a multi-fact disclosure — an earnings call covering several separate items, say — into **separate entries**, each independently dated, categorized, and tagged. Never merge unrelated facts into one line to save space.
-- **State the implication, not just the fact.** The `→ impact/implication` clause is mandatory: what this does to the thesis.
+- **State the implication, not just the fact.** The `→ impact/implication` clause is mandatory and is the entry's centre of gravity: *what this does to the thesis*. It should be readable on its own and name the tripwire clause or Edge branch it touches, not gesture at "the thesis" generally.
+- **A correction to an earlier entry is its own entry**, dated the day the correction was established — not a parenthetical bolted onto an unrelated item. That keeps both the original and the correction independently readable, and stops one entry carrying two jobs.
+
+**This is forward-looking only.** It governs new entries; existing log entries are historical record and are **never** rewritten to match a later format revision — the same rule the assessment-tag positional convention above carries, and for the same reason: the log is a dated record of what was known when, and retro-editing destroys that.
 
 ### Sources
 
