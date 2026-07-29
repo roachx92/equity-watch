@@ -37,13 +37,19 @@ Repo-local, stdlib-only, no network, no LLM. **Stateless and idempotent**: every
 
 | Signal | Source |
 |---|---|
-| Report age | `latest_report_date()` (or `--baseline`) vs. today |
-| Unincorporated items | `news.md` log entries dated **after** the baseline |
+| Report age | `latest_report_date()` vs. today — **always the report's own date**, never the review baseline |
+| Unincorporated items | `news.md` log entries dated **after** the effective baseline |
 | `[EDGE−]` / `[EDGE+]` accumulation | assessment tags on those entries |
+| **`[EDGE−]` composition** | how many are **indirect** (the entry carries `[Sector/…]` or a `Sentiment…` framework tag) vs. **company-specific** (§J.2 below) |
 | Tripwire hits by polarity | `fires` / `early-warning` / `does not fire`, with `#n` |
 | Quarters reported since | `earnings-debrief.md` headings after the baseline |
 | **Tripwire expiry** | `| # | Expires |` table vs. **today** (§J.4) |
+| **Reviewed baseline / PATCH pending** | the ticker's `## Audit log` block (§J.5) |
 | Canonical-link drift | `news.md` link vs. glob-latest — a hygiene error, per CLAUDE.md's report-resolution rule |
+
+**Two ages, and conflating them is a bug.** `age_days` measures history since the *effective* baseline — what has accumulated unreviewed. `report_age_days` always measures the report itself. **The staleness horizon and the age-based REFRESH key off `report_age_days`**, because a report does not get younger by being reviewed: dismissing `[EDGE−]` pressure says nothing about whether a 200-day-old snapshot still describes the company.
+
+**Baseline precedence:** an explicit `--baseline` (the provenance path, §J.7) beats a `Reviewed baseline:` in the `## Audit log`, which beats the report's own date.
 
 **Tag polarity comes from `tickerlib.parse_assessment_tags`** — the same classifier `lint_news_log.py` uses. A second parser would drift and silently re-acquire the false-positive it exists to prevent: `[TRIPWIRE #4 — reaffirmed, does not fire]` must never read as fired.
 
@@ -66,6 +72,8 @@ Repo-local, stdlib-only, no network, no LLM. **Stateless and idempotent**: every
 **Why `[EDGE−]` accumulation escalates rather than concluding.** A tag count is a proxy for *pressure*; it is never evidence the Edge *changed*. The live corpus proves the difference: both of CIFR's `[EDGE−]` entries state in their own text that the Edge's **core was corroborated** — one says so outright — because that Edge is two-sided ("either the bullish variant … or the bearish variant … pick a side"), so an item can cut against one branch while confirming the thesis. Concluding RE-UNDERWRITE from the count alone dispatches four Opus agents on a name whose own log says the thesis is working.
 
 Only three things speak to actual change, in ascending strength: the tag count (pressure) → reading the entries (pressured vs. falsified) → **re-deriving §18 and diffing it** (proof). Only the third is conclusive, and it happens *during* the re-run — so the audit's job is to make that bet cheap and evidence-backed, not to eliminate it.
+
+**Composition sharpens the count without concluding from it.** The tier reports how many `[EDGE−]` are **indirect** — the entry carries a `[Sector/…]` or `Sentiment…` framework tag, i.e. the item reached the ticker through the lens or the tape rather than a company event — versus **company-specific**. "6 `[EDGE−]`, all indirect, 0 company-specific" and "2 `[EDGE−]`, both company-specific" are the same count and completely different findings, and the corpus shows both live: CIFR's July escalation was entirely cohort beta, while AAOI's was two company events. This **refines the evidence; it never suppresses the escalation.** A genuine sector event *can* falsify a thesis whose Edge turns on a sector variable, so auto-dismissing all-indirect pressure would re-acquire the exact failure the two-tier design exists to prevent.
 
 A tag that says `fires` is different in kind: a prior run already made that assessment against the pre-committed trigger, so the deterministic tier is **relaying a determination, not inferring one**.
 
@@ -118,6 +126,42 @@ Separate **how often the audit runs** from **how often it speaks**. It is cheap 
 - **Content must be actionable:** the verdict, the *specific dated evidence* that produced it, and the exact command to run. The audit should arrive carrying the decision, so the human is approving or declining rather than investigating from scratch.
 
 **Why `early-warning` never escalates the route.** `standing-rules.md` §A: a threshold "cannot be quietly softened once it is crossed **or approached**." A REFRESH re-derives §18 and then prompts to promote it — so routing an approaching-but-untripped trigger there would manufacture a threshold-rewrite opportunity at exactly the moment the threshold is being approached.
+
+### Posting a *resolved* verdict — the judgment tier's output
+
+`ESCALATE` is never a final answer (§J.2), so it must never be what gets posted. The deterministic tier's raw JSON carries `verdict: ESCALATE`; the reporting layer takes the conclusion instead:
+
+```
+python scripts/audit_notify.py --results <audit-json> \
+  --resolve CIFR=CLEAN \
+  --resolve-evidence "CIFR=<why the judgment tier concluded that, with dated evidence>"
+```
+
+The resolved verdict is what lands in the re-nag cache, which is the point: a conclusion reached once stops re-alerting on identical evidence. A resolution **always** speaks, even resolving *down* to CLEAN — the reader needs to see that the escalation was reviewed and closed, not that it silently stopped appearing. **Never hand-build a results file to fake the tier's own output**; that path is unauditable and was the only option before this flag existed.
+
+### `## Audit log` — the audit's only durable memory
+
+The deterministic tier is stateless (§J.2) and its outputs are ephemeral (§J.7), so a judgment-tier conclusion evaporates when the run ends and **the next run recomputes the same ESCALATE and posts it again** — discarding the human decision and re-nagging on identical evidence. That is a real defect, observed live: CIFR's 2026-07-29 audit resolved six sector-channel `[EDGE−]` to CLEAN, and the next routine push-triggered run would have re-posted ESCALATE on the same six entries.
+
+The fix is **not** to give the audit a memory of its own — that breaks the idempotence the provenance path depends on. It is to let a **human record the conclusion as repo state**, in an optional `## Audit log` section in the ticker's `news.md`, placed after `## Tripwires` and before `## Recent News Log`:
+
+```
+## Audit log
+*Human-recorded conclusions from the judgment tier. The audit reads this; it never writes it.*
+
+- **2026-07-29** — ESCALATE resolved **CLEAN**. 6 [EDGE−] since 2026-07-20, all
+  sector/sentiment-channel with no company event; Edge pressured, not falsified.
+  **Reviewed baseline: 2026-07-29.**
+- **2026-07-29** — **PATCH pending:** Tripwire #2's `~$17.79` strike was superseded
+  by the 2025-11-20 8-K ($430M → $435M Top-Up Threshold, implying `~$17.99`).
+```
+
+Two fields, both optional and both parsed by `tickerlib.audit_log`:
+
+- **`Reviewed baseline: YYYY-MM-DD`** — pressure logged on or before this date has been reviewed and dismissed; the audit uses it in place of the report date. The **newest** such date wins, so ordering does not matter. The audit still recomputes everything from the file on every run — it is simply reading a better-informed baseline, so §J.2's stateless-and-idempotent property is untouched.
+- **`PATCH pending: <text>`** — an outstanding erratum (§J.8), surfaced on **every** run until a human applies it and deletes the line. Ephemerality is right for a provenance block and wrong for a correction obligation: a PATCH found once and posted to a channel that scrolls away is a finding the corpus silently loses.
+
+**§J.1 is intact.** The audit recommends these lines and never writes them — writing one is the same explicit human decision as promoting an Edge.
 
 ## J.6 — REFRESH dispatches a work order
 
