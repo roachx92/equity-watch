@@ -212,13 +212,6 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
     report_age = _days_between(on_disk, today)
     result["age_days"] = age
     result["report_age_days"] = report_age
-    if source == "pinned":
-        span = f"{age}d of history since pinned baseline {base}"
-    elif source == "reviewed":
-        span = (f"report is {report_age}d old; {age}d unreviewed since the "
-                f"{base} audit review")
-    else:
-        span = f"report is {age}d old"
 
     fired: list[int | None] = []
     early: list[int | None] = []
@@ -285,6 +278,18 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
 
     ev = result["evidence"]
 
+    # Label a non-default baseline unconditionally — never only as a side effect
+    # of some other verdict firing. These strings get quoted into a report's
+    # provenance block, so the record must always say which date the signals
+    # were measured from, and must never assert the *report's* age about a date
+    # the caller supplied or a human recorded.
+    if source == "pinned":
+        ev.append(f"{age}d of history since pinned baseline {base} "
+                  f"({report_age}d since the report's own date {on_disk})")
+    elif source == "reviewed":
+        ev.append(f"{age}d unreviewed since the {base} audit review "
+                  f"({report_age}d since the report's own date {on_disk})")
+
     # --- routing -----------------------------------------------------------
     if fired:
         names = ", ".join(f"#{n}" if n else "#?" for n in fired)
@@ -312,7 +317,8 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
         ev.append(f"{quarters} quarters reported since {base}, absent from the report")
         result["verdict"] = "REFRESH"
     elif report_age >= AGE_FOR_REFRESH_DAYS and unincorporated:
-        ev.append(f"{span} with {unincorporated} unincorporated items")
+        ev.append(f"report is {report_age}d old with {unincorporated} "
+                  "unincorporated items")
         result["verdict"] = "REFRESH"
 
     # Expired tripwires escalate (never conclude — replacing a trigger is a
