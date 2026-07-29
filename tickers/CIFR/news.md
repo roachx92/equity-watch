@@ -52,6 +52,12 @@ Any one = the thesis is impaired; decide the action now, not after the drawdown.
 - **2026-07-20** — **#3** *sharpened*: added the specific test that the Google backstop supports *project debt* — it protects lenders ahead of Cipher's equity — and that Fluidstack's aggregate lease book across the cohort (~$27B) has only ~23% backstop coverage. ([`reports/2026-07-20.md`](reports/2026-07-20.md))
 - **2026-07-20** — **#4** *replaced* (BTC threshold → lease-signing cadence). Cause: CIFR fell 39.8% (6/18→7/17) *while Bitcoin rose*, and rallied +17% on a day BTC was flat — the AI-datacenter factor dominates roughly 5:1 on a mining segment being deliberately wound down, so a BTC-keyed trigger was measuring the wrong risk. Replacement watches the growth leg, where diligence found CIFR genuinely losing ground (Hut 8 and TeraWulf both leapfrogged its backlog this month). **This changes what sunsets `btc-mining` sector membership** (§K.1) — flagged there, not yet resolved. ([`reports/2026-07-20.md`](reports/2026-07-20.md))
 
+## Audit log
+*Per `framework/staleness-audit.md` §J.5. Human-recorded conclusions from the judgment tier. The audit reads this; it never writes it.*
+
+- **2026-07-29** — ESCALATE resolved **CLEAN**. 6 [EDGE−] since 2026-07-20, all sector/sentiment-channel with zero company events; Edge pressured, not falsified — the Sept–Oct 2026 four-mechanism binary is still untested. **Reviewed baseline: 2026-07-29.**
+- **2026-07-29** — **PATCH pending:** Tripwire #2's `~$17.79` Google-warrant strike was superseded by the 2025-11-20 8-K (Top-Up Threshold $430M → $435M, implying `~$17.99`) — wrong when `reports/2026-07-20.md` was written, so an erratum per §J.8, not staleness.
+
 ## Recent News Log
 *(Entry format: [`framework/latest-updates-workflow.md`](../../framework/latest-updates-workflow.md) §F.1 — the single source of truth. Tag only when an item actually bears on the sections above, using the closed vocabulary in §F.1 — `[EDGE+]`/`[EDGE−]` (binary — omit if neither) and `[TRIPWIRE #n — fires|early-warning|does not fire]`. Seeded 2026-07-15 from the initial full-report build.)*
 
