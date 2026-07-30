@@ -86,6 +86,8 @@ Log a sector item **only if** it does one of:
 - **(b)** re-prices the peer group in a way that moves this ticker's multiple environment;
 - **(c)** shifts a sector baseline the thesis quotes (e.g. the ~$725B aggregate hyperscaler capex figure inside COHR's Tripwire #3).
 
+**Price is not itself a fact under (a)–(c), however it is framed.** A move whose stated cause is only "peers were down too," rotation, de-risking or positioning — with **no dated disclosure anywhere in the sector** (a filing, a guide, a peer print, a policy action) actually behind it — satisfies none of the three, even when the close happens to cross a round number or a Tripwire's stated price precondition. This is narrower than K.0's founding CIFR drawdown, which still had a real **(b)**: peers *disclosing* leases CIFR didn't match is what re-priced the multiple. Contrast CIFR's 2026-07-29 entry — a close crossing the Google-warrant ratchet strike on a session where peers fell together and nothing was disclosed anywhere, tagged `[TRIPWIRE #2 — early-warning]` for the price level alone — which is the corpus's own counter-example: the trigger needs an *executed* dilution event, and a threshold crossing with no disclosure behind it is not one. **Don't log a price-only session.** Let the chat digest (§F.3) carry it as colour if at all, and hold the news.md entry for whichever dated disclosure — anywhere in the sector — actually confirms or breaks the thesis next.
+
 Anything else gets at most one line in the chat digest and **is not logged**. §F's no-placeholder rule applies unchanged: a quiet sector week produces no entry.
 
 ## K.7 — Logging: §F.1 unchanged
