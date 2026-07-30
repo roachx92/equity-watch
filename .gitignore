@@ -9,6 +9,10 @@ docs/tasks/
 .secrets/*.json
 !.secrets/*.example.json
 
+# Local Discord bot token file (plain text, single line, no key=value).
+# .secrets/DISCORD_BOT_TOKEN.example is the checked-in template.
+.secrets/DISCORD_BOT_TOKEN
+
 # MkDocs build tooling & output. Canonical location is web/; the bare site/
 # and site_src/ rules also catch stray builds run from the repo root.
 .venv/
