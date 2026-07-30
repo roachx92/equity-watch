@@ -86,10 +86,14 @@ def main(argv=None):
         print(note + " — skipping post.", file=sys.stderr)
         return 0
 
-    for i, msg in enumerate(messages):
-        post(channel_id, msg)
-        if i < len(messages) - 1:
-            time.sleep(0.6)
+    try:
+        for i, msg in enumerate(messages):
+            post(channel_id, msg)
+            if i < len(messages) - 1:
+                time.sleep(0.6)
+    except RuntimeError as exc:
+        print(f"[notify_discord_ticker] error posting {ticker} digest: {exc}", file=sys.stderr)
+        return 1
     print(f"[notify_discord_ticker] posted {ticker} digest to Discord ({len(messages)} message(s)).")
     return 0
 
