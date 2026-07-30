@@ -235,3 +235,51 @@ def test_change_log_subsection_is_excluded_from_trigger_parsing():
 ## Recent News Log
 """
     assert tl.tripwire_expiries(doc) == {1: "2027-03-31", 2: "2027-06-30"}
+
+
+# --- entry visibility (2026-07-30) -------------------------------------------
+# Two ways an entry became invisible to the parser, both observed live: a
+# workflow-authored entry with no `- ` bullet, and the corpus's `~approximate
+# date` convention the regex never accepted. An unparsed entry contributes no
+# assessment tags, so the staleness audit cannot count it toward a
+# re-underwrite -- and the linter then validates zero entries and reports OK.
+
+_LOG = "## Recent News Log\n"
+
+
+def test_orphan_detects_entry_missing_its_bullet():
+    text = _LOG + "2026-07-30 — [Sector/x] — **H**. d → i.\n"
+    assert [ln for ln, _ in tl.orphan_log_lines(text)] == [2]
+    assert tl.log_entries(text) == []
+
+
+def test_orphan_ignores_a_well_formed_entry():
+    text = _LOG + "- 2026-07-30 — [Sector/x] — **H**. d → i.\n"
+    assert tl.orphan_log_lines(text) == []
+    assert len(tl.log_entries(text)) == 1
+
+
+def test_orphan_is_scoped_to_the_log_section():
+    """A dated line under a different heading is not a malformed log entry."""
+    text = "## Audit log\n2026-07-30 — reviewed baseline\n" + _LOG
+    assert tl.orphan_log_lines(text) == []
+
+
+def test_approximate_date_entry_is_parsed():
+    text = _LOG + "- ~2025-12-15 — [Financials] — **H**. d → i.\n"
+    entries = tl.log_entries(text)
+    assert len(entries) == 1
+    assert tl.entry_date(entries[0][1]) == "2025-12-15"
+    assert tl.orphan_log_lines(text) == []
+
+
+def test_approximate_date_range_uses_the_end_date():
+    text = _LOG + "- ~2026-07-01 to ~2026-07-09 — [Sector/x] — **H**. d → i.\n"
+    entries = tl.log_entries(text)
+    assert tl.entry_date(entries[0][1]) == "2026-07-09"
+
+
+def test_tags_on_an_approximate_dated_entry_reach_the_audit():
+    line = "- ~2026-07-18 — [Sector/x] — **H**. d → i. [EDGE+] [TRIPWIRE #5 — does not fire]"
+    tags = tl.parse_assessment_tags(line)
+    assert {t["kind"] for t in tags} == {"EDGE", "TRIPWIRE"}
