@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "edgartools": {
+      "command": "python",
+      "args": [
+        "-c",
+        "from edgar.ai.mcp.server import main; main()"
+      ],
+      "env": {
+        "EDGAR_IDENTITY": "equity-watch nathanou92@gmail.com"
+      }
+    }
+  }
+}
