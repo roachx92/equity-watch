@@ -1,0 +1,61 @@
+{
+  "_note": "DERIVED AID - NOT THE PRE-COMMITMENT. The prose Tripwires in news.md are the binding triggers (framework/standing-rules.md, 'The pre-committed Edge & Tripwires'). This file encodes only the machine-checkable NUMERIC half of them so the audit's deterministic tier can compute a value and cite a filing instead of a model reading prose. It never overrides the prose, never changes what a trigger says, and a human still decides. Editing a threshold here is NOT editing the tripwire; if the two ever disagree, the prose wins and the disagreement is itself the finding (an erratum per staleness-audit.md).",
+  "fiscal_year_end": "06-30",
+  "checks": [
+    {
+      "tripwire": 1,
+      "name": "cash conversion fails to inflect",
+      "quote": "On the FY2026 Q4 / full-year report, if full-year operating cash flow comes in below roughly $300M against ~$700M of capex, OR inventory fails to decline from $2,126.8M (3/31/26), the ramp thesis is not working.",
+      "fiscal_year": 2026,
+      "fires_when": "any",
+      "clauses": [
+        {
+          "id": "ocf",
+          "label": "FY2026 operating cash flow below ~$300M",
+          "tag": "ocf",
+          "period": "annual",
+          "op": "<",
+          "threshold": 300000000,
+          "hedged": true,
+          "hedge_note": "The trigger says 'roughly $300M'. Inside the hedge band the answer is a judgment call, not an arithmetic one."
+        },
+        {
+          "id": "inventory",
+          "label": "inventory fails to decline from $2,126.8M (3/31/26)",
+          "tag": "inventory",
+          "period": "instant",
+          "op": ">=",
+          "threshold": 2126823000,
+          "hedged": false,
+          "baseline_source": "accession 0000820318-26-000013 (Q3 FY26 10-Q), InventoryNet at 2026-03-31 = 2126823000 - matches the $2,126.8M in the tripwire text exactly"
+        }
+      ],
+      "context": [
+        {
+          "id": "capex",
+          "label": "FY2026 capex (the '~$700M' the OCF figure is judged against)",
+          "tag": "capex",
+          "period": "annual",
+          "note": "AMBIGUITY, surfaced deliberately rather than resolved here: the trigger reads 'below roughly $300M AGAINST ~$700M of capex'. It is not stated whether ~$700M is a second threshold that must also hold, or merely the scale the OCF number is meant to be read against. Encoded as context only - it is reported, never evaluated - so the script cannot silently invent a condition the human never committed to. Worth a human ruling before the 2026-08-12 print."
+        }
+      ]
+    },
+    {
+      "tripwire": 2,
+      "name": "concentration converts the story",
+      "quote": "If the FY2026 10-K (~mid-Aug 2026) discloses any single customer above ~20% of revenue, the name has gone from a diversified merchant supplier to a single-counterparty story.",
+      "fiscal_year": 2026,
+      "fires_when": "manual",
+      "clauses": [],
+      "context": [
+        {
+          "id": "revenue",
+          "label": "FY2026 revenue (the denominator only)",
+          "tag": "revenue",
+          "period": "annual",
+          "note": "NOT machine-checkable. Customer-concentration percentages are a narrative disclosure in the concentration-risk footnote, not a us-gaap tagged concept, so no assertion can be written for the numerator. Only the denominator is retrievable. This trigger stays with the judgment tier and must be read out of the 10-K text by a human or a research pass - recorded here so a future run does not mistake its absence for 'checked and clear'."
+        }
+      ]
+    }
+  ]
+}
