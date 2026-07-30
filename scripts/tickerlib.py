@@ -45,6 +45,16 @@ _SECTOR_HEADER = "## Sector lens"
 #: with a *word* rather than a backtick, so they correctly do not match.
 _SECTOR_BULLET = re.compile(r"^-\s+\*\*`([a-z0-9-]+)`")
 
+_AUDIT_HEADER = "## Audit log"
+#: `**Reviewed baseline: YYYY-MM-DD**` — the date a human accepted a judgment-tier
+#: conclusion. Bold is conventional but not required by the parser.
+_REVIEWED_BASELINE = re.compile(
+    r"Reviewed baseline:\s*\*{0,2}\s*(\d{4}-\d{2}-\d{2})"
+)
+#: `**PATCH pending:** <what needs correcting>` — an outstanding erratum
+#: obligation (§J.8) that must survive until it is applied.
+_PATCH_PENDING = re.compile(r"PATCH pending:\**\s*(.+?)\s*$")
+
 _TRIPWIRE_HEADER = "## Tripwires"
 _TRIPWIRE_MARKER = re.compile(r"\((\d+)\)")
 #: An `| # | Expires |` table row — trigger number, then an optional date (blank
@@ -238,6 +248,53 @@ def sector_slugs(news_text: str) -> list[str]:
         if match and match.group(1) not in out:
             out.append(match.group(1))
     return out
+
+
+def audit_log(news_text: str) -> dict:
+    """Parse the optional `## Audit log` block — the audit's only durable memory.
+
+    Returns ``{"reviewed_baseline": str | None, "patches_pending": list[str]}``.
+
+    **Why this exists.** `audit_report.py` is stateless by design (§J.2) and its
+    own outputs are ephemeral (§J.7), so a judgment-tier conclusion — "these six
+    `[EDGE−]` items are sector-channel pressure, not falsification" — evaporates
+    the moment the run ends. The next run recomputes the same ESCALATE and posts
+    it again, discarding the human decision and re-nagging on identical evidence.
+
+    The fix is not to give the audit a memory of its own (that would break
+    idempotence, which the deep-dive provenance path depends on) but to let a
+    **human record the conclusion as repo state**. The audit then still
+    recomputes everything from the file on every run — it is simply reading a
+    better-informed baseline. §J.1's invariant is intact: the audit flags and
+    recommends this line; it never writes it.
+
+    Two fields, both optional:
+
+    * ``Reviewed baseline: YYYY-MM-DD`` — pressure logged on or before this date
+      has been reviewed and dismissed. The **newest** such date across the block
+      wins, so ordering within the section does not matter.
+    * ``PATCH pending: <text>`` — an outstanding erratum (§J.8). Ephemerality is
+      right for a provenance block and wrong for a correction obligation: a
+      PATCH found once and posted to a channel that scrolls away is a finding
+      the corpus silently loses.
+    """
+    reviewed: list[str] = []
+    patches: list[str] = []
+    in_section = False
+    for line in news_text.splitlines():
+        if line.startswith("## "):
+            in_section = line.strip().startswith(_AUDIT_HEADER)
+            continue
+        if not in_section:
+            continue
+        found = _REVIEWED_BASELINE.search(line)
+        if found:
+            reviewed.append(found.group(1))
+        patch = _PATCH_PENDING.search(line)
+        if patch:
+            patches.append(patch.group(1).strip())
+    return {"reviewed_baseline": max(reviewed) if reviewed else None,
+            "patches_pending": patches}
 
 
 def tripwire_expiries(news_text: str) -> dict[int, str]:

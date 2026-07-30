@@ -54,11 +54,12 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from tickerlib import (  # noqa: E402
+    audit_log,
     canonical_report_date,
     entry_date,
     latest_report_date,
@@ -110,6 +111,20 @@ WORK_STREAM_HINTS = (
     # owns that ground.
     ("sector/", "sector"),
 )
+
+#: An `[EDGE−]` on an entry carrying one of these framework tags is
+#: **indirect** — the item reached the ticker through the sector lens or the
+#: tape, not through a company event. Composition is deterministically
+#: computable and it is the single most useful thing the escalation can say:
+#: "6 [EDGE−], all indirect, zero company-specific" tells a reader immediately
+#: that the pressure is cohort beta rather than the thesis breaking.
+#:
+#: This **refines the evidence, it never suppresses the escalation.** §J.3 is
+#: explicit that a count is a proxy for pressure and can never conclude, and
+#: auto-dismissing all-indirect pressure would re-acquire exactly the failure
+#: the two-tier design exists to prevent — a genuine sector event *can* falsify
+#: a thesis whose Edge turns on a sector variable.
+INDIRECT_EDGE_FRAGMENTS = ("[sector/", "sentiment")
 
 
 def _days_between(iso_start: str, today: date) -> int:
@@ -168,23 +183,40 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
     if linked and linked != on_disk:
         result["drift"] = {"linked": linked, "latest": on_disk}
 
-    # A pinned baseline is not necessarily the report's own date. Keep the two
-    # distinguishable: the evidence strings get quoted into a report's
-    # provenance block, so "the report is 199d old" must not be asserted about
-    # a date the caller supplied.
-    base = baseline or on_disk
-    pinned = baseline is not None and baseline != on_disk
+    # Precedence: an explicit --baseline (the provenance path, §J.7) beats a
+    # human-recorded `Reviewed baseline:` in the `## Audit log`, which in turn
+    # beats the report's own date. A pinned baseline is not necessarily the
+    # report's date: the evidence strings get quoted into a report's provenance
+    # block, so "the report is 199d old" must not be asserted about a date the
+    # caller supplied.
+    reviewed = audit_log(text)
+    result["patches_pending"] = reviewed["patches_pending"]
+    base = baseline or reviewed["reviewed_baseline"] or on_disk
+    if baseline is not None and baseline != on_disk:
+        source = "pinned"
+    elif baseline is None and reviewed["reviewed_baseline"]:
+        source = "reviewed"
+    else:
+        source = "latest-report"
     result["baseline"] = base
-    result["baseline_source"] = "pinned" if pinned else "latest-report"
+    result["baseline_source"] = source
     result["latest_report"] = on_disk
+
+    # TWO ages, and conflating them would be a real bug. `age` measures history
+    # since the effective baseline (what has accumulated *unreviewed*).
+    # `report_age` always measures the report itself, because a report does not
+    # get younger by being reviewed: dismissing EDGE− pressure says nothing
+    # about whether a 200-day-old snapshot still describes the company. The
+    # staleness horizon and the age-based REFRESH therefore key off report_age.
     age = _days_between(base, today)
+    report_age = _days_between(on_disk, today)
     result["age_days"] = age
-    span = (f"{age}d of history since pinned baseline {base}" if pinned
-            else f"report is {age}d old")
+    result["report_age_days"] = report_age
 
     fired: list[int | None] = []
     early: list[int | None] = []
     edge_neg = edge_pos = 0
+    edge_neg_indirect = edge_neg_company = 0
     stale_tags: list[str] = []
     unincorporated = 0
 
@@ -195,13 +227,26 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
         unincorporated += 1
         # Framework tag is the first bracket after the date — used for the
         # work-order hint only.
+        head = ""
         if "[" in line:
             head = line.split("[", 1)[1].split("]", 1)[0]
             stale_tags.append(head)
+        # Indirect = reached the ticker through the sector lens or the tape.
+        # Scan the whole line for `[Sector/…]`, not just the leading tag: an
+        # entry may carry a company-facing framework tag *and* a sector tag
+        # (e.g. `[Moat/Competition] [Sector/ai-dc-lessor]`), and it is still a
+        # peer-comp item.
+        low = line.lower()
+        indirect = any(f in low if f.startswith("[") else f in head.lower()
+                       for f in INDIRECT_EDGE_FRAGMENTS)
         for tag in parse_assessment_tags(line):
             if tag["kind"] == "EDGE":
                 if tag["polarity"] == "negative":
                     edge_neg += 1
+                    if indirect:
+                        edge_neg_indirect += 1
+                    else:
+                        edge_neg_company += 1
                 elif tag["polarity"] == "positive":
                     edge_pos += 1
             elif tag["polarity"] == "fired":
@@ -224,6 +269,8 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
     undated = sorted(n for n, d in expiries.items() if not d)
 
     result.update(unincorporated=unincorporated, edge_neg=edge_neg,
+                  edge_neg_indirect=edge_neg_indirect,
+                  edge_neg_company=edge_neg_company,
                   edge_pos=edge_pos, quarters_since=quarters,
                   tripwires_fired=fired, tripwires_early_warning=early,
                   tripwires_expired=expired, tripwires_undated=undated,
@@ -231,26 +278,47 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
 
     ev = result["evidence"]
 
+    # Label a non-default baseline unconditionally — never only as a side effect
+    # of some other verdict firing. These strings get quoted into a report's
+    # provenance block, so the record must always say which date the signals
+    # were measured from, and must never assert the *report's* age about a date
+    # the caller supplied or a human recorded.
+    if source == "pinned":
+        ev.append(f"{age}d of history since pinned baseline {base} "
+                  f"({report_age}d since the report's own date {on_disk})")
+    elif source == "reviewed":
+        ev.append(f"{age}d unreviewed since the {base} audit review "
+                  f"({report_age}d since the report's own date {on_disk})")
+
     # --- routing -----------------------------------------------------------
     if fired:
         names = ", ".join(f"#{n}" if n else "#?" for n in fired)
         ev.append(f"tripwire {names} FIRED since {base} — pre-committed action is due")
         result["verdict"] = "RE-UNDERWRITE"
     elif edge_neg >= EDGE_NEG_FOR_ESCALATION:
+        mix = (f"all {edge_neg} indirect (sector/sentiment channel), "
+               "0 company-specific" if edge_neg_company == 0 else
+               f"{edge_neg_indirect} indirect (sector/sentiment channel), "
+               f"{edge_neg_company} company-specific")
         ev.append(f"{edge_neg} [EDGE−] since {base} (vs {edge_pos} [EDGE+]) — "
-                  "disconfirmation accumulating; judgment tier must read the "
-                  "entries and decide pressured vs. falsified (a count cannot)")
+                  f"{mix}; judgment tier must read the entries and decide "
+                  "pressured vs. falsified (a count cannot)")
         result["verdict"] = "ESCALATE"
         result["escalation_question"] = (
             "Is the Edge genuinely falsified, or merely pressured? Read each "
             "[EDGE−] entry in full — a two-sided Edge can be corroborated at its "
             "core by an item that cuts against one of its branches."
+            + (" NOTE: every [EDGE−] here is indirect (sector/sentiment), so "
+               "none records a company event — check whether the Edge actually "
+               "turns on a sector variable before reading these as falsifying."
+               if edge_neg_company == 0 else "")
         )
     elif quarters >= QUARTERS_FOR_REFRESH:
         ev.append(f"{quarters} quarters reported since {base}, absent from the report")
         result["verdict"] = "REFRESH"
-    elif age >= AGE_FOR_REFRESH_DAYS and unincorporated:
-        ev.append(f"{span} with {unincorporated} unincorporated items")
+    elif report_age >= AGE_FOR_REFRESH_DAYS and unincorporated:
+        ev.append(f"report is {report_age}d old with {unincorporated} "
+                  "unincorporated items")
         result["verdict"] = "REFRESH"
 
     # Expired tripwires escalate (never conclude — replacing a trigger is a
@@ -275,8 +343,14 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
         ev.append(f"tripwire {names} has no row (or a blank date) in the "
                   "`| # | Expires |` table — expiry can't be tracked; date it")
 
+    # An outstanding erratum is a standing obligation, not a per-run finding:
+    # surface it on every run until a human applies it and drops the line.
+    if reviewed["patches_pending"]:
+        for patch in reviewed["patches_pending"]:
+            ev.append(f"PATCH pending (§J.8 erratum not yet applied): {patch}")
+
     if result["verdict"] == "REFRESH":
-        if age >= STALENESS_HORIZON_DAYS:
+        if report_age >= STALENESS_HORIZON_DAYS:
             result["work_streams"] = ["filing", "counterparty", "sector",
                                       "competitive-landscape"]
             ev.append(f"past the {STALENESS_HORIZON_DAYS}d staleness horizon — "
@@ -284,7 +358,8 @@ def audit_ticker(ticker_dir: Path, today: date, baseline: str | None = None) -> 
         else:
             result["work_streams"] = _work_streams(stale_tags)
 
-    result["notify"] = bool(result["verdict"] != "CLEAN" or early)
+    result["notify"] = bool(result["verdict"] != "CLEAN" or early
+                            or reviewed["patches_pending"])
     return result
 
 
@@ -305,8 +380,13 @@ def main() -> int:
     ap.add_argument("--json", action="store_true", dest="as_json")
     args = ap.parse_args()
 
+    # UTC, not local. §J.4 makes expiry a function of *today*, and warns that a
+    # wrong date silently mis-flags live triggers as dead. `date.today()` is
+    # machine-local, so a CI runner in UTC and a workstation in UTC−8 disagree
+    # for several hours a day — long enough to mis-score a trigger expiring on
+    # exactly that boundary. One clock, everywhere.
     today = (datetime.strptime(args.today, "%Y-%m-%d").date() if args.today
-             else date.today())
+             else datetime.now(timezone.utc).date())
 
     dirs = ticker_dirs()
     if args.ticker:

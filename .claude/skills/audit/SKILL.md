@@ -81,7 +81,14 @@ rather than investigating from scratch.
   runs it. The re-run re-derives this audit live for its provenance block (§J.7), so nothing
   needs carrying forward from this session.
 - **Never edit `news.md`** — not the Edge, not a tripwire, not even an expired one. Say what
-  should change and let the human say yes.
+  should change and let the human say yes. **This includes the `## Audit log` block** (§J.5):
+  when you resolve an ESCALATE, *recommend* the `Reviewed baseline:` line and let the human
+  commit it — that line is what stops the next run re-nagging on the same evidence, so say so
+  explicitly rather than leaving the reader to discover the repeat alert.
+- **A PATCH you find needs a durable home.** Recommend a `PATCH pending:` line in the same
+  `## Audit log` block; the audit re-surfaces it every run until the erratum is applied. A
+  correction that lives only in a Discord message that scrolls away is a finding the corpus
+  loses.
 - A clean audit is a useful result: say explicitly what was checked and that nothing fired.
 
 ## Step 5 — post to Discord (only when something warrants it)
@@ -95,6 +102,18 @@ python scripts/audit_notify.py --results <audit-json> [--dry-run]
 It applies §J.5's re-nag suppression itself (same verdict inside ~30 days stays quiet unless
 it **escalated**), posts per-ticker verdicts to their own channels, and writes the roll-up.
 The poster skips gracefully when a ticker has no webhook configured.
+
+**If Step 3 resolved an ESCALATE, post the resolved verdict — never the raw one.** `ESCALATE`
+is not a final answer (§J.2), so posting the deterministic tier's output verbatim publishes a
+question as if it were a conclusion:
+
+```
+python scripts/audit_notify.py --results <audit-json> \
+  --resolve <TICKER>=<CLEAN|PATCH|REFRESH|RE-UNDERWRITE> \
+  --resolve-evidence "<TICKER>=<the judgment-tier reasoning, with dated evidence>"
+```
+The resolved verdict is what enters the re-nag cache, so the conclusion stops re-alerting.
+**Do not hand-build a results file** to fake the tier's output — use these flags.
 
 ## Guardrails
 - Not financial advice — informational research tooling only.

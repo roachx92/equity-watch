@@ -28,7 +28,7 @@ import argparse
 import json
 import subprocess
 import sys
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -42,6 +42,51 @@ DEFAULT_WINDOW_DAYS = 30
 
 def _rank(verdict: str) -> int:
     return SEVERITY.index(verdict) if verdict in SEVERITY else 0
+
+
+def _parse_pairs(values: list[str] | None, flag: str) -> dict[str, str]:
+    """`TICKER=VALUE` pairs from a repeatable flag → {TICKER: VALUE}."""
+    out: dict[str, str] = {}
+    for raw in values or []:
+        if "=" not in raw:
+            raise SystemExit(f"{flag} expects TICKER=VALUE, got: {raw!r}")
+        ticker, value = raw.split("=", 1)
+        out[ticker.strip().upper()] = value.strip()
+    return out
+
+
+def apply_resolutions(results: list[dict], verdicts: dict[str, str],
+                      notes: dict[str, str]) -> None:
+    """Overwrite deterministic verdicts with the judgment tier's conclusions.
+
+    §J.2: **ESCALATE is never a final answer.** The deterministic tier emits it
+    to say "pressure I cannot interpret"; only the judgment tier decides what it
+    means. Without this, the only way to post a resolved verdict was to
+    hand-build a results file mirroring an undocumented schema — so the
+    sanctioned path was to fabricate the tier's own output, which is both
+    error-prone and unauditable.
+
+    The resolved verdict is what gets stored in the re-nag cache, so a
+    conclusion reached once stops re-alerting on identical evidence.
+    """
+    for r in results:
+        verdict = verdicts.get(r["ticker"].upper())
+        if verdict is None:
+            continue
+        if verdict not in SEVERITY:
+            raise SystemExit(
+                f"--resolve: unknown verdict {verdict!r} for {r['ticker']}; "
+                f"expected one of {', '.join(SEVERITY)}")
+        r["resolved_from"] = r["verdict"]
+        r["verdict"] = verdict
+        note = notes.get(r["ticker"].upper())
+        if note:
+            r.setdefault("evidence", []).insert(0, note)
+        # A resolution is a human decision about what the evidence means, so it
+        # always speaks — even when it resolves *down* to CLEAN, because the
+        # reader needs to see that the escalation was reviewed and closed.
+        r["notify"] = True
+        r.pop("escalation_question", None)
 
 
 def load_state(path: Path) -> dict:
@@ -82,7 +127,10 @@ def should_notify(result: dict, prior: dict | None, today: date,
 
 def render_ticker_message(r: dict) -> str:
     """The per-ticker Discord body: verdict, dated evidence, exact command."""
-    lines = [f"**{r['ticker']} — {r['verdict']}**", ""]
+    header = f"**{r['ticker']} — {r['verdict']}**"
+    if r.get("resolved_from"):
+        header += f"  _(judgment tier resolved {r['resolved_from']})_"
+    lines = [header, ""]
     for ev in r.get("evidence", []):
         lines.append(f"· {ev}")
     if r.get("work_streams"):
@@ -141,13 +189,25 @@ def main(argv=None) -> int:
                     help="where to write the repo-wide table (always written)")
     ap.add_argument("--window-days", type=int, default=DEFAULT_WINDOW_DAYS)
     ap.add_argument("--today", default=None, help="override today (tests)")
+    ap.add_argument("--resolve", action="append", metavar="TICKER=VERDICT",
+                    help="replace a ticker's deterministic verdict with the "
+                         "judgment tier's conclusion (§J.2 — ESCALATE is never "
+                         "a final answer). Repeatable.")
+    ap.add_argument("--resolve-evidence", action="append", metavar="TICKER=TEXT",
+                    help="lead TICKER's evidence with the judgment tier's "
+                         "reasoning. Repeatable; pair with --resolve.")
     ap.add_argument("--dry-run", action="store_true",
                     help="decide and render, but do not post or write state")
     args = ap.parse_args(argv)
 
+    # UTC everywhere — see the note in audit_report.main(). The two scripts
+    # stamp the same run, so they must not disagree about what day it is.
     today = (datetime.strptime(args.today, "%Y-%m-%d").date() if args.today
-             else date.today())
+             else datetime.now(timezone.utc).date())
     results = json.loads(Path(args.results).read_text(encoding="utf-8"))
+    apply_resolutions(results,
+                      _parse_pairs(args.resolve, "--resolve"),
+                      _parse_pairs(args.resolve_evidence, "--resolve-evidence"))
     state_path = Path(args.state)
     state = load_state(state_path)
 
