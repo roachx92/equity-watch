@@ -10,9 +10,14 @@ import os
 import time
 import urllib.error
 import urllib.request
+from pathlib import Path
 
 API = "https://discord.com/api/v10"
 TOKEN_ENV = "DISCORD_BOT_TOKEN"
+# Local, gitignored fallback for ad-hoc runs outside CI — a plain-text, single-line
+# file (no key=value wrapper). CI always sets the env var from the repo secret and
+# never has this file, so the env var takes precedence whenever both are present.
+TOKEN_FILE = Path(__file__).resolve().parents[1] / ".secrets" / "DISCORD_BOT_TOKEN"
 USER_AGENT = "equity-watch-notifier/1.0 (+https://github.com/roachx92/equity-watch)"
 
 
@@ -38,8 +43,10 @@ def chunk(body, limit=1900):
 
 def _token(token):
     tok = token or os.environ.get(TOKEN_ENV, "")
+    if not tok and TOKEN_FILE.is_file():
+        tok = TOKEN_FILE.read_text(encoding="utf-8").strip()
     if not tok:
-        raise RuntimeError(f"{TOKEN_ENV} not set")
+        raise RuntimeError(f"{TOKEN_ENV} not set (checked env var and {TOKEN_FILE})")
     return tok
 
 

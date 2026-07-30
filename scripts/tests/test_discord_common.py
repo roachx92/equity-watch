@@ -62,10 +62,31 @@ def test_list_channels_is_a_get(monkeypatch):
     assert calls["data"] is None
 
 
-def test_missing_token_raises(monkeypatch):
+def test_missing_token_raises(monkeypatch, tmp_path):
     monkeypatch.delenv("DISCORD_BOT_TOKEN", raising=False)
+    monkeypatch.setattr(dc, "TOKEN_FILE", tmp_path / "DISCORD_BOT_TOKEN")  # doesn't exist
     with pytest.raises(RuntimeError):
         dc.post("42", {"content": "hi"})
+
+
+def test_token_falls_back_to_local_secrets_file(monkeypatch, tmp_path):
+    monkeypatch.delenv("DISCORD_BOT_TOKEN", raising=False)
+    token_file = tmp_path / "DISCORD_BOT_TOKEN"
+    token_file.write_text("filetok456\n", encoding="utf-8")
+    monkeypatch.setattr(dc, "TOKEN_FILE", token_file)
+    calls = _capture(monkeypatch, body=b'{"id": "1"}')
+    dc.post("42", {"content": "hi"})
+    assert calls["headers"]["Authorization"] == "Bot filetok456"
+
+
+def test_env_token_takes_precedence_over_file(monkeypatch, tmp_path):
+    monkeypatch.setenv("DISCORD_BOT_TOKEN", "envtok")
+    token_file = tmp_path / "DISCORD_BOT_TOKEN"
+    token_file.write_text("filetok456\n", encoding="utf-8")
+    monkeypatch.setattr(dc, "TOKEN_FILE", token_file)
+    calls = _capture(monkeypatch, body=b'{"id": "1"}')
+    dc.post("42", {"content": "hi"})
+    assert calls["headers"]["Authorization"] == "Bot envtok"
 
 
 def test_chunk_splits_long_body():
