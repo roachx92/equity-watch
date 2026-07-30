@@ -42,6 +42,7 @@ from tickerlib import (  # noqa: E402
     entry_date,
     log_entries,
     news_files,
+    orphan_log_lines,
     parse_assessment_tags,
     repo_root,
 )
@@ -56,8 +57,10 @@ LENGTH_CEILING = 1200
 LENGTH_RULE_FROM = "2026-07-29"
 
 _LOG_HEADER = "## Recent News Log"
-_ENTRY_LEAD = re.compile(r"^-\s+\d{4}-\d{2}-\d{2}(?:\s+to\s+\d{4}-\d{2}-\d{2})?\s+—\s+\[[^\]]+\]")
-_ENTRY_BULLET = re.compile(r"^-\s+\d{4}-\d{2}-\d{2}")
+# `~` = approximate date, a convention already in the corpus; tickerlib._ENTRY_BULLET
+# accepts it, so this must too or a parseable entry is reported as malformed.
+_ENTRY_LEAD = re.compile(r"^-\s+~?\d{4}-\d{2}-\d{2}(?:\s+to\s+~?\d{4}-\d{2}-\d{2})?\s+—\s+\[[^\]]+\]")
+_ENTRY_BULLET = re.compile(r"^-\s+~?\d{4}-\d{2}-\d{2}")
 _BOLD = re.compile(r"\*\*.+?\*\*")  # a bold span may itself contain *italic* emphasis
 _LINK = re.compile(r"\]\(https?://")
 _SKELETON = "YYYY-MM-DD — [FRAMEWORK-TAG]"
@@ -133,6 +136,15 @@ def main(argv=None) -> int:
     for news in news_files(root):
         rel = news.relative_to(root).as_posix()
         text = news.read_text(encoding="utf-8")
+        # Hard failure, and checked before the per-entry pass: an entry the
+        # parser cannot see contributes no tags to the audit, and its absence
+        # would otherwise let this linter report success over a broken log.
+        for lineno, line in orphan_log_lines(text):
+            print(f"{rel}:{lineno}: entry is missing its leading `- ` bullet, so "
+                  f"tickerlib cannot parse it — its tags are invisible to the "
+                  f"staleness audit. Prefix the line with `- `.")
+            violations += 1
+
         for lineno, line in log_entries(text):
             problems, warns = lint_entry(line)
             for problem in problems:

@@ -19,10 +19,25 @@ _DATE_FILE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.md$")
 _FRONT_MATTER = re.compile(r"^---\n(.*?)\n---\n?", re.DOTALL)
 
 _LOG_HEADER = "## Recent News Log"
+#: `~` marks an approximate date, a convention the corpus already uses for
+#: entries whose exact day is unknown (e.g. `- ~2025-12-15 — [Financials...]`).
+#: It was not accepted here, so every such entry was invisible to `log_entries`
+#: and its assessment tags never reached the staleness audit. Treated as an
+#: ordinary entry: approximate-but-dated is still dated.
 _ENTRY_BULLET = re.compile(
-    r"^-\s+(\d{4}-\d{2}-\d{2})(?:\s+to\s+(\d{4}-\d{2}-\d{2}))?"
+    r"^-\s+~?(\d{4}-\d{2}-\d{2})(?:\s+to\s+~?(\d{4}-\d{2}-\d{2}))?"
 )
 _CANONICAL_LINK = re.compile(r"\*\*Canonical deep-dive:\*\*.*?(\d{4}-\d{2}-\d{2})\.md")
+
+#: A line inside the log that *looks* like an entry but has no `- ` bullet, so
+#: `_ENTRY_BULLET` cannot see it. This is not pedantry about markdown: an entry
+#: the parser misses is invisible to `parse_assessment_tags`, so its
+#: `[EDGE-]`/`[TRIPWIRE ...]` tags never reach the staleness audit and cannot
+#: count toward a re-underwrite. Worse, the linter then validates zero entries
+#: and reports success -- a **vacuous pass**. Observed live on 2026-07-30, when
+#: workflow-authored entries landed in IREN and MSTR with the bullet omitted and
+#: every downstream tool read those logs as empty.
+_ENTRY_ORPHAN = re.compile(r"^\s*(?:[-*+]\s+)?[~*]{0,2}\d{4}-\d{2}-\d{2}")
 
 #: The closed sector vocabulary (§K.2). Closed for the same reason §F.1's tag
 #: vocabulary is: an open one drifts, and the corpus already shows what that
@@ -195,6 +210,29 @@ def log_entries(text: str) -> list[tuple[int, str]]:
             in_section = line.strip() == _LOG_HEADER
             continue
         if in_section and _ENTRY_BULLET.match(line):
+            out.append((i, line))
+    return out
+
+
+def orphan_log_lines(text: str) -> list[tuple[int, str]]:
+    """(1-based line number, line) for date-like lines the entry parser misses.
+
+    Same section scoping as `log_entries`, and deliberately in this module
+    rather than in the linter: the log's shape is parsed in exactly one place
+    (see CLAUDE.md), so a detector that disagreed with `log_entries` about what
+    counts as an entry would defeat its own purpose.
+    """
+    lines = text.splitlines()
+    out, in_section = [], False
+    for i, line in enumerate(lines, start=1):
+        if line.startswith("## "):
+            in_section = line.strip() == _LOG_HEADER
+            continue
+        if not in_section or not line.strip():
+            continue
+        if _ENTRY_BULLET.match(line):
+            continue
+        if _ENTRY_ORPHAN.match(line):
             out.append((i, line))
     return out
 
