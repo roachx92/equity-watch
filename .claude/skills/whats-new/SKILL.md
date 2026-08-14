@@ -101,7 +101,7 @@ Wait for the sub-agents, then yourself:
   canonical entry format in `framework/latest-updates-workflow.md` §F.1 (most recent first,
   never to the deep-dive report — that's a frozen snapshot). Apply §F.1 as written; do not
   restate its rules here.
-- **Commit** the updated news.md if anything changed (e.g. `whats-new: <TICKER> <date>`).
+- **Commit** the updated news.md if anything changed, **on a feature branch** (never directly to `main`) — branch `whats-new/<TICKER>-<date>`, message `whats-new: <TICKER> <date>`. Step 7 pushes and merges it. If nothing changed, there is no commit and Step 7 is skipped.
 
 ## Step 5 — produce the run summary
 Emit the chat digest in the **canonical format defined in `latest-updates-workflow.md` §F.3**: the per-ticker
@@ -141,6 +141,42 @@ python scripts/notify_discord_ticker.py --ticker <TICKER> --kind whats-new --dat
 - If it posts successfully, say so in one line at the end of the chat reply (e.g. "Posted to
   #lpkf-watch."). If it skipped (not configured), don't mention Discord at all — a silent skip
   is the correct behavior for an unconfigured ticker.
+
+## Step 7 — push, open the PR, and squash-merge
+
+**Only if Step 4 actually committed something.** A clean check writes nothing (§F's
+no-placeholder rule), so there is no branch, no PR, and this step is skipped entirely —
+don't open an empty PR to record that nothing happened.
+
+```
+git push -u origin whats-new/<TICKER>-<date>
+gh pr create --base main --head whats-new/<TICKER>-<date> \
+  --title "whats-new: <TICKER> <date>" --body-file <pr-body>
+gh pr merge <PR_URL> --squash --delete-branch
+```
+
+- **This mirrors `.github/workflows/whats-new.yml`**, which already ends
+  `gh pr create` → `gh pr merge --squash --delete-branch`. The scheduled path has always
+  auto-merged; this step exists so an ad-hoc run in-session lands the same way instead of
+  leaving un-pushed commits behind. **Keep the two in sync** — if the CI workflow's git
+  tail changes, change this with it.
+- **The PR body is the concise summary, NOT the full §F.3 digest.** The digest goes to
+  Discord (Step 6); the PR gets a short "what changed and why" — which entries were added,
+  any tripwire status change, and the Edge assessment in a line or two. CI writes this to
+  `whats-new-pr-body.md`; in-session, compose the equivalent.
+- **Escape `#N` as `\#N`** anywhere it appears in the PR body (tripwire references like
+  "#2" are the common case), or GitHub auto-links it to an unrelated issue/PR. CI does this
+  with a `sed` pass for exactly this reason.
+- **Wait for CI to pass before merging.** `lint.yml` gates on the news-log and structure
+  linters; a failed lint means a malformed entry that should be fixed, not merged past.
+  If the merge is blocked by a conflict — another run touched the same `news.md` — **re-read
+  the file, merge both sets of entries, and preserve the other run's work**; never resolve
+  by dropping entries (§F.1's never-overwrite discipline).
+- **This is the one workflow authorized to merge without asking**, because the ticker log is
+  append-only monitoring state and the same operation already runs unattended in CI. It does
+  **not** generalize: anything touching a ticker's Edge or Tripwires, a framework file, or a
+  dated report still follows `CLAUDE.md`'s standing rule that pushing and merging are
+  separate explicit asks.
 
 ## Guardrails
 - Not financial advice — informational research tooling only. Never fabricate a figure or a
