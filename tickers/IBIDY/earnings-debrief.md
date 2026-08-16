@@ -28,10 +28,238 @@ blurb: "Earnings debrief log — one entry per reported period, most recent firs
 | **2026-05-11 · FY3/2026 短信** | **FY3/2027** | Sales **¥500.0bn** (+20.1%) / OP **¥90.0bn** (+45.1%) / Ord ¥90.0bn / NI **¥58.0bn (−9.0%)** / DPS ¥35. Assumes **USD ¥150 / EUR ¥180**. Middle East risk explicitly **not** incorporated. | *pending* | — | *Pending — first test at Q1 FY3/2027, ~early Aug 2026* |
 | **2026-05-12 · briefing** | **FY3/2028 (mid-term)** | Sales **¥650bn** / OP **¥150bn** — **RAISED** from ¥600bn / ¥90bn guided 2025-10-30 | *pending* | — | ***Raised — the OP target went up +67% in ~6 months*** |
 | 2026-05-12 · briefing | FY3/2031 vision | Sales **>¥1,000bn** / OP **>¥300bn** (~30% OPM) | *pending* | — | *Pending — long-dated* |
+| **2026-08-04 · Q1 短信 revision** | **H1 FY3/2027** | Sales ¥230.0 → **¥253.5bn** / OP ¥38.0 → **¥54.5bn** / Ord ¥37.5 → **¥54.0bn** / NI ¥23.0 → **¥34.0bn**. OPM 16.5% → 21.5% | *pending* | — | ***RAISED*** *— outcome due ~end-Oct 2026* |
+| **2026-08-04 · Q1 短信 revision** | **FY3/2027** | Sales ¥500.0 → **¥550.0bn** (+10%) / OP ¥90.0 → **¥127.0bn (+41%)** / Ord ¥90.0 → **¥127.0bn** / NI ¥58.0 → **¥84.0bn (+45%)**. Consol. OPM 18.0% → **23.1%**; Electronics OP ¥75.0 → **¥110.0bn** (OPM 22.7% → 29.3%). DPS ¥35 pre-split equivalent, **unchanged**. FX revised USD ¥150 → **¥152**, EUR ¥180 → **¥181** | *pending* | — | ***RAISED at the first test*** *— supersedes the 2026-05-11 row above; outcome due ~May 2027* |
 
 ⁺ *Backfilled 2026-07-18 from prior filings — reconstructed history, weaker evidence than a promise recorded when made.*
 
-**Running tally: one full guidance cycle resolved, and the pattern is legible.** Management set a deliberately conservative FY3/2026 opening guide (OP ¥48.0bn), raised it hard mid-year (to ¥61.0bn), then **delivered on the raised number** (¥62.0bn, +1.7%) while coming in **slightly light on revenue** (−0.9%). That is a credibility positive on the operating line — but it means **the opening FY3/2027 guide should be read as a floor management expects to raise, not as a forecast.** The load-bearing caveat: **the headline net-income beat was not operational** (see §1(a)), so a naive "beat by 72%" tally would badly mislead.
+**Running tally: one full guidance cycle resolved, and the second one just behaved exactly as this table predicted.** Management set a deliberately conservative FY3/2026 opening guide (OP ¥48.0bn), raised it hard mid-year (to ¥61.0bn), then **delivered on the raised number** (¥62.0bn, +1.7%) while coming in **slightly light on revenue** (−0.9%). On that basis the FY3/2026 entry concluded: *"the opening FY3/2027 guide should be read as a floor management expects to raise, not as a forecast."* **That call resolved correctly on 2026-08-04 — at the very first quarterly test, the FY3/2027 OP guide was raised 41% (¥90.0bn → ¥127.0bn).** The pattern is now twice-observed and should be the prior applied to every future opening guide from this management: they anchor low and revise up on the first print that allows it. The load-bearing caveat on the FY3/2026 row still stands: **the headline net-income beat there was not operational** (see that quarter's §1(a)), so a naive beat/miss tally would mislead. Note also that **the FY3/2027 raise leaves the FY3/2028 mid-term target (¥150.0bn OP) only ~18% above the newly-raised current year** — a plan set in May that now looks conservative and was **not addressed** at this print.
+
+---
+
+## Q1 FY3/2027 (three months ended 30 Jun 2026) — reported 2026-08-04 (after the close)
+
+> **No Tripwire fired.** A very strong print: **OP +52.4% YoY** and a **41% raise to the full-year OP guide** that management's own bridge attributes **76% to price/mix and only ~6% to FX** — an operational, price-led revision, not a currency one. Two things temper it. **(1) The market's reaction was smaller than the raise:** +17.0% over the post-print window against a +41% forward-OP raise, i.e. the stock **de-rated on forward earnings** even while rising. **(2) This digest is materially incomplete — see the coverage warning immediately below — and in particular the mandatory cash-conversion block could not be produced.** Net: **thesis strengthened on the franchise leg; the Edge's actual claim (the glass-substitution clock) went untested.**
+
+> ### ⚠️ COVERAGE WARNING — read before using this entry
+> **Two of the three mandatory §I.2 sub-agents did not deliver.** The **Numbers** agent (filings, working capital, cash flow, capex, share count) and the **Sector cross-check** agent (peer verification, post-print sell-side, independent glass-core check) were both stopped mid-run and returned no brief. Only the **Call** agent completed.
+> **Consequences, stated plainly rather than papered over:**
+> - **§I.3(b) cash conversion & working capital — the mandatory block — is ABSENT.** No DSO/DIO/DPO, no cash conversion cycle, no OCF-vs-net-income, for this quarter or the prior three. This is the earliest fundamental warning a quarter offers and it is simply not in this entry.
+> - **No capex figure, no advances/prepayment balance, no share count, no cash-flow statement** for Q1.
+> - **§I.3(c)'s independent check column is company-sourced only** — peer commentary was not verified this quarter.
+> - **Tripwire #3's evidence is Ibiden's silence, not a sector check.** No independent glass-core search ran. See §2(d).
+> The reaction decomposition in §1(e) was rebuilt by the orchestrator from `scripts/prices.py` and is sound. Everything else below rests on the Q1 briefing deck and the tanshin.
+
+### 1. What was said
+
+#### (a) The reported numbers
+
+*Ibiden guides explicitly, so Δ reads against both the company's own guide and the prior year. J-GAAP, ¥bn. Release 2026-08-04 after the TSE close; analyst briefing 2026-08-05. There is no clean quarterly consensus for this name, so the consensus column is not populated — the guide is the meaningful anchor.*
+
+| Metric | Reported Q1 FY3/2027 | Guide going in (2026-05-11, FY basis) | Δ vs. guide | YoY | Read — what it actually means |
+|---|---|---|---|---|---|
+| Net sales 売上高 | **¥123.2** | FY ¥500.0 → Q1 is **24.6%** of it | Ahead of a straight-line quarter | **+26.4%** | Running hot against the opening guide, which is the whole reason the guide moved. |
+| Operating income 営業利益 | **¥26.9** | FY ¥90.0 → Q1 is **29.9%** of it | **Well ahead** | **+52.4%** | OP grew **twice as fast as sales** — the print is a margin story, not a volume story. |
+| Operating margin | **21.8%** | FY guided 18.0% | +3.8pp | 18.1% → **+3.7pp** | The single most important line. Margin expansion of this size on +26% sales is pricing, not leverage alone. |
+| Ordinary income 経常利益 | **¥27.5** | FY ¥90.0 | Ahead | **+57.8%** | Above OP — FX and non-operating items helping modestly. |
+| Net income 親会社株主に帰属 | **¥17.9** | FY ¥58.0 | Ahead | **+40.8%** | 14.5% net margin. **Note it grew *slower* than OP** (+40.8% vs +52.4%) — the reverse of FY3/2026, where a securities-disposal gain flattered NI. **This quarter's growth is operational; last year's headline was not.** |
+
+**Segment split — Electronics is the entire story:**
+
+| Segment | Q1 sales | Q1 OP | Implied OPM | Read |
+|---|---|---|---|---|
+| **Electronics** | **¥77.5** | **¥21.4** | **27.6%** | The FC-BGA/AI substrate franchise. 63% of sales, **80% of profit**. |
+| Ceramics | ¥24.4 | ¥3.2 | 13.1% | Automotive DPF. Raised for the year, but explicitly labelled *temporary* by management (§1(c)). |
+| Other | ¥21.3 | ¥2.3 | 10.8% | Ballast. |
+
+**The guidance revision — the actual event of the quarter:**
+
+| | Old (2026-05-11) | New (2026-08-04) | Δ |
+|---|---|---|---|
+| **H1 sales** | ¥230.0 | **¥253.5** | +10% |
+| **H1 OP** | ¥38.0 | **¥54.5** | **+43%** |
+| H1 NI | ¥23.0 | **¥34.0** | +48% |
+| **FY sales** | ¥500.0 | **¥550.0** | +10% |
+| **FY OP** | ¥90.0 | **¥127.0** | **+41%** |
+| FY NI | ¥58.0 | **¥84.0** | +45% |
+| FY consol. OPM | 18.0% | **23.1%** | +5.1pp |
+| **Electronics FY OP** | ¥75.0 | **¥110.0** | **+47%** (OPM 22.7% → **29.3%**) |
+| FX: USD / EUR | ¥150 / ¥180 | **¥152 / ¥181** | +¥2 / +¥1 |
+
+**The decomposition management published, and it is the most useful disclosure in the release.** The deck carries an explicit Electronics OP bridge for the +¥35.0bn revision:
+
+| Bridge item | ¥bn | Share of the Electronics raise |
+|---|---|---|
+| **売価/製品Mix — price / product mix** | **+26.5** | **76%** |
+| 生産性改善 — productivity | +3.5 | 10% |
+| 販売数増 — volume | +3.0 | 9% |
+| **為替差 — FX** | **+2.0** | **6%** |
+
+- **~94% of the raise is operational.** Against the consolidated +¥37.0bn OP revision, FX is roughly **5%**. Anyone attributing this raise to the weak yen has the print backwards.
+- **It is price-led, not volume-led.** Incremental volume is worth only ¥3.0bn of a ¥35.0bn raise. Ibiden is not shipping much more; it is being paid much more for what it ships. That is the behaviour of a supplier in a genuine shortage, and it is the single most thesis-relevant fact in the quarter.
+- **The FX assumption is conservative, so there is unbooked upside.** Q1 printed at USD ¥158; H1 is set at ¥154; the full year at ¥152 — which implies an **unchanged ¥150 for H2**. The ¥2.0bn FX contribution is a floor, not a mark-to-market.
+
+**Dilution / per-share discipline — and a genuine optics trap.** A **1-for-2 stock split** was resolved: record date **2026-09-30**, effective **2026-10-01**, rationale the standard Japanese formulation (lower the per-unit investment amount, broaden the investor base). Consequently **headline FY3/2027 DPS reads ¥35 → ¥25** in the revision. **That is not a dividend cut.** It is ¥15 interim on pre-split shares plus ¥10 final on post-split shares = **¥35 on a pre-split basis, unchanged**. Any screener or aggregator comparing the two headline numbers will report a 29% DPS reduction in a quarter the company raised net income 45%. *(Share count, treasury and any buyback could not be verified — Numbers agent did not deliver.)*
+
+**One unresolved tension worth flagging, deliberately left open.** Management's stated shareholder-return policy (May deck) is a **~20% payout ratio with progressive dividends through FY3/2031**. Net income guidance just rose **45%** and the dividend was left **economically unchanged**. Either the payout guideline lags, or it is being under-run in favour of the capex programme. No explanation was offered, and with no Q&A published (§1(d)) no analyst answer exists.
+
+#### (b) Cash conversion & working capital — **NOT PRODUCED THIS QUARTER**
+
+**This block is mandatory under §I.3(b) and it is missing.** The Numbers sub-agent was stopped before delivering the receivables/DSO, inventory/DIO, payables/DPO, cash-conversion-cycle and OCF-vs-net-income series for this quarter and the prior three. Nothing here is a judgement that the working capital is fine — **it is an absence of evidence, and it is the block that would most likely have contradicted a very good income statement.**
+
+Two specific open items carried forward, both of which matter more than usual for this name:
+
+1. **Capex and the ¥500bn programme.** The May deck guided FY3/2027 capex of **¥210.0bn** (Electronics ¥200.0bn), with Kawama Cell6 (~¥220bn) and Ono Cell8's remaining half (~¥280bn) starting up sequentially from FY2027. **No capex figure was refreshed at Q1.** Tripwire #2's second leg — "while capex keeps rising" — is therefore **unmeasured**, not cleared.
+2. **The customer-prepayment question, still unresolved from last quarter.** The FY3/2026 debrief established that the widely-repeated "customers pre-funded the ¥500bn capex" narrative **appears in no primary filing**, and that the balance-sheet advances line actually **fell**. The May 2026 Q&A does have management saying customers contract to bear the investment-equivalent amount with **part received as prepayment** — so the narrative has *some* primary support in management commentary, but **the balance sheet has not corroborated it**. Q1 gave no new data. **This stays open, and it should be the first thing checked at H1.**
+
+#### (c) Management's read on the sector
+
+*Independent-check column is weak this quarter by construction — the Sector agent did not deliver, so external corroboration is limited to what the orchestrator could verify from price data and the already-logged corpus.*
+
+| What management said | Where | Independent check |
+|---|---|---|
+| Demand exceeding the industry's supply capacity **continues** (継続) | Deck p3/p5 | **Partially corroborated, from the corpus not this run:** Intel's 2026-07-23 print named substrates as one of the industry's most acute and persistent shortages (already logged). **Opinion → treat as an interested party's characterization**, but a 76%-price/mix-driven raise is behaviourally consistent with it. |
+| GPU and high-end CPU demand firm; **volume came in above the initial plan**, driven by stable Cell8 production and effective use of existing capacity | Deck p3 | Not independently checked this run. |
+| **Switch-IC demand expansion** now expected alongside AI and general-purpose servers | Deck p3 | Not checked. Consistent with the May Q&A's disclosure that a major GPU customer had also placed switch-substrate orders. |
+| Selling prices on high-value-added products continue firm | Deck p5 | **Corroborated by the company's own bridge** — ¥26.5bn of price/mix is the strongest possible internal evidence. |
+| **Material procurement risk has decreased** vs the start of the year | Deck | Not checked. Note this is a risk disclosed *by being retired* — it was never explicit in the May deck. |
+| Ceramics: DPF uptick is **temporary**; automotive **cannot be viewed optimistically** | Deck | Not checked. Note the segment's numbers were *raised* while the adverbs turned negative. |
+
+**Language shift versus the May 2026 materials — this is where the real signal is:**
+
+| Topic | May 2026 | August 2026 | Read |
+|---|---|---|---|
+| Supply/demand | Demand **is forecast to** exceed industry supply (見通し, charted to CY28) | Demand exceeding supply **continues** (継続) | **Forecast → present-tense fact. A genuine upgrade.** |
+| Switch IC | Roadmap item; "support started FY2025" | Named in the guidance narrative as a driver | Promotion from roadmap to P&L. |
+| Capacity | Q&A: expanding beyond the current plan before FY2028 is **difficult** (people and time) | "**Effective / flexible utilization of existing capacity**", repeated | **Same constraint, restated as an achievement. The beat is sweating installed assets, not adding capacity** — which caps how far this can run before Cell6/Cell8 arrive. |
+| Ceramics | Growth ambitions in EV, graphite, nuclear | Uptick **temporary**; automotive not optimistic | Clear negative adverb shift despite raised numbers. |
+| Pricing | Q&A: "we negotiate within a reasonable range because we prioritise long-term customer relationships" | Prices continue firm; price/mix is 76% of the raise | **Behaviour is materially more price-assertive than May's framing implied.** |
+
+#### (d) What management *didn't* say
+
+| What's missing | Last disclosed | Stated reason | Read — why it likely went away |
+|---|---|---|---|
+| **FY3/2028 mid-term plan (¥650bn / ¥150bn)** | 2026-05-12 briefing | None | **Unaddressed, not dropped** — see the cadence caveat. But the gap is now the finding: FY3/2027 at ¥127bn OP sits only **~18% below** the FY3/2028 target. |
+| ¥500bn capex programme detail (Cell6 ~¥220bn, Cell8 ~¥280bn, FY2027 start-up) | 2026-05-12 | None | Cadence. Directly relevant to Tripwire #2. |
+| FY26 capex ¥210.0bn, cash-allocation chart | 2026-05-12 | None | Cadence. |
+| Capacity-expansion index (FY24=100 → 220 by FY28); AI-substrate production-load multiple (1.0 → 2.5× by CY28) | 2026-05-12 | None | Cadence. These are the cleanest forward capacity metrics the company publishes. |
+| **Technology roadmap including glass core** | 2026-05-12 (p15, glass core as a **warpage countermeasure**, CY28–CY30+ columns) | None | Cadence. **Directly relevant to Tripwire #3 and the Edge.** |
+| Customer concentration (NVIDIA 29.4% / Intel 18.1%) | FY3/2026 annual disclosure | n/a | Annual-only disclosure; does not refresh quarterly. |
+| **DPS ¥35 → ¥25 headline** | 2026-05-11 | Split restatement | **KPI rebased, not withdrawn** — same name, different denominator. See §1(a). |
+
+**The cadence caveat, and it is load-bearing.** Ibiden's IR archive shows the full strategy deck is a **Q2/Q4 artefact**: the Oct-2025 Q2 deck ran 18 pages, the May-2026 FY deck 19, and for **Q1 and Q3 the archive historically lists Q&A only, with no deck at all** — including Q1 FY3/2026. So this 5-page Q1 deck is an **addition** relative to the prior-year Q1, not a subtraction. **Verdict: nothing was suppressed.** The honest read is *unaddressed*, and the real disclosure test is the **H1 deck due ~2026-10-30/31** — if the capex, capacity-index, mid-term and glass-core roadmap slides do not reappear there in full, *that* is the disclosure event. Label this an **opinion**, per §I.3(d).
+
+#### (e) The reaction, decomposed
+
+*Rebuilt by the orchestrator from `scripts/prices.py` settled bars after the Sector agent was lost. Closes are exchange-local; percentages computed from bars, never chained off a headline.*
+
+The release landed **after the TSE close on 2026-08-04**, so 8/4's ¥16,330 is the **pre-news** anchor and 8/5 is the reaction session.
+
+| | 8/4 (pre-news) | 8/5 | 8/6 | 8/7 | Net |
+|---|---|---|---|---|---|
+| **Ibiden 4062.T** | ¥16,330 | **¥20,330 (+24.5%, limit-up)** | ¥19,010 (−6.5%) | ¥19,110 | **+17.0%** |
+| Unimicron 3037.TW | 924 | 969 | 973 | 955 | +3.4% |
+| Nan Ya PCB 8046.TW | 1,045 | 1,060 | 1,105 | 1,080 | +3.3% |
+| TSMC 2330.TW | 2,320 | 2,405 | 2,365 | 2,370 | +2.2% |
+| *Peer mean* | | | | | *+3.0%* |
+| **Company-specific residual (est.)** | | | | | **≈ +14.1pp** |
+
+- **This is the rare Ibiden move that is genuinely about Ibiden.** This name normally moves 8–11% in a session on sector news with *no* company event — −11.05% on 7/28 in a memory-led rout, −~10% around TSMC's Q2 print, −~8–10% on the NVIDIA Kyber report. Here the residual is **+14.1pp against three ABF/AI peers**, so the print, not the tape, did the work. *(The Nikkei comparison could not be completed — no 8/7 index bar was available — so the peer mean uses the three ABF/AI names only.)*
+- **The 8/5 close was limit-up**, i.e. the price was **capped** and demand went unfilled; the −6.5% on 8/6 is that overshoot unwinding. **+17.0% is the honest reaction figure, not +24.5%.**
+- **It was a de-rate, not a re-rate, and that is the most counterintuitive finding in this digest.** Price rose **+17.0%** while the full-year OP guide rose **+41%**. Marked against the new guide, the stock is **cheaper after the print than before it**. The market took the raise and *reduced* the multiple it will pay for it — consistent with treating the raise as a cyclical/pricing spike rather than a durable step-change in earnings power. *(Absolute multiples are not computed here: the share count could not be verified this run.)*
+- **Context the reader needs:** the log's last entry is **2026-07-28**, and the six sessions since include −9.32% (7/29), **+21.98% (7/31)** and −6.70% (8/3) — extraordinary moves that are **not yet logged**. A whats-new run is owed on this name; this digest covers the print only.
+
+#### (f) Part 1 in brief
+
+- 📊 **The numbers** — Q1 OP **¥26.9bn, +52.4% YoY**, OPM 21.8% (+3.7pp); FY OP guide **raised 41% to ¥127.0bn**. The distortion to catch: **headline DPS "¥35 → ¥25" is a post-split restatement, not a cut** — ¥35 unchanged pre-split.
+- 💵 **Cash conversion** — ⚠️ **not produced this quarter.** The mandatory working-capital block is absent (sub-agent lost), as are capex and the advances line. Treat the income statement as unconfirmed by cash.
+- 🏭 **Sector read** — management upgraded "demand exceeds industry supply" from **forecast to present tense**, and its own bridge puts **76% of the raise on price/mix vs ~6% FX** ⚠️ **mixed check** — internally corroborated and consistent with Intel's logged 7/23 substrate-shortage remark, but **no independent peer verification ran this quarter**.
+- 🔇 **What wasn't said** — the FY3/2028 mid-term (¥650bn/¥150bn), the ¥500bn capex detail, capacity indices and the **glass-core roadmap** all went unaddressed. **Cadence, not suppression** (Q1 historically has no deck at all) — but the H1 deck (~end-Oct) is the real test.
+- 🎢 **The reaction** — **+17.0%** vs a **+3.0%** peer mean = **~+14.1pp company-specific residual**, the rare Ibiden move genuinely driven by its own news. But price +17% against forward OP +41% means the multiple **compressed**: a de-rate on forward earnings, not a re-rate.
+
+### 2. Assessment
+
+#### (a) The underlying investment thesis
+
+The deep-dive's thesis: *a franchise-quality ABF FC-BGA leader whose customer base has inverted to NVIDIA #1, where the debate is **price and the 2028–2030 glass-substitution clock**, not franchise quality.*
+
+- **Supported — the franchise-quality leg, hard.** A 41% OP raise driven 76% by price/mix, with Electronics OPM guided to **29.3%**, is close to the strongest possible evidence that this franchise has pricing power in a shortage. Volume contributed only ¥3.0bn of a ¥35.0bn raise — Ibiden is being *paid more*, not shipping much more.
+- **Supported — "demand is pre-funded / capacity is the constraint."** Management explicitly attributes the beat to **effective utilization of existing capacity**, and reiterated in May that expanding beyond the current plan before FY2028 is difficult. The constraint is real and it is currently a pricing tailwind.
+- **Left untested — the leg the Edge actually rests on.** **Glass-core was not mentioned at all.** The thesis's central debate is the substitution clock, and this print says nothing about it. Applying §I.4(a)'s discipline: **do not let a strong franchise quarter be scored as evidence on a question it did not address.**
+- **Discounted by the Guidance track record:** the raise should be read against a management team that has now **twice** anchored an opening guide low and revised up. That makes the ¥127.0bn credible-to-conservative, but it also means **the raise itself was the base case, not a surprise** — which is part of why the multiple compressed.
+
+#### (b) Re-rating drivers
+
+- **Fundamental — strongly positive, and the dominant bucket.** A 41% forward-OP raise, 94% operational, with H2 FX still assumed at ¥150 against a Q1 actual of ¥158 (unbooked upside). This removes a genuine "is the AI substrate cycle peaking?" discount.
+- **Structural — unchanged this print.** No change to the peer set, the ABF supply structure, or Ibiden's position in it. Unimicron's capacity build (logged 7/21) remains the open structural question and was not addressed.
+- **Sentiment / technical — negative on the margin, and it is the interesting one.** The stock went **limit-up and then gave back 6.5%**, finishing +17.0% against a +41% raise. **The multiple compressed.** The market treated the raise as a cyclical spike, not a re-rating event. Note also the name had already run **+21.98% on 7/31** on sector flow before the print — some of the good news was pre-positioned.
+- **Macro — mildly positive, unbooked.** Yen at ¥158 vs a ¥150 H2 assumption.
+
+**Which bucket the print weighted: fundamental, decisively — but the sentiment bucket is what stopped it becoming a re-rate.** Over 12 months the fundamental bucket dominates; the 3–5 year read still turns on the glass clock, which is untouched.
+
+#### (c) Risks
+
+- **Escalated: capacity as a ceiling.** The beat came from sweating installed assets. Management has said expanding beyond plan before FY2028 is difficult. **The upside from here is increasingly price, not volume, until Cell6/Cell8 land** — and price-led earnings are more cyclically fragile than volume-led ones.
+- **Escalated: concentration, by implication.** NVIDIA at 29.4% and Intel at 18.1% (FY3/2026, not refreshed). A price/mix-led raise in a shortage is precisely the earnings stream that reverses hardest if one large customer re-allocates.
+- **De-escalated: material procurement risk**, explicitly, by management.
+- **De-escalated: Ceramics**, numerically — but management labelled the uptick temporary, so treat this as noise rather than improvement.
+- **Newly surfaced: none from the call.** But **the unverified cash-conversion position is itself a risk this digest cannot price** (§1(b)).
+- **Pre-Mortem, updated.** The deep-dive's mechanism — *glass-core substitution arriving early and naming a supplier other than Ibiden, collapsing the terminal value of the ABF build-up franchise* — **was not moved by this print in either direction.** It was not mentioned. The nearer-term mechanism that *did* move is milder and is not a zero: **a price-led earnings peak**, where the 76%-price/mix raise reverses as capacity arrives industry-wide and Ibiden's realized ASPs mean-revert into a fixed-cost base swollen by ¥500bn of capex. That is a de-rating mechanism, not a going-concern one.
+
+#### (d) Edge and Tripwires
+
+*Quoted verbatim from [`news.md`](news.md).*
+
+| # | Tripwire (verbatim) | Status this print | Evidence |
+|---|---|---|---|
+| **1** | *"NVIDIA publicly shifts high-end substrate allocation toward Unimicron (breaks the #1-customer moat)."* | ✅ **Checked, does not fire** | **No customer or competitor was named anywhere in the Q1 deck.** The positive inference is indirect but real: **you cannot raise Electronics OP 47% on ¥26.5bn of price/mix while losing the high-end socket.** Counter-context: Unimicron's FY2026 capex stands at NT$34.0bn, ~70% into ABF (logged 2026-07-21), and its shares rose only +3.4% vs Ibiden's +17.0% post-print. ⚠️ **No independent peer check ran this quarter** — this status rests on company silence plus price behaviour, not on verified Unimicron commentary. |
+| **2** | *"two consecutive prints show Ono/new-plant utilization stalling below plan while capex keeps rising — i.e., capacity outrunning demand (the classic substrate over-build trap)."* | ✅ **Checked, does not fire — but one leg is unmeasured** | **Utilization leg points the right way:** Cell8 is in **stable production** and was cited as a driver of volume coming in **above the initial plan**; management expects to maintain a high utilization rate. **No utilization percentage was disclosed.** **Capex leg is unmeasured** — no capex figure was refreshed at Q1, and the Numbers agent that would have retrieved it was lost. The trigger requires *both* legs; one is currently unobservable. |
+| **3** | *"a glass-core high-volume-manufacturing commitment for a flagship AI accelerator lands materially before ~2028 AND names a supplier other than Ibiden (the substitution clock pulling forward against you)."* | ✅ **Checked, does not fire** — ⚠️ **weakest evidence in the table** | **Glass core was not mentioned in the Q1 materials at all.** In the May deck it sat in the roadmap as a **warpage countermeasure** in the **CY28–CY30+** columns — i.e. consistent with the ~2028 consensus clock, neither pulled forward nor pushed out. **Critically: no independent sector check ran this quarter** (agent lost), so this status reflects *Ibiden's silence*, not a verified survey of Intel / Samsung / SKC-Absolics / Corning / LG Innotek / TSMC CoPoS activity. **Treat as provisional and re-check on the next run.** |
+
+**Edge assessment.** The Edge holds that glass swaps the substrate *core* while ABF build-up still laminates on top, so the real risk is **share/margin erosion, not displacement**.
+
+- **The print corroborates the "erosion, not displacement" branch — but only its margin half, and indirectly.** Electronics OPM guided to **29.3%** with 76% of the raise from price/mix is direct evidence that margin erosion is **not** occurring; the franchise is pricing at will. Supporting this from the May Q&A (primary, previously unlogged in this file): management characterised the interposer-type competitive pattern as **near-100% share at each new-generation ramp, then ~20–30 points of share loss after 3–6 months**, and the silicon-bridge type as a technical advantage **sustainable at least to 2030**. That is *precisely* the "erosion, not displacement" shape the Edge asserts, stated by management.
+- **But the glass clock itself — the Edge's actual subject — went entirely untested**, and no independent check ran. **Tagging discipline matters here:** this corpus already runs 3 `[EDGE+]` to 1 `[EDGE−]` on IBIDY, and §L exists because a pipeline that only asks "does this corroborate?" will keep answering yes. So: **`[EDGE+]` on the pricing-power evidence, explicitly scoped to the margin branch — and an explicit note that the substitution-timing claim remains unexamined this quarter.** It would be wrong to read this print as vindication of the glass thesis.
+- **No Tripwire fired. No Edge or Tripwire has been rewritten** — they remain exactly as pre-committed in `news.md`.
+
+#### (e) Part 2 in brief
+
+- 🎯 **Thesis legs** — **supported:** franchise quality and pricing power (Electronics OPM guided 22.7% → **29.3%**, raise 76% price/mix). **Left untested:** the glass-substitution clock, which is the debate the thesis actually names.
+- 🔄 **Re-rate** — **fundamental** bucket moved decisively (41% forward-OP raise, 94% operational). But **sentiment/technical worked against it**: +17.0% price vs +41% guide = **multiple compression**. A de-rate on forward earnings, not a re-rate.
+- ⚠️ **Risks** — **escalated:** capacity is now the ceiling (beat came from sweating existing assets; expansion beyond plan "difficult" before FY2028), and price-led earnings are cyclically fragile. **De-escalated:** material procurement risk. **Pre-Mortem unchanged** (glass displacement untouched); nearer-term mechanism is a **price-led earnings peak**, a de-rating not a wipeout.
+- 🚨 **Tripwires & Edge** — **#1 ✅ does not fire** (no allocation shift disclosed; a 47% Electronics OP raise is inconsistent with losing the socket) · **#2 ✅ does not fire**, utilization leg positive but **capex leg unmeasured** · **#3 ✅ does not fire**, but on **company silence only — no independent glass check ran**. Edge **🟢 EDGE+**, scoped to the margin branch only.
+
+### 3. Final thoughts — what to watch going forward
+
+**1. The read in one line.** Ibiden just proved the franchise half of its thesis emphatically — a 41% profit-guide raise that is three-quarters pure pricing, in a shortage it now describes in the present tense — and the market responded by paying *less* per unit of forward profit, which tells you the debate has already moved on from "is the franchise good" to "how long does this price cycle last."
+
+**2. The directional lean.** 🟢 **constructive next ~12 months · ⚪ genuinely unresolved over 3–5 years** — the near-term earnings path is now well-supported and conservatively assumed (H2 FX at ¥150 vs ¥158 spot), while the long-dated question the thesis actually turns on (glass substitution, 2028–2030) was not addressed by this print and was not independently checked this run. *A lean on the print, not a rating on the stock — not financial advice.*
+
+**3. ✅ What to watch — priority-ordered.**
+- ⚠️ **#1 — the H1 deck and results, ~2026-10-30/31.** This is the single highest-value scheduled event and it resolves three things at once. **Pass:** the capex figure, capacity-expansion index, ¥500bn programme detail and **glass-core roadmap slides all reappear**, and H1 lands at or above the raised ¥54.5bn OP. **Fail:** those slides stay absent → the "cadence, not suppression" read in §1(d) is **downgraded to a real disclosure event**, and Tripwire #2's capex leg stays unmeasurable for a second consecutive print — which is itself the condition the trigger describes.
+- **The missing cash-conversion block — open, no date, and owed immediately.** §I.3(b) was not produced. **Pass:** H1 shows receivables and inventory growing no faster than sales, and OCF tracking net income. **Fail:** a lengthening cash conversion cycle against a "record demand" narrative — the contradiction §I.3(b) exists to catch. **This should be closed before the next print, not at it.**
+- **An independent glass-core check — open, no date.** Tripwire #3's current "does not fire" rests on Ibiden's silence alone. **Fail:** any HVM commitment for a flagship accelerator before ~2028 **naming a supplier other than Ibiden** → **Tripwire #3 fires → pre-committed action is exit/re-underwrite.**
+- **The FY3/2028 mid-term plan, next addressed presumably at H1.** FY3/2027 is now guided to ¥127.0bn OP against a ¥150.0bn FY3/2028 target — only ~18% above. **Pass:** the mid-term is raised again. **Fail:** it is quietly reaffirmed, implying management sees FY3/2028 as barely better than the year it just raised.
+- **A whats-new run on the unlogged 7/29–8/03 sessions.** The log ends 2026-07-28 and has since missed −9.32%, **+21.98%** and −6.70% sessions. Not a thesis item, but the file is behind the tape.
+- **Customer concentration at the FY3/2027 annual disclosure.** NVIDIA 29.4% / Intel 18.1% is now over a year stale by the time it refreshes; Tripwire #1's most direct evidence only arrives annually.
+
+**4. 💲 Where the price sits.** At ¥19,110 (8/7) the stock is **+17.0% from its pre-print ¥16,330** and **+28.6% off the 7/28 low of ¥14,855** — but it took a **41%** forward-OP raise to get there, so **the forward multiple is lower after the print than before it**. The limit-up close of ¥20,330 was a capped, unfilled print that gave back 6.5% the next session; treat ¥20,330 as an artefact, not a level. The market is paying for this year's earnings and explicitly declining to capitalize them — which is a defensible stance given the raise is 76% price and price cycles mean-revert. *(Absolute multiples not computed — share count unverified this run.)*
+
+**5. 🔀 What would flip the read.**
+- 🟢 **Turns more bullish:** the H1 deck restores the full disclosure set **and** raises the FY3/2028 mid-term again — that would convert a price spike into a demonstrated step-change in earnings power, and is the specific event that would make the multiple compression look like an error.
+- 🔴 **Turns bearish:** any glass-core HVM commitment before ~2028 naming a non-Ibiden supplier (**fires #3**), or a second consecutive print with utilization flat-to-down while capex rises (**fires #2**) — or, more mundanely and more likely, **H2 price/mix reversing** as industry capacity lands, which would expose ¥500bn of capex against mean-reverting ASPs.
+
+**6. Why the lean.**
+- 🟢 **(12mo) The raise is real, operational, and conservatively struck.** ¥26.5bn of ¥35.0bn from price/mix, ~6% from FX, and H2 still assumed at USD ¥150 against a ¥158 Q1 actual. On a management team that has now twice anchored low and revised up, ¥127.0bn should be read as a floor.
+- 🟢 **(12mo) Pricing power is the cleanest possible read on moat health.** Electronics OPM guided to 29.3% in a market management now describes as short in the present tense; the May Q&A's own competitive framing (near-100% share at ramp, silicon-bridge advantage to 2030) is squarely on-thesis.
+- 🔴 **(12mo) The upside from here is price, not volume — and the market knows it.** Volume contributed ¥3.0bn of a ¥35.0bn raise; the beat came from sweating existing capacity that management says is hard to expand before FY2028. That is why a 41% raise bought only a 17% move and a lower multiple.
+- ⚖️ **The honest counterweight, and it cuts at the digest itself:** **this entry is missing its cash-conversion block and its independent sector check.** A very strong income statement that has not been checked against working capital is exactly the configuration §I.3(b) exists to be sceptical of, and Tripwire #3's clean status rests on silence rather than evidence. **The lean above should be held more loosely than the numbers alone would suggest** — not because anything contradicts it, but because two of the three things that could have contradicted it were not looked at.
+
+**7. Bottom line.** A genuinely excellent quarter and a genuinely conservative raise, delivered by a company that is being paid more for roughly the same output because the industry cannot supply enough of it. The franchise question is answered. The two questions that decide the multiple — how long the price cycle runs, and when glass arrives — are both untouched by this print, and the market's willingness to pay +17% for a +41% raise says it is pricing the first of those cautiously. Watch the H1 deck at end-October: it is simultaneously the guidance test, the disclosure test, and the first chance to close the cash-conversion gap this digest could not. *Not financial advice — informational research tooling only.*
+
+---
+
+*Methodology: **this run is incomplete and the file says so.** Of the three mandatory §I.2 sub-agents, **only the Call agent delivered**; the **Numbers** and **Sector cross-check** agents were stopped mid-run and returned no brief. Orchestration and synthesis on **Opus** (claude-opus-5); the Call sub-agent on **Opus**. Primary sources (all Japanese unless noted): [Q1 FY3/2027 briefing deck, 2026-08-05](https://www.ibiden.co.jp/ir/items/kessannsetsumei2026Q1.pdf) · [FY3/2026 briefing deck, 2026-05-12](https://www.ibiden.co.jp/ir/items/kessannsetsumeiFY2025.pdf) · [FY3/2026 briefing Q&A, 2026-05-12](https://www.ibiden.co.jp/ir/items/QA_FY25Q4.pdf) · [Q2 FY3/2026 deck, 2025-10-31 (cadence calibration)](https://www.ibiden.co.jp/ir/items/kessannsetsumei2025Q2.pdf) · [IR presentation library](https://www.ibiden.co.jp/ir/library/presentation/). Secondary: [kabutan](https://s.kabutan.jp/news/k202608040082/), [media-ir](https://www.media-ir.com/news/?p=177838). Price decomposition in §1(e) computed by the orchestrator from `scripts/prices.py` settled bars (4062.T, 3037.TW, 8046.TW, 2330.TW). **Could not be retrieved / not attempted this run:** (1) the entire §I.3(b) working-capital and cash-conversion block, this quarter and the prior three; (2) the Q1 cash-flow statement; (3) Q1 capex and the customer-advances balance — leaving Tripwire #2's capex leg unmeasured and last quarter's prepayment-narrative question open; (4) share count, treasury and buyback status — so no absolute valuation multiple is computed anywhere in this entry; (5) independent peer verification of management's demand and pricing claims; (6) post-print sell-side reactions; (7) an independent glass-core substitution check, leaving Tripwire #3's status resting on company silence; (8) the **Q1 質疑応答 (Q&A) PDF is linked on Ibiden's IR index but returns HTTP 404 as of 2026-08-06** — verified across three URL-path variants — so there is zero visibility into what analysts pressed on this quarter; the May 2026 Q&A was read in full as the comparison baseline instead. Items (1)–(3) and (5)–(7) should be closed by a follow-up run before the H1 print.*
 
 ---
 
