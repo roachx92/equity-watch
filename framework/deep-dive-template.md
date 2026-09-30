@@ -42,16 +42,13 @@ Tripwires") for the invariant and the deep-dive skill's Step 4b for the procedur
 ### 2. Front matter — before §1
 
 - [ ] **Title block:** `EQUITY RESEARCH — DEEP DIVE (EXHAUSTIVE DILIGENCE)`, company legal name, every listing line (exchange:code · ADR ticker **with its ratio** · HQ · FY end), and a one-line italic positioning tagline.
-- [ ] **Metric dashboard — a ~14–16 cell table**, market data on one side, fundamentals on the other. Minimum: price (dated) · ADR price · market cap · fully diluted share count · 52-wk range · 12-mo change · trailing P/E + EV/EBITDA · consensus rating & avg PT | latest FY revenue (YoY) · operating profit (YoY) · net income (YoY, with any distortion flagged) · lead segment profit · next-FY guidance · largest customer (name + % of revenue) · #2 customer · capex program. A reader must get the whole quantitative shape of the name without scrolling.
-- [ ] **Reference-price note + SOURCE-CONFLICT protocol.** Date every price. **When quote sources disagree, do not flag-and-abandon** ("~$41, unreconciled, treat as stale" is a failure). Run the cross-check and show the arithmetic: reconcile the ordinary against the ADR via the stated FX rate and ratio, then use a third anchor (e.g. the ADR's own 52-wk high) to disqualify the outlier. State which figure you adopted and why. An unreconciled headline price contaminates every multiple in §14.
-- [ ] **NOT FINANCIAL ADVICE block** enumerating the specific primary sources relied on (with filing dates/accession numbers), the filer's regime where non-US (e.g. JP-GAAP, ¥ reporting, does not file with the SEC), and a note that low-tier share figures are labeled as such throughout.
+- [ ] **Sources & filer-regime block** enumerating the specific primary sources relied on (with filing dates/accession numbers), the filer's regime where non-US (e.g. JP-GAAP, ¥ reporting, files 20-F/6-K rather than 10-K/10-Q/8-K, does not file with the SEC at all), and a note that low-tier share figures are labeled as such throughout. **Do NOT open the report with a metric-dashboard table, a reference-price note, a source-conflict protocol, or a NOT FINANCIAL ADVICE disclaimer** — all four were removed as deadweight (see the change note at the foot of this file). Date figures inline where they appear instead. Where two sources genuinely disagree on a load-bearing number, resolve it silently against the primary filing and, if the conflict is material, record it as a numbered caveat (B0.5) — not as front matter.
 
 ### 3. Executive summary — MANDATORY, front-loaded, and complete
 
 Not a teaser and not a deferral to §15. **A summary that says "see §15 for the full synthesis" has failed this bar.** It must stand alone and carry the entire argument:
 - [ ] The one-paragraph statement of what the company is and what the debate actually is (quality vs. price vs. durability — name which).
-- [ ] The two or three **hard, primary-sourced facts** that anchor the snapshot, each with its figure and filing source.
-- [ ] **Three reasons to own — each with its honest counterweight**, fully developed inline (not cross-referenced).
+- [ ] **Three reasons to own, each with its honest counterweight — in no more than three sentences total** (one per reason). Compress, do not cross-reference: each sentence carries the reason, its load-bearing figure, and the counterweight that cuts against it. The evidence behind them belongs in the body sections, not here. **A multi-paragraph block per reason is a failure of this bar** — the exec summary is the densest page in the report, not the longest.
 - [ ] **What has to be true** — the conjunction the thesis rests on.
 - [ ] **Bottom line** — a plain-English close.
 
@@ -229,5 +226,19 @@ Now a **standard section of every full deep-dive** (Section B.3), not just an on
 ***Gold-standard audit, July 2026 — the current bar.** Benchmarked the report corpus against the Ibiden/4062 Opus deep-dive. Finding: reports were passing the section checklist while failing on depth and form — all five clustered at ~4,500–5,600 words vs. the benchmark's ~7,400, and used 3 tables where the benchmark used 13. The audit's core lesson is that **the table structures ARE the rigor mechanism**, not decoration: a merged re-rate table let a report ship with zero sentiment/technical drivers while its own body cited beta 1.71 and a crowded-proxy unwind. Changes made: **Section B0 (output architecture)** added as non-negotiable — model pinning (Opus for orchestrator + all four sub-agents), front-matter metric dashboard, source-conflict cross-check protocol, a mandatory front-loaded executive summary, the 13-table mandate, a numbered-caveats closing block, a ~7,000-word depth floor, and numbers discipline. The template grew to **18 sections**: §16 (review of a submitted investor thesis, conditional) and §17 (customer-demand transmission chain) added; Final Thoughts renumbered to §18.*
 
 ***A note on the benchmark's own limits — read this before treating it as a reference.*** *The audit found the gold-standard document **failed** the numbers-discipline bar in places the shorter report passed: it asserted a customer-prepayment split as fact when it existed only in trade press, and its capex/FCF/debt-repayment figures conflict with the shorter report's read of the same filings (¥64.3B vs ¥106.1B capex; "comfortably positive FCF" vs "FCF ≈ ¥0"). **The benchmark is the architecture standard, not a numerical source.** Where the two conflict, resolve against the primary filing — and follow the shorter report's filing-level skepticism (B0.7), not the benchmark's. The target is the benchmark's structure with that report's rigor.*
+
+***Report-format trim, 2026-09-30 — four opening blocks removed.** The July 2026 audit above
+added a front-matter metric dashboard, a reference-price note and a SOURCE-CONFLICT protocol;
+the template also carried a NOT FINANCIAL ADVICE disclaimer and an exec-summary "anchor facts"
+block. **All four are removed, and the exec summary's three reasons to own are capped at three
+sentences.** Rationale: they were deadweight to the only reader these reports have — the
+dashboard restated figures the body carries anyway, the price/source-conflict apparatus
+narrated process rather than conclusions, the disclaimer told a reader who already knows, and
+the anchor-facts block guaranteed every load-bearing figure appeared at least twice before
+§1. The NBIS 2026-09-29 report reached 15,146 words against a ~7,000-word floor largely on
+this kind of restatement. **Where the audit note above and this note conflict, this note
+wins.** What was deliberately KEPT: the sources + filer-regime block (the FPI/20-F distinction
+is load-bearing and non-obvious), the 13-table mandate, the depth floor, and the numbered
+caveats — a source conflict now surfaces as a numbered caveat instead of as front matter.*
 
 *Applied to every ticker unless you override it for a specific request.*

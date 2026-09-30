@@ -23,23 +23,26 @@
 | Trailing P/E / EV-EBITDA | | 2nd customer | |
 | Consensus rating · avg PT | | Capex program | |
 
-*Reference price <px> (<venue> close, <date>). **PRICE NOTE / SOURCE CONFLICT:** <if sources
-disagree, show the cross-check arithmetic and state which figure you adopted and why — do NOT
-flag-and-abandon (B0.2)>. Contracted/backlog is distinguished from recognized revenue
-throughout; all point-in-time figures dated.*
+*Contracted/backlog is distinguished from recognized revenue throughout; all point-in-time
+figures dated inline.*
 
-**NOT FINANCIAL ADVICE.** Informational research and framework only — not a recommendation to
-buy or sell, and not personalized advice. Figures sourced from <enumerate primary filings with
+**Sources & filer regime.** Figures sourced from <enumerate primary filings with
 dates/accession numbers>, <counterparty filings>, and <named trade press>, verified <dates>.
-<Filer-regime note where non-US, e.g. JP-GAAP, ¥ reporting, does not file with the SEC.> Some
-competitive market-share figures are secondary/illustrative and labeled as such.
+<Filer-regime note where non-US, e.g. JP-GAAP, ¥ reporting, files 20-F/6-K rather than
+10-K/10-Q/8-K, does not file with the SEC at all.> Some competitive market-share figures are
+secondary/illustrative and labeled as such.
+
+<NO opening metric-dashboard table, NO reference-price note, NO source-conflict protocol, NO
+financial-advice disclaimer (B0.2). Where sources conflict on a load-bearing figure, resolve
+against the primary filing and record it as a numbered caveat, not as front matter.>
 
 ## Executive summary — investment thesis
 
 <MANDATORY and front-loaded (B0.3). Must stand alone — a summary that defers to §15 has failed
-this bar. Carries: what the company is and what the debate actually is; the 2–3 hard
-primary-sourced anchor facts; three reasons to own each with its honest counterweight, fully
-developed inline; what has to be true; bottom line.>
+this bar. Carries: what the company is and what the debate actually is; three reasons to own
+each with its honest counterweight, in NO MORE THAN THREE SENTENCES TOTAL (one per reason);
+what has to be true; bottom line. NO separate "anchor facts" block — the figures ride inside
+the reasons.>
 
 ## 1. Business model & role in the value chain
 <Segment table: sales · segment profit · margin · YoY. Plus what the company is NOT, and which
@@ -116,4 +119,3 @@ source named with date/accession number; secondary/trade sources named separatel
 figure that could not be retrieved, every gap left open, each numbered so it can be cited and
 closed on the next run.>
 
-*Not financial advice — informational research tooling only.*
