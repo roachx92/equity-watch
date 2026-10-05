@@ -183,8 +183,12 @@ Commit the new report and the created/updated ticker news.md with a clear messag
 routine expects it.
 
 ## Guardrails
-- Not financial advice — informational research tooling only (per Section A). No unsolicited
-  portfolio-fit / position-sizing commentary about the reader.
+- Informational research tooling only (per Section A): no unsolicited portfolio-fit /
+  position-sizing commentary about the reader, and no directives to buy or sell. This governs
+  **conduct, not report text** — do NOT print a financial-advice disclaimer in the report, and
+  do NOT open it with a metric-dashboard table, a reference-price note, a source-conflict
+  protocol, or an exec-summary "anchor facts" block. All five were removed as deadweight
+  (B0.2/B0.3 and the 2026-09-30 change note in `framework/deep-dive-template.md`).
 - Never fabricate a figure, source, or a precise market-share % — tier and hedge, say what
   couldn't be verified (Sections A + G).
 - Reports are markdown in this repo. No `.docx`, no external sync.
