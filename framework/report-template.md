@@ -12,17 +12,6 @@
 > Run the orchestrator and all four sub-agents on **Opus** (B0.1) and record the model below.
 > Delete this blockquote before publishing.
 
-| Metric | Value | Metric | Value |
-|---|---|---|---|
-| Price (<venue>, <date>) | | FY<yr> Revenue | |
-| ADR price | | FY<yr> Operating profit | |
-| Market cap | | FY<yr> Net income | |
-| Shares out. (fully diluted) | | Lead segment OP | |
-| 52-wk range | | FY<yr+1>e Rev / OP (guidance) | |
-| 12-mo change | | Largest customer | |
-| Trailing P/E / EV-EBITDA | | 2nd customer | |
-| Consensus rating · avg PT | | Capex program | |
-
 *Contracted/backlog is distinguished from recognized revenue throughout; all point-in-time
 figures dated inline.*
 
