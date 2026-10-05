@@ -58,7 +58,6 @@ The gold standard uses **13 tables**; a report with 3 is not applying this frame
 
 | Section | Required table | The column that carries the rigor |
 |---|---|---|
-| Front matter | Metric dashboard | — (the at-a-glance grid itself) |
 | §1 | Segment split | margin + YoY, not just sales |
 | §2 | Catalysts | **Significance** — why it moves the thesis |
 | §3 | **Four** separate typed tables | **Durability** + confidence-tiered impact |
