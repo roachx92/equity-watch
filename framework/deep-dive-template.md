@@ -83,6 +83,7 @@ The gold standard uses **13 tables**; a report with 3 is not applying this frame
 - [ ] **Reconcile cash-flow line items against each other before writing them.** Do not let a construction-in-progress reclass be written up as debt repayment. If OCF, capex, and FCF do not tie, resolve it against the filing rather than picking the flattering read.
 - [ ] **Give market-share figures a direction, not just a level.** "~35% of the high-end" is far less thesis-relevant than "~85% (2023) → ~55% (2026) as a named rival qualifies." A static share number with no trend is an incomplete finding.
 - [ ] **Tag every claim inline with its source tier** (`[P]` primary / `[T]` trade press / `[T3]` market-report/Substack). Prose tiering in a closing note is weaker — the tier belongs next to the claim.
+- [ ] **Do not compute market statistics from price bars.** No realized volatility, return correlations, betas, or residuals/idiosyncratic-move decompositions, in the orchestrator or any sub-agent. If a report cites a beta, volatility or correlation figure, take it from a named, dated source and tier it like any other claim; if no source gives one, omit it rather than deriving it. (`scripts/prices.py` remains the way to read a settled close or a % move between two bars. This bans the regression/statistics layer, not price lookups.)
 
 ---
 
@@ -213,6 +214,7 @@ Now a **standard section of every full deep-dive** (Section B.3), not just an on
 > 1. **Current price, market cap, fully diluted share count, 52-week range.**
 > 2. **Short interest** — % of float, days-to-cover, recent trend.
 > 3. **Options positioning** — notable OI/volume skew, implied volatility percentile.
+> Do NOT compute realized volatility, correlations, betas or residuals from price history; cite a sourced figure or leave it out.
 > 4. **Analyst coverage** — consensus rating, price targets (high/low/average), recent revisions.
 > 5. **Peer/theme linkages** — which sector ETFs, indices, or thematic baskets include this name, and how correlated its recent moves are to the broader theme vs. idiosyncratic/company-specific.
 > 6. **Recent sector-wide news** that could be macro/structural re-rate drivers (rate moves, index rebalances, peer earnings read-throughs).
