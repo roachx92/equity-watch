@@ -59,7 +59,7 @@ Read these directly — do not work from memory of them:
    this is a **bounded read of one event** against an already-built thesis, so Section A's
    "EXHAUSTIVE BY DEFAULT" diligence depth (which governs full reports) does **not** apply —
    §I.6 sets an explicit depth ceiling instead. Every other Section A rule applies in full,
-   especially the numbers discipline (contracted vs. recognized, GAAP vs. non-GAAP, dilution)
+   especially the numbers discipline (contracted vs. recognized, GAAP vs. non-GAAP)
    and the honest-counterweight mandate.
 2. **`framework/earnings-digest.md`** — **Section I: the method.** §I.1 preconditions ·
    §I.2 the three sub-agents and their source ownership · §I.3 the five-part breakdown ·
