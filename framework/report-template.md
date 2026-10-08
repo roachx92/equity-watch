@@ -32,7 +32,8 @@ the reasons.>
 segment is the equity story vs. ballast.>
 
 ## 2. Recent catalysts
-<Table: Date | Event | Significance. Most recent first; include upcoming rows.>
+<Table: Date | Event | Significance. MAXIMUM FIVE ROWS — consolidate related events into one row.
+Most recent first; upcoming events share a single row at the top.>
 
 ## 3. Re-rate map
 <FOUR SEPARATE TABLES under four bolded sub-headings — never one merged table.>
