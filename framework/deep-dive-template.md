@@ -211,13 +211,9 @@ Now a **standard section of every full deep-dive** (Section B.3), not just an on
 ### Hard-coded sub-agent prompt template (sector agent)
 
 > You are doing market/sector diligence for an equity research report. Today is [DATE]. Use connected finance/data tools for live data; never rely on stale training data for current figures. COMPANY: [COMPANY] ([TICKER]). Produce a dense, sourced, dated brief:
-> 1. **Current price, market cap, fully diluted share count, 52-week range.**
-> 2. **Short interest** — % of float, days-to-cover, recent trend.
-> 3. **Options positioning** — notable OI/volume skew, implied volatility percentile.
+> 1. **Peer/theme linkages** — which sector ETFs, indices, or thematic baskets include this name, and how correlated its recent moves are to the broader theme vs. idiosyncratic/company-specific.
+> 2. **Recent sector-wide news** that could be macro/structural re-rate drivers (rate moves, index rebalances, peer earnings read-throughs).
 > Do NOT compute realized volatility, correlations, betas or residuals from price history; cite a sourced figure or leave it out.
-> 4. **Analyst coverage** — consensus rating, price targets (high/low/average), recent revisions.
-> 5. **Peer/theme linkages** — which sector ETFs, indices, or thematic baskets include this name, and how correlated its recent moves are to the broader theme vs. idiosyncratic/company-specific.
-> 6. **Recent sector-wide news** that could be macro/structural re-rate drivers (rate moves, index rebalances, peer earnings read-throughs).
 > Return sourced, dated, and explicit about what could not be verified.
 
 ---
