@@ -52,6 +52,8 @@ SECTOR_SLUGS = (
     "btc-mining",
     "btc-treasury",
     "catv-broadband",
+    "prediction-markets",
+    "retail-brokerage",
 )
 _SECTOR_HEADER = "## Sector lens"
 #: A membership bullet opens bold, then the slug in backticks:
