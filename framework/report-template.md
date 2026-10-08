@@ -15,13 +15,7 @@
 *Contracted/backlog is distinguished from recognized revenue throughout; all point-in-time
 figures dated inline.*
 
-**Sources & filer regime.** Figures sourced from <enumerate primary filings with
-dates/accession numbers>, <counterparty filings>, and <named trade press>, verified <dates>.
-<Filer-regime note where non-US, e.g. JP-GAAP, ¥ reporting, files 20-F/6-K rather than
-10-K/10-Q/8-K, does not file with the SEC at all.> Some competitive market-share figures are
-secondary/illustrative and labeled as such.
-
-<NO opening metric-dashboard table, NO reference-price note, NO source-conflict protocol, NO
+<NO sources & filer-regime block, NO opening metric-dashboard table, NO reference-price note, NO source-conflict protocol, NO
 financial-advice disclaimer (B0.2). Where sources conflict on a load-bearing figure, resolve
 against the primary filing and record it as a numbered caveat, not as front matter.>
 
@@ -102,7 +96,7 @@ THIS company's earnings.>
 
 ## Sources, methodology & caveats
 **Methodology:** <diligence window; the four work-streams run; **the model used**; every primary
-source named with date/accession number; secondary/trade sources named separately.>
+source named with date/accession number; secondary/trade sources named separately; a non-US filer's regime in one clause.>
 
 **Key caveats:** <a NUMBERED list — not a paragraph. Every unresolved source conflict, every
 figure that could not be retrieved, every gap left open, each numbered so it can be cited and

@@ -42,7 +42,7 @@ Tripwires") for the invariant and the deep-dive skill's Step 4b for the procedur
 ### 2. Front matter — before §1
 
 - [ ] **Title block:** `EQUITY RESEARCH — DEEP DIVE (EXHAUSTIVE DILIGENCE)`, company legal name, every listing line (exchange:code · ADR ticker **with its ratio** · HQ · FY end), and a one-line italic positioning tagline.
-- [ ] **Sources & filer-regime block** enumerating the specific primary sources relied on (with filing dates/accession numbers), the filer's regime where non-US (e.g. JP-GAAP, ¥ reporting, files 20-F/6-K rather than 10-K/10-Q/8-K, does not file with the SEC at all), and a note that low-tier share figures are labeled as such throughout. **Do NOT open the report with a metric-dashboard table, a reference-price note, a source-conflict protocol, or a NOT FINANCIAL ADVICE disclaimer** — all four were removed as deadweight (see the change note at the foot of this file). Date figures inline where they appear instead. Where two sources genuinely disagree on a load-bearing number, resolve it silently against the primary filing and, if the conflict is material, record it as a numbered caveat (B0.5) — not as front matter.
+- [ ] **Nothing else before the executive summary.** **Do NOT open the report with a sources & filer-regime block, a metric-dashboard table, a reference-price note, a source-conflict protocol, or a NOT FINANCIAL ADVICE disclaimer** — all five were removed as deadweight (see the change note at the foot of this file). Date figures inline where they appear instead. Where two sources genuinely disagree on a load-bearing number, resolve it silently against the primary filing and, if the conflict is material, record it as a numbered caveat (B0.5) — not as front matter.
 
 ### 3. Executive summary — MANDATORY, front-loaded, and complete
 
@@ -69,7 +69,7 @@ The gold standard uses **13 tables**; a report with 3 is not applying this frame
 
 ### 5. Closing block — Sources, Methodology & Caveats
 
-- [ ] **Methodology paragraph:** the dated diligence window, the four work-streams run, **the model used** (per B0.1), and every primary source named with its date/accession number; secondary/trade sources named separately.
+- [ ] **Methodology paragraph:** the dated diligence window, the four work-streams run, **the model used** (per B0.1), and every primary source named with its date/accession number; secondary/trade sources named separately. Where the filer is non-US, state its regime here in one clause (e.g. files 20-F/6-K, not 10-K/10-Q; not an SEC filer) — this is the only place it goes.
 - [ ] **Numbered key caveats** — a structured list, not a paragraph. Every unresolved conflict, every figure that could not be retrieved, every gap left open, each numbered so it can be cited and closed on the next run. The gold standard carries 7.
 
 ### 6. Depth floor
@@ -234,8 +234,14 @@ narrated process rather than conclusions, the disclaimer told a reader who alrea
 the anchor-facts block guaranteed every load-bearing figure appeared at least twice before
 §1. The NBIS 2026-09-29 report reached 15,146 words against a ~7,000-word floor largely on
 this kind of restatement. **Where the audit note above and this note conflict, this note
-wins.** What was deliberately KEPT: the sources + filer-regime block (the FPI/20-F distinction
-is load-bearing and non-obvious), the 13-table mandate, the depth floor, and the numbered
+wins.** What was deliberately KEPT: the 13-table mandate, the depth floor, and the numbered
 caveats — a source conflict now surfaces as a numbered caveat instead of as front matter.*
+
+***2026-10-08 — the sources & filer-regime block removed too.** It was the one opening block the
+trim above kept, and it had grown into a paragraph-long source enumeration that duplicated the
+closing Methodology paragraph (B0.5), which already names every primary source with its date.
+Nothing now sits between the title block and the executive summary. The one load-bearing part
+— a non-US filer's regime (20-F/6-K, not an SEC filer) — moves to a single clause in the
+Methodology paragraph. **Where this note and the trim note above conflict, this note wins.***
 
 *Applied to every ticker unless you override it for a specific request.*
