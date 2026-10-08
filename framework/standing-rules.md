@@ -21,7 +21,6 @@
 - [ ] **Reconcile figures that could double-count**; never sum overlapping numbers.
 - [ ] **Sanity-check with arithmetic or physics** where possible rather than parroting a press release.
 - [ ] **The CapEx vs. OpEx Rule.** Always separate structural cash burn (OpEx inefficiency) from asset-building (CapEx). When a company is burning cash, explicitly state whether it is funding R&D/hard assets or just keeping the lights on.
-- [ ] **The Dilution Discipline.** Never quote a market cap or price target without checking the fully diluted share count. Explicitly flag recent ATM usage, convertible note issuances, or aggressive stock-based compensation (SBC) that dilutes the equity.
 
 ### Framing & reasoning
 - [ ] **Label fact vs estimate vs opinion.** Probabilities are subjective estimates, not forecasts.
@@ -48,7 +47,7 @@
 
 ### Diligence depth — EXHAUSTIVE BY DEFAULT (applies to every full report)
 *Treat "run the framework" as exhaustive diligence, not a summary. Run a long, autonomous, multi-pass research loop and do not stop at the first-pass sources. The bar is: keep digging until new searches stop returning new material facts.*
-- [ ] **Read the primary filings directly — do not rely on news summaries.** Pull the latest 10-K, 10-Q, and material 8-Ks / 6-Ks from SEC EDGAR and read them. Extract the hard line items by hand: **customer-concentration % (each named customer as a share of revenue), segment splits, cash-flow statement (operating cash flow vs. PP&E capex), full risk-factor section, insurance/coverage disclosures, related-party transactions, and the capital stack (debt maturities, convert strikes, ATM/SBC).** News aggregators are a starting point, never the evidence.
+- [ ] **Read the primary filings directly — do not rely on news summaries.** Pull the latest 10-K, 10-Q, and material 8-Ks / 6-Ks from SEC EDGAR and read them. Extract the hard line items by hand: **customer-concentration % (each named customer as a share of revenue), segment splits, cash-flow statement (operating cash flow vs. PP&E capex), full risk-factor section, insurance/coverage disclosures, related-party transactions, and the capital stack (debt maturities, convert strikes).** News aggregators are a starting point, never the evidence.
 - [ ] **Diligence every material counterparty as its own mini-analysis.** Anchor tenants, the controlling parent, and key financing partners each get researched for their *own* solvency and recent capital raises — their ability to pay **is** the thesis. (An anchor tenant's own funding round can be the single most thesis-relevant fact and will not appear in the subject company's filings.)
 - [ ] **Use the connected finance/data tools** for price, market cap, short interest, options positioning, and peer/theme linkages rather than scraping secondary quote pages.
 - [ ] **Source-count floor:** for a full report, gather from a **wide, non-overlapping** set of primary + reputable sources across every section — filings, earnings decks/transcripts, company PR, sector data, and counterparty sources. Breadth of independent sources is a quality gate, not optional.
