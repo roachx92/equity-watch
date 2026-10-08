@@ -21,7 +21,6 @@
 - [ ] **Reconcile figures that could double-count**; never sum overlapping numbers.
 - [ ] **Sanity-check with arithmetic or physics** where possible rather than parroting a press release.
 - [ ] **The CapEx vs. OpEx Rule.** Always separate structural cash burn (OpEx inefficiency) from asset-building (CapEx). When a company is burning cash, explicitly state whether it is funding R&D/hard assets or just keeping the lights on.
-- [ ] **The Dilution Discipline.** Never quote a market cap or price target without checking the fully diluted share count. Explicitly flag recent ATM usage, convertible note issuances, or aggressive stock-based compensation (SBC) that dilutes the equity.
 
 ### Framing & reasoning
 - [ ] **Label fact vs estimate vs opinion.** Probabilities are subjective estimates, not forecasts.
