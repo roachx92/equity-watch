@@ -11,9 +11,13 @@ blurb: "Pure-play IP leader in LIDE glass-substrate structuring equipment — a 
 LPKF is the pure-play, IP-protected leader in LIDE (Laser-Induced Deep Etching) glass-substrate structuring equipment — a picks-and-shovels play on glass-core substrates for AI advanced packaging. The core business is loss-making and cyclical; the equity is priced as an option on the glass ramp (~2027 volume, customer-gated). It ran ~3x in 2026 then pulled back; every sell-side target sits below spot.
 
 ## Edge (variant view — what the crowd may have wrong)
-*Promoted 2026-07-19 from [`reports/2026-07-19.md`](reports/2026-07-19.md) §18 (explicit human decision), replacing the version derived from the original deep-dive §16. Cause and full diff: that report's Refresh Provenance block.*
+*Promoted **2026-10-08** from [`reports/2026-10-08.md`](reports/2026-10-08.md) §18 (explicit human decision), superseding the version promoted 2026-07-19. Causes, per part: **"timing is the wrong axis" was falsified** — the world moved: Tripwire #1 fired on timing (30 Sep) and the largest price moves since July tracked order news. **The financing figures were wrong when written** — "€5.8m of cash" was the 31 Mar figure (30 Jun: €4.0m), and the "€15.5m lender-consent facility" appears in no primary document; the €12.5m cash line was already ~€9.7m drawn, so liquidity at 30 Jun was ~€6.8m. **The raise concern survives and is sharpened** by the ≤10% ex-rights authority (the June 2025 AGM refused more). **New:** the order-versus-raise sequence, and a moat narrower than assumed (Corning prior art and the 2024 EP opposition were missed; Philoptics booked production tools on 29 Sep). Not re-derivation drift. Full diff: that report's Refresh Provenance block.*
 
-> Your edge — what do you believe that the crowd doesn't? The crowd — and the prior underwriting of this name — debates *when the first order lands*, treating 23 July as the referendum. The variant view is that **timing is the wrong axis**: management has already told the market the ramp is 2027 and high volume is 2029, and FY26 guidance excludes ASP volume orders because the gate is downstream qualification LPKF does not control. Reframed, this is not an order-timing trade but a **financing-duration** problem — whether €5.8m of cash plus a €15.5m lender-consent facility bridges to a 2029 payoff without a raise at a de-rated price into an 89.4% float. If you do not hold a specific view on **how the wait gets funded**, you do not have an edge here; you are underwriting a date the company has already walked back.
+> The sell-side calls the 30 Sep cut a timing shift and values LIDE as a near-proprietary option at €22–23.50; the prior view here held that timing was the wrong axis and that the question was whether cash plus the credit facility could bridge to a 2029 payoff. Both miss the same thing. **The bridge does not exist, so the equity raise is not a duration risk but a near-term event — and its price will be set by exactly the order news the market is waiting for.** At 30 Jun liquidity was about **€6.8m** — €4.0m of cash plus roughly €2.8m undrawn on a €12.5m cash line already ~€9.7m drawn — against an H1 burn of €11.5m, and without a new AGM LPKF can place only ~10% of its shares ex-rights (≈€33–37m at €14.95), because the June 2025 AGM refused a larger authority. The next twelve months therefore turn on a sequence: **binding order → H2 turn → raise terms.** If the order lands first, LPKF raises at a premium or not at all; if the raise comes first, it is priced off a stock that has just been told its order slipped.
+>
+> **And the asset being funded is less proprietary than the targets assume.** Laser-modification-plus-wet-etch is practised openly by at least six rivals; Corning's patent on the general method predates LIDE's 2014 priority; LPKF's European patent survived opposition only in amended form; and Philoptics booked production TGV tools on 29 Sep while LPKF holds a letter of intent. So even a well-sequenced outcome may fund a tool that ends up one qualified option among several rather than the standard.
+>
+> **What this Edge does not claim.** It does not claim glass-core demand fails — the build-out is broadening. It does not claim LPKF is insolvent — equity is €63.9m and the facility runs to 2028. It does not claim LIDE loses — a customer has qualified it. **It claims the order of events decides who captures the value, and the market is pricing the end-state while the balance sheet forces the sequence.**
 
 ## Sector lens
 *Assigned 2026-07-19 per `framework/sector-lens.md` §K.1, derived from the deep-dive's §5/§6/§10 and anchored against its §18.*
@@ -22,27 +26,34 @@ LPKF is the pure-play, IP-protected leader in LIDE (Laser-Induced Deep Etching) 
 - **Shares this slug with IBIDY — and the signs can invert.** An early glass-core HVM commitment is `[EDGE+]` here but tripwire-adjacent for IBIDY (#3). Per §K.5, assess against *this* ticker's §18.
 
 ## Tripwires (pre-committed exit / re-underwrite triggers)
-*Trigger identity (the numbering) is stable across promotions — #2 is always "the design-socket trigger," #3 "the dilution trigger," #4 "the glass-timeline trigger." Expiry dates in the table below (§J.4); per-trigger change history in the Change log beneath it.*
+*Trigger identity (the numbering) is stable across promotions — #2 is always "the design-socket trigger," #3 "the dilution trigger," #4 "the glass-timeline trigger." **#1 replaced, #3 sharpened and #6 added on 2026-10-08** by explicit, itemised human decision, verbatim from [`reports/2026-10-08.md`](reports/2026-10-08.md) §18; **#2 and #4 carried verbatim** as committed 2026-07-19. **There is no #5**: the report proposed one (H2 2026 adjusted EBIT and year-end liquidity) and it was declined, so the number is left unused rather than reassigned. Expiry dates in the table below (§J.4); per-trigger history in the Change log beneath it.*
 
-Your tripwire — what would prove you wrong? Pre-commit to re-underwriting or exiting if ANY of these fire:
+Pre-commit to re-underwriting or exiting if ANY of these fire:
 
-- **(1)** a SECOND missed or slipped LIDE first-series-order date after the 30 Jun 2026 miss — credibility gone, the option premium has no basis left to hold.
+- **(1)** The **binding NEXAR LIDE order** from the 23 Sep 2026 letter of intent is **not announced by 2026-12-31** — the end of the fiscal year in which management promised (23 Jul) a first production order — **or is announced below the letter's "mid-single-digit €m"**.
 - **(2)** a rival TGV method (e.g., Philoptics, Han's Laser) wins a named **first HVM socket** — erodes LIDE-as-standard, the core of the moat.
-- **(3)** an **equity raise executed at a de-rated price**, or a disclosed adverse change to the syndicated credit facility (reduction, non-extension, or a covenant breach).
+- **(3)** **Financing on adverse terms:** any equity raise **priced below €12**, **or** one **larger than the 10% ex-rights authority** (a rights issue or an extraordinary general meeting), **or** any disclosed **covenant waiver, amendment or breach**, or a reduction or non-extension of the €32.5m syndicated facility.
 - **(4)** the glass volume-production timeline slips materially past **2029**.
+- **(6)** **Upward falsifier — re-underwrite, do not exit:** a **binding LIDE production order is announced by 2026-12-31 AND** LPKF reaches FY2026 year-end **without an equity raise, or with one priced at or above ~€20** — the financing pinch was resolved by orders rather than dilution.
 
-Any one of these breaks the thesis — decide the action now, not after the drawdown.
+Any one of #1–#4 breaks the thesis; #6 vindicates it — decide the action now, not after the drawdown.
 
 | # | Expires |
 |---|---|
-| 1 | 2027-03-31 |
+| 1 | 2027-01-31 |
 | 2 | 2027-07-31 |
-| 3 | 2027-07-31 |
+| 3 | 2027-09-30 |
 | 4 | 2030-03-31 |
+| 6 | 2027-04-30 |
 
 ### Change log
 *Per §J.4 — the pointer, not the argument. Full reasoning for each change is in the superseding report's Refresh Provenance block.*
 
+- **2026-10-08** — **#1** *replaced*. **RESOLVED before replacement**: fired on 2026-09-30, when LPKF said Advanced Packaging orders arrive "later than originally expected" — a second slip after the 30 Jun miss. Replaced with the binding-order-by-2026-12-31 test. Expiry 2027-03-31 → **2027-01-31**. Cause: the world moved. ([`reports/2026-10-08.md`](reports/2026-10-08.md))
+- **2026-10-08** — **#3** *sharpened*: "de-rated price" was undefined → a raise **below €12**, or one **above the 10% ex-rights authority**, or any **covenant waiver/amendment/breach**; the facility reference corrected to the €32.5m syndicated line. Expiry 2027-07-31 → **2027-09-30**. Cause: the prior was wrong (facility figure) + the world moved (raise disclosed 23 Sep; covenants pressured by the 30 Sep cut). ([`reports/2026-10-08.md`](reports/2026-10-08.md))
+- **2026-10-08** — **#6** *newly added* — upward falsifier testing the new Edge's sequence (binding order by year-end and no raise below ~€20). Cause: the world moved. ([`reports/2026-10-08.md`](reports/2026-10-08.md))
+- **2026-10-08** — **#5** *proposed and declined* (H2 2026 adjusted EBIT below zero, or year-end liquidity under ~€5m without financing). The number stays unused.
+- **2026-10-08** — **#2** and **#4** *unchanged*, carried verbatim. #2: early-warning only (Philoptics' 29 Sep customer is unnamed, and its 2.0mm order may sit outside LIDE's ~1mm range). #4: SEMCO, BOE and Absolics remain inside 2029; TSMC's post-2030 glass-core view is one data point.
 - **2026-07-19** — **#1** *unchanged*.
 - **2026-07-19** — **#2** *sharpened*: narrowed to a named **first HVM socket**. Cause: diligence found Samsung EM already dual-sourced with Philoptics, so "wins a socket" was no longer a meaningful bar — the first HVM reference line is what actually decides the moat question. ([`reports/2026-07-19.md`](reports/2026-07-19.md))
 - **2026-07-19** — **#3** *re-caused*: trigger text now names the actual mechanism (a de-rated raise, or an adverse credit-facility change). Cause: the original stated cause — "the activist Active Ownership fight resolves against management" — went stale when that fight resolved *cooperatively* on 2026-06-04 (AOC partner Paul Owsianowski joined the supervisory board). The dilution risk itself did not go away; it shifted from activist-driven to burn-driven (€5.8m cash vs. a ~€7m quarterly EBIT loss behind a lender-consent facility). ([`reports/2026-07-19.md`](reports/2026-07-19.md))
