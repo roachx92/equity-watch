@@ -208,7 +208,7 @@ The deep-dive's "what has to be true" (2026-09-28 §15): **per-hall delivery lan
 **3. ✅ What to watch — priority-ordered**
 
 - ⚠️ **#1 — Act on Tripwire #2.** **Trigger:** fully diluted ~669M vs ~650M (+2.9%), fired 10-14, reconfirmed. **When:** now. **Pass:** the re-underwrite is run and the Edge/Tripwires deliberately re-committed or the position exited. **Fail:** another digest assessed against a pre-commitment already breached and left unactioned — the failure mode the tripwire exists to prevent.
-- **#2 — Any ATM sale.** **Open, no date** — next confirmable at the Q4 10-Q (~Feb 2027) or an 8-K. **Pass:** none. **Fail:** any sale below ~$15 fires #2's price limb outright; at ~$7, every share sold is ~2× as dilutive as the 1H26 ATM at $23.50.
+- **#2 — Any ATM sale.** **Open, no date** — next confirmable at the Q4 10-Q (~Feb 2027) or an 8-K. **Pass:** none. **Fail:** any sale below ~$15 fires #2's price limb outright; at ~$7, each dollar raised is ~3× as dilutive as the 1H26 ATM at $23.50.
 - **#3 — Filed confirmation of Barber Lake rent commencement.** **When:** by 2026-12-31 (Tripwire #1's first limb). **Pass:** an 8-K or Q4 10-Q confirms rent on the first 51 MW. **Fail:** no filed commencement by 12-31 → **#1 fires**.
 - **#4 — ERCOT December 2026 final designations.** **When:** December 2026 (audit report targeted ~12-10). **Pass:** Colchis and Stingray hold Base Load. **Fail:** either downgraded → **#1 fires**. Watch also for any moratorium proposal after the January inauguration.
 - **#5 — A Q4 lease.** **When:** quarter ends 2026-12-31. **Pass:** any new contracted critical-IT MW. **Fail:** flat while peers add → **#4 fires** (management has all but guided this).
