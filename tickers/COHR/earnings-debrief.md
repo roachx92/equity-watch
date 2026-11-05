@@ -5,7 +5,7 @@ blurb: "Per-quarter earnings debriefs for COHR — the numbers, cash conversion,
 
 # COHR — Earnings debrief log
 
-**Canonical deep-dive:** [`reports/2026-07-18.md`](reports/2026-07-18.md) · **Live Edge & Tripwires:** [`news.md`](news.md) (the binding pre-commitment — quoted verbatim in each quarter's §2(d) below, never rewritten here).
+**Canonical deep-dive:** [`reports/2026-10-04.md`](reports/2026-10-04.md) (resolved by glob 2026-11-05; supersedes 2026-07-18) · **Live Edge & Tripwires:** [`news.md`](news.md) (the binding pre-commitment — quoted verbatim in each quarter's §2(d) below, never rewritten here).
 
 Most recent quarter first. Quarters are never overwritten — the accumulated history is how management's story is tracked across calls. The **Guidance track record** table below is the one deliberate exception: it is updated in place.
 
@@ -16,13 +16,225 @@ Most recent quarter first. Quarters are never overwritten — the accumulated hi
 | Guide issued (date) | For period | What was guided | Outcome (date) | Actual | Hit / missed / cut / withdrawn |
 |---|---|---|---|---|---|
 | 2026-02-04 (Q2 FY26 release) | Q3 FY26 (qtr ending 3/31/26) | Revenue **$1.70–1.84B**; non-GAAP GM **38.5–40.5%**; non-GAAP opex **$320–340M**; non-GAAP tax **18–20%**; non-GAAP EPS **$1.28–1.48**. Carried one stated qualifier: the outlook "includes $5M of revenue from the period prior to the close of the sale of the Munich tools business at the end of January." | 2026-05-06 | Revenue **$1,805.6M**; non-GAAP GM **39.6%**; non-GAAP opex **$348.1M**; non-GAAP tax **~19.1%**; non-GAAP EPS **$1.41** | **Hit on four of five lines; missed on opex.** Revenue landed at the 75th percentile of the range, EPS +$0.03 over the midpoint, GM +10bps over the midpoint. **Opex came in $8.1M above the TOP of its guided range** — the beat was delivered by revenue and gross margin in spite of the cost line, not by it. |
-| 2026-02-04 (Q2 FY26 call) | FY2027 | Two separate statements: **(a)** FY27 revenue growth rate exceeds the FY26 growth rate; **(b)** FY27 **EPS growth significantly faster than revenue growth**. | Partially re-tested 2026-05-06 | **(a) reissued verbatim on the Q3 call. (b) does not appear in either retrieved transcript rendering of the Q3 call.** | **(a) live. (b) probable non-reissue — UNCONFIRMED.** One transcript source is truncated and the webcast audio was not accessed, so this is a lead to verify against the Q4 call, not an established withdrawal. Recorded here so it cannot be quietly forgotten. |
-| Investor Day (reiterated 2026-02-04 and 2026-05-06) | Long-term | Non-GAAP gross margin **greater than 42%** | Open | 39.6% at Q3 FY26 (~2.4pp to close) | **Live, reiterated unchanged two quarters running.** |
-| 2026-05-06 (Q3 FY26 release) | Q4 FY26 (qtr ending 6/30/26) | Revenue **$1.91–2.05B**; non-GAAP GM **39.0–41.0%**; non-GAAP opex **$360–380M**; non-GAAP tax **18–20%**; non-GAAP EPS **$1.52–1.72**. Plus, on the call: **capex "will increase sequentially in Q4"** from $290M. **No cash-flow, FCF, inventory or capex figure is guided in the release at all** — the outlook has five bullets and none is a cash line. | **PENDING — reports tonight, 2026-08-12 after the NYSE close** | — | **Open.** |
+| 2026-02-04 (Q2 FY26 call) | FY2027 | Two separate statements: **(a)** FY27 revenue growth rate exceeds the FY26 growth rate; **(b)** FY27 **EPS growth significantly faster than revenue growth**. | Partially re-tested 2026-05-06 | **(a) reissued verbatim on the Q3 call. (b) does not appear in either retrieved transcript rendering of the Q3 call.** | **(a) live. (b) probable non-reissue — UNCONFIRMED.** One transcript source is truncated and the webcast audio was not accessed, so this is a lead to verify against the Q4 call, not an established withdrawal. Recorded here so it cannot be quietly forgotten. **Update 2026-11-05:** (a) **quantified and raised** — FY27 pro forma growth ">60%, more than double" FY26's (11/04 release). (b) per the Q1 Call agent, it *was* said on the 8/12 call (third-party rendering), and is **absent from the 11/04 release and deck**; non-reissue on the 11/04 call unconfirmed. |
+| Investor Day (reiterated 2026-02-04 and 2026-05-06) | Long-term | Non-GAAP gross margin **greater than 42%** | Open | 39.6% at Q3 FY26 (~2.4pp to close); 40.2% Q4 FY26; 40.6% Q1 FY27 | **Superseded 2026-11-04 by a raised >45% target (row below) — before it was met.** Management framed >42% as reached early (third-party rendering); no reported quarter has printed above 40.6% non-GAAP, so "reached" does not reconcile to the filings. Recorded as *raised before met*, not hit. |
+| 2026-05-06 (Q3 FY26 release) | Q4 FY26 (qtr ending 6/30/26) | Revenue **$1.91–2.05B**; non-GAAP GM **39.0–41.0%**; non-GAAP opex **$360–380M**; non-GAAP tax **18–20%**; non-GAAP EPS **$1.52–1.72**. Plus, on the call: **capex "will increase sequentially in Q4"** from $290M. **No cash-flow, FCF, inventory or capex figure is guided in the release at all** — the outlook has five bullets and none is a cash line. | 2026-08-12 *(outcome filled 2026-11-05 from the 8/12 EX-99.1 and the 11/04 EX-99.1 comparatives)* | Revenue **$2,045.5M**; non-GAAP GM **40.2%**; non-GAAP opex **~$377M**; non-GAAP EPS **$1.74**; tax rate not re-extracted. **Q4 capex $555.7M vs. Q3's $289.7M — sequential increase as said.** | **Hit on revenue (top of range), GM (+20bps vs. midpoint), opex (inside, upper half) and EPS ($0.02 above the top).** Capex statement kept. |
+| 2026-08-12 (Q4 FY26 release) | Q1 FY27 (qtr ending 9/30/26) | Revenue **$2.2–2.4B**; non-GAAP GM **39.5–41.5%**; non-GAAP opex **$400–420M**; non-GAAP tax **18–20%**; non-GAAP EPS **$1.85–2.05**. No cash, capex or inventory line. | 2026-11-04 | Revenue **$2,370.3M**; GM **40.6%**; opex **$411.6M**; tax **~19.0%** (derived); EPS **$2.09**. | **Hit on all five lines; EPS $0.04 above the top.** Unguided: FCF −$868.2M. |
+| 2026-08-12 (Q4 FY26 call; reaffirmed 2026-11-04 release + deck) | By end FY2027 | First **>$3B revenue quarter** | Open | Q1 FY27 $2.37B; Q2 guided $2.55–2.75B | **Live, reaffirmed.** |
+| 2026-11-04 (Q1 FY27 release) | Q2 FY27 (qtr ending 12/31/26) | Revenue **$2.55–2.75B**; non-GAAP GM **40–42%**; non-GAAP opex **$430–450M**; non-GAAP tax **18–20%**; non-GAAP EPS **$2.28–2.48**. No GAAP reconciliation ("cannot, without unreasonable efforts, forecast"). No cash line; capex "expected to increase again" (CFO). | Pending (~early Feb 2027) | — | **Open.** |
+| 2026-11-04 (Q1 FY27 release) | FY2027 / FY2028 | FY27 pro forma revenue growth **>60%**; first **$4B revenue quarter in FY2028** | Open | — | **Open.** |
+| 2026-11-04 (Q1 FY27 release) | By end CY2028 | First quarter with non-GAAP GM **above 45%** | Open | 40.6% at Q1 FY27 | **Open.** Replaces the >42% target before that one was met. |
+| 2026-11-04 (Q1 FY27 call + deck slide 4; first said 2026-08-12) | Q2 FY27 / Mar-27 qtr / end CY2027 | 400mW CW laser (NVIDIA CPO) revenue **begins in the December 2026 quarter**; PhotonLink **>$100M in the March 2027 quarter**, **>$250M/qtr before end CY2027** | Pending | — | **Open — Tripwire #4(a) resolves on the first of these.** |
 
-**Running tally, stated plainly:** COHR has **one completed quarterly guide on this table, and it was hit** on revenue, gross margin, tax rate and EPS, and **missed on operating expenses** (above the top of the range, not merely the midpoint). That is a one-observation record and carries almost no evidential weight yet — a management team's credibility is countable only after three or four quarters, which is the entire point of accruing this prospectively.
+**Running tally, stated plainly (updated 2026-11-05):** COHR has **three completed quarterly guides on this table and hit all three** on revenue and EPS — Q3 FY26 inside the range, Q4 FY26 and Q1 FY27 with EPS *above the top*. The one blemish is Q3 FY26 opex, above the top of its range; opex has been inside range since. **Every guide has been an income-statement guide — none has ever covered cash, capex or inventory**, so this record says nothing about the line the thesis turns on. The long-term GM target was raised before it was met. *Prior tally, 2026-08-12: one completed guide, hit on four lines, missed on opex.*
 
 **Backfill limits — stated rather than started silently at this quarter.** This is COHR's first digest. Guides issued *before* 2026-02-04 (i.e. the Q1 FY26 and Q2 FY26 outlooks, and the FY2025 quarters) were **not retrieved in this run** and are not represented above. They are retrievable from the corresponding 8-K/EX-99.1 releases on EDGAR and should be backfilled by a later run; any row added that way must be **marked as backfilled**, because reconstructed history is weaker evidence than a promise recorded when it was made. Nothing above is backfilled — both rows were read from the primary release that issued them.
+
+---
+
+## FY2027 Q1 — quarter ended 2026-09-30, reported 2026-11-04
+
+> 🚨 **TRIPWIRE #2 FIRES — branch (b), "any draw on the ~$945M off-parent working-capital facility."** The Q1 10-Q (Note 8) discloses that a wholly-owned foreign subsidiary signed an unsecured ~$950M "August 2026 Facility" on 2026-08-12, **first drew it on 2026-08-17, and had $598M outstanding at 9/30/26** — and that "neither the Company, nor any other of its subsidiaries, is a party to, or a guarantor of" it. A second unguaranteed subsidiary line (the "2026 Credit Lines," up to $475M) carried **$205M**. Distance to threshold: the trigger is binary and was crossed by $598M. **Pre-committed action: re-underwrite or exit** — a decision for the reader, made deliberately; nothing in `news.md` has been changed. Branch (a) did **not** fire (contract liabilities rose to $333M, above the ~$150M condition, and no new purchase-commitment figure was disclosed).
+>
+> **Tripwire #1 is at early-warning but already past both thresholds on Q1 alone.** It resolves on the Q2 report (~early Feb 2027). Q1 free cash flow was **−$868.2M** against an H1 limit of −$500M, so Q2 needs **at least +$368.2M** of FCF in a quarter where capex is guided up again. Inventory is **$3,341.4M** against ~$3.0B at 12/31, so it must fall by **more than $341M** in a quarter guided to +12% revenue.
+
+*Run 2026-11-05 · quarter reported 2026-11-04 after the NYSE close. First COHR digest since FY2026 Q3. **No FY2026 Q4 debrief was written** (that print, 2026-08-12, is recorded only in the news.md log and in the Guidance track record above), so the prior-quarter language and deck baseline here was read fresh from the 8/12 materials.*
+
+### 1. Breakdown — what was actually said
+
+#### (a) The reported numbers
+
+| Metric | Reported (qtr ended 9/30/26, filed 2026-11-04) | Company guide going in (2026-08-12) | Consensus going in | Δ vs. guide / vs. consensus | YoY | Read — what it actually means |
+|---|---|---|---|---|---|---|
+| **Revenue** | **$2,370.3M** | $2.2–2.4B (mid $2.30B) | Not retrieved | **+$70.3M / +3.1% vs. midpoint**, upper sixth of range / n.a. | **+49.9%** ($1,581.4M); +56% pro forma per release | A clean beat that stayed *inside* the range. +15.9% QoQ is the fastest sequential growth on this file. |
+| **D&C revenue** | **$1,951.7M** (82% of total) | Not guided | — | — | **+79.1%** ($1,090.0M) | Huge, but see §1(d): $141M of goodwill and "certain business units" moved from Industrial into D&C on 7/1/26, and the prior-period D&C figures appear **not recast**. Some of the +79% may be reclassification. |
+| **Industrial revenue** | **$418.6M** | — | — | — | **−14.8%** | Pruned by divestiture, and now also by transfers out. Not a demand signal. |
+| **Non-GAAP gross margin** | **40.6%** | 39.5–41.5% (mid 40.5%) | — | **+10bps vs. midpoint** | +184bps | Right on guide. Still **~12.6pp below Lumentum's 53.2%** in its September quarter, wider than the ~10pp the thesis cites. |
+| **GAAP gross margin** | **39.1%** | Not guided | — | — | +254bps | The 150bps gap is SBC ($6.1M) + intangible amortization ($27.7M) in COGS. |
+| **Non-GAAP opex** | **$411.6M** | $400–420M | — | Inside, above midpoint | +35.5% | Back inside its range for a second quarter running, after Q3 FY26's overshoot. |
+| **Non-GAAP EPS** | **$2.09** | $1.85–2.05 | Not retrieved | **+$0.04 above the TOP of the range** | +80% ($1.16) | The cleanest beat on this table. |
+| **GAAP EPS** | **$1.90** | Not guided | — | — | $1.19 | **Flattered by a $22.8M GAAP tax *benefit*** on $358.8M of pre-tax income. Bridge to non-GAAP net income ($384.7M → $422.0M): SBC +$73.2M, amortization +$69.5M, integration +$21.2M, restructuring +$8.6M, FX gain −$13.9M, tax effect −$121.1M. |
+| **Operating cash flow** | **−$92.7M** | Not guided | — | — | +$46.0M | **Negative in a record-profit quarter.** See §1(b). |
+| **PP&E capex** | **$775.5M** | Not guided ("will increase sequentially," 8/12 call) | — | — | $103.9M | 7.5x a year ago. Asset-building, not opex: CIP alone rose $776.5M → $1,259.1M. |
+| **Free cash flow** (derived) | **−$868.2M** | Not guided | — | — | −$57.9M | One quarter now consumes more than the whole H1 allowance in Tripwire #1. |
+
+**The distortion that matters:** the income statement and the cash statement tell opposite stories, and only one of them is guided. Every guided line hit; every unguided cash line went the wrong way. That split is what Tripwire #1 was built to detect: it was chosen over a revenue test because revenue is pre-sold.
+
+#### (b) Cash conversion & working capital — the finding of the quarter
+
+| Measure | Q1 FY27 (9/30/26) | Prior 3 quarters (12/31/25 · 3/31/26 · 6/30/26) | Direction | Read — benign or a warning? |
+|---|---|---|---|---|
+| **DSO** | **61.6d** | 56.9 · 59.9 · 59.8 | Drifting up | Benign-ish. +4.7d over a year; no AR concentration disclosed in the 10-Q. |
+| **DIO** | **210.8d** | 158.2 · 171.9 · 186.6 | **Up every quarter, +52.6d in a year** | **Warning.** Inventory $3,341.4M (+$760.4M QoQ) vs. revenue +$324.8M QoQ. WIP $2,011.4M is 60% of the total, up from $1,557.0M. |
+| **DPO** | **158.1d** | 95.8 · 108.6 · 137.8 | **Up every quarter, +62.3d in a year** | **Warning.** Payables $2,506.4M (+$601.0M QoQ). Suppliers are financing the build. |
+| **Cash conversion cycle** | **114.3d** | 119.4 · 123.2 · 108.6 | Flat-ish | **Misleadingly stable.** It holds only because DPO stretched as fast as DIO. |
+| **OCF / net income** | **−0.24x** (−$92.7M / $384.7M) | 0.39x · −0.49x · 0.29x | Negative two of four | **The company booked $385M of profit and collected none of it.** |
+| **OCF ex-customer advances** (derived) | **≈ −$362M** | — | — | Contract liabilities added +$269.3M. Strip out payables (+$429.8M) as well and OCF is ≈ −$792M. |
+| **Contract liabilities** | **$333M** ($161M non-current) | 65 · 70 · 63 | **5.3x in one quarter** | **Genuinely new, and it cuts against the Edge** (§2(d)). |
+| **Net debt** (vs. cash + STI) | **$2,247.7M** | 2,488.2 · 776.1 · 1,235.2 | Up $1,012.5M QoQ | Funded by $773.4M of new "other credit facilities" borrowing. CFO-stated leverage **1.1x, from 0.7x** at 8/12. |
+
+**In plain English:** revenue is real and growing, but it turned into inventory and receivables, not cash. Suppliers (via payables) and two foreign-subsidiary loans the parent does not guarantee carried the gap. The one new source of funding that the thesis said was missing, **customer cash**, did arrive ($270M), but it covered under a third of the shortfall. **Management did not address inventory, payables or FCF on the call, and no analyst asked** (§1(c)).
+
+#### (c) Management's read on the sector — cross-checked
+
+*Call content is from a third-party transcript rendering ([TradingKey](https://www.tradingkey.com/news/transcripts/262279490-)), cross-checked against [BigGo](https://finance.biggo.com/news/US_COHR_2026-11-04). It is not verifiably verbatim and the webcast was not accessed. Management claims are an interested party's **opinion** until corroborated.*
+
+| What management said about the sector | Where | Independent check — does outside evidence agree? |
+|---|---|---|
+| "No signs" of demand slowing; **calendar 2027** "basically booked," with orders into 2028 | Prepared remarks | **✅ Corroborated.** Lumentum's Sept quarter was +136.5% YoY with a +25% QoQ guide ([IR](https://investor.lumentum.com/financial-news-releases/news-details/2026/Lumentum-Announces-First-Quarter-of-Fiscal-Year-2027-Financial-Results/default.aspx)). Innolight's Q3 was +171.8% YoY (press restatement, cninfo not read). Hyperscaler capex held or rose: Meta narrowed to $135–145B ([EX-99.1](https://www.sec.gov/Archives/edgar/data/0001326801/000162828026066700/meta-09302026xexhibit991.htm)) and Amazon reiterated ~$220B (secondary). **Language shift:** 8/12 said *fiscal* '27 "completely booked out"; now it is *calendar* 2027, a later horizon. |
+| **InP output doubled YoY, a quarter early**, will "more than double again" by end CY2027; **no InP oversupply risk "through calendar 2028"** | Deck slide 4; Q&A (Loop Capital) | **⚠️ Mixed, and the oversupply claim is unsupported.** The doubling is a company-reported fact. The oversupply claim was asserted with no data, while Broadcom is >3x its InP fabs and Lumentum is +50% (both logged). The 8/12 phrase "InP is our primary constraint" was not found in the Q1 rendering. |
+| 400mW CW laser for CPO: "only one competitor" | Q&A (Deutsche Bank) | **⚠️ Mixed.** Consistent with Lumentum as the other qualified source. But Lumentum's CPO win is **backed by >$5B of customer purchase commitments**, and Lumentum is now being acquired by Marvell (8-K [EX-99.1](https://www.sec.gov/Archives/edgar/data/0001633978/000119312526442758/d163169dex991.htm), 11/02). Management called that deal "validation" and did not discuss its competitive effect. |
+| "Almost every LTA" carries an upfront payment (prepayment or NRE) that helps fund capex | Q&A (BNP Paribas) | **✅ Corroborated by the filing:** contract liabilities rose $63M → $333M. No dollar figure was given on the call. |
+| "Pricing optimization" is a named gross margin driver | CFO, prepared and Q&A | **❌ Contradicted at the margin.** Lumentum earns ~12.6pp more gross margin, and Chinese peers print ~46.6% (Innolight). COHR has the price leverage of a supplier sold out, but not the margin. |
+
+**Dodged:**
+- **Barclays:** what share of the $3B/$4B quarterly targets is supply-backed? Not quantified. Who is the $20B LTA customer? Declined.
+- **BNP:** financing risk of the build. Answered with prepayments instead.
+- **Needham:** internal vs. external InP split. Withheld.
+- **Deutsche Bank and StoneX:** Chinese transceiver price competition, asked twice. Not answered substantively.
+- **Not asked by anyone:** FCF, inventory, payables, the facility draw, purchase commitments. That is consistent with the Edge's claim that the sell-side does not model cash.
+
+#### (d) What management *didn't* say
+
+| What's missing | Last disclosed (quarter + figure) | Management's stated reason, if any | Read — why it likely went away |
+|---|---|---|---|
+| **Adjusted EBITDA reconciliation** dropped from the deck | Q4 FY26 deck: Adj. EBITDA attributable $524M, 25.6% margin, five quarters | None found | **Opinion:** EBITDA is the denominator of the leverage ratio, and it vanished the quarter leverage rose 0.7x → 1.1x on new subsidiary debt. EBITDA itself was up, so a benign deck cleanup is plausible. The timing is the finding. |
+| **Segments re-scoped without visible recast.** "Certain business units" moved Industrial → D&C effective 7/1/26 with $141M of goodwill; Q4 FY26 D&C still shows the originally reported $1,615.0M | 10-Q Note (goodwill) | Reorganization, effective the first day of FY27 | **Opinion:** a fiscal-year-boundary reorg is a benign explanation and the timing fits it. But the D&C +79% headline, and Tripwire #5's growth clause, are now measured partly over a different perimeter. Restating on the old basis is not possible from the filings. |
+| **Revenue-by-region table** | Q4 FY26 deck (five quarters) | None | **Probable drop, not confirmed.** The Q1 charts are image-only and were not all viewed. |
+| **"FY27 EPS growth significantly faster than revenue growth"** | Said on the 8/12 call | None | Absent from the release and deck. A non-reissue on the call is **unconfirmed** (rendering not verifiably complete). |
+| **Purchase-commitment update, customer ≥10% concentration, RPO** | FY26 10-K: $11.8B; 20% / 12%; never disclosed | Annual disclosures | **Benign:** 10-Q norm. Not a drop. |
+| **Any cash, FCF, inventory or full-year capex guide** | Never guided | — | Continuous omission, not a new one. The Guidance track record has no cash row because none has ever been issued. |
+
+#### (e) The reaction, decomposed
+
+**The print's own reaction cannot be decomposed yet.** The release came after the 11/04 close, and this run (13:44 UTC on 11/05) precedes the first post-print session. `prices.py` still flags the 11/04 bar as UNSETTLED ($195.09, −6.0%), and that was a *pre-print* session in which LITE (−7.9%), CIEN (−9.3%), CRDO (−9.6%) and SOXX (−3.1%) all fell. The last settled close is **$207.49 (11/03)**. Secondary headlines conflict ("dip ~3%" vs. "rallies back"). **Redo this on settled 11/05 bars; nothing here is a verdict on the print.**
+
+**What the market already did, before the print, was the re-rate.**
+- **Settled closes, 10/05 → 11/03:** COHR −37.8% vs. optics peers avg −31.4% (LITE −37.7%, AAOI −47.4%, CRDO −29.0%, CIEN −23.0%, FN −19.9%) and SOXX −21.1%.
+- **Every large COHR down day coincided with a large SOXX down day,** and no COHR-specific disclosure was found. With an estimated beta of ~1.8–2.0x to SOXX (**estimate**, from the four largest down days, not a regression), the drawdown is mostly sector tape.
+- **The candidate company-specific residual is about −12pp vs. LITE from 10/05 to 10/28,** before the Marvell deal contaminated LITE as a comp. That is consistent with the cash/commitment discount, but not proven.
+- **This was a genuine de-rate, not estimates falling:** ~43x Q1-guided annualized non-GAAP EPS at $337.04 (10/02) → **~21.8x** Q2-guided ($2.38 × 4) at $207.49, while estimates rose.
+
+#### (f) Part 1 in brief
+
+- 📊 **The numbers** — Revenue $2,370.3M (upper end of $2.2–2.4B) and non-GAAP EPS **$2.09, above the top** of $1.85–2.05; Q2 guided to $2.55–2.75B. The misread: every *guided* line hit, every *unguided* cash line went the wrong way. GAAP EPS was also lifted by a $22.8M tax benefit.
+- 💵 **Cash conversion** — OCF **−$92.7M** on $384.7M of net income; FCF **−$868.2M**; inventory **$3,341.4M**, DIO 211d (+53d YoY). OCF was propped by +$429.8M of payables and +$269.3M of customer advances; without both it was ≈ −$792M.
+- 🏭 **Sector read** — "No signs of slowing, CY2027 booked" ✅ corroborated (Lumentum +136%, hyperscaler capex held). "No InP oversupply through 2028" ⚠️ asserted with no data while Broadcom triples and Lumentum adds 50%.
+- 🔇 **What wasn't said** — **Adjusted EBITDA dropped from the deck** in the quarter leverage rose 0.7x → 1.1x. Segments were re-scoped (units moved Industrial → D&C) with prior periods apparently unrecast. No analyst asked about cash.
+- 🎢 **The reaction** — The post-print session has not settled, so there is **no read yet**. The real move came before the print: −37.8% in October, mostly high-beta sector tape (~1.8–2x SOXX) plus a ~−12pp residual vs. LITE. The multiple went from ~43x to ~22x guided EPS, a genuine de-rate.
+
+### 2. Assessment — what the call does to the thesis
+
+#### (a) The underlying investment thesis
+
+*What has to be true* (deep-dive [2026-10-04](reports/2026-10-04.md) §15): **(i)** InP scarcity outlasts the 2027–28 capacity wave; **(ii)** Coherent converts NVIDIA anchor status into disclosed CPO volume starting with the December 2026 quarter; **(iii)** FCF turns positive in FY27 without another equity injection.
+
+- **Leg (iii): weakened, decisively.** FCF −$868.2M in Q1, the fifth straight quarter of worsening FCF, and the gap is now funded by unguaranteed subsidiary debt rather than equity. "Without new equity" technically holds, because the substitute is debt.
+- **Leg (ii): untested, still on schedule.** The 400mW CW laser is "expected to begin generating revenue this quarter," and PhotonLink is guided to >$100M in the March 2027 quarter. These are forward numbers from management that has hit three of three completed quarterly revenue/EPS guides on the table above, so they get moderate credit. But a CPO revenue start has never been guided before, so there is no history on that kind of promise.
+- **Leg (i): contested.** InP doubling a quarter early is a fact. "No oversupply through 2028" is unsupported opinion.
+- **Leg (i): new evidence for the bull side.** The **$20B five-year PhotonLink LTA** and LTA prepayments are the first concrete sign that customers are paying for scarcity rather than just booking it.
+
+#### (b) Re-rating drivers
+
+- **Fundamental:** the main bull driver, "FCF turns positive while inventory falls (+15–25%)," **moved further out**. The de-rate driver, "inventory write-down," gained exposure ($3.34B, 60% WIP). Guidance raises (FY27 >60% growth, first $4B quarter in FY28, >45% gross margin by end CY2028) lift earnings, not the multiple.
+- **Structural:** unchanged in direction. The die-per-bit decline and InP capacity multiplication are both intact. The Lumentum–Marvell combination could reopen NVIDIA's second-source choice in COHR's favour (**inference, unsourced**).
+- **Sentiment-technical:** this is the bucket that moved. The ~43x → ~22x compression happened in October on sector tape at ~1.8–2x beta. It **removed much of the "priced for the consensus path" premium** the deep-dive flagged, before the print.
+- **Macro:** rates and debt-funded hyperscaler capex unchanged. Microsoft's Q1 capex shortfall was blamed on delayed third-party capacity: a timing slip, not a cut.
+
+**Bucket weighted most: sentiment-technical (in the price, pre-print) and fundamental-cash (in the filing).** The multiple compression partly prices the cash problem the 10-Q now confirms.
+
+#### (c) Risks
+
+- **Escalated: financing.** $803M of new borrowing sits at foreign subsidiaries the parent does not guarantee (lenders look to subsidiary assets; terms are cheap at SOFR+20bp / benchmark −71bp). Leverage is 1.1x. About $944M of cash is held outside the US.
+- **Escalated: inventory.** $3,341.4M, DIO 211d.
+- **De-escalated: customer-side asymmetry.** Contract liabilities are $333M vs. $63M, including $161M non-current, a multi-year shape.
+- **Newly surfaced:** segment perimeter change; Adjusted EBITDA dropped; NVIDIA's price-protection provision **expired untriggered in September** and its six-month lock-up has lapsed, so its 7,788,161 shares are free to sell (relevant to #4(c)).
+- **Unchanged:** customer concentration (not updated), BIS/Huawei inquiry.
+
+**Pre-Mortem** ("a fixed-cost trap built in a scarcity that ends"): **moved closer on the cash side and slightly further on the customer side.** The pre-mortem's own sequence named "a drawn off-parent facility" as a step; that step has now happened. Customer cash appearing is the one development the pre-mortem did not anticipate.
+
+#### (d) Edge and Tripwires
+
+| # | Tripwire (verbatim from news.md) | Status this print | Evidence from the call / filing, with the figure |
+|---|---|---|---|
+| 1 | **Cash conversion — the forward test.** On the Q2 FY27 report (~early Feb 2027), if **cumulative H1 FY27 free cash flow is worse than −$500M** (H2 FY26 was −$869.8M), OR **inventory exceeds ~$3.0B at 12/31/26**, the ramp is consuming capital faster than it converts and the commitments are being carried on the balance sheet. **Decide before the print.** | **⚠️ Early-warning, past both thresholds on Q1 alone** | Q1 FCF **−$868.2M** (−$368.2M beyond the H1 limit; Q2 must deliver ≥ +$368.2M with capex guided up). Inventory **$3,341.4M** ($341.4M over; must fall >$341M by 12/31). Formally tested on the Q2 report. The trigger says "decide before the print," and this is that warning. |
+| 2 | **The contractual asymmetry widens.** Any disclosure of total future purchase commitments **above $11.8B while contract liabilities remain below ~$150M**, OR **any draw on the ~$945M off-parent working-capital facility** — Coherent committing faster than its customers, or the build moving onto unguaranteed subsidiary debt. | **🚨 FIRES (branch b)** | 10-Q Note 8: ~$950M August 2026 Facility (signed 8/12, 36-month maturity from first use on 8/17), **$598M drawn**, parent and other subsidiaries neither party nor guarantor. Plus $205M on the unguaranteed 2026 Credit Lines. Branch (a) does not fire: contract liabilities $333M > ~$150M; no commitment update. **The draw began 8/17, before this trigger was written on 10/04**, but it was first disclosed on 11/04. |
+| 3 | **Demand digestion at the source.** Any of Microsoft / Alphabet / Meta / Amazon **cutting or materially softening** 2026–2027 capex guidance (late-July 2026 prints and after). Aggregate 2026 guides ~$725B, +77% YoY, all raised in late April — a cut is the fastest route to the bear case and would collide directly with Tripwire #1. | ✅ Checked, does not fire | Meta narrowed to $135–145B (low end up); Amazon ~$220B held, 2027 "meaningfully more"; Alphabet ~$195–205B with 2027 above $300B signalled. **Microsoft ~$170B is the closest call:** the drop from ~$190B is the July useful-life/lease reclassification ("expectations remain unchanged," [CFO Dive](https://www.cfodive.com/news/microsoft-holds-line-ai-spending-plans/826648/)), and the Q1 shortfall was third-party capacity timing. Aggregate ≈ $730B. Mostly secondary-sourced. |
+| 4 | **The CPO laser socket goes elsewhere.** **(a)** Coherent's December 2026-quarter CPO / UHP CW laser revenue fails to begin as guided, OR NVIDIA or Broadcom discloses an external-laser supplier split with Coherent below roughly one-third; **(b)** a third and fourth vendor (beyond Lumentum and Coherent) **shipping production volume** into the OIF-ELSFP / external-laser-source socket; **(c)** NVIDIA's 13F shows a **reduction of its 7,788,161-share COHR position** while its Lumentum position holds. This remains the only trigger that permanently impairs terminal margin. | ✅ Checked, does not fire — (a) reaffirmed, not yet delivered; (c) no read yet | (a) 400mW CW revenue "expected to begin this quarter" (Dec qtr); no supplier split disclosed. (b) No third/fourth production-volume vendor found. (c) NVIDIA's Q3 13F is due ~11/16; the lock-up and price protection have both lapsed. |
+| 5 | **Share loss accelerates.** Two consecutive LightCounting/Cignal AI vendor rankings showing Coherent's high-speed datacom share falling, or D&C revenue growth decelerating below ~25% YoY while Innolight/Eoptolink continue compounding faster. (Currently: COHR datacenter +37% YoY vs Innolight +105% and Eoptolink >$1B quarters — already losing share while growing strongly.) | ✅ Checked, does not fire | D&C **+79.1%** vs. the ~25% clause. **Caveat:** the perimeter changed (§1(d)). Innolight +171.8% still compounds faster. No new ranking found. |
+| 6 | **Upward falsifier — re-underwrite, do not exit.** **Contract liabilities rise above ~$500M** (customers put cash behind the commitments), OR **free cash flow is positive for two consecutive quarters with inventory declining** — the asymmetry has closed and the commitments were pre-sold supply. **Committed action: re-underwrite upward.** | **⚠️ Early-warning (upward)** | Contract liabilities **$333M**, $167M short of ~$500M, up from $63M in one quarter. FCF branch nowhere near. |
+
+**The Edge — split, and the split is the finding.**
+- **🟢 EDGE+ on the cash and financing leg.** FCF worsened again, inventory and payables both stretched, and the build moved onto unguaranteed subsidiary debt: the exact mechanism the Edge and Tripwire #2(b) named. No analyst asked about it.
+- **🔴 EDGE− on the customer-side asymmetry leg.** "Customers have advanced $63M" is now **$333M**. Management says almost every LTA carries a prepayment, and a $20B LTA was signed. The ratio of commitments to advances fell from ~187x to ~35x (against the stale $11.8B figure).
+- **The supply-scarcity leg is unresolved.** The doubling is a fact; the 2028 claim is an assertion.
+- **Pattern across this file:** the Edge's cash leg has been confirmed at every print since July. Its customer leg has its first contrary datapoint.
+
+#### (e) Part 2 in brief
+
+- 🚨 **Tripwires & Edge** — **#2 🚨 FIRES** (branch b: $598M drawn on the ~$950M unguaranteed subsidiary facility, plus $205M on a second unguaranteed line; pre-committed action **re-underwrite or exit**). **#1 ⚠️ early-warning**, already past both thresholds on Q1 alone (FCF −$868.2M vs. −$500M H1 limit; inventory $3.34B vs. ~$3.0B). **#6 ⚠️ upward early-warning** (contract liabilities $333M vs. ~$500M). **#3 / #4 / #5 ✅ do not fire.** Edge split: 🟢 EDGE+ on cash and financing, 🔴 EDGE− on customer advances.
+- 🎯 **Thesis legs** — **(iii) FCF positive in FY27: weakened decisively.** (ii) CPO volume from the December quarter: untested, still guided on time. (i) InP scarcity through 2028: contested, management's "no oversupply" claim is unsupported. Customer prepayments are the first evidence for the bull side of the asymmetry.
+- 🔄 **Re-rate** — The **sentiment-technical** bucket moved, before the print: ~43x → ~22x guided EPS on sector beta. That *removed* much of the consensus-path premium. The fundamental "FCF turns positive" re-rate was pushed further out.
+- ⚠️ **Risks** — *Escalated:* financing (subsidiary debt, leverage 1.1x), inventory (DIO 211d). *De-escalated:* customer-side asymmetry (advances 5.3x). *Newly surfaced:* NVIDIA lock-up and price protection lapsed, segment re-scope, Adjusted EBITDA dropped. **Pre-Mortem moved closer:** its "drawn off-parent facility" step has happened.
+
+### 3. Final thoughts — what to watch going forward
+
+**1. The read in one line.** The best income statement on this file and the worst cash statement on it, in the same filing: Coherent beat every number it guided, and paid for the ramp with $868M of negative free cash flow funded by inventory-stretched suppliers and $803M of foreign-subsidiary debt the parent does not guarantee. That draw fires Tripwire #2, even as customers finally started putting real cash ($333M) behind the contracts.
+
+**2. The directional lean.** 🔴 **bearish next ~12 months · 🟢 cautiously constructive over 3–5 years.** Near term, #2 has fired and #1 is all but arithmetically locked for February. Over the longer run, demand, customer prepayments and a multiple already halved to ~22x guided EPS give the structural question room to resolve either way. *A lean on the print, not a rating on the stock. Not financial advice.*
+
+**3. ✅ What to watch — priority-ordered.**
+- ⚠️ **#1 — The Tripwire #2 decision: now.** The pre-committed action is re-underwrite or exit, and it is due on this disclosure, not on the next one. **Pass:** a deliberate re-underwrite that prices the subsidiary-debt funding and the new customer advances (the 2026-10-04 deep-dive did not know the facility was drawn). **Fail:** letting a fired trigger sit unexamined, which is the failure the pre-commitment exists to prevent.
+- **The Q2 FY27 report, ~early Feb 2027 — Tripwire #1 and #4(a) together.** **Pass:** Q2 FCF ≥ +$368.2M *and* inventory down >$341M by 12/31, *and* first 400mW CW / CPO revenue booked. **Fail:** any of the cash conditions → **#1 fires** → exit or re-underwrite. CPO revenue not begun → **#4(a) fires**. On Q1's run-rate the cash branch is ~$368M and ~$341M from passing. Treat a fire as the base case.
+- **NVIDIA's Q3 13F, ~2026-11-16 — Tripwire #4(c).** Lock-up and price protection have both lapsed. **Pass:** 7,788,161 shares held. **Fail:** reduced while the Lumentum stake holds → **#4(c) fires**.
+- **The facility balance on the Q2 10-Q (~Feb 2027).** **Pass:** flat or repaid. **Fail:** drawn toward the ~$950M cap or the $475M Credit Lines maxed: the build is running on subsidiary debt.
+- **Contract liabilities toward ~$500M — Tripwire #6, next 10-Q.** **Pass:** above ~$500M → **#6 fires upward** → re-underwrite up. **Fail:** flat at ~$333M, which would make Q1 a one-off LTA signing payment.
+- **FY27 10-K purchase commitments (~Aug 2027) — #2(a).** Open, with a long date.
+
+**4. 💲 Where the price sits.** The re-rate came first: from ~43x to ~22x Q2-guided annualized non-GAAP EPS between 10/02 and 11/03, a genuine multiple compression while estimates rose, driven mostly by high-beta optics tape. The print's own reaction has not settled. At ~22x, the price no longer assumes the consensus "sold-out compounder" path cleanly. It now partly prices the cash problem the 10-Q confirms, but not a Tripwire #1 fire or a write-down.
+
+**5. 🔀 What would flip the read.**
+- 🟢 **Turns bullish:** contract liabilities through ~$500M (**#6 fires upward**), *or* Q2 FCF positive with inventory falling, either of which turns the commitments into pre-sold supply.
+- 🔴 **Confirms bearish:** Q2 FCF negative again with the facility drawn further (**#1 fires** on top of #2), or NVIDIA trims its stake (**#4(c)**).
+
+**6. Why the lean.**
+- 🔴 **(12mo) The build moved onto debt the parent does not stand behind.** The Edge named this mechanism and Tripwire #2(b) was written to catch it: $598M + $205M at foreign subsidiaries, leverage from 0.7x to 1.1x, in a quarter with record GAAP profit.
+- 🔴 **(12mo) Tripwire #1 is close to arithmetically decided.** Q1's −$868.2M FCF and $3.34B of inventory mean February needs an extraordinary cash quarter while capex is guided up. Profit is not converting: OCF/NI −0.24x.
+- 🟢 **(3–5yr) Customers started paying.** $63M → $333M of contract liabilities ($161M multi-year), prepayments in "almost every LTA," and a $20B five-year LTA. That is the first evidence against the Edge's core asymmetry claim, and the trigger that tracks it (#6) is ~two-thirds of the way there.
+- ⚖️ **The honest counterweight:** every guided line hit for a third straight quarter, the guide went up again, the gross margin target rose to >45%, and the subsidiary debt is cheap and unsecured, not distressed. The −37.8% October drawdown was mostly sector beta, not a verdict on Coherent. A reader pricing only the cash bleed is ignoring that demand and now customer money are both real.
+
+**7. Bottom line.** Q1 FY27 is the Edge's cash thesis confirmed and its customer thesis challenged, in the same quarter. Coherent is growing ~50% and beating every guide, while funding the ramp with suppliers' patience and foreign-subsidiary loans. That fires Tripwire #2, so the pre-committed re-underwrite-or-exit decision is due now. Customers have also started prepaying, and if that reaches ~$500M the thesis flips upward under Tripwire #6. February's Q2 print tests #1, #4(a) and the facility balance together. *Not financial advice — informational research tooling only.*
+
+**Methodology.** Three parallel research sub-agents (Numbers · Call · Sector cross-check) plus the orchestrator, **all pinned to Opus**: Opus end-to-end, no model caveat. Run date **2026-11-05**; quarter reported **2026-11-04**. Tripwire #2's facility language was re-read by the orchestrator directly from the 10-Q text.
+
+**Primary sources:**
+- Coherent Corp. (CIK 820318) **8-K EX-99.1**, acc. [0001193125-26-447200](https://www.sec.gov/Archives/edgar/data/820318/000119312526447200/d176836dex991.htm), and **EX-99.2 deck** ([link](https://www.sec.gov/Archives/edgar/data/820318/000119312526447200/d176836dex992.htm)), filed 2026-11-04.
+- **10-Q** for the period ended 2026-09-30, acc. [0000820318-26-000023](https://www.sec.gov/Archives/edgar/data/820318/000082031826000023/iivi-20260930.htm), filed 2026-11-04.
+- **Q4 FY26 EX-99.1**, acc. [0001193125-26-346860](https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm), and [EX-99.2 deck](https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex992.htm), filed 2026-08-12.
+- Prior-quarter balances via `scripts/facts.py`: 10-Qs 0000820318-26-000006 and 0000820318-26-000013; FY26 10-K 0000820318-26-000020.
+
+**Call content:** third-party renderings by [TradingKey (Q1)](https://www.tradingkey.com/news/transcripts/262279490-) and [TradingKey (Q4)](https://www.tradingkey.com/news/transcripts/262105524-tradingkey), cross-checked against [BigGo](https://finance.biggo.com/news/US_COHR_2026-11-04).
+
+**Peers and sector:**
+- [Lumentum FQ1'27](https://investor.lumentum.com/financial-news-releases/news-details/2026/Lumentum-Announces-First-Quarter-of-Fiscal-Year-2027-Financial-Results/default.aspx)
+- [Marvell–Lumentum 8-K](https://www.sec.gov/Archives/edgar/data/0001633978/000119312526442758/d163169dex991.htm)
+- Innolight/Eoptolink via [CLS](https://www.cls.cn/detail/2519547) and [Gelonghui](https://m.gelonghui.com/news/5340796) (cninfo not read)
+- [Meta EX-99.1](https://www.sec.gov/Archives/edgar/data/0001326801/000162828026066700/meta-09302026xexhibit991.htm)
+- Microsoft via [CFO Dive](https://www.cfodive.com/news/microsoft-holds-line-ai-spending-plans/826648/) and [InvestingLive](https://investinglive.com/stocks/microsoft-sees-170bn-capex-in-fiscal-2027-but-says-it-will-stay-cash-flow-positive/)
+- Amazon via [FourWeekMBA](https://fourweekmba.com/ai-jassy-projects-40-aws-growth-as-capex-guide-holds-at-220b/)
+
+Prices are settled daily bars via `scripts/prices.py`.
+
+**Could not retrieve:**
+1. An official or verbatim transcript, or the webcast.
+2. Consensus going in.
+3. A settled post-print reaction (the 11/05 session had not opened).
+4. Post-print sell-side notes.
+5. Short interest.
+6. LightCounting/Cignal AI rankings.
+7. Primary capex filings for Microsoft, Alphabet and Amazon.
+8. The Fabrinet print (single unverified source, not used).
+9. Whether D&C comparatives were recast for the 7/1/26 unit transfer.
 
 ---
 
