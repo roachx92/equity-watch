@@ -23,7 +23,7 @@ Deep-dive reports are dated, immutable snapshots. Everything else in a ticker's 
 ## J.1 — What the audit may never do
 
 - [ ] **Never write to a ticker's `news.md`.** Not the Edge, not the tripwires, not the log. The pre-committed Edge and Tripwires are written **only by explicit human decision** (`standing-rules.md` §A) — that invariant binds the audit exactly as it binds every other workflow. The audit **flags**; a human decides.
-- [ ] **Never dispatch a re-run.** It recommends; a human runs `/deep-dive`. This is currently also *structural* — there is no `deep-dive.yml` — and `audit.yml` deliberately withholds `actions: write` so the property is enforced rather than merely intended. **If a `deep-dive.yml` is ever added, this rule is what stops the audit firing it.**
+- [ ] **Never dispatch a re-run.** It recommends; a human runs `/deep-dive`. This is currently also *structural* — there is no `deep-dive.yml`, and since 2026-10-05 no audit workflow at all, so nothing can dispatch anything. **If a `deep-dive.yml` or an audit workflow is ever added, this rule is what stops the audit firing it — and the audit workflow must withhold `actions: write`.**
 - [ ] **Never commit.** The audit's own outputs are ephemeral by design (see §J.6). Committing would also create a self-trigger loop against its own `push` trigger on `tickers/**`.
 - [ ] **The one exception:** canonical-link drift may open a PR unattended. Pure hygiene, zero judgment content.
 
