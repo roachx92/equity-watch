@@ -100,7 +100,11 @@ jobs:
                  format), §F.2 (the parallel research-sub-agent method — self-contained
                  prompts, source quality + non-US-filer guidance, first-run ~14-day window,
                  stop condition), and §F.3 (the run-summary chat-digest format). Apply them,
-                 do not restate them.
+                 do not restate them. Every logged item must also satisfy §F.4 (expectations
+                 baseline), §F.5 (impact sizing in the → clause) and §F.6 (technology
+                 maturity ladder), using the slug's mechanism sheet at
+                 framework/mechanisms/<slug>.md where one exists (framework/sector-lens.md
+                 §K.8). None of the three changes a tag.
 
             COVERAGE GUARD — do this first: a what's-new check presupposes the ticker
             already has a deep-dive and its §18 Edge/Tripwires. Confirm

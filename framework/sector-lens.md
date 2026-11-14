@@ -66,7 +66,7 @@ So: **additions apply freely and are noted. Removals require the recorded sunset
 
 1. Today's date and the ticker.
 2. The ticker's `## Sector lens` section **verbatim** — memberships and transmission channels.
-3. The registry entry above for each slug: scope and standing watch items.
+3. The registry entry above for each slug: scope and standing watch items — **and the slug's mechanism sheet (§K.8), if one exists.**
 4. The same search window as the rest of the run.
 5. The ticker's Edge and numbered Tripwires verbatim — the sector agent assesses against the *same* triggers as everyone else.
 6. Report-back format: dated items, direct source URLs, and **the transmission channel named per item** (demand / peer-comp / supply / regime).
@@ -104,3 +104,29 @@ event, channel: peer-comp> [EDGE−]
 ```
 
 **Audit tie-in:** `[Sector/…]` is a routing key. `scripts/audit_report.py`'s `WORK_STREAM_HINTS` maps it to the **sector** work-stream, so a stale sector-tagged entry sends a REFRESH work order to the right sub-agent (§J.6).
+
+## K.8 — The mechanism sheet: what a research agent must know before it reads the news
+
+*Added November 2026. One file per slug at `framework/mechanisms/<slug>.md`.*
+
+**Why this exists.** The registry (§K.2) tells an agent *what to watch*. Nothing told it *how the thing works* — and a research agent that does not know the mechanism cannot tell a material technical claim from a restatement, or a true one from a wrong one. The corpus has the worked failure: COHR's first Edge held that every optical architecture consumes "InP CW lasers from the same fab". **An EML is not a CW laser**, and laser die per 1.6T port falls from about 8 to about 2 across those architectures. That was knowable on 2026-07-18, sat in the binding Edge for three weeks, and was first logged by the 2026-08-07 adversarial entry. Every agent in between had been handed the Edge verbatim and nothing to test it against.
+
+**What a sheet contains — short, and every row sourced:**
+
+1. **The unit of content** — the thing demand is counted in (a port, a megawatt, a substrate, a coin) and what one unit consumes.
+2. **Content per unit, by architecture or generation** — the table that says what changes when the technology changes.
+3. **Who supplies which socket** — roles, so a peer headline can be placed (rival, supplier, customer who could in-house).
+4. **The binding constraint**, and what would relieve it from the demand side and the supply side.
+5. **Terms and markets that are routinely conflated** — the distinctions an outsider gets wrong.
+6. **Open disputes** — stated as disputes, both sides, unresolved. A sheet never settles by assertion what its sources leave open.
+
+**Rules:**
+
+- **Derived, never written from memory.** A sheet is built from the technology, competitive and bottleneck sections of the slug members' **latest dated reports** (resolved by glob), or from a primary source it cites. Each row carries where it came from and an **as-of date**. A row nobody can source does not go in.
+- **One sheet per slug, shared by every ticker in it** — so two tickers cannot carry contradictory physics about the same socket, the way AAOI's and COHR's logs once carried contradictory figures for one Alphabet print (`adversarial-review.md` §L.4).
+- **Reference, not pre-commitment.** Like membership (§K.3), a sheet does not inherit §A's never-overwrite invariant: correcting it is free, and each correction is dated in the sheet's own change note. **But a correction that contradicts a ticker's Edge premise is a finding about that ticker** — an erratum candidate under `staleness-audit.md` §J.8, routed to a human. Fixing the sheet never edits an Edge.
+- **How it is used.** Every research sub-agent reads it before searching (§F.2 item 2) and tests technical claims against it (§F.6). **The §L red team receives it as a target, not as ground truth** — the sheet is itself derived from reports written under the thesis's framing.
+- **Staleness.** A row older than the ~180-day staleness horizon (`standing-rules.md`) is treated as unverified-recent: usable, but an agent relying on it says so.
+- **Absent sheet.** The run proceeds; the digest states `no mechanism sheet for <slug>`, and technology items carry that limit. An agent does **not** improvise the mechanism from memory to fill the gap — that is the failure this section exists to stop.
+
+**Seeding.** A sheet is created when a deep-dive for a slug member is run or refreshed, or on request — a derivation from the report, not a separate research task. **Seeded so far: `ai-optics`** (2026-11-14). The other slugs have none yet, and say so under the absent-sheet rule until they do.

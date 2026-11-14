@@ -37,7 +37,11 @@ Read these directly (small, purpose-scoped) — do not work from memory of them:
    News Log entry format (how an item gets *stored*), **§F.2** the parallel research-sub-agent
    method (self-contained prompts, source-quality + non-US-filer guidance, first-run ~14-day
    window, stop condition), and **§F.3** the run-summary digest format. Single source of truth
-   for all three — don't restate them.
+   for all three — don't restate them. It also holds the three **assessment disciplines** every
+   logged item must satisfy: **§F.4** the expectations baseline, **§F.5** impact sizing, and
+   **§F.6** the technology maturity ladder.
+3. **`framework/sector-lens.md`** — Section K, for the sector agent (§K.4) and the **mechanism
+   sheet** (§K.8) at `framework/mechanisms/<slug>.md` for each of the ticker's slugs.
 
 ## Step 2 — confirm the ticker is covered (else build it first)
 Per Section F step 1: a "what's new" check presupposes a full report and the §18 Edge/Tripwires
@@ -71,10 +75,12 @@ prompt must include all seven items §F.2 lists: today's date + ticker; an instr
 `Read tickers/<TICKER>/news.md` (the ticker's news.md) and quote **verbatim** its exact Edge, its
 numbered Tripwires **each paired with its `Expires` date** from the `| # | Expires |` table, and
 its `## Sector lens` — quoting the **trigger text only**, never the italic provenance preamble or
-`### Change log` (archival edit-history, not the pre-commitment); the search window (since the
+`### Change log` (archival edit-history, not the pre-commitment) — and then to read the slug's
+**mechanism sheet** and the **base-case anchors** §F.2 item 2 names; the search window (since the
 last dated log entry, or ~14 days back if the log is empty); the source-quality guidance; a
 hunt-list of one line per Tripwire + the Edge mechanism, **ordered nearest-expiry-first with each
-trigger's date on its line**; the report-back format (dated items, direct source URLs, full substantive detail);
+trigger's date on its line**; the report-back format (dated items, direct source URLs, full substantive detail,
+plus each item's **baseline, raw sizing figures and evidenced rung** per §F.2 item 6);
 and **an explicit stop condition** with a tool-call budget. **Sub-agents research only — they
 must NOT edit files.**
 
@@ -93,6 +99,10 @@ Wait for the sub-agents, then yourself:
   trigger fired, how close to threshold, the pre-committed action) — highest priority, surface
   it at the TOP. Tag `[EDGE+]` / `[EDGE−]` for items that corroborate/undermine the variant view;
   call out an accumulation of `[EDGE−]` even if no single tripwire fired.
+- **Apply the three assessment disciplines to every logged item** — the expectations baseline
+  (§F.4), impact sizing in the `→` clause (§F.5), and for technology items the evidenced rung
+  and the mechanism-sheet check (§F.6). Apply them as written; none changes a tag. If a slug has
+  no mechanism sheet, say so in the digest (§K.8) rather than improvising one.
 - **Assess sector findings identically** — same questions, same tags, against *this* ticker's
   §18 (never a sector-level sentiment score: one headline can point opposite ways for two
   tickers sharing a slug). Apply the **§K.6 materiality bar** before logging, and tag logged

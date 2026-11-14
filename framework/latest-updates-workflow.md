@@ -16,6 +16,16 @@
 
 *(The numbers do not run in flow order — §F.1 keeps its number because it is anchored from every ticker's news.md and from `earnings-digest.md`. Read them as: research **§F.2** → store **§F.1** → report **§F.3**.)*
 
+**Plus three assessment disciplines (added November 2026) — also one home each.** The Tripwire/Edge assessment in step 4 answers *"what does this do to the thesis?"* It does not answer *"was this news to the market?"*, *"how big is it?"*, or *"how real is it?"* — and an item can be right on the first question while silent on the other three.
+
+| Discipline | The question it answers | Where |
+|---|---|---|
+| **Expectations baseline** | Delivered against *what*? Was it already known? | **§F.4** |
+| **Impact sizing** | Which value driver, how large against a dated base, when? | **§F.5** |
+| **Maturity ladder** | For a technology item: which rung is *evidenced*, not claimed? | **§F.6** |
+
+None of the three adds or changes a tag — §F.1's closed vocabulary is untouched. They govern what the entry's detail and `→ impact` clause must contain.
+
 **Also used by the earnings digest.** `earnings-digest.md` (Section I) applies **§F.2**'s research method and source-quality guidance to its own three sub-agents, and **§F.1** verbatim for the news items a call discloses. It does **not** use §F.3 — the earnings chat reply has its own format (§I.7).
 
 ---
@@ -31,6 +41,9 @@
 4. **Assess every event against the §18 Tripwire and Edge — MANDATORY.** For each piece of news, explicitly ask:
    - **Does it trip the Tripwire?** Does the event match (or move materially toward) any of the pre-committed exit/re-underwrite triggers named in the ticker's Edge/Tripwires (in the ticker's news.md, `tickers/<TICKER>/news.md`, restated verbatim from the deep-dive report's §18)? If yes, this is the highest-priority finding: **flag it prominently at the top of the chat reply AND in the Recent News Log entry**, tag the entry **[TRIPWIRE]**, state which specific trigger fired and how close it is to the stated threshold, and note the pre-committed action (exit / re-underwrite). Never bury a tripwire event inside a routine news list.
    - **Does it strengthen or weaken the Edge?** Does the event support or undermine the differentiated/variant view the thesis rests on (§18 "Your edge")? Tag it **[EDGE+]** if it corroborates the variant view, **[EDGE−]** if it cuts against it (i.e., consensus was right and your edge is eroding). An accumulation of EDGE− items means the differentiated thesis is failing even if no single tripwire has fired — say so explicitly.
+   - **Delivered against what? — the expectations baseline (§F.4).** For every item carrying a figure, a date or a guide, state the baseline it is measured against and the verdict (above / in line / below / new / already known). An item with no stated baseline cannot say whether it was news.
+   - **How big, on which driver, and when? — impact sizing (§F.5).** The `→ impact` clause names the value driver the item touches, sizes it against a dated base figure, dates when it lands, and says which of the report's Bull / base / bear drivers it bears on. "Not sizable" with the missing input named is a valid answer; a bare "positive for the thesis" is not.
+   - **For a technology or product item — which rung is evidenced? (§F.6).** Place it on the maturity ladder and weight it at the rung the evidence supports, not the rung the release claims. Test its technical content against the slug's **mechanism sheet** (`sector-lens.md` §K.8); a claim that contradicts the sheet is either news or an error, and the entry must say which.
    - **Sector findings get this identical treatment — same questions, same tags.** A sector item is assessed against *this ticker's* §18, not scored at the sector level: the same headline can point opposite ways for two tickers sharing a slug (see `sector-lens.md` §K.5). Apply the **§K.6 materiality bar** before logging — bears on a Tripwire or Edge branch · re-prices the peer group · shifts a sector baseline the thesis quotes — and log per §K.7 with framework tag `[Sector/<slug>]`, naming the transmission channel in the `→ impact` clause. Below the bar: one line in the digest at most, never an entry.
    - If the ticker's news.md has no §18 Tripwire/Edge on file yet, **derive them first — from the LATEST report**, resolved by globbing `tickers/<TICKER>/reports/*.md` and sorting by date (CLAUDE.md's report-resolution rule), never from whichever report you happen to have open or the `Canonical deep-dive:` link. **State which dated report you derived them from.** These become the *binding* pre-committed triggers everything downstream is measured against, so seeding them from a superseded report installs a stale thesis as the baseline — the most expensive place in the system to be wrong. **Assign the ticker's sector(s)** in a `## Sector lens` section per `framework/sector-lens.md` §K.1 — derived from that same report's §5/§6/§10 and anchored against its §18 (membership only counts if a Tripwire or Edge branch references one of the sector's variables), with the transmission channel named per sector and slugs drawn from the closed §K.2 vocabulary. **Write the tripwires as a bullet list, one `- **(n)** ...` line per numbered trigger, not one dense paragraph** — split a report's prose into one bullet per `(n)` as a formatting change only, never rewording, dropping, or merging what a trigger says. **Append the `| # | Expires |` table** (`framework/staleness-audit.md` §J.4) immediately after the tripwire prose — one row per numbered trigger, dated from the trigger's own text where it names a window, else ~12 months out as a review horizon. The date is its own field; never splice it into the verbatim prose. Then assess, and note that you derived them.
 5. **If there's substantive, dated news:** append it to the ticker's `## Recent News Log` per **§F.1 below — the canonical entry format**. Do not restate or paraphrase that spec anywhere else; apply it as written.
@@ -137,6 +150,7 @@ occurred**, so a later reader can tell an indirect move from a direct one — e.
 - **One finding per headline.** If the bolded headline needs two "and"s or an em-dashed second clause to fit everything, that is two entries.
 - **One entry per distinct event.** Split a multi-fact disclosure — an earnings call covering several separate items, say — into **separate entries**, each independently dated, categorized, and tagged. Never merge unrelated facts into one line to save space.
 - **State the implication, not just the fact.** The `→ impact/implication` clause is mandatory and is the entry's centre of gravity: *what this does to the thesis*. It should be readable on its own and name the tripwire clause or Edge branch it touches, not gesture at "the thesis" generally.
+- **State the baseline, the size and the rung — one clause each, inside the ceiling.** Per **§F.4**, the detail names what the item is measured against (`vs. guide $2.2–2.4B (8/12): above the top`). Per **§F.5**, the `→` clause sizes the item on a named driver against a dated base. Per **§F.6**, a technology item states its evidenced rung. These **displace narration; they do not raise the length ceiling** — each is a clause, and an entry that cannot fit them is carrying colour it should cut. Where one cannot be established, say so in a few words (`no baseline found`, `not sizable: prepayment terms undisclosed`) rather than omitting it silently.
 - **A correction to an earlier entry is its own entry**, dated the day the correction was established — not a parenthetical bolted onto an unrelated item. That keeps both the original and the correction independently readable, and stops one entry carrying two jobs.
 
 **This is forward-looking only.** It governs new entries; existing log entries are historical record and are **never** rewritten to match a later format revision — the same rule the assessment-tag positional convention above carries, and for the same reason: the log is a dated record of what was known when, and retro-editing destroys that.
@@ -166,11 +180,11 @@ Each sub-agent runs a thorough, multi-query pass — no fixed query cap; **typic
 
 Each sub-agent's prompt must be self-contained (it has no memory of the parent conversation) and must include:
 1. Today's date and the ticker/company name.
-2. An instruction to `Read tickers/<TICKER>/news.md` first (the ticker's news.md — one folder per ticker under `tickers/`, the folder name is the symbol) and quote, verbatim and not from memory or paraphrase: its exact Edge, its numbered Tripwires **each paired with its `Expires` date from the `| # | Expires |` table** (§J.4 — the date lives in its own field, so a trigger quoted without it is missing half its meaning), and its **`## Sector lens`** memberships and transmission channels. Quote the **trigger text only** — the italic provenance preamble and any `### Change log` entries are archival edit-history, not part of the pre-commitment, and must not be carried into the prompt.
+2. An instruction to `Read tickers/<TICKER>/news.md` first (the ticker's news.md — one folder per ticker under `tickers/`, the folder name is the symbol) and quote, verbatim and not from memory or paraphrase: its exact Edge, its numbered Tripwires **each paired with its `Expires` date from the `| # | Expires |` table** (§J.4 — the date lives in its own field, so a trigger quoted without it is missing half its meaning), and its **`## Sector lens`** memberships and transmission channels. **Then read two reference inputs:** the **mechanism sheet** for each of the ticker's slugs (`framework/mechanisms/<slug>.md`, per `sector-lens.md` §K.8 — if none exists, say so in the report-back and do not improvise one from memory), and the **base-case anchors** — the news.md `## Thesis context` paragraph and the latest report's Bull / base / bear table (latest by glob, per CLAUDE.md), which carry the dated figures an item is sized against (§F.5). Quote the **trigger text only** — the italic provenance preamble and any `### Change log` entries are archival edit-history, not part of the pre-commitment, and must not be carried into the prompt.
 3. The search window: since the last dated entry in that ticker's Recent News Log, or **~14 days back if the log is empty** (see First-run window below).
 4. The Source-quality guidance below.
 5. An explicit hunt-list: one line per numbered Tripwire plus the Edge's specific mechanism, so the sub-agent searches for what would actually break or confirm the thesis, not just generic company news. **Order the hunt-list by proximity to expiry, nearest first, and state each trigger's `Expires` date on its line.** A trigger whose window closes in ten weeks and one that closes in three years do not deserve equal search effort — and the near-expiry ones are exactly where the staleness audit escalates (§J.4), so an unranked hunt-list has the research pass and the audit looking at different things. **For the sector agent, the hunt-list is the §K.2 registry's standing watch items for each of the ticker's slugs, plus its `## Sector lens` transmission channels** — and every reported item must name which channel carried it (demand / peer-comp / supply / regime).
-6. A report-back format: every material dated item with exact date + source name **with its direct URL** (the actual article/filing/press-release link, not just a publication name) + **full substantive detail** (figures, named parties, terms — not a vague gloss), each assessed against that ticker's actual Tripwires/Edge. If a source has no directly linkable URL (e.g. a paywalled terminal feed), say so explicitly rather than omitting the link silently.
+6. A report-back format: every material dated item with exact date + source name **with its direct URL** (the actual article/filing/press-release link, not just a publication name) + **full substantive detail** (figures, named parties, terms — not a vague gloss), each assessed against that ticker's actual Tripwires/Edge. If a source has no directly linkable URL (e.g. a paywalled terminal feed), say so explicitly rather than omitting the link silently. **Each item also returns the three assessment inputs:** **(a)** its **baseline** per §F.4 — what was guided, previously filed or expected, with that baseline's own date and source, or an explicit "no baseline found"; **(b)** the **raw figures needed to size it** per §F.5 — amounts, durations, start dates, share counts — reported as found, with the sizing arithmetic left to the orchestrator; **(c)** for a technology or product item, the **evidenced rung** per §F.6 and what evidences it, plus any point where the item **contradicts the mechanism sheet**.
 7. **An explicit stop condition.** Bounding the *scope* is not the same as telling the agent when to *stop* — write the sufficiency test into the prompt: **"Stop as soon as you can answer the items above, and report what you have."** Give a soft budget and a hard one (e.g. "aim for ~6–10 tool calls; if you pass ~20, stop and report what you have with the gaps named"), and state plainly that **a gap you name is worth more than a gap you spend ten more searches failing to close** — a flagged "could not retrieve X" is a usable result the orchestrator can caveat, while extra queries that still fail are pure latency. The rule is "stop when the listed items are answered **or demonstrably unreachable**," never "stop when tired": an unreachable required item is itself a finding and must be reported, not silently dropped.
 
 Do not iterate to exhaustion beyond that, do not chase every tangential source, and do not re-verify facts already settled in the ticker's news.md thesis context. If a sub-agent's search turns up nothing material, that's a valid, complete result — don't force a finding. *(This bounded scan is distinct from a full "run the framework" deep dive, which IS exhaustive per Section A's Diligence-depth rule.)*
@@ -195,7 +209,7 @@ Order of the digest:
 
 - **Per-ticker items — FIRST.** List every substantive item found this run, one per item, most recent first, as a **headline + one-sentence abridged digest** — a step up from headline-only, but still NOT the full multi-clause paragraph (that stays in the ticker's news.md Recent News Log). Format — **the `[FRAMEWORK-TAG]` goes at the END of the line**, so the headline and its impact read first:
   `YYYY-MM-DD — **Headline**. One-sentence abridged digest of what happened → brief impact. [TRIPWIRE #n / 🟢 EDGE+ / 🔴 EDGE− if applicable] [FRAMEWORK-TAG]`
-  Keep the digest to one sentence per item. If nothing material was found for a ticker, write "nothing material" instead of a list.
+  Keep the digest to one sentence per item. **That sentence carries the §F.4 verdict and the §F.5 size where they exist** (`…revenue $2,370M, above the top of the guide → …`) — they are what tells the reader whether the item was news and whether it is large, so they are the last things to cut. If nothing material was found for a ticker, write "nothing material" instead of a list.
 - **🚨 TRIPWIRES:** one bullet per `[TRIPWIRE]` hit (across every ticker checked this run), format:
   `**<TICKER> Tripwire #n — <status, e.g. "live, unresolved" / "early-warning" / "checked, does not fire">.** <one clause: what happened, why it matters, and the next test/date if still pending>.`
   If a ticker had no tripwire activity, a one-line `<TICKER>: none` is enough — don't pad it. If nothing fired anywhere, just say "none."
@@ -207,3 +221,84 @@ Order of the digest:
   In a multi-ticker run, lead each bullet with its ticker (`- **<TICKER>** · **<YYYY-MM-DD>** — **<event>** …`); a single-ticker run omits it. This is what turns "nothing fired" into an actionable forward look rather than a dead end. Omit the block entirely only when there is no live dated checkpoint to name.
 
 For a single-ticker "what's new" request this collapses naturally to that one ticker; for a check spanning several names it runs across every ticker checked.
+
+---
+
+## F.4 Expectations baseline — delivered against what?
+
+*Applied in step 4 to every item that carries a figure, a date or a guide. Added November 2026.*
+
+**Why this exists.** A stock moves on news **minus what was already expected**. The Tripwire/Edge assessment measures an item against *this thesis*; it says nothing about whether the item was a surprise. Without a baseline, "revenue $2.37B" is a fact with no sign — the same number is a beat, a miss or a non-event depending on what was guided and what the street carried. The corpus already does this well where a company guide exists (COHR's 2026-11-04 print is logged against the $2.2–2.4B guide) and not at all where it doesn't.
+
+**Use the highest baseline available, and name which one it is:**
+
+| # | Baseline | Where it comes from | Standing |
+|---|---|---|---|
+| 1 | **The company's own prior commitment** — a guide, a stated date, a stated target | The prior print, deck or release; often already in this log | Primary |
+| 2 | **The previously disclosed state** — the last filed value of the same line | The prior filing (`scripts/facts.py`), or the prior log entry | Primary |
+| 3 | **Dated sell-side consensus** | A named source with its own date | **Estimate — label it as one** |
+| 4 | **The report's own base case** — what *this thesis* assumed | The latest report's financials and Bull / base / bear table | The thesis's expectation, not the market's |
+
+**The verdict is one of five words, stated in prose** (it is not a tag): **above** · **in line** · **below** · **new** (first disclosure — no prior expectation existed) · **already known** (restates something disclosed on a named earlier date).
+
+**Rules:**
+
+- **"Already known" is not a new event.** If the item restates a disclosure already in the log, it is not logged again and never counted twice — a second headline about the same fact is not a second fact.
+- **A baseline carries its own date and source**, exactly like the item. "Above expectations" with no named expectation is the gloss §F.1 forbids.
+- **Consensus is the one permitted use of an aggregator figure — as a labelled estimate, never as a fact, and never as the source for the item itself.** §F.2's source-quality rule is unchanged for news. If only an undated or unattributed consensus figure can be found, that is "no baseline found."
+- **Never fabricate a baseline, and never back-solve one from the price reaction.** "The stock fell, so it must have missed" inverts the inference and is the §F.1 price-only failure in another form. **"No baseline found" is a complete, honest result** — state it in those words.
+- **Surprise and thesis direction are two different questions.** An above-consensus print can be `[EDGE−]`, and a miss can be `[EDGE+]`. The baseline verdict never decides the tag, and the tag never decides the verdict.
+- **A qualitative event** (a suit, an appointment, a policy action) has no numeric baseline; apply the **new / already known** test only.
+
+**Earnings digest:** `earnings-digest.md` has its own actual-vs-guide-vs-consensus table for the debrief. This section governs the **news.md log entries** the call produces, which §I.5 routes through §F.1.
+
+---
+
+## F.5 Impact sizing — which driver, how large, when
+
+*Applied in step 4 to every logged item. Governs the `→ impact` clause. Added November 2026.*
+
+**Why this exists.** "Corroborates the Edge" gives a direction and no magnitude. A booth demonstration and a 10-Q line can each end as one `[EDGE−]`, and a headline contract value reads as large until it is annualised and dated. The tag stays binary by design (§F.1); **the size belongs in the `→` clause, where a human reads it.**
+
+**The `→` clause answers four things:**
+
+1. **Driver** — which line of value the item touches: **revenue** · **margin** · **cash flow** · **share count** (dilution) · **balance sheet / liquidity** · **multiple** (risk, duration, or the terminal assumptions the market capitalises). Name one; an item that touches several names the largest.
+2. **Magnitude against a named, dated base.** The base figure comes from the news.md `## Thesis context` or the latest report (resolved by glob) — say which and give its date. Show the arithmetic in compressed form and **label it derived**.
+3. **Timing** — the period it lands in, and whether it is one-off or recurring.
+4. **Scenario direction** — which **stated driver** in the latest report's Bull / base / bear table the item bears on, and which way. *(Reports predating the 18-section template may number that section differently — follow the name.)*
+
+**Rules:**
+
+- **Annualise and date a headline contract value.** Section A's contracted-vs-recognised rule applies: state when recognition starts and what it is per year. Worked from the corpus: COHR's 2026-11-04 PhotonLink disclosure is "~$20B, five-year, ramping from early CY2028" — roughly **$4B a year on a flat-line assumption (derived), none before CY2028**, against FY2026 revenue of $7,118.2M. The headline and the sized version are not the same finding.
+- **Direction only on scenarios — a news check never restates a probability or a price range.** Those belong to the dated report, which is immutable; re-weighting them is a refresh or a re-underwrite (`staleness-audit.md`). The entry says *"bears on the Bear driver 'InP flips to surplus' — toward"*, nothing more. **An accumulation of items pushing one scenario's drivers the same way is itself a finding — say so in the digest**, the same way step 4 requires for accumulating `[EDGE−]`.
+- **"Not sizable" is a valid result, with the missing input named** — `not sizable: prepayment terms undisclosed`. That is more useful than a number nobody can source, and it tells the next run what to look for.
+- **Never invent a magnitude.** Where the input is hedged, give a range and keep the hedge. Standing rules' arithmetic sanity-check applies: a size that fails a one-line cross-check against the base is not written.
+- **Size the item, not the thesis.** One clause. This is not a mini-valuation and does not justify exceeding §F.1's ceiling.
+
+---
+
+## F.6 Technology items — the maturity ladder
+
+*Applied in step 4 to any technology or product-readiness item, whether the company's own or a sector peer's. Added November 2026.*
+
+**Why this exists.** Technology news arrives in the vocabulary of the party announcing it, and "demonstrates", "samples", "ramps" and "ships" are not interchangeable. The corpus already weighs this by hand — the 2026-09-21 Marvell entry in COHR's log is tagged "at demonstrator weight", and COHR's Tripwire #4(b) turns on vendors "shipping production volume" rather than announcing. This section makes that weighting a fixed scale so it is applied the same way across tickers and runs.
+
+| Rung | Stage | What evidences it |
+|---|---|---|
+| 1 | **Announced** — paper, roadmap, intent | A release, a talk, a standards contribution |
+| 2 | **Demonstrated** — booth, lab, hero result | A demo with stated parameters; no customer |
+| 3 | **Sampling** | Samples stated as shipped to customers, named or not |
+| 4 | **Qualified** — design-win, customer qualification passed | A customer or third party naming the part, or a disclosed qualification |
+| 5 | **Production volume** | Shipment data, a named bill of materials, a customer statement |
+| 6 | **Revenue** | Recognised and disclosed in a filing or a print |
+
+**Rules:**
+
+- **State the rung evidenced and what evidences it.** Where the announcing party claims a higher rung than a third party can check, record both: *claimed 5, evidenced 3*.
+- **Weight at the evidenced rung.** An interested party's assertion about its own product is a claim; a customer or a filing naming it is evidence.
+- **A rung change is the event.** A second demonstration at the same rung is not a new finding unless its stated parameters change a row of the mechanism sheet (`sector-lens.md` §K.8).
+- **Where a Tripwire is written in ladder terms, the rung is the test** — "production volume" is rung 5, and rung 2 does not fire it however prominent the announcement.
+- **Check the technical content against the mechanism sheet.** A claim that contradicts the sheet is either **news** (the mechanism moved — the most valuable technical finding a run can return) or **an error** in the item, the sheet, or the thesis. Say which, with the source; never silently pick. A contradiction that reaches a ticker's **Edge premise** is an erratum candidate under `staleness-audit.md` §J.8, routed to a human.
+- **Scope.** The ladder is for technology and product readiness. It does not apply to financial, regulatory or legal items — do not stretch it to fit them.
+
+**This is forward-looking only**, on the same terms as §F.1: §F.4–§F.6 govern new entries; existing log entries are historical record and are never rewritten to match.
