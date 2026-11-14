@@ -5,7 +5,7 @@ blurb: "Per-quarter earnings debriefs for CIFR — the numbers, cash conversion,
 
 # CIFR — Earnings debrief log
 
-**Canonical deep-dive:** [`reports/2026-07-20.md`](reports/2026-07-20.md) (resolved by glob over `reports/*.md`, newest date).
+**Canonical deep-dive:** [`reports/2026-09-28.md`](reports/2026-09-28.md) (resolved by glob over `reports/*.md`, newest date).
 **Live Edge & numbered Tripwires:** [`news.md`](news.md) — that file is the binding pre-commitment; this one never rewrites it.
 Written per [`framework/earnings-digest.md`](../../framework/earnings-digest.md) (Section I). Most recent quarter first; quarters are never overwritten.
 
@@ -20,15 +20,220 @@ Written per [`framework/earnings-digest.md`](../../framework/earnings-digest.md)
 | Guide issued (date) | For period | What was guided | Outcome (date) | Actual | Hit / missed / cut / withdrawn |
 |---|---|---|---|---|---|
 | 2026-05-05 *(backfilled)* | Black Pearl campus | *"The project remains on schedule"* — original first-capacity delivery ~Oct 2026 | 2026-08-04 | First capacity delivered beginning of August; **rent commenced**; ~2 months early, at the tenant's request under a 2026-07-24 lease amendment | **Hit — beaten by ~2 months** |
-| 2026-05-05 *(backfilled)* | Barber Lake campus | *"The project remains on schedule"* — Sept 2026 delivery, Oct 2026 rent commencement | Open — resolves ~Oct 2026 | — | **Open.** Reaffirmed in the Q2 deck (Sep. 2026 initial delivery / Oct 2026 rent), but the written *"remains on schedule"* line was **dropped** from the Q2 release |
+| 2026-05-05 *(backfilled)* | Barber Lake campus | *"The project remains on schedule"* — Sept 2026 delivery, Oct 2026 rent commencement | 2026-09-24 | Single-date schedule abandoned in the lease amendment; replaced by per-hall delivery Q4 2026 → Q1 2027 | **Cut (rescheduled)** — the 2026-07-20 deep-dive was itself wrong on this (the 2025-11-20 8-K already made rent per-phase) |
 | 2026-05-05 *(backfilled, deck)* | Stingray | *"aligning with Q4 2026 target energization timeline"* | 2026-08-04 | Not restated. Replaced by *"1H 2027 Expected Delivery."* No reconciliation offered, none requested on the call | **Withdrawn** (different milestone, so not established as a slip — see §1(d)) |
 | 2026-05-05 *(backfilled)* | Near-term capital | *"The Company expects to have sufficient capital to fund the equity component of the third data center campus and support its near-term capital requirements"* | 2026-08-04 | Sentence **deleted** from the Q2 release. Substance restated only verbally in Q&A (~$870M liquidity; no additional equity expected on current forecasts) | **Withdrawn from written disclosure** (substance maintained verbally) |
 | 2026-05-05 *(backfilled, deck)* | FY2026–FY2035 contracted NOI | 2026 $86M · 2027 $646M · 2035 $892M · ~$787M avg annualized | 2026-08-04 | Rebased **up**: 2026 $97M · 2027 $686M · 2035 $894M · ~$793M avg annualized | **Raised** (consistent with Black Pearl's two extra months of rent) |
-| 2026-08-04 | Barber Lake Ph. I | Sep. 2026 expected initial delivery; rental payments expected to commence **October 2026** | Open — resolves ~Oct 2026 | — | **Open** |
-| 2026-08-04 | Stingray | 1H 2027 expected delivery; fully funded through substantial completion by the $810M 6.000% notes | Open — resolves 1H 2027 | — | **Open** |
-| 2026-08-04 *(call)* | Capex per critical IT MW | Prior **$9–11M/MW** band **not reaffirmed** when asked twice (Rosenblatt, Needham); management said it is running at contingency level and expects costs to *"creep higher"* | Open | — | **Withdrawn — degraded from a number to a direction** |
+| 2026-08-04 | Barber Lake Ph. I | Sep. 2026 expected initial delivery; rental payments expected to commence **October 2026** | 2026-09-24 | Replaced by per-hall schedule; CEO said on the 2026-11-02 call that the first 51 MW went ready-for-service that morning (verbal; deck still says "expected") | **Cut (rescheduled)** — ~1 month late on the first halls if the verbal claim holds |
+| 2026-08-04 | Stingray | 1H 2027 expected delivery; fully funded through substantial completion by the $810M 6.000% notes | 2026-11-02 | Q3 deck: "implementing updated phased delivery schedule with Tenant"; 10-Q: phased delivery "expected to begin in 2027"; written "fully funded" line dropped | **Withdrawn** (half-year → calendar year, no reason given) |
+| 2026-08-04 *(call)* | Capex per critical IT MW | Prior **$9–11M/MW** band **not reaffirmed** when asked twice (Rosenblatt, Needham); management said it is running at contingency level and expects costs to *"creep higher"* | 2026-11-02 | Barber Lake **$13.0M/IT MW** with the extension ($12.3M without) vs **$10.4M** original budget | **Withdrawn, then missed** — the outcome landed ~25% above the original budget and above the top of the old $9–11M band |
+| 2026-09-24 | Barber Lake per-hall | Halls 1–2: Q4 2026 · Halls 3–4: Q4 2026 – Q1 2027 · Hall 5: Q1 2027 (per-hall table first shown in the 2026-10-13 deck) | Partly resolves by 2026-12-31 | Reaffirmed 2026-11-02 ("on track to meet amended delivery milestones") | **Open** |
+| ~2026-09-28 *(relayed by Rosenblatt, not filed)* | Barber Lake overrun funding | Overrun fundable "from its balance sheet without new debt or equity" | 2026-10-13 | $850M 0% 2032 convertible launched two weeks later, explicitly to fund ~$750M more Barber Lake project equity | **Missed — contradicted within 15 days** |
+| 2026-11-02 | Contracted NOI | **$864M avg annualized, Aug 2026 – Jul 2041**, incl. projected "rentalized" Barber Lake overrun rent, "subject to final construction costs"; year-by-year schedule no longer published | Open | — | **Open** (new basis — not comparable to the ~$793M row above) |
+| 2026-11-02 | Black Pearl delivery | "Updated phased delivery schedule" aligned to tenant compute deployment; no dates (18 MW delivered to date) | Open | — | **Open — undated** |
 
-**Running tally, in plain English.** **Cipher issues no revenue or EPS guidance**, so there is no beat/miss record to tally — its guides are dated construction milestones and a contracted-NOI schedule, and that is what this table tracks. On the one milestone that has actually come due, management is **1 for 1 and beat it by two months**, which is a genuinely good result and the strongest single fact of the quarter. Against that: **three of the five forward statements carried in the Q1 materials were not restated in Q2** — Stingray's Q4-2026 energization date, the written capital-adequacy assurance, and the $9–11M/MW capex band — with a stated reason for none of them. History is **backfilled from the Q1 and Q2 releases and decks only** (2026-05-05 and 2026-08-04); the pre-2026 guidance record was not reconstructed this run, so this table starts thin and gets stronger every quarter.
+**Running tally, in plain English.** **Cipher issues no revenue or EPS guidance**, so this table tracks dated construction milestones, the contracted-NOI schedule and funding statements. **Updated 2026-11-02:** of the milestones that have come due, management is **1 for 3** — Black Pearl's first capacity was **beaten by two months**, but Barber Lake's single-date guide (issued twice) was **cut** to a per-hall schedule, and Stingray's 1H 2027 date was **withdrawn** for "2027". On funding statements the record is worse: the written capital-adequacy sentence was deleted in Q2, and the ~9/28 "no new debt or equity" claim (relayed, not filed) was **contradicted within 15 days** by an $850M convert. The capex band became a direction in Q2 and a **~25% overrun** in Q3. The one bright spot is that the per-hall Barber Lake schedule has held since 9/24 and the first halls reportedly went live on 11-02. Rows before 2026-08-04 are backfilled from the Q1/Q2 releases and decks only; pre-2026 history was not reconstructed.
+
+---
+
+## Q3 FY2026 (quarter ended 2026-09-30) — reported 2026-11-02
+
+> 🚨 **TRIPWIRE #2 — FIRES (standing since 2026-10-14; reconfirmed at primary source this print).** The Q3 10-Q's antidilutive-share footnote states the 161,930,746 note-conversion shares **assume the maximum conversion rates** (292.3976 and 85.7632 per $1,000), which is the basis behind the Edge's 619,733,668. On that basis and the 10-Q cover's **456,365,113 shares outstanding at 2026-10-30**, fully diluted shares are **~669M** *(derived)* — **~2.9% above the ~650M line**. On initial conversion rates the count is ~638M and the limb would not fire. **Pre-committed action: re-underwrite or exit** — still open; the 2026-10-14 fire has not yet been acted on. The price limb (issuance below ~$15) has **not** fired, but the 10-Q names ATM sales in its 12-month funding plan with the stock trading ~$7–8. **Early-warning:** #4 (one of two flat quarters elapsed), #5 (milestone dates re-phased at both rent-credit campuses). Detail in §2(d).
+
+### 1. What was actually said
+
+#### (a) The reported numbers
+
+| Metric | Reported (Q3'26, 3 months to 9/30/26) | Company guide going in | Consensus going in | Δ vs. guide / vs. consensus | YoY | Read — what it actually means |
+|---|---|---|---|---|---|---|
+| **Revenue** | **$26.701M** — mining $20.849M + **HPC leasing $5.852M** (fixed $5.231M + variable $0.621M) | None — Cipher guides milestones, not revenue | ~$35.9–39.3M (three aggregators) | n/a · **−26% to −32%** | **−62.8%** (Q3'25 $71.707M); +7.5% QoQ | **The first HPC rent ever recognized** — Black Pearl, from August. Against a **$16.6B** contracted book that is **0.04%** recognized. Consensus again modelled more HPC revenue than the 18 MW actually delivered could earn. |
+| **HPC segment** | Revenue $5.852M; segment result **−$2.028M** | Promised in the Q2 10-Q | — | Delivered | New | **Clean check: the segment arrived as promised** (10-Q Note 19, prior periods recast). Loss-making at 18 MW is expected — depreciation and opex start before most rent does. |
+| **GAAP operating loss** | **−$71.915M** | — | — | — | −$37.617M | Comp $38.6M (**144% of revenue**); G&A +60% QoQ to $26.4M. |
+| **GAAP net income / EPS** | **+$31.596M · basic +$0.08 · diluted −$0.22** | — | ~−$0.21 to −$0.26 | Diluted ≈ in line | −$3.283M | **The headline profit is the Q2 trap in reverse: a +$127.2M non-cash gain on the Google warrant liability, because the share price fell.** Ex the mark, pre-tax ≈ **−$95.6M**. And for the **first time ever, basic and diluted EPS differ** (415.0M vs 439.7M weighted shares) — dilution has started reaching the reported number. |
+| **Adjusted EBITDA** | **−$9.963M** | — | — | — | +$40.790M | Bridge: EBITDA $76.7M → +$13.9M PPA mark, +$26.6M SBC, **−$127.2M warrant gain**. With SBC charged, ≈ −$36.6M. |
+| **Contracted book** | **$16.6B** (Barber Lake $9.1B / Black Pearl $5.5B / Stingray $2.0B); $28.4B with extensions; WALT 17.3 yrs | — | — | — | — | Backlog, not revenue. Replaces the stale ~$11.4B. Gross contracted capacity **700 MW, unchanged a third quarter**. |
+| **Avg annualized contracted NOI** | **$864M, Aug 2026–Jul 2041** | ~$793M, Oct 2026–Sep 2036 | — | **Not comparable** | — | **Redefined** — new window, and Barber Lake now includes ~$500M of *projected* "rentalized" overrun rent "subject to final construction costs". See §1(d). |
+| **Shares** | 415,092,825 (9/30) → **456,365,113 (10/30)** | — | — | — | +10% in a month | +40.7M from the 2030-note exchange. Antidilutive schedule: 161.9M note shares (max rates) + 17.1M RSU/PSU. |
+| **Debt / cash** | $6.016B principal at 9/30 → **$6.7B pro forma** after the 2032 notes; unrestricted cash **$656.0M** (9/30), $724M pro forma; restricted **$2.197B** (from $3.728B) | — | — | — | — | Net debt pro forma **$3.079B**, up from $1.456B at 6/30. The $150M 2032 option **expired unexercised**. |
+
+*Sources: [8-K EX-99.1](https://www.sec.gov/Archives/edgar/data/1819989/000181998926000047/exh991-q326_earningsxprxvf.htm) + [EX-99.2 deck](https://www.sec.gov/Archives/edgar/data/1819989/000181998926000047/cipherdigital_businessup.htm), acc 0001819989-26-000047 · [10-Q, acc 0001819989-26-000050](https://www.sec.gov/Archives/edgar/data/1819989/000181998926000050/cifr-20260930.htm), both filed 2026-11-02. Consensus via search snippets of [Chartmill](https://www.chartmill.com/stock/quote/CIFR/estimates), [FXEmpire](https://www.fxempire.com/stocks/cifr/earnings), [Benzinga](https://www.benzinga.com/quote/CIFR/earnings-forecasts) — moderate confidence; the aggregators disagree even on the Q2 base.*
+
+**Headline optics.** The release leads with first HPC revenue and the $16.6B book; a reader of the headline net income (+$31.6M, +$0.08) would think Cipher turned profitable. It did not — the entire profit, and more, is a warrant mark that reverses when the stock rises.
+
+#### (b) Cash conversion & working capital — read as a trend
+
+| Measure | Q4'25 | Q1'26 | Q2'26 | **Q3'26** | Direction | Read |
+|---|---|---|---|---|---|---|
+| **Operating cash flow** | −$54.4M | +$91.5M | −$243.5M | **−$131.2M** *(derived, 9M − H1)* | Negative, less so | Still no inflection; Q3 includes $62.6M of cash interest. |
+| **Cash capex** | — | — | $410.3M | **$1,553.0M** | **3.8× QoQ** | Plus +$176.9M more unpaid construction in AP/accrued → real Q3 build ≈ **$1.73B** *(derived)*. |
+| **FCF** | — | — | ≈ −$654M | **≈ −$1,684M** | Worse | **Asset-building, not opex burn** — but $5.9M of rent against $1.68B out. |
+| **Net income vs. OCF** | — | −$114.3M vs +$91.5M | −$267.5M vs −$243.5M | **+$31.6M vs −$131.2M** | **Diverged** | **The headline finding: a reported profit with a $131M operating cash outflow.** The profit is a non-cash mark; the cash is real. |
+| **DSO** *(AR ÷ revenue × 92)* | ~1.5 d | ~21.9 d | ~73.6 d | **~70.5 d** ($20.469M AR) | Flat, high | The 10-Q now names the AR source: tenant rent, opex reimbursements and change orders. **Still no allowance and no concentration disclosure.** |
+| **Deferred revenue** | $0 | $0 | $25.5M | **$46.2M** | Rising | **Redefined** — Q2 called it change-order billings; Q3 calls it "deferred rent liabilities" from straight-lining. Same line, different thing. |
+| **AP + accrued** | $130.2M | $402.5M | $645.8M | **$845.8M** | Rising | $507.1M is construction; $77.6M accrued interest. |
+| **Restricted cash** | — | — | $3.728B | **$2.197B** | **−$1.53B in a quarter** | The pre-funded escrow is being spent as designed — and spent fast. |
+| **Bitcoin held** | 1,433 | — | 646 | **~310 coins / $25.9M** | **−52% coins QoQ** | Treasury still being sold to bridge. Odessa mined **~296 BTC** (Q2 slide said ~346, same as Q1 — that open question is now moot). |
+| **DIO / CCC** | **Not meaningful** — no inventory line; inventing one would be fabrication. |
+
+*Flag: the 10-Q's nine-month "amortization of debt discount and issuance costs" ($184.9M) equals nine-month interest expense exactly — almost certainly a tagging/presentation error. Not relied on.*
+
+**Reconciling against the narrative.** The release's "funded through completion" claim (verbal, §1(c)) is consistent with $2.2B of restricted cash against $1.61B of construction commitments (Note 13). What it does not cover is the parent: unrestricted cash fell $832M → $656M in a quarter with no ATM sales, and the 10-Q's 12-month plan explicitly includes the company's "intent and ability" to sell stock through the ATM.
+
+#### (c) Management's read on the sector — cross-checked
+
+*Call held 2026-11-02 (the day before the midterms). Transcript read via [StockAnalysis](https://stockanalysis.com/stocks/cifr/transcripts/723634-q3-2026/) through a summarizing fetch only — direct access returned 403, so quotes are short snippets and **not verified against a raw transcript**. Five analysts asked questions (UBS, Wells Fargo, BTIG, Cantor, Compass Point) vs eight in Q2.*
+
+| What management said | Where | Independent check |
+|---|---|---|
+| **Tenant demand "has never been stronger"; hyperscaler and AI-lab demand strong.** *(Interested-party opinion)* | Prepared remarks | **✅ Corroborated on demand.** Amazon Q3 capex $77.3B vs ~$58.7B expected, 2026 guide held ~$220B ([CNBC](https://www.cnbc.com/2026/10/29/amazon-amzn-q3-earnings-report-2026.html)); Alphabet held $195–205B and said 2027 capex rises "significantly" ([CNBC](https://www.cnbc.com/2026/10/28/alphabet-googl-earnings-q3-2026.html)). **But Microsoft cut its guide citing third-party capacity delays** (10-28 log) — demand is fine; *delivery* is the bottleneck, which is the Edge's mechanism. |
+| **Tenants are accepting rent increases in line with financing costs.** | Q&A | **⚠️ Unverifiable** — rent/MW still not disclosed; no peer $/MW datapoint in the window. |
+| **AI-infrastructure credit "has repriced materially" — but three of the four tightest-trading construction bonds are Cipher's.** | Q&A (Mumford) | **⚠️ Half corroborated.** The repricing is real — CoreWeave 2031s hit **~79.5** on 11-04 ([Bloomberg](https://www.bloomberg.com/news/articles/2026-11-04/coreweave-bonds-hit-new-lows-as-texas-data-centers-in-crosshairs)); lease-backed DC bonds at 0.87–0.94 (10-19 log). The "tightest" claim was not verified. |
+| **"Fully complied with the data center audit"; final ERCOT classification expected December. Election "doesn't matter" in the long run; Texas no riskier than other states.** | Q&A | **❌ The market disagreed within 24 hours.** Democrat Gina Hinojosa — who urged an emergency moratorium on new Texas data-center projects on 2026-07-23 ([KFOX](https://kfoxtv.com/news/local/hinojosa-urges-gov-abbott-to-halt-new-texas-data-centers-until-lawmakers-set-rules)) — won the governorship 11-03 ([Texas Tribune](https://www.texastribune.org/2026/11/03/texas-governor-greg-abbott-gina-hinojosa-election/)), and Texas-heavy names led the 11-04 sell-off. |
+| **Stingray Phase I's 100 MW is base load under ERCOT's May 2026 QSA, "not subject to further study or reallocation."** | Deck + call | **New and favourable for #1's ERCOT limb** — on management's representation; no ERCOT document read. |
+| **Cipher is "not a neocloud."** | Q&A | Positioning. The tape treats it as one (cohort beta 1.26, R² 0.818 per the deep-dive). |
+
+**Language shift vs Q2.** In Q2 only Stingray got "on schedule". In Q3 Barber Lake gets "on track" — but against the *amended* (9/24) milestones — while Black Pearl and Stingray move to **"implementing updated phased delivery schedule with Tenant"** and Stingray's "on schedule" now covers only steel erection. The $359M+ overrun is narrated as a choice ("elected to invest additional capital in exchange for a 10-year lease extension"), and no new leases is narrated as discipline (waiting for 30–60% design sets).
+
+**What was dodged — and what was never asked.** No analyst asked about Fluidstack's credit, the unnamed years-11–20 counterparty, the Google warrant, dilution or the share count, why Black Pearl and Stingray were re-phased, or how the October convert squares with the ~9/28 statement (relayed by Rosenblatt) that the overrun needed no new debt or equity. **For the second straight quarter the Edge's three legs went entirely unexamined on the record.** Management volunteered the $28.35 capped call unprompted.
+
+**The one verbal claim that matters most:** CEO Tyler Page said Cipher had that morning delivered the **ready-for-service notice on the first 51 MW of critical IT at Barber Lake** and is "now collecting rent" there. **The deck filed the same day still says first capacity is "expected" in Q4 2026, and the release does not claim it.** Treat as management's statement, not filed fact, until an 8-K or the Q4 10-Q confirms it.
+
+#### (d) What management *didn't* say
+
+| What's missing | Last disclosed | Stated reason | Read *(opinion)* |
+|---|---|---|---|
+| **Year-by-year contracted NOI schedule** | Q2 deck: 2026 $97M · 2027 $686M … 2035 $894M | None | **The highest-signal change.** Replaced by a single 15-year average ($864M) on a new window that also folds in *projected* overrun rent. The annual series was the only way to see 2027 — the year amortization and the warrant window bite. Retired the quarter after the delivery schedule moved and the cost rose. Timing **not** consistent with a routine edit. |
+| **Stingray's 1H 2027 delivery date** | Q2 deck: "1H 2027 Expected Delivery" | None; nobody asked | 10-Q now says phased delivery "expected to begin in 2027". A half-year became a calendar year. Stingray's lease carries rent-credit language. |
+| **Black Pearl delivery dates** | Q2: progressing; ~2 months early | "Aligning on a phased delivery schedule that matches [tenant] compute deployment plans" | 10-Q discloses **three amendments (Nov 2025–Jul 2026) revising "milestone delivery dates"**. Only **18 MW** delivered to date. Tenant-driven is plausible (AWS asked for early delivery in July) — but these are the milestones a rent credit is measured against. |
+| **Critical-IT MW** | Standing disclosure (493 MW) | None | No longer stated; **derivable** from slide 9 ($13.0M × 207 MW ≈ $2,704M Barber Lake net cost), so still 493. **A metric watched by Tripwire #4 stopped being printed the quarter #4 became live.** |
+| **Equipment-secured %** | Q2: BP ~96%, BL 100%, Stingray ~75% | None | Dropped for all three. Low signal on its own, but the Stingray 75% was the one still moving. |
+| **Written capital-adequacy / "fully funded" line** | Q1 release (deleted in Q2); Stingray "fully funded" in Q2 release | Substance restated verbally | Second straight quarter where the funding assurance exists only in Q&A. |
+| **Deferred revenue definition** | Q2: tenant change-order billings | — | **Redefined** to straight-line rent deferral — same caption, different thing. |
+| **Capex per MW — RETURNED** | Q2: band withdrawn | — | **The reverse of a drop, and a genuinely candid disclosure:** Barber Lake $10.4M original → **$13.0M/IT MW** with the extension; yield on cost 15.2% → 12.9% ex-extension. |
+
+**Calibration.** Some of this is benign (the HPC segment is a genuine reorganization; MW is derivable). But four of the changes — NOI series, Stingray date, MW count, deferred-revenue caption — moved toward less visibility, none with a stated reason, all in the quarter the build overran and the delivery schedules were re-phased. Opinion, not fact.
+
+#### (e) The reaction, decomposed
+
+*Release before the open 2026-11-02 (inferred from premarket coverage; 8-K timestamp not checked). Settled bars from `scripts/prices.py`; **2026-11-04 bars are still marked UNSETTLED** and are shown as provisional readings, not closes.*
+
+| Window | CIFR | Peer median *(IREN, WULF, HUT, CLSK, CORZ, GLXY, APLD, CRWV, NBIS)* | QQQ | Residual *(estimate)* |
+|---|---|---|---|---|
+| 10-30 → 11-02 (print day) | **−5.90%** ($7.29 → $6.86) | −8.06% | −1.36% | **+2.2pp** |
+| 11-02 → 11-03 (election day) | **+18.37%** ($8.12) | +13.87% | +0.62% | +4.5pp |
+| 11-03 → 11-04 *(provisional)* | ~−20% | ~−10.4% | ~+1.0% | ~−9.6pp |
+
+**The print was not punished.** CIFR beat its cohort on the print day and the day after, on a ~30% revenue miss. **The 11-04 drop was the Texas governor result**, not the quarter: the worst cohort moves were Texas-heavy (HUT ~−23%, GLXY ~−17%, CLSK ~−17%, all provisional) while Bitcoin *rose* ~4% — so `btc-mining` explains nothing here. Cipher is 100% ERCOT.
+
+**Re-rate or price?** On the print itself, **neither** — the multiple barely moved. The de-rate happened *before* the print: $15.48 on 10-05 → $7.29 on 10-30 (−53%), on the overrun, the convert and the credit tape. At the 11-03 close, EV ≈ $3.71B equity (456.4M × $8.12) + $3.08B net debt ≈ **$6.8B ≈ 7.9× the new $864M NOI average** *(estimate; on a fully diluted ~669M count, ~10.4×)*, against ~11.4× on the old NOI basis at 8/06. Bases differ, so the comparison is directional only.
+
+**Sell side: six target cuts, zero downgrades.** KBW $28 → $11 (11-02; one source says $11 was unchanged — unresolved), JPMorgan $22 → $18 (11-03), Wells Fargo $25 → $15, Cantor $19 → $15, Rosenblatt $30 → $19, Needham → $15 (prior not found). Consensus ~$26.6–28. Mostly via [Benzinga](https://www.benzinga.com/analyst-stock-ratings/price-target/26/11/62818655/cipher-digital-analysts-cut-their-forecasts-after-q3-results) snippets (403) and [TIKR](https://www.tikr.com/blog/j-p-morgans-18-target-says-cipher-digitals-selloff-went-too-far). **Four new targets now sit at or below Tripwire #2's ~$15 issuance line.**
+
+#### 📋 Part 1 in brief
+
+- 📊 **The numbers** — Revenue **$26.7M vs ~$36–39M consensus** (a ~30% miss) with the **first-ever HPC rent of $5.85M**; the **+$31.6M "profit" is entirely a +$127.2M non-cash warrant gain** because the stock fell — and for the first time **basic (+$0.08) and diluted (−$0.22) EPS diverge**, the dilution overhang finally touching the reported number.
+- 💵 **Cash conversion** — **reported profit, −$131M operating cash flow**; cash capex **$1.55B (3.8× Q2)**, FCF **≈ −$1.68B**, restricted escrow **−$1.53B in one quarter**, unrestricted cash $832M → $656M with no ATM sales — and the 10-Q names the ATM in the 12-month funding plan.
+- 🏭 **Sector read** — "demand has never been stronger": **✅ corroborated** by Amazon/Alphabet capex; "the election doesn't matter, Texas is no riskier": **❌ contradicted** within 24 hours by the Hinojosa win and a Texas-led cohort sell-off.
+- 🔇 **What wasn't said** — **not a clean check:** the year-by-year NOI schedule was replaced by a 15-year average on a new window; Stingray's 1H'27 date became "2027"; Black Pearl and Stingray moved to undated "updated phased delivery"; critical-IT MW stopped being printed; deferred revenue redefined. Offsetting candour: capex/MW returned as a number (**$13.0M**).
+- 🎢 **The reaction** — the print itself was **beaten by the cohort by ~+2pp then ~+4.5pp**; the ~−20% on 11-04 (provisional) was the **Texas governor result**, ~−9.6pp residual on 100% ERCOT exposure. **No re-rate on the print** — the de-rate (−53%) came in October, on the overrun and the convert.
+
+### 2. What the call does to the thesis
+
+#### (a) The underlying investment thesis
+
+The deep-dive's "what has to be true" (2026-09-28 §15): **per-hall delivery lands through Q4'26–Q1'27 without rent credits; capex peaks and OCF inflects before the 2031 wall; ERCOT's spring 2027 allocation preserves the pipeline; and the market resumes paying for contracted backlog.**
+
+- **Per-hall delivery without rent credits — SUPPORTED on Barber Lake, WEAKENED elsewhere.** Barber Lake's per-hall schedule was reaffirmed and the CEO says the first 51 MW went ready-for-service on 11-02 (verbal only). Discount it by the track record: management **beat** Black Pearl's original date, **but the Barber Lake single-date guide was replaced** on 9/24 and the ~9/28 "no new capital" assurance **was contradicted** two weeks later. Meanwhile Black Pearl (18 MW delivered of 300) and Stingray both moved to undated re-phased schedules, and the 10-Q confirms three Black Pearl amendments revising milestone dates. No credit incurred.
+- **Capex peaks and OCF inflects — WEAKENED.** Capex 3.8× QoQ, OCF still negative, cost/MW up 25%. The peak is not visible yet.
+- **ERCOT preserves the pipeline — LEFT UNTESTED, risk raised.** Stingray Phase I described as base load outside the study; December finals still pending. The governor-elect's moratorium stance bears on the **uncontracted** pipeline (Colchis 1 GW, Apollo, Mikeska), not the 493 MW.
+- **The market pays for backlog — WEAKENED.** A $16.6B book (now ~$28.4B with extensions) on a ~$3.7B market cap, and the cohort sold off on politics regardless of contracts.
+
+**Net: weakened.** The single most valuable leg — Barber Lake commencing — moved the right way, but only on a verbal claim; every other leg moved against.
+
+#### (b) Re-rating drivers
+
+- **Fundamental — dominant, net negative.** *Positive:* "Q3/Q4 prints show HPC rent" fired — first $5.85M recognized, HPC segment broken out. *Negative:* "OCF inflects while capex plateaus" did the opposite; and the "rent credits or a delivery-milestone remedy" de-rate (−20–35%) moved **closer** without firing — milestone dates re-phased at both campuses that carry the language.
+- **Structural — added a discount.** Texas regime risk is new and unpriced in the deep-dive's map (which had the SB6 framework at ±10–15%). Project-debt repricing (−15–30%) is now live across the complex.
+- **Sentiment / technical — the October collapse lives here.** Six target cuts, no downgrades; Bitfury's forward tranches delivering at ~$7 (two more, ~3.6M shares, due 11-30 and 12-07).
+- **Macro — Texas politics, not rates or BTC.** BTC rose on 11-04; CIFR fell ~20%.
+
+**Which bucket the call weighted most:** fundamental on the print day (neutral-to-mildly positive residual), **structural/macro on 11-04** (Texas). The print did not remove a discount; the election added one.
+
+#### (c) Risks
+
+- **Escalated — dilution.** Max-rate basis confirmed in the 10-Q footnote; fully diluted ~669M; basic/diluted EPS diverging; Google warrant shares +~2.0M from the 2030-note share settlement; ATM named while the stock is ~$7–8.
+- **Escalated — delivery-milestone remedies.** Re-phasing at Black Pearl and Stingray, the two leases with rent-credit language.
+- **Escalated — Texas regime.** Governor-elect pledged to regulate data centers and urged a moratorium on new projects.
+- **Escalated — cost.** Barber Lake $13.0M/IT MW vs $10.4M budget; yield on cost 12.9% ex-extension.
+- **De-escalated — Barber Lake commencement**, if the 11-02 RFS claim is confirmed.
+- **Newly surfaced — the Barber Lake bond amortization is tied to the Google backstop, which is "determined by rent payments made by Fluidstack"** (new deck footnote). Lender cash flows ride the tenant's rent directly.
+
+**Pre-Mortem update — moved closer, on two of its limbs.** The deep-dive's mechanism is a rent-credit-and-refinancing squeeze that hands a working book's value to creditors and Google. This print moved its **delivery-remedy limb** closer (re-phased milestones at the rent-credit campuses) and its **funding limb** closer (ATM named, stock ~$7, parent cash −$176M in a quarter). It also **added a limb the report did not have:** a hostile state executive over the ERCOT allocation the report already called "the terminal blow".
+
+#### (d) Edge and Tripwires
+
+*Quoted verbatim from [`news.md`](news.md). This digest does not rewrite either.*
+
+| # | Tripwire (verbatim) | Status this print | Evidence, with the figure |
+|---|---|---|---|
+| **1** *(exp. 2027-04-30)* | the **first Barber Lake data-hall rent commencement slips past 2026-12-31** (against management's 2026-09-24 guidance of Q4 2026), OR the **full phased delivery schedule slips past 2027-03-31** (the far edge of that same guidance), OR **ERCOT's December 2026 final Batch Zero designations downgrade Colchis or Stingray out of Base Load**. | **✅ Checked, does not fire** — first-hall limb possibly already met | Per-hall schedule reaffirmed (Halls 1–2 Q4'26; 3–4 Q4'26–Q1'27; 5 Q1'27). CEO: RFS notice on first 51 MW delivered 11-02, rent "now" collecting (**verbal; deck says "expected"**). Halls 3–4 still at the 2027-03-31 edge. Stingray Ph. I described as base load outside further study. December finals pending; the governor-elect takes office January. |
+| **2** *(exp. 2027-09-30)* | **fully diluted share count crosses ~650M**, OR any **equity or ATM issuance executed below ~$15**. | **🚨 FIRES (standing since 10-14; reconfirmed)** | 10-Q: note shares at **maximum** rates (292.3976 / 85.7632). 456,365,113 outstanding (10/30) + 1.93M (2030) + 111.49M (2031) + 55.52M (2032, initial rate) + ~26.7M warrants + 17.12M RSU/PSU ≈ **~669M** *(derived)* — **~2.9% over**. ~638M on initial rates. Price limb not fired: **no ATM sales in Q3 or post-quarter disclosed**; ATM named in the funding plan. *(Also corrects the 10-30 log's ~687M — see that log.)* |
+| **3** *(exp. 2027-06-30)* | **Fluidstack shows funding or credit stress, or any tenant defaults** — the **governing** test being stress the **capped, declining FS Termination Fee would not cover**, noting that fee is paid into a trustee-controlled account and converts into **Google equity in Cipher Barber Lake LLC**, so it protects lenders and dilutes Cipher when it fires; **and separately** that it **terminates on expiry of the Fluidstack lease**, leaving the ~$5.2B of years 11–20 owed by an unnamed counterparty with no disclosed credit support. *A renegotiation or a delivery delay that does not evidence credit stress does NOT fire this trigger.* | **✅ Checked, does not fire** | No tenant stress disclosed; AR has no allowance. Fluidstack reportedly pitching equity at ~$40B (10-29 log). New: Barber Lake note amortization keyed to Fluidstack's rent payments. Credit stress in the window (CoreWeave) is cohort-wide, not tenant-specific. No analyst asked. |
+| **4** *(exp. 2027-07-31)* | **contracted critical-IT MW fails to grow for two consecutive quarters** while the peer cohort adds capacity — flat at **493 MW** since July 2026. | **⚠️ Early-warning — one of two quarters elapsed** | No new lease; 700 MW gross unchanged; critical IT no longer printed but derives to **493**. Management says it will not sign until designs are 30–60% complete — implying Q4 is flat too. Peer limb mixed: CORZ billing 395 → 485 MW, Galaxy flat at 133. **Fires if Q4'26 (ends 2026-12-31) is flat and peers add.** |
+| **5** *(exp. 2027-09-30)* | any disclosed **rent credit, delivery-milestone remedy, or reduction to contracted lease revenue** at any campus. | **⚠️ Early-warning** — nothing incurred | 10-Q Note 12: Black Pearl and Stingray "may be subject to rent credits or other remedies"; **three Black Pearl amendments revised "milestone delivery dates"**; both campuses on undated "updated phased delivery schedule". Barber Lake: no rent-credit sentence (overrun-sharing instead). **No credit, remedy or reduction disclosed.** |
+
+**The Edge — reconciled, not averaged.**
+
+- **🟢 EDGE+ — leg (i), the denominator, is now confirmed at primary source.** The 10-Q footnote states the max-rate basis, and diluted EPS diverged from basic for the first time. The Edge's own sentence that "basic has always equalled diluted" is now *out of date* — in the Edge's favour: the dilution it said nobody saw is starting to show.
+- **🟢 EDGE+ — leg (ii), the wrapper.** New footnote: Barber Lake bond amortization runs off the Google backstop, determined by Fluidstack's rent. The lenders' cash flows are wired to the tenant; the equity sits behind them.
+- **🟢 EDGE+ — leg (iii), negotiable revenue.** Milestone dates re-phased at both rent-credit campuses, without dates — the exact mechanism the Edge flagged, moving, though nothing has been incurred.
+- **🔴 EDGE− — the core claim, at Barber Lake, if the RFS claim holds.** The core argues guarantees are contingent on the milestone that is the risk. If the first 51 MW commenced on 11-02, that contingency resolved favourably on the first halls, as it did at Black Pearl in August. Two campuses commencing is two genuine counter-datapoints.
+- **Consensus drift.** Six targets cut toward the Edge's view, several to ≤$15. That corroborates the substance — and erodes the claim to be non-consensus.
+
+**Verdict: corroborated on substance (three legs EDGE+), pressured on the core contingency claim (EDGE− if Barber Lake commenced).** Given #2 has fired and is unactioned, the honest conclusion is that this thesis is **due its re-underwrite**, not another digest.
+
+#### 📋 Part 2 in brief
+
+- 🎯 **Thesis legs** — **Supported:** Barber Lake per-hall delivery (reaffirmed; first 51 MW ready-for-service per the CEO, **verbal only**). **Weakened:** OCF inflection (capex 3.8× QoQ, OCF −$131M), clean delivery at Black Pearl/Stingray (milestones re-phased, undated), and the market paying for backlog. **Untested:** ERCOT's December finals — now under a governor-elect pledged to regulate data centers.
+- 🔄 **Re-rate** — **no re-rate on the print** (cohort-relative +2pp, +4.5pp); the **structural/macro bucket added a discount on 11-04** (Texas, ~−9.6pp residual, provisional). The −53% October de-rate preceded the print.
+- ⚠️ **Risks** — **Escalated:** dilution (max-rate basis confirmed, ~669M), milestone remedies (re-phasing at the rent-credit campuses), Texas regime, cost ($13.0M/IT MW). **De-escalated:** Barber Lake commencement, pending a filing. **Pre-Mortem:** the rent-credit-and-refinancing squeeze moved closer on its remedy and funding limbs, and gained a political limb.
+- 🚨 **Tripwires & Edge** — **#2 🚨 fires** (~669M vs ~650M, +2.9%, max-rate basis now primary-sourced; standing since 10-14, **re-underwrite still unactioned**) · **#4 ⚠️ early-warning, one quarter of two elapsed** · **#5 ⚠️ early-warning, milestones re-phased, nothing incurred** · **#1 ✅ does not fire** · **#3 ✅ does not fire**. Edge: **🟢 EDGE+** on all three capital-structure legs vs **🔴 EDGE−** on the core contingency claim if Barber Lake's commencement is confirmed.
+
+### 3. Final thoughts
+
+**1. The read in one line.** Cipher started collecting its first HPC rent and says Barber Lake's first halls just went live — but the quarter also showed a $1.7B cash burn, a dilution trigger already past its line, the other two campuses quietly re-phased, and, the next day, a new Texas governor who wants to rein in data centers.
+
+**2. The directional lean.** 🔴 **bearish next ~12 months · 🟢 constructive over 3–5 years, conditional on surviving the funding gap.** *A lean on the print, not a rating on the stock — explicitly not a buy/sell recommendation. Not financial advice.*
+
+**3. ✅ What to watch — priority-ordered**
+
+- ⚠️ **#1 — Act on Tripwire #2.** **Trigger:** fully diluted ~669M vs ~650M (+2.9%), fired 10-14, reconfirmed. **When:** now. **Pass:** the re-underwrite is run and the Edge/Tripwires deliberately re-committed or the position exited. **Fail:** another digest assessed against a pre-commitment already breached and left unactioned — the failure mode the tripwire exists to prevent.
+- **#2 — Any ATM sale.** **Open, no date** — next confirmable at the Q4 10-Q (~Feb 2027) or an 8-K. **Pass:** none. **Fail:** any sale below ~$15 fires #2's price limb outright; at ~$7, each dollar raised is ~3× as dilutive as the 1H26 ATM at $23.50.
+- **#3 — Filed confirmation of Barber Lake rent commencement.** **When:** by 2026-12-31 (Tripwire #1's first limb). **Pass:** an 8-K or Q4 10-Q confirms rent on the first 51 MW. **Fail:** no filed commencement by 12-31 → **#1 fires**.
+- **#4 — ERCOT December 2026 final designations.** **When:** December 2026 (audit report targeted ~12-10). **Pass:** Colchis and Stingray hold Base Load. **Fail:** either downgraded → **#1 fires**. Watch also for any moratorium proposal after the January inauguration.
+- **#5 — A Q4 lease.** **When:** quarter ends 2026-12-31. **Pass:** any new contracted critical-IT MW. **Fail:** flat while peers add → **#4 fires** (management has all but guided this).
+- **#6 — Black Pearl and Stingray delivery dates.** **Open, no date.** **Pass:** dated schedules restored, no remedy. **Fail:** any rent credit or milestone remedy disclosed → **#5 fires**.
+- **#7 — Bitfury forward deliveries**, ~1.805M shares 11-30 and 1.84M 12-07 — scheduled supply, not issuance.
+
+**4. 💲 Where the price sits.** The print was priced in or better (+2pp vs cohort); the election was not (~−9.6pp, provisional). At the 11-03 close the equity was ~$3.7B against a $16.6B contracted book and $6.7B of debt — **~7.9× the new NOI average on basic shares, ~10.4× fully diluted** (estimates, new basis). The market is pricing the capital structure and Texas, not the backlog — which is the Edge's argument, now consensus.
+
+**5. 🔀 What would flip the read**
+
+- 🟢 **Turns bullish:** filed Barber Lake commencement **plus** ERCOT holding Colchis/Stingray in December **plus** a quarter with no ATM use — the build converts to rent before the funding gap forces equity at these prices.
+- 🔴 **Confirms bearish:** **any ATM sale below ~$15**, or a disclosed rent credit at Black Pearl or Stingray — the pre-mortem happening in the open.
+
+**6. Why the lean**
+
+- 🔴 **bearish-12mo — The dilution tripwire has fired and the funding plan names more equity.** ~669M vs ~650M on the basis the Edge set; unrestricted cash $656M after a quarter of no issuance; the ATM in the 10-Q's plan at ~$7.
+- 🔴 **bearish-12mo — The build is costing more and arriving later than underwritten.** $13.0M vs $10.4M per IT MW; FCF −$1.68B in one quarter; two of three campuses re-phased without dates.
+- 🔴 **bearish-12mo — A regime risk the deep-dive barely priced arrived the day after the call.** 100% ERCOT, a governor-elect pledged to regulate data centers, and the cohort's credit already trading at distressed levels.
+- 🟢 **bullish-3–5yr — the honest counterweight: the contracts are real and starting to pay.** First HPC rent recognized, Barber Lake's first halls reportedly live, $16.6B contracted with Amazon behind ~$5.5B of it — and the print day itself was *better* than the cohort's. If delivery holds, the asset is worth more than the equity price implies.
+
+**7. Bottom line.** The rent has started; the capital structure is the problem. Cipher's contracted book looks more real than ever, and every leg of the Edge's capital-structure argument got stronger this quarter. Tripwire #2 has already fired, so the next step is the re-underwrite it committed to, not another quarter of watching.
+
+*Not financial advice — informational research tooling only.*
+
+**Methodology.** Primary sources: [8-K + EX-99.1 + EX-99.2, acc 0001819989-26-000047, filed 2026-11-02](https://www.sec.gov/Archives/edgar/data/1819989/000181998926000047/) · [10-Q, period 2026-09-30, acc 0001819989-26-000050, filed 2026-11-02](https://www.sec.gov/Archives/edgar/data/1819989/000181998926000050/cifr-20260930.htm) · [Q2 10-Q acc 0001819989-26-000041](https://www.sec.gov/Archives/edgar/data/1819989/000181998926000041/cifr-20260630.htm) (H1 base for Q3 derivations) · [Q2 8-K acc 0001819989-26-000038](https://www.sec.gov/Archives/edgar/data/1819989/000181998926000038/) (deck/release side-by-side) · [Form 4 acc 0001123292-26-001460](https://www.sec.gov/Archives/edgar/data/1819989/000112329226001460/form4.xml) and [13D/A acc 0001123292-26-001459](https://www.sec.gov/Archives/edgar/data/1819989/000112329226001459/primary_doc.xml) (filed 2026-11-04) · call transcript via [StockAnalysis](https://stockanalysis.com/stocks/cifr/transcripts/723634-q3-2026/), **read only through a summarizing fetch (direct access 403)** — quotes are snippets, not verified verbatim · peer/sector: [CNBC Amazon](https://www.cnbc.com/2026/10/29/amazon-amzn-q3-earnings-report-2026.html), [CNBC Alphabet](https://www.cnbc.com/2026/10/28/alphabet-googl-earnings-q3-2026.html), [Core Scientific Q3](https://investors.corescientific.com/news-events/press-releases/detail/146/core-scientific-announces-third-quarter-2026-results), [Texas Tribune](https://www.texastribune.org/2026/11/03/texas-governor-greg-abbott-gina-hinojosa-election/), [Bloomberg](https://www.bloomberg.com/news/articles/2026-11-04/coreweave-bonds-hit-new-lows-as-texas-data-centers-in-crosshairs) (paywalled; via snippet) · settled bars from `scripts/prices.py` (Yahoo public chart endpoint; no linkable URL; **11-04 bars UNSETTLED at run time — figures provisional**) · filing index from `scripts/edgar.py`. **Not retrieved:** remaining ATM capacity (not stated in the 10-Q), the 2032 notes' maximum make-whole rate, short interest, the 8-K's release timestamp, dates for four of the six target cuts. **Model: Opus end-to-end** (orchestrator + all three §I.2 sub-agents). Run date **2026-11-05**.
 
 ---
 
