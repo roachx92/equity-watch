@@ -92,8 +92,8 @@ rather than investigating from scratch.
 - A clean audit is a useful result: say explicitly what was checked and that nothing fired.
 
 ## Step 5 — post to Discord (only when something warrants it)
-Ad-hoc runs post from the session; the scheduled sweep does this itself via
-`.github/workflows/audit.yml`. Skip this step on a CLEAN, nothing-forced run — §J.5 is
+Runs post from the session — there is no scheduled sweep (the audit workflow was removed
+2026-10-05). Skip this step on a CLEAN, nothing-forced run — §J.5 is
 exception-only reporting, and a routine "all fine" post is how a channel becomes ignorable.
 
 ```
